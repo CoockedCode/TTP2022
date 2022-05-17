@@ -1,0 +1,17 @@
+#header-wrapper{
+	padding-top: 0.25rem;
+	display: flex;
+  	align-items: center;
+	width: 100%;
+}
+
+#page-header{
+	display: flex;
+	flex: 0 0 auto;
+	margin-right: 1rem;
+}
+
+#srch-bar{
+	display: flex;
+	width: 100%;
+}

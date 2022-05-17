@@ -1,0 +1,10 @@
+@import url(./fonts/googleFonts.css);
+
+*{
+	font-family: 'IBM Plex Sans', sans-serif;
+}
+
+p{
+	font-size: 17px;
+	line-height: 150%;
+}

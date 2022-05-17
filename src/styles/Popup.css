@@ -1,0 +1,58 @@
+.popup-content {
+  margin: auto;
+  background-color: white;
+  color: black;
+  padding: 0.35rem;
+  margin: 0;
+}
+.popup-arrow {
+  color: lightgray;
+}
+
+[role='tooltip'].popup-content {
+  width: max-content;
+  box-shadow: rgba(0, 0, 0, 0.16) -6px -6px 22px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
+
+/* submenu, sidebar */
+.sub-menu-item a{
+	color: white;
+	text-decoration: none;
+}
+
+.sub-menu-item li:hover{
+	background-color: white;
+	color: black;
+	width: max-content;
+}
+
+.sub-menu-item ul, .sub-menu-item li{
+	display: flex;
+	flex-direction: column;
+	width: max-content;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: max-content;
+}
+
+.sub-menu-item li{
+	padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.burger-sub-menu img{
+	padding: 0.5rem;
+}
+
+#popup-modal-inline{
+	display: inline-flex;
+	align-items: center;
+}
