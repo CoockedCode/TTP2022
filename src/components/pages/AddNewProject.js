@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, RadioGroup } from '@mui/material';
+import { FormControl, FormControlLabel, FormHelperText, RadioGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Radio, Box } from '@mui/material';
@@ -10,25 +10,46 @@ export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	const [value, setValue] = useState();
 	const [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		console.log(formData.get("projectName"));
 
-		/*
-		const formData = new FormData(e.currentTarget);
-		for(let [key, value] of formData.entries()){
-			console.log(key, value);
+
+		if(formData.get("projectId") && formData.get("projectName") && formData.get("client") &&
+		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
+			console.log("väljad täidetud")
+
+			// php osa siia
+			
+			// kui kõik väljad täidetud ja üleslaadimine õnnestus
+			dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+		} else {
+			console.log("viga")
+			setError(true);
+			if(!formData.get("projectId")){
+				setHelperText("Projekti number puudu!");
+			}
+			if(!formData.get("projectName")){
+				setHelperText("Projekti nimi puudu!");
+			}
+			if(!formData.get("client")){
+				setHelperText("Klient sisestamata!");
+			}
+			if(!formData.get("projectMachineType")){
+				setHelperText("Masinatüüp kirjutamata!");
+			}
+			if(!formData.get("projectPriority")){
+				setHelperText("Prioriteet määramata!");
+			}
+			if(!formData.get("projectInfo")){
+				setHelperText("Lisainfo kirjutamata!");
+			}
+			
 		}
-		*/
 
-
-		// kui kõik väljad täidetud, siis edukas
-		dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 	};
 	return(
 		<>
@@ -38,7 +59,7 @@ export default function AddNewProject(){
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
 				</div>
-				<Box  component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
 						<TextField
 							required
@@ -51,6 +72,7 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -64,6 +86,7 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -76,11 +99,12 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
 
-							id="projectMachineTypes"
+							id="projectMachineType"
 							label="Masina tüüp"
 							name="projectMachineType"
 							autoComplete="none"
@@ -88,6 +112,7 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+						<FormHelperText>{helperText}</FormHelperText>
 
 						<RadioGroup
 							required
@@ -102,6 +127,7 @@ export default function AddNewProject(){
 							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
+						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -116,6 +142,7 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
+						<FormHelperText>{helperText}</FormHelperText>
 						<Button
 							type="submit"
 
