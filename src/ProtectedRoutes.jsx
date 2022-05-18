@@ -9,7 +9,7 @@ const useAuth = () => {
 const ProtectedRoutes = () => {
   console.log(useSelector(state => state.userSession.userSession));
   const isAuth = useAuth();
-  return isAuth ? <Outlet /> : <Navigate to="/dev" />;
+  return isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 
-export default ProtectedRoutes; 
+export default ProtectedRoutes;

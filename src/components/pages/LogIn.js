@@ -72,7 +72,7 @@ export default function SignIn() {
 
     dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
     dispatch(setUserSession(true, 'Andrus1'));
-    navigate("./main");
+    navigate("/main");
     console.log('cookies');
   };
 

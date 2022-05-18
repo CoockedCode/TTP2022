@@ -17,7 +17,7 @@ import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  
+
   const [open, setOpen] = useState(location.openSnackbar);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -25,28 +25,28 @@ const App = () => {
     }
     setOpen(false);
   };
-  
+
   const NavBar = () => {
     // console.log(location.pathname);
     if(useSelector(state => state.userSession.userSession)){
       return <NavBarMain />
     }
   };
-  
+
   return (
     <>
-      <NavBar />      
+      <NavBar />
         <Routes>
-          <Route path="/dev/" element={<LogIn />} />
+          <Route path="/" element={<LogIn />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path="/dev/main" element={<MainPage />} />
-            <Route path="/dev/addNewProject" element={<AddNewProject />} />
-            <Route path="/dev/addClient" element={<AddClient />} />
-            <Route path="/dev/archivedProjects" element={<ArchivedProjects />} />
-            <Route path="/dev/addWorker" element={<AddWorker />} />
-            <Route path="/dev/TestAb" element={<TestAB />} />
-            <Route path="/dev/TestAb2" element={<TestAB2 />} />
-            <Route path="/dev/T" element={<Test />} />
+            <Route path="/main" element={<MainPage />} />
+            <Route path="/addNewProject" element={<AddNewProject />} />
+            <Route path="/addClient" element={<AddClient />} />
+            <Route path="/archivedProjects" element={<ArchivedProjects />} />
+            <Route path="/addWorker" element={<AddWorker />} />
+            <Route path="/TestAb" element={<TestAB />} />
+            <Route path="/TestAb2" element={<TestAB2 />} />
+            <Route path="/T" element={<Test />} />
           </Route>
         </Routes>
       <SnackBar />
