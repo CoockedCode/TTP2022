@@ -17,8 +17,14 @@ export default function AddNewProject(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		console.log(formData.get("projectNam"));
+		console.log(formData.get("projectName"));
 
+		/*
+		const formData = new FormData(e.currentTarget);
+		for(let [key, value] of formData.entries()){
+			console.log(key, value);
+		}
+		*/
 
 
 		// kui kõik väljad täidetud, siis edukas
@@ -32,7 +38,7 @@ export default function AddNewProject(){
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
 				</div>
-				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<Box fullwidth component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl>
 						<TextField
 							required
@@ -50,9 +56,9 @@ export default function AddNewProject(){
 							required
 
 							autoFocus
-							id="projectNam"
+							id="projectName"
 							label="Projekti nimi"
-							name="projectNam"
+							name="projectName"
 							autoComplete="none"
 							type="text"
 							margin="dense"
@@ -62,9 +68,9 @@ export default function AddNewProject(){
 						<TextField
 							required
 
-							id="projectOrdererNam"
+							id="client"
 							label="Tellija nimi"
-							name="projectOrdererNam"
+							name="client"
 							autoComplete="none"
 							type="text"
 							margin="dense"
@@ -86,15 +92,15 @@ export default function AddNewProject(){
 						<RadioGroup
 							required
 
-							id='projectPrio'
+							id='projectPriority'
 							label="Projekti prioriteet"
-							name='projectPrio'
+							name='projectPriority'
 							row
 						>
-							<FormControlLabel value="kiire" control={<Radio />} label="Kiire" />
-							<FormControlLabel value="tahtajaline" control={<Radio />} label="Tähtajaline" />
-							<FormControlLabel value="maaramata" control={<Radio />} label="Määramata" />
-							<FormControlLabel value="lopetatud" control={<Radio />} label="Lõpetatud" />
+							<FormControlLabel value="1" control={<Radio />} label="Kiire" />
+							<FormControlLabel value="2" control={<Radio />} label="Tähtajaline" />
+							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
+							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
 
 						<TextField
