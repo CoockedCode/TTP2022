@@ -21,9 +21,11 @@ export default function AddNewProject(){
 		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
+			return true;
 		})
 		.catch(function (error) {
 			console.log(error);
+			return false;
 		});
 
 	};
