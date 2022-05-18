@@ -62,38 +62,38 @@ const ResponsiveAppBar = () => {
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
 
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/main")}} >
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}} >
 							Valikute seaded<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/main")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Tööd ja etapid<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/addClient")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addClient")}}>
 							Lisa Klient +<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/main")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Kliendid<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/addWorker")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
 							Lisa Töötaja +<br/>
 						</MenuItem>
-						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/main")}}>
+						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Töötajad<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/T")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/T")}}>
 							Test<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/dev/TestAb2")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/TestAb2")}}>
 								AB Test 2<br/>
 						</MenuItem>
 					</Menu>
 				</Box>
 
 				<Box sx={{ display: 'inline-flex', minHeight: "2rem", maxHeight: "2rem", justifyContent: "center", flexGrow: 2, mx: 'auto',}}>
-					<Button onClick={()=>{handleCloseNavMenu; navigate("/dev/Main")}} sx={{ p: 1, color: 'white' }}>
+					<Button onClick={()=>{handleCloseNavMenu; navigate("/Main")}} sx={{ p: 1, color: 'white' }}>
 						<Typography className="nav-link">Avaleht</Typography>
 					</Button>
-					<Button onClick={()=>{handleCloseNavMenu; navigate("/dev/addNewProject")}} sx={{ p: 1, color: 'white' }}>
+					<Button onClick={()=>{handleCloseNavMenu; navigate("/addNewProject")}} sx={{ p: 1, color: 'white' }}>
 						<Typography className="nav-link">Lisa projekt&nbsp;+</Typography>
 					</Button>
 				</Box>
