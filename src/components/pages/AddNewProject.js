@@ -38,7 +38,7 @@ export default function AddNewProject(){
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
 				</div>
-				<Box fullwidth component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<Box fullwidth component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl>
 						<TextField
 							required
@@ -54,7 +54,6 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-
 							autoFocus
 							id="projectName"
 							label="Projekti nimi"
