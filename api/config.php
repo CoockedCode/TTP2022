@@ -1,5 +1,5 @@
 <?php
 	$server_host = "localhost";
-	$server_user_name = "cookedcode";
-	$server_password = "cookedcode";
-	$database = "CC_test2"; 
+	$server_user_name = "em_user0412";
+	$server_password = "qAm7?4o2";
+	$database = "em_i1351s";

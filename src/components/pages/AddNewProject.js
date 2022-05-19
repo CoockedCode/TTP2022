@@ -17,29 +17,30 @@ export default function AddNewProject(){
 
 
 	//info salvestamine php kaudu
-	// const saveData = (dataToSave) => {
-	// 	axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
-	// 	.then(function (response) {
-	// 		console.log(response);
-	// 		return true;
-	// 	})
-	// 	.catch(function (error) {
-	// 		console.log(error);
-	// 		return false;
-	// 	});
+	const saveData = (dataToSave) => {
+		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', dataToSave)
+		.then(function (response) {
+			// console.log(response.data);
+			// console.log("piip")
+			return true;
+		})
+		.catch(function (error) {
+			console.log(error);
+			return false;
+		});
 
-	// };
+	};
 
-	//GET test
-    const fetchUsr = async (usrNam) => {
-      const { status, data } = await axios.get("https://elektrimasinad.digifi.eu/api/test_get.php?usrNam=" + usrNam );
-      if (status === 200) {
-        if (data.length > 0) {
-          console.log(data);
-          console.log('22');
-      }
-    }
-	}
+	// //GET test
+    // const fetchUsr = async (usrNam) => {
+    //   const { status, data } = await axios.get("https://elektrimasinad.digifi.eu/api/test_get.php?usrNam=" + usrNam );
+    //   if (status === 200) {
+    //     if (data.length > 0) {
+    //       console.log(data);
+    //       console.log('22');
+    //   }
+    // }
+	// }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -47,13 +48,14 @@ export default function AddNewProject(){
 		//console.log(formData.get("projectId"));
 
 		//php slavestamise osa
-		let dataToSave = {
+		const dataToSave = {
+			file: "addNewProject.txt",
 			projectId: formData.get("projectId"),
-			projectNam: formData.get("projectNam")
+			projectNam: formData.get("projectNam"),
 		};
-		//saveData(dataToSave);
+		saveData(dataToSave);
 
-		fetchUsr("Teet");
+		// fetchUsr("Teet");
 
 		// kui kõik väljad täidetud, siis edukas
 		dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));

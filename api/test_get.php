@@ -1,7 +1,8 @@
 <?php
 
     header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: *");
+	header("Access-Control-Allow-Headers: *");
+	header("Content-Type: *; charset=UTF-8");
 
     if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"])){
         $usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
