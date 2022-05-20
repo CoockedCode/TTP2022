@@ -1,23 +1,92 @@
-import { FormControl } from '@mui/material';
+import { FormControl, FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
+import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
 export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
+	let [error, setError] = useState(false);
+	let [helperText, setHelperText] = useState();
+	// info salvestamine php kaudu
+	const saveData = (dataToSave) => {
+		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
+		.then(function (response) {
+			console.log(response);
+			return true;
+		})
+		.catch(function (err) {
+			console.log(err);
+			return false;
+		});
 
-	
+	};
+
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		console.log(formData);
-		console.log(e.target.clientName);
-		dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));		
-	};
+		//console.log(formData);
+		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") &&
+		formData.get("postIndex") && formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
+		   console.log("väljad täidetud")
+			setHelperText("");
+		   let dataToSave = {
+			projectId: formData.get("projectId"),
+			projectName: formData.get("projectName"),
+			client: formData.get("client"),
+			machineType: formData.get("projectMachineType"),
+			priority: formData.get("projectPriority"),
+			additionalInfo: formData.get("projectInfo")
+		};
+		if(saveData(dataToSave)){
+			// kui kõik väljad täidetud ja üleslaadimine õnnestus
+			dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+		} else {
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+		}
+	} else {
+		console.log("viga")
+		if(!formData.get("clientName")){
+			setHelperText("Kliendi nimi puudu!");
+			setError = true;
+		}
+		if(!formData.get("clientRegNum")){
+			setHelperText("Kliendi registratsiooni number puudu!");
+			setError = true;
+		}
+		if(!formData.get("clientAddr")){
+			setHelperText("Cliendi aadress!");
+			setError = true;
+		}
+		if(!formData.get("postIndex")){
+			setHelperText("Kliendi postindeks on puudu!");
+			setError = true;
+		}
+		if(!formData.get("contPers")){
+			setHelperText("Kontaktisik puudu!");
+			setError = true;
+		}
+		if(!formData.get("clientEmail")){
+			setHelperText("Kliendi meil puudu!");
+			setError = true;
+		}
+		if(!formData.get("clientPhoneNr")){
+			setHelperText("Kliendi telefon puudu!");
+			setError = true;
+		}
+		if(!formData.get("invoiceEm")){
+			setHelperText("Arve e-mail puudu!");
+			setError = true;
+		}
+		
+	}
+	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));		
+		};
 	
 	return(
 		<>
@@ -28,15 +97,14 @@ export default function AddClient(){
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
 				</div>			
 				<Box component = "form" noValidate autoComplete="off" onSubmit={(e) => {handleSubmit(e)}}>
-					<FormControl fullWidth>
-
+					<FormControl sx={{width: "100%"}} error={error}>
 						<TextField					
 							required
 							fullWidth
 							autoFocus						
 							id="clientName"
 							label="Kliendi nimi"
-							name="clientNam"
+							name="clientName"
 							autoComplete="none"
 							type="text"
 							margin="dense"
@@ -148,6 +216,7 @@ export default function AddClient(){
 							>
 							Lisa Klient
 						</Button>
+						<FormHelperText>{helperText}</FormHelperText>
 					</FormControl>
 				</Box>
 			</section>
