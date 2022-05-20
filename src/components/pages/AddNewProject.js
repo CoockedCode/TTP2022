@@ -18,15 +18,15 @@ export default function AddNewProject(){
 			console.log(response);
 			return true;
 		})
-		.catch(function (error) {
-			console.log(error);
+		.catch(function (err) {
+			console.log(err);
 			return false;
 		});
 
 	};
 
 	// viskab errorit
-	const [error, setError] = useState(false);
+	let [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState();
 
 	const handleSubmit = (e) => {
