@@ -35,7 +35,8 @@ export default function AddClient(){
 		formData.get("postIndex") && formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
 		   console.log("väljad täidetud")
 			setHelperText("");
-		   let dataToSave = {
+		   const dataToSave = {
+			   //todo fix from Kert to myself
 			projectId: formData.get("projectId"),
 			projectName: formData.get("projectName"),
 			client: formData.get("client"),
@@ -96,7 +97,7 @@ export default function AddClient(){
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
 				</div>			
-				<Box component = "form" noValidate autoComplete="off" onSubmit={(e) => {handleSubmit(e)}}>
+				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} error={error}>
 						<TextField					
 							required
