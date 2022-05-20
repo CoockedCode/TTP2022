@@ -10,8 +10,8 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
-	let [error, setError] = useState(false);
-	let [helperText, setHelperText] = useState();
+	const [error, setError] = useState(false);
+	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
 		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
@@ -53,35 +53,35 @@ export default function AddClient(){
 		console.log("viga")
 		if(!formData.get("clientName")){
 			setHelperText("Kliendi nimi puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("clientRegNum")){
 			setHelperText("Kliendi registratsiooni number puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("clientAddr")){
 			setHelperText("Cliendi aadress!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("postIndex")){
 			setHelperText("Kliendi postindeks on puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("contPers")){
 			setHelperText("Kontaktisik puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("clientEmail")){
 			setHelperText("Kliendi meil puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("clientPhoneNr")){
 			setHelperText("Kliendi telefon puudu!");
-			setError = true;
+			setError(true);
 		}
 		if(!formData.get("invoiceEm")){
 			setHelperText("Arve e-mail puudu!");
-			setError = true;
+			setError(true);
 		}
 		
 	}
