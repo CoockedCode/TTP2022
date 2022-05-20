@@ -25,9 +25,9 @@ export default function AddNewProject(){
 
 	};
 
-	// viskab errorit
-	let [error, setError] = useState(false);
-	const [helperText, setHelperText] = useState();
+	//const [color, setColor] = useState();
+	const [error, setError] = useState(false);
+	const [helperText, setHelperText] = useState();	
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -38,7 +38,7 @@ export default function AddNewProject(){
 			console.log("väljad täidetud")
 
 			// php osa siia
-			let dataToSave = {
+			const dataToSave = {
 				projectId: formData.get("projectId"),
 				projectName: formData.get("projectName"),
 				client: formData.get("client"),
@@ -56,31 +56,39 @@ export default function AddNewProject(){
 			}
 
 		} else {
+			//HelperText useEffect ja useState, kysi Siimult
 			console.log("viga")
 			if(!formData.get("projectId")){
-				setHelperText("Projekti number puudu!");
-				setError = true;
+				//setHelperText("Projekti number puudu!");
+				setError(true);
+				//setColor("error");
 			}
 			if(!formData.get("projectName")){
-				setHelperText("Projekti nimi puudu!");
-				setError = true;
+				//setHelperText("Projekti nimi puudu!");
+				setError(true);
+				//setColor("error");
 			}
 			if(!formData.get("client")){
-				setHelperText("Klient sisestamata!");
-				setError = true;
+				//setHelperText("Klient sisestamata!");
+				setError(true);
+				//setColor("error");
 			}
 			if(!formData.get("projectMachineType")){
-				setHelperText("Masinatüüp kirjutamata!");
-				setError = true;
+				//setHelperText("Masinatüüp kirjutamata!");
+				setError(true);
+				//setColor("error");
 			}
 			if(!formData.get("projectPriority")){
-				setHelperText("Prioriteet määramata!");
-				setError = true;
+				//setHelperText("Prioriteet määramata!");
+				setError(true);
+				//setColor("error");
 			}
 			if(!formData.get("projectInfo")){
-				setHelperText("Lisainfo kirjutamata!");
-				setError = true;
+				//setHelperText("Lisainfo kirjutamata!");
+				setError(true);
+				//setColor("error");
 			}
+			setHelperText("Kontrolli väljad üle!");
 			
 		}
 
@@ -107,7 +115,6 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -121,7 +128,6 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -134,7 +140,6 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -147,7 +152,6 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-						<FormHelperText>{helperText}</FormHelperText>
 
 						<RadioGroup
 							required
@@ -162,7 +166,6 @@ export default function AddNewProject(){
 							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
-						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
@@ -177,7 +180,6 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
-						<FormHelperText>{helperText}</FormHelperText>
 						<Button
 							type="submit"
 
@@ -187,6 +189,7 @@ export default function AddNewProject(){
 							>
 							Lisa Projekt
 						</Button>
+						<FormHelperText>{helperText}</FormHelperText>
 					</FormControl>
 				</Box>
 			</section>
