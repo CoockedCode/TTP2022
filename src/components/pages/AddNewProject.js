@@ -10,7 +10,6 @@ import axios from "axios";
 export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
-
 	const [value, setValue] = useState();
 	const [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState();
@@ -30,17 +29,6 @@ export default function AddNewProject(){
 		});
 
 	};
-
-	// //GET test
-    // const fetchUsr = async (usrNam) => {
-    //   const { status, data } = await axios.get("https://elektrimasinad.digifi.eu/api/test_get.php?usrNam=" + usrNam );
-    //   if (status === 200) {
-    //     if (data.length > 0) {
-    //       console.log(data);
-    //       console.log('22');
-    //   }
-    // }
-	// }
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
