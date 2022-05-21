@@ -12,9 +12,35 @@ export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
+	//1.
 	const [value, setValue] = useState();
 	const [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState();
+
+	//2.
+	const [value2, setValue2] = useState();
+	const [error2, setError2] = useState(false);
+	const [helperText2, setHelperText2] = useState();
+
+	//3.
+	const [value3, setValue3] = useState();
+	const [error3, setError3] = useState(false);
+	const [helperText3, setHelperText3] = useState();
+
+	//4.
+	const [value4, setValue4] = useState();
+	const [error4, setError4] = useState(false);
+	const [helperText4, setHelperText4] = useState();
+
+	//5.
+	const [value5, setValue5] = useState();
+	const [error5, setError5] = useState(false);
+	const [helperText5, setHelperText5] = useState();
+
+	//6.
+	const [value6, setValue6] = useState();
+	const [error6, setError6] = useState(false);
+	const [helperText6, setHelperText6] = useState();
 
 
 	// info salvestamine php kaudu
@@ -32,15 +58,9 @@ export default function AddNewProject(){
 
 	};
 
-
-
-
-
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-
 
 		if(formData.get("projectId") && formData.get("projectName") && formData.get("client") &&
 		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
@@ -60,40 +80,55 @@ export default function AddNewProject(){
 			if(saveData(dataToSave)){
 				// kui kõik väljad täidetud ja üleslaadimine õnnestus
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-			} else {
+			}else{
 				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 			}
 
-		} else {
+		}else{
 			console.log("viga")
 			if(!formData.get("projectId")){
 				setHelperText("Projekti number puudu!");
-				setError = true;
+				setError(true);
+			}else{
+				setHelperText();
+				setError(false);
 			}
 			if(!formData.get("projectName")){
-				setHelperText("Projekti nimi puudu!");
-				setError = true;
+				setHelperText2("Projekti nimi puudu!");
+				setError2(true);
+			}else{
+				setHelperText2();
+				setError2(false);
 			}
 			if(!formData.get("client")){
-				setHelperText("Klient sisestamata!");
-				setError = true;
+				setHelperText3("Klient sisestamata!");
+				setError3(true);
+			}else{
+				setHelperText3();
+				setError3(false);
 			}
 			if(!formData.get("projectMachineType")){
-				setHelperText("Masinatüüp kirjutamata!");
-				setError = true;
+				setHelperText4("Masinatüüp kirjutamata!");
+				setError4(true);
+			}else{
+				setHelperText4();
+				setError4(false);
 			}
 			if(!formData.get("projectPriority")){
-				setHelperText("Prioriteet määramata!");
-				setError = true;
+				setHelperText5("Prioriteet määramata!");
+				setError5(true);
+			}else{
+				setHelperText5();
+				setError5(false);
 			}
 			if(!formData.get("projectInfo")){
-				setHelperText("Lisainfo kirjutamata!");
-				setError = true;
+				setHelperText6("Lisainfo kirjutamata!");
+				setError6(true);
+			}else{
+				setHelperText6();
+				setError6(false);
 			}
-
 		}
-
-
 	};
 	return(
 		<>
@@ -107,7 +142,7 @@ export default function AddNewProject(){
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} error={error}>
 						<TextField
-							error={false}
+							error={error}
 							required
 							autoFocus
 							id="projectId"
@@ -122,13 +157,9 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-
-
-
-							error={false}
+							error={error2}
 							autoFocus
 							id="projectName"
-
 							label="Projekti nimi"
 							name="projectName"
 							autoComplete="none"
@@ -136,14 +167,12 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-						<FormHelperText>{helperText}</FormHelperText>
+						<FormHelperText>{helperText2}</FormHelperText>
 
 						<TextField
 							required
-
-							error={false}
+							error={error3}
 							id="client"
-
 							label="Tellija nimi"
 							name="client"
 							autoComplete="none"
@@ -151,14 +180,12 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-
-						<FormHelperText>{helperText}</FormHelperText>
+						<FormHelperText>{helperText3}</FormHelperText>
 
 						<TextField
 							required
-							error={false}
+							error={error4}
 							id="projectMachineType"
-
 							label="Masina tüüp"
 							name="projectMachineType"
 							autoComplete="none"
@@ -166,14 +193,12 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-
-						<FormHelperText>{helperText}</FormHelperText>
+						<FormHelperText>{helperText4}</FormHelperText>
 
 						<RadioGroup
 							required
-							error={false}
+							error={error5}
 							id='projectPriority'
-
 							label="Projekti prioriteet"
 							name='projectPriority'
 							row
@@ -183,13 +208,11 @@ export default function AddNewProject(){
 							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
-
-						<FormHelperText>{helperText}</FormHelperText>
+						<FormHelperText>{helperText5}</FormHelperText>
 
 						<TextField
 							required
-							error={false}
-
+							error={error6}
 							// sx={{ width: 'auto'}}
 							id="projectInfo"
 							label="Projekti info"
@@ -198,14 +221,11 @@ export default function AddNewProject(){
 							type="text"
 							margin="dense"
 							size="small"
-							/>
-
-
-						<FormHelperText>{helperText}</FormHelperText>
+						/>
+						<FormHelperText>{helperText6}</FormHelperText>
 
 						<Button
 							type="submit"
-
 							variant="contained"
 							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
 							margin="dense"
