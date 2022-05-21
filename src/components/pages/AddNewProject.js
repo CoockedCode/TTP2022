@@ -117,37 +117,37 @@ export default function AddNewProject(){
 		}else{
 			//console.log("viga")
 			if(!formData.get("projectId")){
-				setHelperText("Projekti number puudu!");
+				// setHelperText("Projekti number puudu!");
 				setError1(true);
 			}else{
 				setValue(formData.get("projectId"));
 			}
 			if(!formData.get("projectName")){
-				setHelperText2("Projekti nimi puudu!");
+				// setHelperText2("Projekti nimi puudu!");
 				setError2(true);
 			}else{
 				setValue2(formData.get("projectName"));
 			}
 			if(!formData.get("client")){
-				setHelperText3("Klient sisestamata!");
+				// setHelperText3("Klient sisestamata!");
 				setError3(true);
 			}else{
 				setValue3(formData.get("client"));
 			}
 			if(!formData.get("projectMachineType")){
-				setHelperText4("Masinatüüp kirjutamata!");
+				// setHelperText4("Masinatüüp kirjutamata!");
 				setError4(true);
 			}else{
 				setValue4(formData.get("projectMachineType"));
 			}
 			if(!formData.get("projectPriority")){
-				setHelperText5("Prioriteet määramata!");
+				// setHelperText5("Prioriteet määramata!");
 				setError5(true);
 			}else{
 				setValue5(formData.get("projectPriority"));
 			}
 			if(!formData.get("projectInfo")){
-				setHelperText6("Lisainfo kirjutamata!");
+				// setHelperText6("Lisainfo kirjutamata!");
 				setError6(true);
 			}else{
 				setValue6(formData.get("projectInfo"))
