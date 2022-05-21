@@ -1,4 +1,7 @@
 <?php
+
+ini_set('display_errors', 1);
+
 class SessionManager
 {
 	static function sessionStart($name, $limit = 0, $path = '/', $domain = null, $secure = true)

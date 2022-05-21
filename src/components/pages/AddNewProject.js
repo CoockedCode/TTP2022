@@ -5,11 +5,18 @@ import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import React, { useState } from 'react';
-import axios from 'axios';
+
+import axios from "axios";
 
 export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
+
+
+	const [value, setValue] = useState();
+	const [error, setError] = useState(false);
+	const [helperText, setHelperText] = useState();
+
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -20,18 +27,22 @@ export default function AddNewProject(){
 		})
 		.catch(function (err) {
 			console.log(err);
+
 			return false;
 		});
 
 	};
 
+
 	// viskab errorit
 	let [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState();
 
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
+
 
 		if(formData.get("projectId") && formData.get("projectName") && formData.get("client") &&
 		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
@@ -84,6 +95,7 @@ export default function AddNewProject(){
 			
 		}
 
+
 	};
 	return(
 		<>
@@ -93,6 +105,7 @@ export default function AddNewProject(){
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
 				</div>
+
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} error={error}>
 						<TextField
@@ -111,9 +124,13 @@ export default function AddNewProject(){
 
 						<TextField
 							required
+
+
+	
 							error={false}
 							autoFocus
 							id="projectName"
+
 							label="Projekti nimi"
 							name="projectName"
 							autoComplete="none"
@@ -125,8 +142,10 @@ export default function AddNewProject(){
 
 						<TextField
 							required
+
 							error={false}
 							id="client"
+
 							label="Tellija nimi"
 							name="client"
 							autoComplete="none"
@@ -134,12 +153,14 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+
 						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
 							error={false}
 							id="projectMachineType"
+
 							label="Masina tüüp"
 							name="projectMachineType"
 							autoComplete="none"
@@ -147,12 +168,14 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
+
 						<FormHelperText>{helperText}</FormHelperText>
 
 						<RadioGroup
 							required
 							error={false}
 							id='projectPriority'
+
 							label="Projekti prioriteet"
 							name='projectPriority'
 							row
@@ -162,11 +185,13 @@ export default function AddNewProject(){
 							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
+
 						<FormHelperText>{helperText}</FormHelperText>
 
 						<TextField
 							required
 							error={false}
+
 							// sx={{ width: 'auto'}}
 							id="projectInfo"
 							label="Projekti info"
@@ -177,7 +202,9 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
+
 						<FormHelperText>{helperText}</FormHelperText>
+
 						<Button
 							type="submit"
 
