@@ -141,7 +141,7 @@ export default function AddNewProject(){
 				setValue4(formData.get("projectMachineType"));
 			}
 			if(!formData.get("projectPriority")){
-				// setHelperText5("Prioriteet määramata!");
+				setHelperText5("Prioriteet määramata!");
 				setError5(true);
 			}else{
 				setValue5(formData.get("projectPriority"));
