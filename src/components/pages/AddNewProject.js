@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import axios from "axios";
 
@@ -14,7 +14,7 @@ export default function AddNewProject(){
 
 	//1.
 	const [value, setValue] = useState();
-	const [error, setError] = useState(false);
+	const [error1, setError1] = useState(false);
 	const [helperText, setHelperText] = useState();
 
 	//2.
@@ -58,6 +58,36 @@ export default function AddNewProject(){
 
 	};
 
+	useEffect(() => {
+		console.log(value)
+		if(value){
+			setHelperText();
+			setError1(false);
+		}
+		if(value2){
+			setHelperText2();
+			setError2(false);
+		}
+		if(value3){
+			setHelperText3();
+			setError3(false);
+		}
+		if(value4){
+			setHelperText4();
+			setError4(false);
+		}
+		if(value5){
+			setHelperText5();
+			setError5(false);
+		}
+		if(value6){
+			setHelperText6();
+			setError6(false);
+		}
+
+	}, [value, value2, value3, value4, value5, value6])
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -68,12 +98,12 @@ export default function AddNewProject(){
 
 			// php osa siia
 			let dataToSave = {
-				projectId: formData.get("projectId"),
-				projectName: formData.get("projectName"),
-				client: formData.get("client"),
-				machineType: formData.get("projectMachineType"),
-				priority: formData.get("projectPriority"),
-				additionalInfo: formData.get("projectInfo")
+				projectId: value,
+				projectName: value2,
+				client: value3,
+				machineType: value4,
+				priority: value5,
+				additionalInfo: value6
 			};
 
 			// KONTROLLIDA kui saatis ja saatmine õnnestus, siis snäkkkk
@@ -85,48 +115,42 @@ export default function AddNewProject(){
 			}
 
 		}else{
-			console.log("viga")
+			//console.log("viga")
 			if(!formData.get("projectId")){
 				setHelperText("Projekti number puudu!");
-				setError(true);
+				setError1(true);
 			}else{
-				setHelperText();
-				setError(false);
+				setValue(formData.get("projectId"));
 			}
 			if(!formData.get("projectName")){
 				setHelperText2("Projekti nimi puudu!");
 				setError2(true);
 			}else{
-				setHelperText2();
-				setError2(false);
+				setValue2(formData.get("projectName"));
 			}
 			if(!formData.get("client")){
 				setHelperText3("Klient sisestamata!");
 				setError3(true);
 			}else{
-				setHelperText3();
-				setError3(false);
+				setValue3(formData.get("client"));
 			}
 			if(!formData.get("projectMachineType")){
 				setHelperText4("Masinatüüp kirjutamata!");
 				setError4(true);
 			}else{
-				setHelperText4();
-				setError4(false);
+				setValue4(formData.get("projectMachineType"));
 			}
 			if(!formData.get("projectPriority")){
 				setHelperText5("Prioriteet määramata!");
 				setError5(true);
 			}else{
-				setHelperText5();
-				setError5(false);
+				setValue5(formData.get("projectPriority"));
 			}
 			if(!formData.get("projectInfo")){
 				setHelperText6("Lisainfo kirjutamata!");
 				setError6(true);
 			}else{
-				setHelperText6();
-				setError6(false);
+				setValue6(formData.get("projectInfo"))
 			}
 		}
 	};
@@ -140,9 +164,9 @@ export default function AddNewProject(){
 				</div>
 
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}} error={error}>
+					<FormControl sx={{width: "100%"}}>
 						<TextField
-							error={error}
+							error={error1}
 							required
 							autoFocus
 							id="projectId"
@@ -197,7 +221,7 @@ export default function AddNewProject(){
 
 						<RadioGroup
 							required
-							error={error5}
+							// error={error5}
 							id='projectPriority'
 							label="Projekti prioriteet"
 							name='projectPriority'
