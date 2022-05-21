@@ -71,7 +71,7 @@ const ResponsiveAppBar = () => {
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addClient")}}>
 							Lisa Klient +<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ClientList")}}>
 							Kliendid<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
