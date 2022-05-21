@@ -20,7 +20,7 @@
 		$list_html = array();
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		$conn->set_charset("utf8");
-		$stmt = $conn->prepare("SELECT usrNam, passWrd FROM CC_Users WHERE usrNam = ? AND passWrd = ? ");
+		$stmt = $conn->prepare("SELECT user_name, password FROM tootaja WHERE user_name = ? AND password = ? ");
 		$stmt->bind_param("ss", $usrNam, $passWrd);
 		$stmt->bind_result($usrNam_from_db, $passWrd_from_db);
 		$stmt->execute();
@@ -31,4 +31,5 @@
 		echo json_encode($list_html);
 		$stmt->close();
 		$conn->close();
+		return null;
 	}

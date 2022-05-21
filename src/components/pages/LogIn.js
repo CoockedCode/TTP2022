@@ -12,7 +12,9 @@ import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
 
-const endpoint = "https://elektrimasinad.digifi.eu/api/session/fnc_login.php";
+
+const endpoint = "http://172.105.88.19/api/";
+
 export default function SignIn() {
   //snackbar/usrSession
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://elektrimasinad.digifi.eu/api/session/fnc_sess.php?querySess")
+    axios.get( endpoint +"/session/fnc_sess.php?querySess")
     .then(function(response){
       console.log(response.data[0]);
       if(response.status === 200 && response.data[0] == true){
@@ -39,14 +41,12 @@ export default function SignIn() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const fetchUsr = async (usrNam, passWrd) => {
-      const { status, data } = await axios.get(endpoint + "?usrNam=" + usrNam + "&passWrd=" + passWrd + "");
+      const { status, data } = await axios.get( endpoint +  "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd + "");
       if (status === 200) {
         if (data.length > 0) {
-          console.log(data);
-          // if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
-          if (1 == 2) {
+          if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
             //küpsiste lisamine ja session start...
-            axios.get("https://elektrimasinad.digifi.eu/api/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
+            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
               .then(function(response){
                 if(response.status === 200){
                   dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
@@ -54,7 +54,6 @@ export default function SignIn() {
                   navigate("./main");
                 }
               })
-
           } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
             dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
           } else {
@@ -68,13 +67,6 @@ export default function SignIn() {
       }
     };
     fetchUsr(formData.get("usrNam"), formData.get("passwd"));
-
-
-
-    // dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-    // dispatch(setUserSession(true, 'Andrus1'));
-    // navigate("/main");
-    // console.log('cookies');
   };
 
   return (
