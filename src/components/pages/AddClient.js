@@ -37,12 +37,15 @@ export default function AddClient(){
 			setHelperText("");
 		   const dataToSave = {
 			   //todo fix from Kert to myself
-			projectId: formData.get("projectId"),
-			projectName: formData.get("projectName"),
-			client: formData.get("client"),
-			machineType: formData.get("projectMachineType"),
-			priority: formData.get("projectPriority"),
-			additionalInfo: formData.get("projectInfo")
+			clientNamr: formData.get("clientName"),
+			clientRegNum: formData.get("clientRegNum"),
+			clientAddr: formData.get("clientAddr"),
+			postIndex: formData.get("postIndex"),
+			contPers: formData.get("contPers"),
+			clientEmail: formData.get("clientEmail"),
+			clientPhoneNr: formData.get("clientPhoneNr"),
+			invoiceEm: formData.get("invoiceEm"),
+			additionalInfo: formData.get("addInfo")
 		};
 		if(saveData(dataToSave)){
 			// kui kõik väljad täidetud ja üleslaadimine õnnestus
