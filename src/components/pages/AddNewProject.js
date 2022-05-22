@@ -12,32 +12,32 @@ export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	//1.
+	//1. projekti nr
 	const [value, setValue] = useState();
 	const [error1, setError1] = useState(false);
 	const [helperText, setHelperText] = useState();
 
-	//2.
+	//2. projekti nimi
 	const [value2, setValue2] = useState();
 	const [error2, setError2] = useState(false);
 	const [helperText2, setHelperText2] = useState();
 
-	//3.
+	//3. klient
 	const [value3, setValue3] = useState();
 	const [error3, setError3] = useState(false);
 	const [helperText3, setHelperText3] = useState();
 
-	//4.
+	//4. masinatüüp
 	const [value4, setValue4] = useState();
 	const [error4, setError4] = useState(false);
 	const [helperText4, setHelperText4] = useState();
 
-	//5.
+	//5. prioriteet
 	const [value5, setValue5] = useState();
 	const [error5, setError5] = useState(false);
 	const [helperText5, setHelperText5] = useState();
 
-	//6.
+	//6. lisainfo
 	const [value6, setValue6] = useState();
 	const [error6, setError6] = useState(false);
 	const [helperText6, setHelperText6] = useState();
@@ -110,46 +110,46 @@ export default function AddNewProject(){
 			if(saveData(dataToSave)){
 				// kui kõik väljad täidetud ja üleslaadimine õnnestus
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-			}else{
+			} else {
 				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 			}
 
-		}else{
+		} else {
 			//console.log("viga")
 			if(!formData.get("projectId")){
 				// setHelperText("Projekti number puudu!");
 				setError1(true);
-			}else{
+			} else {
 				setValue(formData.get("projectId"));
 			}
 			if(!formData.get("projectName")){
 				// setHelperText2("Projekti nimi puudu!");
 				setError2(true);
-			}else{
+			} else {
 				setValue2(formData.get("projectName"));
 			}
 			if(!formData.get("client")){
 				// setHelperText3("Klient sisestamata!");
 				setError3(true);
-			}else{
+			} else {
 				setValue3(formData.get("client"));
 			}
 			if(!formData.get("projectMachineType")){
 				// setHelperText4("Masinatüüp kirjutamata!");
 				setError4(true);
-			}else{
+			} else {
 				setValue4(formData.get("projectMachineType"));
 			}
 			if(!formData.get("projectPriority")){
 				setHelperText5("Prioriteet määramata!");
 				setError5(true);
-			}else{
+			} else {
 				setValue5(formData.get("projectPriority"));
 			}
 			if(!formData.get("projectInfo")){
 				// setHelperText6("Lisainfo kirjutamata!");
 				setError6(true);
-			}else{
+			} else {
 				setValue6(formData.get("projectInfo"))
 			}
 		}
