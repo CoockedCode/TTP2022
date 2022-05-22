@@ -23,7 +23,7 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get( endpoint +"/session/fnc_sess.php?querySess")
+    axios.get(endpoint + "/session/fnc_sess.php?querySess")
     .then(function(response){
       console.log(response.data[0]);
       if(response.status === 200 && response.data[0] == true){
@@ -41,7 +41,7 @@ export default function SignIn() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const fetchUsr = async (usrNam, passWrd) => {
-      const { status, data } = await axios.get( endpoint +  "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd + "");
+      const { status, data } = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
       if (status === 200) {
         if (data.length > 0) {
           if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
