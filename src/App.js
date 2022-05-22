@@ -10,7 +10,6 @@ import TestAB from "./components/pages/TestAB";
 import TestAB2 from "./components/pages/TestAB2";
 import Test from "./components/pages/Test";
 import SnackBar from "./components/Snackbar";
-import ClientList from "./components/pages/ClientList";
 import React, { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
@@ -43,7 +42,6 @@ const App = () => {
             <Route path="/main" element={<MainPage />} />
             <Route path="/addNewProject" element={<AddNewProject />} />
             <Route path="/addClient" element={<AddClient />} />
-            <Route path="/ClientList" element={<ClientList />} />
             <Route path="/archivedProjects" element={<ArchivedProjects />} />
             <Route path="/addWorker" element={<AddWorker />} />
             <Route path="/TestAb" element={<TestAB />} />
