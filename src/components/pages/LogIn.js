@@ -13,7 +13,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 
-const endpoint = "http://172.105.88.19/api/";
+const endpoint = "http://172.105.88.19/api";
 
 export default function SignIn() {
   //snackbar/usrSession
