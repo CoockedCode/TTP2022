@@ -12,9 +12,7 @@ import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
 
-
-const endpoint = "http://172.105.88.19/api";
-
+const endpoint = "http://cookedcode.tk/dev/api/session/fnc_login.php";
 export default function SignIn() {
   //snackbar/usrSession
   const dispatch = useDispatch();
@@ -22,51 +20,60 @@ export default function SignIn() {
   //navigeermine
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get(endpoint + "/session/fnc_sess.php?querySess")
-    .then(function(response){
-      console.log(response.data[0]);
-      if(response.status === 200 && response.data[0] == true){
-        dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-        dispatch(setUserSession(true, response.data[1]));
-        navigate("./main");
-      }else{
-        console.log('Küpsised puudvad!');
-      }
-    })
-  })
+  // useEffect(() => {
+  //   axios.get("http://cookedcode.tk/dev/api/session/fnc_sess.php?querySess")
+  //   .then(function(response){
+  //     console.log(response.data[0]);
+  //     if(response.status === 200 && response.data[0] == true){
+  //       dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
+  //       dispatch(setUserSession(true, response.data[1]));
+  //       navigate("./main");
+  //     }else{
+  //       console.log('Küpsised puudvad!');
+  //     }
+  //   })
+  // })
+
 
   //siise logimine kontroll
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const fetchUsr = async (usrNam, passWrd) => {
-      const { status, data } = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
-      if (status === 200) {
-        if (data.length > 0) {
-          if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
-            //küpsiste lisamine ja session start...
-            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
-              .then(function(response){
-                if(response.status === 200){
-                  dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-                  dispatch(setUserSession(true, data[0].usrNam));
-                  navigate("./main");
-                }
-              })
-          } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-            dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-          } else {
-            dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-          }
-        } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-          dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-        } else {
-          dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-        }
-      }
-    };
-    fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+    // const formData = new FormData(event.currentTarget);
+    // const fetchUsr = async (usrNam, passWrd) => {
+    //   const { status, data } = await axios.get(endpoint + "?usrNam=" + usrNam + "&passWrd=" + passWrd);
+    //   if (status === 200) {
+    //     if (data.length > 0) {
+    //       if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
+    //         //küpsiste lisamine ja session start...
+    //         axios.get("http://cookedcode.tk/dev/api/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
+    //           .then(function(response){
+    //             if(response.status === 200){
+    //               dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
+    //               dispatch(setUserSession(true, data[0].usrNam));
+    //               navigate("./main");
+    //             }
+    //           })
+
+    //       } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
+    //         dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
+    //       } else {
+    //         dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
+    //       }
+    //     } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
+    //       dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
+    //     } else {
+    //       dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
+    //     }
+    //   }
+    // };
+    // fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+
+
+
+    dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
+    dispatch(setUserSession(true, 'Andrus1'));
+    navigate("/main");
+    console.log('cookies');
   };
 
   return (
