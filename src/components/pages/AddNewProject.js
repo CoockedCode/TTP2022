@@ -13,7 +13,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('greeny.cs.tlu.ee/~kertlil/public_html/TTP2022', {save: `${dataToSave}`})
+		axios.post('greeny.cs.tlu.ee/~kertlil/public_html/TTP2022/TTP2022/api/test/localsave.php', {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
 			return true;
