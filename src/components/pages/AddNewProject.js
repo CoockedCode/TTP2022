@@ -13,7 +13,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
+		axios.post('greeny.cs.tlu.ee/~kertlil/public_html/TTP2022', {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
 			return true;
