@@ -13,7 +13,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('greeny.cs.tlu.ee/~kertlil/public_html/TTP2022/TTP2022/api/test/localsave.php', {save: `${dataToSave}`})
+		axios.post('./api/fnc/localsave.php', {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
 			return true;
@@ -46,6 +46,7 @@ export default function AddNewProject(){
 				priority: formData.get("projectPriority"),
 				additionalInfo: formData.get("projectInfo")
 			};
+			console.log(dataToSave);
 
 			// KONTROLLIDA kui saatis ja saatmine õnnestus, siis snäkkkk
 			if(saveData(dataToSave)){

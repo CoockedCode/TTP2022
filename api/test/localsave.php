@@ -8,6 +8,7 @@
 		exit;
 	}
 
+	
     $obj = json_decode(file_get_contents('php://input'));
     $jsonString = json_encode($obj).PHP_EOL;
     file_put_contents("./localDB/database.txt", $jsonString , FILE_APPEND);
