@@ -12,7 +12,6 @@ import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
 
-
 const endpoint = "http://172.105.88.19/api";
 
 export default function SignIn() {
@@ -22,19 +21,19 @@ export default function SignIn() {
   //navigeermine
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios.get(endpoint + "/session/fnc_sess.php?querySess")
-    .then(function(response){
-      console.log(response.data[0]);
-      if(response.status === 200 && response.data[0] == true){
-        dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-        dispatch(setUserSession(true, response.data[1]));
-        navigate("./main");
-      }else{
-        console.log('Küpsised puudvad!');
-      }
-    })
-  })
+  // useEffect(() => {
+  //   axios.get(endpoint + "/session/fnc_sess.php?querySess")
+  //   .then(function(response){
+  //     if(response.status === 200 && response.data[0].status == "true"){
+  //       dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
+  //       dispatch(setUserSession(true, response.data[0].usrNam));
+  //       navigate("/main");
+  //     }else{
+  //       dispatch(setUserSession(false, ""));
+  //       // console.log('Küpsised puudvad!');
+  //     }
+  //   })
+  // })
 
   //siise logimine kontroll
   const handleSubmit = (event) => {
@@ -42,12 +41,15 @@ export default function SignIn() {
     const formData = new FormData(event.currentTarget);
     const fetchUsr = async (usrNam, passWrd) => {
       const { status, data } = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      console.log(status + " <- 1. samm sisselogimisel");
       if (status === 200) {
         if (data.length > 0) {
-          if (data[0].usrNam == formData.get("usrNam") && data[0].passWrd == formData.get("passwd")) {
+          if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
             //küpsiste lisamine ja session start...
-            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
+            // axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
+            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam)
               .then(function(response){
+                console.log(response.status + " <- 2. samm sisselogimisel ehk sessioon");
                 if(response.status === 200){
                   dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
                   dispatch(setUserSession(true, data[0].usrNam));

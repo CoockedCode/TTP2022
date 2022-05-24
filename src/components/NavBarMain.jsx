@@ -5,19 +5,21 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+// import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 // import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 
 //logout
 import { useDispatch } from "react-redux";
 import { setUserSession } from "../redux/ducks/userSession";
 import { setSnackbar } from "../redux/ducks/snackbar";
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
+const endpoint = "http://172.105.88.19/api";
 
 //usrNam
 import { useSelector } from "react-redux";
@@ -47,8 +49,20 @@ const ResponsiveAppBar = () => {
   //välja logimine
   const dispatch = useDispatch();
   const handleLogout = () =>{
-	dispatch(setUserSession(false,""));
-	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+
+	axios.get(endpoint + "/session/fnc_sess.php?logout")
+    .then(function(response){
+      if(response.status === 200){
+        dispatch(setUserSession(false,""));
+		dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+      }else{
+		dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
+	  }
+    })
+
+
+
+
   }
   //ursnam
   const usrNam = useSelector(state => state.userSession.userName);
@@ -79,12 +93,6 @@ const ResponsiveAppBar = () => {
 						</MenuItem>
 						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Töötajad<br/>
-						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/T")}}>
-							Test<br/>
-						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/TestAb2")}}>
-								AB Test 2<br/>
 						</MenuItem>
 					</Menu>
 				</Box>
