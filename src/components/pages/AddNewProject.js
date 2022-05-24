@@ -29,6 +29,8 @@ export default function AddNewProject(){
 			console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				setError(false);
+				setHelperText("");
 			}
 		})
 		.catch(function (err) {
