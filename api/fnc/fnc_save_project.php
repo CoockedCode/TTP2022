@@ -23,7 +23,8 @@
     }
 
     function save_to_db($project_num, $client, $machine_type, $priority, $planned_end_date, $project_arrived_by){
-        //$notice = null;
+
+        $notice = null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf8");
         $stmt = $conn->prepare("INSERT INTO projekt(id, projekt_nr, prioriteet, alustatud, klient_id, kokkulepitud_lopp, lopp, valjaviidud, arhiivi, arve, saabunud)
