@@ -10,7 +10,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
-	// klient dropdown menu vastavalt olemasolevatele
+	// kui võimalik + aega, siis yandere dev kood korda teha
 	// kuupäevade sisestused normaliseerida
 	// machineType üle vaadata
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
