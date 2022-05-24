@@ -16,7 +16,7 @@ import axios from 'axios';
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
 
-	const endpoint = "'http://172.105.88.19/api";
+	const endpoint = "http://45.79.250.112/api";
 
 export default function AddNewProject(){
 	//snackbar
@@ -24,7 +24,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + '/fnc/fnc_save_project.php', {dataToSave})
+		axios.post(`${endpoint}/fnc/fnc_save_project.php`, {dataToSave})
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
