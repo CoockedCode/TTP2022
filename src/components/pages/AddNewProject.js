@@ -1,38 +1,75 @@
 import { FormControl, FormControlLabel, FormHelperText, RadioGroup } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { List, ListItem, ListItemText } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export default function AddNewProject(){
-	//snackbar
-	const dispatch = useDispatch();
-
 	// TODO
 	// klient dropdown menu vastavalt olemasolevatele
 	// kuupäevade sisestused normaliseerida
 	// machineType üle vaadata
+	// form validation e õiged sisestused ja vea korral vale lahter highlightida
+	// error handling save_project axioses
+
+	const endpoint = "'http://172.105.88.19/api";
+
+export default function AddNewProject(){
+	//snackbar
+	const dispatch = useDispatch();
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('http://cookedcode.tk/api/fnc/fnc_save_project.php', {dataToSave})
+		axios.post(endpoint + '/fnc/fnc_save_project.php', {dataToSave})
 		.then(function (response) {
 			console.log(response);
-			return true;
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+			}
 		})
 		.catch(function (err) {
 			console.log(err);
-			return false;
-		});
+			// TODO error handling
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+		}); 
 
 	};
 
-	//const [color, setColor] = useState();
+	// lahtrite errorid
 	const [error, setError] = useState(false);
-	const [helperText, setHelperText] = useState();	
+	const [helperText, setHelperText] = useState();
+
+	// klient dropdown menu algus
+	const options = ['AAAAAAAAA', 'BBBBBBBBBBBBBBbbb', 'CCCCCCCCCCCCC'];
+	const getOptions = () => {
+		axios.get(`${endpoint}/fnc/fnc_get_clients.php`)
+		.then(function (response) {
+			console.log(response);
+			options.push(response);
+		})
+	};
+	const[anchorEl, setAnchorEl] = useState(null);
+	const[selectedIndex, setSelectedIndex] = useState(1);
+	const open = Boolean(anchorEl);
+
+	const handleClickListItem = (event) => {
+		getOptions();
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleMenuItemClick = (event, index) => {
+		setSelectedIndex(index);
+		setAnchorEl(null);
+	}
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	}
+	//klient dropdown menu osa lõpp
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -55,13 +92,7 @@ export default function AddNewProject(){
 			};
 			console.log(dataToSave);
 
-			// KONTROLLIDA kui saatis ja saatmine õnnestus, siis snäkkkk
-			if(saveData(dataToSave)){
-				// kui kõik väljad täidetud ja üleslaadimine õnnestus
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-			} else {
-				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-			}
+			saveData(dataToSave);
 
 		} else {
 			//HelperText useEffect ja useState, kysi Siimult
@@ -149,6 +180,48 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
+						<List 
+							component="nav"
+							aria-label="Klient"
+							sx={{ bgcolor: "Background.paper" }}
+						>
+							<ListItem
+								button
+								id="client"
+								aria-haspopup="listbox"
+								aria-controls="lock-menu"
+								aria-label="Klient"
+								aria-expanded={open ? "true" : undefined}
+								onClick={handleClickListItem}
+							>
+								<ListItemText
+									primary="Vali klient ↓"
+									secondary={options[selectedIndex]}
+								/>
+							</ListItem>
+						</List>
+						<Menu
+							id="klient"
+							anchorEl={anchorEl}
+							open={open}
+							onClose={handleClose}
+							MenuListProps={{
+								"aria-labelledby": 'client',
+								role: "listbox",
+							}}
+						>
+							{options.map((option, index) => (
+								<MenuItem
+									key={option}
+									//disabled={index === 0}
+									selected={index === selectedIndex}
+									onClick={(event) => handleMenuItemClick(event, index)}
+								>
+									{option}
+								</MenuItem>
+							))}
+						</Menu>
+
 						<TextField
 							required
 							error={false}
@@ -179,7 +252,7 @@ export default function AddNewProject(){
 							required
 							error={false}
 							id="projectPlannedEnd"
-							label="Planeeritud lõpp pp/kk/aa"
+							label="Planeeritud lõpp aaaa-kk-pp"
 							name="projectPlannedEnd"
 							autoComplete="none"
 							type="text"
