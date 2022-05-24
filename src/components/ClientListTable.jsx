@@ -16,7 +16,7 @@ import axios from 'axios';
 
 const endpoint = "'http://172.105.88.19/api";
 
-const rows=axios.post(endpoint + '/fnc/read_client_fnc.php',{read_clients:""})
+const rows=Object.values(axios.get(endpoint + '/fnc/read_client_fnc.php',{read_clients:""})
 .then(function (response) {
     console.log(response);
     return true;
@@ -24,11 +24,14 @@ const rows=axios.post(endpoint + '/fnc/read_client_fnc.php',{read_clients:""})
 .catch(function (err) {
     console.log(err);
     return false;
-});
+})
+);
 //[
    // {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', //Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
 
 //]
+
+console.log(typeof rows);
 
 export default function ClientListTable() {
     const [open, setOpen] = useState(false);
