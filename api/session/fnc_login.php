@@ -1,5 +1,5 @@
 <?php
-	ini_set('display_errors', 1);
+	// ini_set('display_errors', 1);
 	require_once('../config.php');
 	require_once('./fnc_sess.php');
 	header("Access-Control-Allow-Origin: *");
@@ -12,8 +12,8 @@
 		login_usr($usrNam, $passWrd);
 	}
 
-	//function login_usr($usrNam, $passWrd): void{
-	function login_usr($usrNam, $passWrd){
+	function login_usr($usrNam, $passWrd): void{
+	//function login_usr($usrNam, $passWrd){
 		//$usrNam2 = $usrNam;
 		//$stmt = $conn->prepare("SELECT * FROM users");
 
@@ -31,5 +31,5 @@
 		echo json_encode($list_html);
 		$stmt->close();
 		$conn->close();
-		return null;
+		//return null;
 	}
