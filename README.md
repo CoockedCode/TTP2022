@@ -24,4 +24,4 @@
   http://localhost:1234/
   
 5. User:
-  1:1
+  Andrus1:Andrus1
