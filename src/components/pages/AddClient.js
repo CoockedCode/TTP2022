@@ -8,7 +8,7 @@ import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
 
-const endpoint = "'http://172.105.88.19/api";
+const endpoint = "http://45.79.250.112/api";
 
 export default function AddClient(){
 	//snackbar
@@ -17,15 +17,15 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + '/fnc/add_client_fnc.php', {dataToSave})
+		axios.post(endpoint + '/fnc/fnc_add_client.php', {dataToSave})
 		.then(function (response) {
 			console.log(response);
-			return true;
+			//return true;
 		})
-		.catch(function (err) {
-			console.log(err);
-			return false;
-		});
+		//.catch(function (err) {
+			//console.log(err);
+			//return false;
+		//});
 
 	};
 

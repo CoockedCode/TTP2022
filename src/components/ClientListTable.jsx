@@ -14,9 +14,9 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 
-const endpoint = "'http://172.105.88.19/api";
+const endpoint = "http://45.79.250.112/api";
 
-const rows=Object.values(axios.get(endpoint + '/fnc/read_client_fnc.php',{read_clients:""})
+const rows=Object.values(axios.get(endpoint + '/fnc/fnc_read_client.php',{read_clients:""})
 .then(function (response) {
     console.log(response);
     return true;
