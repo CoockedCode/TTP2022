@@ -7,6 +7,9 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
+
+const endpoint = "'http://172.105.88.19/api";
+
 export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
@@ -14,7 +17,7 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
+		axios.post(endpoint + '/fnc/add_client_fnc.php', {dataToSave})
 		.then(function (response) {
 			console.log(response);
 			return true;
@@ -36,7 +39,7 @@ export default function AddClient(){
 		   console.log("väljad täidetud")
 			setHelperText("");
 		   const dataToSave = {
-			clientNamr: formData.get("clientName"),
+			clientName: formData.get("clientName"),
 			clientRegNum: formData.get("clientRegNum"),
 			clientAddr: formData.get("clientAddr"),
 			postIndex: formData.get("postIndex"),
@@ -179,7 +182,7 @@ export default function AddClient(){
 							label="Kliendi tel nr"
 							name="clientPhoneNr"
 							autoComplete="none"
-							type="number"
+							type="text"
 							margin="dense"
 							size="small"
 							/>

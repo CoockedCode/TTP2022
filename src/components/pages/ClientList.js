@@ -2,12 +2,6 @@ import ClientListTable from "../ClientListTable";
 import { FormControl, TextField } from "@mui/material";
 import "../../styles/pages/Home.css";
 
-
-
-const [queryText, setQueryText] = useState('');
-const [forms, formItem] = useState([]);
-
-
 const ClientList = () => {
   return (
     <>
