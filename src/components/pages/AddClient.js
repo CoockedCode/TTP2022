@@ -7,9 +7,6 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
-
-const endpoint = "http://45.79.250.112/api";
-
 export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
@@ -17,15 +14,15 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + '/fnc/fnc_add_client.php', {dataToSave})
+		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
-			//return true;
+			return true;
 		})
-		//.catch(function (err) {
-			//console.log(err);
-			//return false;
-		//});
+		.catch(function (err) {
+			console.log(err);
+			return false;
+		});
 
 	};
 
@@ -39,7 +36,8 @@ export default function AddClient(){
 		   console.log("väljad täidetud")
 			setHelperText("");
 		   const dataToSave = {
-			clientName: formData.get("clientName"),
+			   //todo fix from Kert to myself
+			clientNamr: formData.get("clientName"),
 			clientRegNum: formData.get("clientRegNum"),
 			clientAddr: formData.get("clientAddr"),
 			postIndex: formData.get("postIndex"),
@@ -182,7 +180,7 @@ export default function AddClient(){
 							label="Kliendi tel nr"
 							name="clientPhoneNr"
 							autoComplete="none"
-							type="text"
+							type="number"
 							margin="dense"
 							size="small"
 							/>
