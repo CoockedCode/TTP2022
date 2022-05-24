@@ -12,7 +12,7 @@ import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
 
-const endpoint = "http://172.105.88.19/api";
+const endpoint = "http://45.79.250.112/api";
 
 export default function SignIn() {
   //snackbar/usrSession
