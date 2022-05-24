@@ -12,26 +12,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
-import axios from 'axios';
 
-const endpoint = "http://45.79.250.112/api";
+const rows=[
+    {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
 
-const rows=Object.values(axios.get(endpoint + '/fnc/fnc_read_client.php',{read_clients:""})
-.then(function (response) {
-    console.log(response);
-    return true;
-})
-.catch(function (err) {
-    console.log(err);
-    return false;
-})
-);
-//[
-   // {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', //Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
-
-//]
-
-console.log(typeof rows);
+]
 
 export default function ClientListTable() {
     const [open, setOpen] = useState(false);

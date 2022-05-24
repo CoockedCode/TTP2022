@@ -12,8 +12,9 @@ const ClientList = () => {
               <h3>Kliendid</h3>
             </div>
             <div id="srch-bar">
-            <label htmlFor="filterSrc"></label>
-					<input type="search" name="filterSrc" id="filterSrc" required placeholder="Otsi..." autoComplete="off" />
+              <FormControl fullWidth>
+                <TextField id="filled-basic" label="Otsi..." variant="outlined" size="small" />
+              </FormControl>
             </div>
           </div>
           <ClientListTable />

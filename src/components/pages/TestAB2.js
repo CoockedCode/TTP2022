@@ -27,7 +27,7 @@ const TestAB = () => {
 			<section>
 				<h3>Vali kasutaja</h3>
 				<div id="search-bar">
-					<label htmlFor="userSrc"></label>
+					<label htmlFor="usrSrc"></label>
 					<input type="search" name="userSrc" id="userSrc" required placeholder="Otsi..." autoComplete="off" onInput={(e)=> setQueryText(e.target.value)}/>
 				</div>
 				<hr />
