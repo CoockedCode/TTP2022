@@ -2,6 +2,12 @@ import ClientListTable from "../ClientListTable";
 import { FormControl, TextField } from "@mui/material";
 import "../../styles/pages/Home.css";
 
+
+
+const [queryText, setQueryText] = useState('');
+const [forms, formItem] = useState([]);
+
+
 const ClientList = () => {
   return (
     <>
@@ -12,9 +18,8 @@ const ClientList = () => {
               <h3>Kliendid</h3>
             </div>
             <div id="srch-bar">
-              <FormControl fullWidth>
-                <TextField id="filled-basic" label="Otsi..." variant="outlined" size="small" />
-              </FormControl>
+            <label htmlFor="filterSrc"></label>
+					<input type="search" name="filterSrc" id="filterSrc" required placeholder="Otsi..." autoComplete="off" />
             </div>
           </div>
           <ClientListTable />

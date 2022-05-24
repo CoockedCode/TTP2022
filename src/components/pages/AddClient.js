@@ -36,7 +36,6 @@ export default function AddClient(){
 		   console.log("väljad täidetud")
 			setHelperText("");
 		   const dataToSave = {
-			   //todo fix from Kert to myself
 			clientNamr: formData.get("clientName"),
 			clientRegNum: formData.get("clientRegNum"),
 			clientAddr: formData.get("clientAddr"),
