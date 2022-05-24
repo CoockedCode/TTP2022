@@ -14,26 +14,32 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 
-const endpoint = "http://45.79.250.112/api";
 
-const rows=Object.values(axios.get(endpoint + '/fnc/fnc_read_client.php',{read_clients:""})
-.then(function (response) {
-    console.log(response);
-    return true;
-})
-.catch(function (err) {
-    console.log(err);
-    return false;
-})
-);
+
 //[
    // {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', //Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
 
 //]
 
-console.log(typeof rows);
+//console.log(typeof rows);
 
 export default function ClientListTable() {
+    const endpoint = "http://45.79.250.112/api";
+    const forRows = async () => {
+    const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
+        console.log(resp.data)
+        setRows([]);
+
+        resp.data.forEach(element => {
+            setRows(oldArray => [...oldArray, element])
+        });
+}
+
+useEffect(() => {
+    forRows();
+  }, []);
+
+const [rows, setRows] = useEffect([]);
     const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
