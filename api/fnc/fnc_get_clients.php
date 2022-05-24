@@ -1,18 +1,14 @@
 <?php
+	ini_set('display_errors', 1);
+	require_once('../config.php');
+	require_once('./fnc_sess.php');
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: *");
 	header("Content-Type: *; charset=UTF-8");
 
-    require_once("../config.php");
-
     if(isset($_GET["client"])){
-        // echo ("siin");
         get_clients();
     }
-
-    //var_dump($client_array);
-    // get_clients();
-
 
     function get_clients(){
         $client_array = array();
@@ -28,6 +24,5 @@
         echo json_encode($client_array);
         $stmt->close();
         $conn->close();
-
     }
 ?>

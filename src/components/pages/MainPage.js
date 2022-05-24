@@ -14,6 +14,7 @@ const MainPage = () => {
             <div id="srch-bar">
               <FormControl fullWidth>
                 <TextField id="filled-basic" label="Otsi..." variant="outlined" size="small" />
+
               </FormControl>
             </div>
           </div>
