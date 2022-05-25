@@ -1,7 +1,7 @@
 import WorkTable from "../WorkTable";
-import { FormControl, IconButton, List, ListItem, ListItemText, Menu, MenuItem, TextField } from "@mui/material";
+import { Box, FormControl, IconButton, List, ListItem, ListItemText, Menu, MenuItem, TextField, Grid } from "@mui/material";
 import "../../styles/pages/Home.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { rows } from "../WorkTableData";
 
 // TODO
@@ -16,7 +16,7 @@ const options = [
 ];
 
 const SearchBar = ({setSearchQuery}) => (
-  <form>
+  <FormControl>
     <TextField
       id="search-bar"
       className="text"
@@ -26,11 +26,12 @@ const SearchBar = ({setSearchQuery}) => (
       label="Otsi..."
       variant="outlined"
       size="small"
+      sx={{width: "100%"}}
       />
       <IconButton type="submit" aria-label="search">
         {/* <SearchIcon style={{ fill: "blue"}} /> */}
       </IconButton>
-  </form>
+  </FormControl>
 );
 
 // TODO fix this, kuna data nested objektid ss vaja enne mappida?
@@ -47,7 +48,7 @@ const MainPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
   const open = Boolean(anchorEl);
-  
+
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   }
@@ -65,7 +66,7 @@ const MainPage = () => {
 
   // searchbar
   const [searchQuery, setSearchQuery] = useState();
-  //const dataFiltered = filterData(searchQuery, data); 
+  //const dataFiltered = filterData(searchQuery, data);
 
   return (
     <>
@@ -76,52 +77,53 @@ const MainPage = () => {
               <h3>Aktiivsed Projektid</h3>
             </div>
             <div id="srch-bar">
-              <FormControl fullWidth>
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-              </FormControl>
-            </div>
-            <div>
-              <List
-                component="nav"
-                aria-label="project-select"
-                sx={{ bgcolor: "background.paper" }}
-              >
-                <ListItem
-                  button
-                  id="project-select"
-                  aria-haspopup="listbox"
-                  aria-controls="lock-menu"
-                  aria-label="Aktiivsed projektid"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClickListItem}
+              <Box sx={{width: "70%", marginRight: "1%"}} display="flex" justifyContent="center" alignItems="center">
+                <FormControl sx={{width: "100%", display: "inline-flex"}}>
+                  <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                </FormControl>
+              </Box>
+                <List
+                  component="nav"
+                  aria-label="project-select"
+                  sx={{ bgcolor: "background.paper" }}
                 >
-                  <ListItemText
-                    primary="Milliseid projekte kuvada?"
-                    secondary={options[selectedIndex]}
-                  />
-                </ListItem>
-              </List>
-              <Menu
-                id="project-select"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "project-select",
-                  role: "listbox",
-                }}
-              >
-                {options.map((option, index) => (
-                  <MenuItem
-                    key={option}
-                    //disabled={index == 0}
-                    selected={index == selectedIndex}
-                    onClick={(event) => handleMenuItemClick(event, index)}
+                  <ListItem
+                    button
+                    id="project-select"
+                    aria-haspopup="listbox"
+                    aria-controls="lock-menu"
+                    aria-label="Aktiivsed projektid"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClickListItem}
                   >
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
+                    <ListItemText
+                      primary="Milliseid projekte kuvada?"
+                      secondary={options[selectedIndex]}
+                    />
+                  </ListItem>
+                </List>
+                <Menu
+                  id="project-select"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "project-select",
+                    role: "listbox",
+                  }}
+                >
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      //disabled={index == 0}
+                      selected={index == selectedIndex}
+                      onClick={(event) => handleMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+
             </div>
           </div>
           <WorkTable />
