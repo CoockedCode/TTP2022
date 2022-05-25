@@ -10,58 +10,52 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
-	// kui võimalik + aega, siis yandere dev kood korda teha
 	// kuupäevade sisestused normaliseerida
 	// machineType üle vaadata
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
 
-	const endpoint = "http://45.79.250.112/api";
+const endpoint = "http://45.79.250.112/api";
 
 export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	//1.
-	const [value1, setValue1] = useState();
-	const [error1, setError1] = useState(false);
-	//2.
-	const [value2, setValue2] = useState();
-	const [error2, setError2] = useState(false);
-	//3.
-	const [value3, setValue3] = useState();
-	const [error3, setError3] = useState(false);
-	//4.
-	const [value4, setValue4] = useState();
-	const [error4, setError4] = useState(false);
-	//5.
-	const [value5, setValue5] = useState();
-	const [error5, setError5] = useState(false);
-	//6.
-	const [value6, setValue6] = useState();
-	const [error6, setError6] = useState(false);
+	//1. projekt nr
+	const [valueProjectNumber, setValueProjectNumber] = useState();
+	const [errorProjectNumber, setErrorProjectNumber] = useState(false);
+	//2. projekt name
+	const [valueProjectName, setValueProjectName] = useState();
+	const [errorProjectName, setErrorProjectName] = useState(false);
+	//3. client 
+	// const [value3, setValue3] = useState();
+	// const [error3, setError3] = useState(false);
+	//4. machine type
+	const [valueMachineType, setValueMachineType] = useState();
+	const [errorMachineType, setErrorMachineType] = useState(false);
+	//5. planned end
+	const [valuePlannedEnd, setValuePlannedEnd] = useState();
+	const [errorPlannedEnd, setErrorPlannedEnd] = useState(false);
+	//6. additional info
+	// const [value6, setValue6] = useState();
+	// const [error6, setError6] = useState(false);
 
 	useEffect(() => {
-		if(value1){setError1(false);}
-		if(value2){setError2(false);}
-		if(value3){setError3(false);}
-		if(value4){setError4(false);}
-		if(value5){setError5(false);}
-		if(value6){setError6(false);}
-	}, [value1, value2, value3, value4, value5, value6])
+		if(valueProjectNumber){setErrorProjectNumber(false);}
+		if(valueProjectName){setErrorProjectName(false);}
+		//if(value3){setError3(false);}
+		if(valueMachineType){setErrorMachineType(false);}
+		if(valuePlannedEnd){setErrorPlannedEnd(false);}
+		//if(value6){setError6(false);}
+	}, [valueProjectNumber, valueProjectName, valueMachineType, valuePlannedEnd])
 
 	// klient dropdown menu algus
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
 		const resp = await axios.get(endpoint + "/fnc/fnc_get_clients.php?client");
-		//  console.log(resp.data);
-		//  console.log(resp.data.length);
-		// const newData = [];
+
 		setOptions([]);
-		// for(let i=0; i<resp.data.length; i++){
-		// 	newData.push(resp.data[i].name)
-		// }
-		//newData.forEach(element => {
+
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element.name])
 		});
@@ -70,23 +64,6 @@ export default function AddNewProject(){
 	useEffect(() => {
 		getOptions();
   	}, []);
-
-	// info salvestamine php kaudu
-	const saveData = (dataToSave) => {
-		axios.post(endpoint + "/fnc/fnc_save_project.php", `${dataToSave}`)
-		.then(function(response){
-			console.log(response);
-			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-			}
-		})
-		.catch(function (err) {
-			console.log(err);
-			// TODO error handling
-			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-		});
-
-	};
 
 	const[anchorEl, setAnchorEl] = useState(null);
 	const[selectedIndex, setSelectedIndex] = useState(1);
@@ -106,11 +83,28 @@ export default function AddNewProject(){
 	}
 	//klient dropdown menu osa lõpp
 
+		// info salvestamine php kaudu
+		const saveData = (dataToSave) => {
+			axios.post(endpoint + "/fnc/fnc_save_project.php", `${dataToSave}`)
+			.then(function(response){
+				console.log(response);
+				if(response.status === 200){
+					dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				}
+			})
+			.catch(function (err) {
+				console.log(err);
+				// TODO error handling
+				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+			});
+	
+		};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && formData.get("projectName") && formData.get("client") &&
+		if(formData.get("projectId") && formData.get("projectName") && selectedIndex &&
 		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
 			console.log("väljad täidetud")
 
@@ -118,7 +112,7 @@ export default function AddNewProject(){
 			const dataToSave = {
 				projectId: formData.get("projectId"),
 				projectName: formData.get("projectName"),
-				client: formData.get("client"),
+				client: selectedIndex,
 				machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				plannedEnd: formData.get("projectPlannedEnd"),
@@ -129,23 +123,23 @@ export default function AddNewProject(){
 			saveData(dataToSave);
 		} else {
 			if(!formData.get("projectId")){
-				setError1(true);
-			}else{setValue1(formData.get("projectId"));}
+				setErrorProjectNumber(true);
+			}else{setValueProjectNumber(formData.get("projectId"));}
 			if(!formData.get("projectName")){
-				setError2(true);
-			}else{setValue2(formData.get("projectName"));}
-			if(!formData.get("client")){
-				setError3(true);
-			}else{setValue3(formData.get("client"));}
+				setErrorProjectName(true);
+			}else{setValueProjectName(formData.get("projectName"));}
+			// if(!formData.get("client")){
+			// 	setError3(true);
+			// }else{setValue3(formData.get("client"));}
 			if(!formData.get("projectMachineType")){
-				setError4(true);
-			}else{setValue4(formData.get("projectMachineType"));}
+				setErrorMachineType(true);
+			}else{setValueMachineType(formData.get("projectMachineType"));}
 			if(!formData.get("projectPriority")){
-				setError5(true);
-			}else{setValue5(formData.get("projectPriority"));}
-			if(!formData.get("projectInfo")){
-				setError6(true);
-			}else{setValue6(formData.get("projectInfo"));}
+				setErrorPlannedEnd(true);
+			}else{setValuePlannedEnd(formData.get("projectPriority"));}
+			// if(!formData.get("projectInfo")){
+			// 	setError6(true);
+			// }else{setValue6(formData.get("projectInfo"));}
 			//setHelperText("Kontrolli väljad üle!");
 
 		}
@@ -162,7 +156,7 @@ export default function AddNewProject(){
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} >
 						<TextField
-							error={error1}
+							error={errorProjectNumber}
 							required
 							autoFocus
 							id="projectId"
@@ -176,23 +170,11 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={error2}
+							error={errorProjectName}
 							autoFocus
 							id="projectName"
 							label="Projekti nimi"
 							name="projectName"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-
-						<TextField
-							required
-							error={error3}
-							id="client"
-							label="Tellija nimi"
-							name="client"
 							autoComplete="none"
 							type="text"
 							margin="dense"
@@ -220,7 +202,7 @@ export default function AddNewProject(){
 							</ListItem>
 						</List>
 						<Menu
-							id="klient"
+							id="client"
 							anchorEl={anchorEl}
 							open={open}
 							onClose={handleClose}
@@ -243,7 +225,7 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={error4}
+							error={errorMachineType}
 							id="projectMachineType"
 							label="Masina tüüp"
 							name="projectMachineType"
@@ -255,7 +237,6 @@ export default function AddNewProject(){
 
 						<RadioGroup
 							required
-							error={error5}
 							id='projectPriority'
 							label="Projekti prioriteet"
 							name='projectPriority'
@@ -269,7 +250,7 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={false}
+							error={errorPlannedEnd}
 							id="projectPlannedEnd"
 							label="Planeeritud lõpp aaaa-kk-pp"
 							name="projectPlannedEnd"
@@ -292,7 +273,7 @@ export default function AddNewProject(){
 						</RadioGroup>
 
 						<TextField
-							error={error6}
+							//error={error6}
 							// sx={{ width: 'auto'}}
 							id="projectInfo"
 							label="Projekti info"

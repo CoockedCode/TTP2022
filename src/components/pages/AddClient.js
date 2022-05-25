@@ -7,6 +7,8 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
+const endpoint = "http://45.79.250.112/api";
+
 export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
@@ -14,14 +16,16 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post('https://elektrimasinad.digifi.eu/api/localsave.php', {save: `${dataToSave}`})
+		axios.post(`${endpoint}/fnc/fnc_add_client.php`, {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
-			return true;
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+			}
 		})
 		.catch(function (err) {
 			console.log(err);
-			return false;
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
 	};
@@ -31,66 +35,64 @@ export default function AddClient(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") &&
-		formData.get("postIndex") && formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
-		   console.log("väljad täidetud")
+		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") && formData.get("postIndex") &&
+			 formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
+
+			console.log("väljad täidetud")
 			setHelperText("");
-		   const dataToSave = {
-			   //todo fix from Kert to myself
-			clientNamr: formData.get("clientName"),
-			clientRegNum: formData.get("clientRegNum"),
-			clientAddr: formData.get("clientAddr"),
-			postIndex: formData.get("postIndex"),
-			contPers: formData.get("contPers"),
-			clientEmail: formData.get("clientEmail"),
-			clientPhoneNr: formData.get("clientPhoneNr"),
-			invoiceEm: formData.get("invoiceEm"),
-			additionalInfo: formData.get("addInfo")
-		};
-		if(saveData(dataToSave)){
-			// kui kõik väljad täidetud ja üleslaadimine õnnestus
-			dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-		} else {
-			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-		}
-	} else {
-		console.log("viga")
-		if(!formData.get("clientName")){
-			setHelperText("Kliendi nimi puudu!");
-			setError(true);
-		}
-		if(!formData.get("clientRegNum")){
-			setHelperText("Kliendi registratsiooni number puudu!");
-			setError(true);
-		}
-		if(!formData.get("clientAddr")){
-			setHelperText("Cliendi aadress!");
-			setError(true);
-		}
-		if(!formData.get("postIndex")){
-			setHelperText("Kliendi postindeks on puudu!");
-			setError(true);
-		}
-		if(!formData.get("contPers")){
-			setHelperText("Kontaktisik puudu!");
-			setError(true);
-		}
-		if(!formData.get("clientEmail")){
-			setHelperText("Kliendi meil puudu!");
-			setError(true);
-		}
-		if(!formData.get("clientPhoneNr")){
-			setHelperText("Kliendi telefon puudu!");
-			setError(true);
-		}
-		if(!formData.get("invoiceEm")){
-			setHelperText("Arve e-mail puudu!");
-			setError(true);
-		}
+			const dataToSave = {
+				//todo fix from Kert to myself
+				clientNamr: formData.get("clientName"),
+				clientRegNum: formData.get("clientRegNum"),
+				clientAddr: formData.get("clientAddr"),
+				postIndex: formData.get("postIndex"),
+				contPers: formData.get("contPers"),
+				clientEmail: formData.get("clientEmail"),
+				clientPhoneNr: formData.get("clientPhoneNr"),
+				invoiceEm: formData.get("invoiceEm"),
+				additionalInfo: formData.get("addInfo")
+			};
+
+			saveData(dataToSave);
 		
-	}
+		} else {
+			console.log("viga")
+			if(!formData.get("clientName")){
+				setHelperText("Kliendi nimi puudu!");
+				setError(true);
+			}
+			if(!formData.get("clientRegNum")){
+				setHelperText("Kliendi registratsiooni number puudu!");
+				setError(true);
+			}
+			if(!formData.get("clientAddr")){
+				setHelperText("Cliendi aadress!");
+				setError(true);
+			}
+			if(!formData.get("postIndex")){
+				setHelperText("Kliendi postindeks on puudu!");
+				setError(true);
+			}
+			if(!formData.get("contPers")){
+				setHelperText("Kontaktisik puudu!");
+				setError(true);
+			}
+			if(!formData.get("clientEmail")){
+				setHelperText("Kliendi meil puudu!");
+				setError(true);
+			}
+			if(!formData.get("clientPhoneNr")){
+				setHelperText("Kliendi telefon puudu!");
+				setError(true);
+			}
+			if(!formData.get("invoiceEm")){
+				setHelperText("Arve e-mail puudu!");
+				setError(true);
+			}
+		
+		}
 	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));		
-		};
+	};
 	
 	return(
 		<>
@@ -180,7 +182,7 @@ export default function AddClient(){
 							label="Kliendi tel nr"
 							name="clientPhoneNr"
 							autoComplete="none"
-							type="number"
+							type="text"
 							margin="dense"
 							size="small"
 							/>
