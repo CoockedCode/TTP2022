@@ -20,12 +20,16 @@ export default function AddClient(){
 		axios.post(endpoint + '/fnc/fnc_add_client.php', {dataToSave})
 		.then(function (response) {
 			console.log(response);
+			if(response.status===200){
+				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+			}
 			//return true;
 		})
-		//.catch(function (err) {
-			//console.log(err);
+		.catch(function (err) {
+			console.log(err);
 			//return false;
-		//});
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+		});
 
 	};
 
@@ -49,12 +53,9 @@ export default function AddClient(){
 			invoiceEm: formData.get("invoiceEm"),
 			additionalInfo: formData.get("addInfo")
 		};
-		if(saveData(dataToSave)){
+		saveData(dataToSave)
 			// kui kõik väljad täidetud ja üleslaadimine õnnestus
-			dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-		} else {
-			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-		}
+			
 	} else {
 		console.log("viga")
 		if(!formData.get("clientName")){
