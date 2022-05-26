@@ -15,7 +15,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import { ButtonBase } from '@mui/material';
-import { rows } from './WorkTableData';
+import { rows } from "./WorkTableData";
 
 export default function StickyHeadTable() {
 const [open, setOpen] = useState(false);
