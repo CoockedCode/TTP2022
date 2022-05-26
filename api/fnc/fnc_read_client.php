@@ -16,7 +16,7 @@ function read_clients(){
         while($stmt->fetch()){
             array_push(array $for_js[,"[{Nimi:".$name_from_db.","."RegistriNR:".$reg_from_db.","."Aadress:".$address_from_db.","."Postiindeks:".$posti_indeks_from_db.","."KontaktIsik:".$kontakt_isik_from_db.","."Mail:".$e_mail_from_db.","."Telefon:".$telefon_from_db.","."ArveMail:".$arve_mail_from_db.","."Lisainfo:".$lisa_info_from_db."}]"]);
         }
-        $stmt->close;
-        $conn->close;
+        $stmt->close();
+        $conn->close();
         return $for_js;
 }

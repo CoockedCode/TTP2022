@@ -13,12 +13,23 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 
-const rows=[
-    {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
-
-]
-
 export default function ClientListTable() {
+    const endpoint = "http://45.79.250.112/api";
+    const forRows = async () => {
+    const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
+        console.log(resp.data)
+        setRows([]);
+
+        resp.data.forEach(element => {
+            setRows(oldArray => [...oldArray, element])
+        });
+}
+
+useEffect(() => {
+    forRows();
+  }, []);
+
+const [rows, setRows] = useEffect([]);
     const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);

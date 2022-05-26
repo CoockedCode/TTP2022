@@ -28,7 +28,7 @@
         $notice=null;
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
         $conn->set_charset("utf-8");
-        $stmt=$conn->prepare("INSERT INTO id,klient(name,reg_nr,address,posti_indeks,kontakt_isik,e_mail,telefon,arve_email,lisa_info) VALUES(NULL,?,?,?,?,?,?,?,?,?)");
+        $stmt=$conn->prepare("INSERT INTO klient(id,name,reg_nr,address,posti_indeks,kontakt_isik,e_mail,telefon,arve_email,lisa_info) VALUES(NULL,?,?,?,?,?,?,?,?,?)");
         echo $conn->error;
         $stmt->bind_param("sisisssss",$client_name,$client_reg_num,$client_addr,$post_index,$cont_person,$client_email,$client_phone,$invoice_email,$additional_info);
         if($stmt->execute()){
