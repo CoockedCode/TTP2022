@@ -44,11 +44,11 @@ const App = () => {
             <Route path="/addNewProject" element={<AddNewProject />} />
             <Route path="/addClient" element={<AddClient />} />
             <Route path="/ClientList" element={<ClientList />} />
-            {/* <Route path="/archivedProjects" element={<ArchivedProjects />} /> */}
-            {/* <Route path="/addWorker" element={<AddWorker />} /> */}
-            {/* <Route path="/TestAb" element={<TestAB />} /> */}
-            {/* <Route path="/TestAb2" element={<TestAB2 />} /> */}
-            {/* <Route path="/T" element={<Test />} /> */}
+            <Route path="/archivedProjects" element={<ArchivedProjects />} /> */}
+            <Route path="/addWorker" element={<AddWorker />} />
+            <Route path="/TestAb" element={<TestAB />} />
+            <Route path="/TestAb2" element={<TestAB2 />} />
+           <Route path="/T" element={<Test />} />
           </Route>
         </Routes>
       <SnackBar />

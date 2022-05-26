@@ -85,8 +85,9 @@ export default function AddNewProject(){
 
 		// info salvestamine php kaudu
 		const saveData = (dataToSave) => {
-			axios.post(endpoint + "/fnc/fnc_save_project.php", `${dataToSave}`)
+			axios.post(endpoint + "/fnc/fnc_save_project.php", dataToSave)
 			.then(function(response){
+				// console.log(dataToSave)
 				console.log(response);
 				if(response.status === 200){
 					dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));

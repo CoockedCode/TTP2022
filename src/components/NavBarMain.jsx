@@ -78,24 +78,24 @@ const ResponsiveAppBar = () => {
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
 
-						{/* <MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}} >
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}} >
 							Valikute seaded<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Tööd ja etapid<br/>
-						</MenuItem> */}
+						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addClient")}}>
 							Lisa Klient +<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ClientList")}}>
 							Kliendid<br/>
 						</MenuItem>
-						{/* <MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
 							Lisa Töötaja +<br/>
 						</MenuItem>
 						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
 							Töötajad<br/>
-						</MenuItem> */}
+						</MenuItem>
 					</Menu>
 				</Box>
 
