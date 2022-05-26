@@ -52,7 +52,7 @@ export default function AddNewProject(){
 	// klient dropdown menu algus
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
-		const resp = await axios.get(endpoint + "/fnc/fnc_get_clients.php?client");
+		const resp = await axios.get(endpoint + "/fnc/fnc_get_clients_name_id.php?client");
 		setOptions([]);
 
 		resp.data.forEach(element => {

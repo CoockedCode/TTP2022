@@ -15,7 +15,6 @@
         $stmt = $conn->prepare("SELECT id, name FROM klient");
         $stmt->bind_result($id_from_db, $name_from_db);
         $stmt->execute();
-        //echo $conn->error;
         while($stmt->fetch()){
             array_push($client_array, array("id"=>$id_from_db, "name"=>$name_from_db));
         }
