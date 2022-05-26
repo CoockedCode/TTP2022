@@ -87,7 +87,7 @@ function Row(row, key){
 
   return (
 	<Paper sx={{ width: '100%'}} elevation={2} >
-		<TableContainer sx={{ maxHeight: "80vh", width: '100%' }} >
+		<TableContainer sx={{ maxHeight: "78vh", width: '100%' }} >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
 			<TableHead>
 			<TableRow>

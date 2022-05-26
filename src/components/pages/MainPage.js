@@ -15,25 +15,6 @@ const options = [
   "Aktiivsed projektid" // index 1
 ];
 
-const SearchBar = ({setSearchQuery}) => (
-  <FormControl>
-    <TextField
-      id="search-bar"
-      className="text"
-      onInput={(e) => {
-        setSearchQuery(e.target.value);
-      }}
-      label="Otsi..."
-      variant="outlined"
-      size="small"
-      sx={{width: "100%"}}
-      />
-      <IconButton type="submit" aria-label="search">
-        {/* <SearchIcon style={{ fill: "blue"}} /> */}
-      </IconButton>
-  </FormControl>
-);
-
 // TODO fix this, kuna data nested objektid ss vaja enne mappida?
 // const filterData = (query, data) => {
 //   if(!query){
@@ -74,18 +55,22 @@ const MainPage = () => {
         <section style={{ width: "100%", padding: "0 5%" }}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3>Aktiivsed Projektid</h3>
+              <h3 style={{marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0}} >Aktiivsed Projektid</h3>
             </div>
-            <div id="srch-bar">
-              <Box sx={{width: "70%", marginRight: "1%"}} display="flex" justifyContent="center" alignItems="center">
-                <FormControl sx={{width: "100%", display: "inline-flex"}}>
-                  <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <div id="srch-bar" style={{width: "100%"}}>
+
+              <Box sx={{display: "inline-flex", flexGrow: "3", mx: 0, p: 0, marginRight: "2%" ,alignItems: "center"}}>
+                <FormControl fullWidth >
+                  <TextField id="filled-basic" label="Otsi..." variant="outlined" size="small" />
                 </FormControl>
               </Box>
+
+              <Box sx={{flexGrow: "1", maxWidth: "50%"}}>
+                <FormControl>
                 <List
-                  component="nav"
+                  // component="nav"
                   aria-label="project-select"
-                  sx={{ bgcolor: "background.paper" }}
+                  sx={{p: 0}}
                 >
                   <ListItem
                     button
@@ -102,6 +87,8 @@ const MainPage = () => {
                     />
                   </ListItem>
                 </List>
+
+
                 <Menu
                   id="project-select"
                   anchorEl={anchorEl}
@@ -114,7 +101,7 @@ const MainPage = () => {
                 >
                   {options.map((option, index) => (
                     <MenuItem
-                      key={option}
+                      key={index}
                       //disabled={index == 0}
                       selected={index == selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
@@ -123,6 +110,14 @@ const MainPage = () => {
                     </MenuItem>
                   ))}
                 </Menu>
+
+
+                </FormControl>
+              </Box>
+
+
+
+
 
             </div>
           </div>

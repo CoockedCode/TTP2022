@@ -27,7 +27,7 @@ export default function AddNewProject(){
 	//2. projekt name
 	const [valueProjectName, setValueProjectName] = useState();
 	const [errorProjectName, setErrorProjectName] = useState(false);
-	//3. client 
+	//3. client
 	// const [value3, setValue3] = useState();
 	// const [error3, setError3] = useState(false);
 	//4. machine type
@@ -97,7 +97,7 @@ export default function AddNewProject(){
 				// TODO error handling
 				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 			});
-	
+
 		};
 
 	const handleSubmit = (e) => {
@@ -282,6 +282,8 @@ export default function AddNewProject(){
 							type="text"
 							margin="dense"
 							size="small"
+							multiline
+         					 rows={4}
 							/>
 
 						<Button
