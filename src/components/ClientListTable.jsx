@@ -12,9 +12,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
+import axios from 'axios';
 
 export default function ClientListTable() {
     const endpoint = "http://45.79.250.112/api";
+    const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
         console.log(resp.data)
@@ -29,7 +31,6 @@ useEffect(() => {
     forRows();
   }, []);
 
-const [rows, setRows] = useEffect([]);
     const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
