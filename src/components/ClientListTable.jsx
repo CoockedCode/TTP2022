@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 
 export default function ClientListTable() {
-    const endpoint = "http://45.79.250.112/api";
+    const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
@@ -34,26 +34,26 @@ useEffect(() => {
     const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    
+
       const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
-    
+
       const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
       };
-    
-    
+
+
     function Row(row, key){
-    
+
          const [open, setOpen] = useState(false);
-    
+
         return(
             <>
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-    
+
                     <TableCell >{row.Nimi}</TableCell>
                     <TableCell >{row.RegistriNR} </TableCell>
                     <TableCell >{row.Postiindeks} </TableCell>
@@ -63,7 +63,7 @@ useEffect(() => {
                     <TableCell >{row.ArveMail}  </TableCell>
                     <TableCell >{row.Lisainfo} </TableCell>
             </TableRow>
-    
+
             <TableRow key={key + 'dropDown'}>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
@@ -91,7 +91,7 @@ useEffect(() => {
                                     asd
                                     </TableCell>
                                 </TableRow>
-    
+
                             </TableBody>
                             </Table>
                         </Box>
@@ -101,14 +101,14 @@ useEffect(() => {
             </>
         );
     }
-    
+
       return (
         <Paper sx={{ width: '100%'}} elevation={2} >
             <TableContainer sx={{ maxHeight: "80vh", width: '100%' }} >
             <Table stickyHeader aria-label="sticky collapsible table" size="small">
                 <TableHead>
                 <TableRow>
-    
+
                     <TableCell padding='none' width={"12px"} />
                     <TableCell >Nimi</TableCell>
                     <TableCell >Registri NR </TableCell>
@@ -122,10 +122,10 @@ useEffect(() => {
                 </TableHead>
                 <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
-    
+
                     <Row {...row} key={key} />
                 ))}
-    
+
             </TableBody>
             </Table>
           </TableContainer>
@@ -137,7 +137,7 @@ useEffect(() => {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-    
+
           />
         </Paper>
       );

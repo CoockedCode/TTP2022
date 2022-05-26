@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
-const endpoint = "http://45.79.250.112/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function AddClient(){
 	//snackbar
@@ -30,7 +30,7 @@ export default function AddClient(){
 
 	};
 
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -55,7 +55,7 @@ export default function AddClient(){
 			};
 
 			saveData(dataToSave);
-		
+
 		} else {
 			console.log("viga")
 			if(!formData.get("clientName")){
@@ -90,25 +90,25 @@ export default function AddClient(){
 				setHelperText("Arve e-mail puudu!");
 				setError(true);
 			}
-		
+
 		}
-	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));		
+	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 	};
-	
+
 	return(
 		<>
 		<main>
 			<section>
-				<br />			
+				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
-				</div>			
+				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} error={error}>
-						<TextField					
+						<TextField
 							required
 							fullWidth
-							autoFocus						
+							autoFocus
 							id="clientName"
 							label="Kliendi nimi"
 							name="clientName"
@@ -117,9 +117,9 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							required
-							fullWidth					
+							fullWidth
 							id="clientRegNum"
 							label="Kliendi registrinumber"
 							name="clientRegNum"
@@ -128,7 +128,7 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							required
 							fullWidth
 							// sx={{ width: 'auto'}}
@@ -140,10 +140,10 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							required
 							fullWidth
-							autoFocus						
+							autoFocus
 							id="postIndex"
 							label="Postiindeks"
 							name="postIndex"
@@ -152,10 +152,10 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							required
 							fullWidth
-							autoFocus						
+							autoFocus
 							id="contPers"
 							label="Kontakt isik"
 							name="contPers"
@@ -164,9 +164,9 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							required
-							fullWidth						
+							fullWidth
 							id="clientEmail"
 							label="Kliendi e-mail"
 							name="clientEmail"
@@ -175,10 +175,10 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-					
-						<TextField					
+
+						<TextField
 							required
-							fullWidth						
+							fullWidth
 							id="clientPhoneNr"
 							label="Kliendi tel nr"
 							name="clientPhoneNr"
@@ -187,11 +187,11 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						
-						<TextField					
+
+						<TextField
 							required
 							fullWidth
-							autoFocus						
+							autoFocus
 							id="invoiceEm"
 							label="Arve e-mail"
 							name="invoiceEm"
@@ -200,10 +200,10 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField					
+						<TextField
 							optional
 							fullWidth
-							autoFocus						
+							autoFocus
 							id="addInfo"
 							label="Lisa info"
 							name="addInfo"
@@ -212,10 +212,10 @@ export default function AddClient(){
 							margin="dense"
 							size="small"
 							/>
-						
+
 						<Button
 							type="submit"
-							
+
 							variant="contained"
 							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
 							margin="dense"

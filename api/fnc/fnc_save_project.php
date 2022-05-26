@@ -1,12 +1,11 @@
 <?php
-    // ini_set('display_errors', 1);
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: *");
 	header("Content-Type: *; charset=UTF-8");
 
     require_once("../config.php");
     $data = json_decode(file_get_contents('php://input'), true);
-    //var_dump($data);
+
     if(!empty($data)){
         $project_num = $data["projectId"];
         $project_name = $data["projectName"];
@@ -20,10 +19,6 @@
         //var_dump($project_num);
         save_to_db($project_num, $client, $machine_type, $priority, $planned_end_date, $project_arrived_by);
     }
-
-
-    // echo "TEre";
-    // exit();
 
     function save_to_db($project_num, $client, $machine_type, $priority, $planned_end_date, $project_arrived_by){
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);

@@ -19,7 +19,7 @@ import { setUserSession } from "../redux/ducks/userSession";
 import { setSnackbar } from "../redux/ducks/snackbar";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-const endpoint = "http://172.105.88.19/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 //usrNam
 import { useSelector } from "react-redux";

@@ -13,7 +13,7 @@
 
     function get_clients(){
         $client_array = array();
-        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"]);
+        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
         $conn->set_charset("utf8");
         $stmt = $conn->prepare("SELECT id, name FROM klient");
         $stmt->bind_result($id_from_db, $name_from_db);
