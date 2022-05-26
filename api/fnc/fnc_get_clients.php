@@ -1,8 +1,5 @@
 <?php
-	ini_set('display_errors', 1);
 	require_once('../config.php');
-	//require_once('../session/fnc_sess.php');
-
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Headers: *");
 	header("Content-Type: *; charset=UTF-8");

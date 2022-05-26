@@ -18,10 +18,8 @@ export default function ClientListTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
-    const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
-        console.log(resp.data)
+    const resp = await axios.get(endpoint + "/fnc/fnc_get_all_clients.php?client");
         setRows([]);
-
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])
         });
