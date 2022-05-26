@@ -50,17 +50,19 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
   const handleLogout = () =>{
 
-	axios.get(endpoint + "/session/fnc_sess.php?logout")
-    .then(function(response){
-      if(response.status === 200){
-        dispatch(setUserSession(false,""));
-		dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
-      }else{
-		dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
-	  }
-    })
+	// axios.get(endpoint + "/session/fnc_sess.php?logout")
+    // .then(function(response){
+    //   if(response.status === 200){
+    //     dispatch(setUserSession(false,""));
+	// 	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+    //   }else{
+	// 	dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
+	//   }
+    // })
 
-
+	dispatch(setUserSession(false,""));
+	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+	navigate("/");
 
 
   }

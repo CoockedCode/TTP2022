@@ -6,60 +6,70 @@ import { Menu, MenuItem } from '@mui/material';
 import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
-	// klient dropdown menu vastavalt olemasolevatele
 	// kuupäevade sisestused normaliseerida
 	// machineType üle vaadata
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
 
-	const endpoint = "http://45.79.250.112/api";
+const endpoint = "http://45.79.250.112/api";
 
 export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	// info salvestamine php kaudu
-	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/fnc/fnc_save_project.php`, {dataToSave})
-		.then(function (response) {
-			console.log(response);
-			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
-				setError(false);
-				setHelperText("");
-			}
-		})
-		.catch(function (err) {
-			console.log(err);
-			// TODO error handling
-			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-		}); 
+	//1. projekt nr
+	const [valueProjectNumber, setValueProjectNumber] = useState();
+	const [errorProjectNumber, setErrorProjectNumber] = useState(false);
+	//2. projekt name
+	const [valueProjectName, setValueProjectName] = useState();
+	const [errorProjectName, setErrorProjectName] = useState(false);
+	//3. client
+	// const [value3, setValue3] = useState();
+	// const [error3, setError3] = useState(false);
+	//4. machine type
+	const [valueMachineType, setValueMachineType] = useState();
+	const [errorMachineType, setErrorMachineType] = useState(false);
+	//5. planned end
+	const [valuePlannedEnd, setValuePlannedEnd] = useState();
+	const [errorPlannedEnd, setErrorPlannedEnd] = useState(false);
+	//6. additional info
+	// const [value6, setValue6] = useState();
+	// const [error6, setError6] = useState(false);
 
-	};
-
-	// lahtrite errorid
-	const [error, setError] = useState(false);
-	const [helperText, setHelperText] = useState();
+	useEffect(() => {
+		if(valueProjectNumber){setErrorProjectNumber(false);}
+		if(valueProjectName){setErrorProjectName(false);}
+		//if(value3){setError3(false);}
+		if(valueMachineType){setErrorMachineType(false);}
+		if(valuePlannedEnd){setErrorPlannedEnd(false);}
+		//if(value6){setError6(false);}
+	}, [valueProjectNumber, valueProjectName, valueMachineType, valuePlannedEnd])
 
 	// klient dropdown menu algus
-	const options = ['AAAAAAAAA', 'BBBBBBBBBBBBBBbbb', 'CCCCCCCCCCCCC'];
-	const getOptions = () => {
-		axios.get(`${endpoint}/fnc/fnc_get_clients.php`)
-		.then(function (response) {
-			console.log(response);
-			options.push(response);
-		})
+	const [options, setOptions] = useState([]);
+	const getOptions = async ()=>{
+		const resp = await axios.get(endpoint + "/fnc/fnc_get_clients.php?client");
+
+		setOptions([]);
+
+		resp.data.forEach(element => {
+			setOptions(oldArray => [...oldArray, element.name])
+		});
 	};
+
+	useEffect(() => {
+		getOptions();
+  	}, []);
+
 	const[anchorEl, setAnchorEl] = useState(null);
 	const[selectedIndex, setSelectedIndex] = useState(1);
 	const open = Boolean(anchorEl);
 
 	const handleClickListItem = (event) => {
-		getOptions();
 		setAnchorEl(event.currentTarget);
 	};
 
@@ -73,11 +83,29 @@ export default function AddNewProject(){
 	}
 	//klient dropdown menu osa lõpp
 
+		// info salvestamine php kaudu
+		const saveData = (dataToSave) => {
+			axios.post(endpoint + "/fnc/fnc_save_project.php", dataToSave)
+			.then(function(response){
+				// console.log(dataToSave)
+				console.log(response);
+				if(response.status === 200){
+					dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				}
+			})
+			.catch(function (err) {
+				console.log(err);
+				// TODO error handling
+				dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+			});
+
+		};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && formData.get("projectName") && formData.get("client") &&
+		if(formData.get("projectId") && formData.get("projectName") && selectedIndex &&
 		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
 			console.log("väljad täidetud")
 
@@ -85,52 +113,36 @@ export default function AddNewProject(){
 			const dataToSave = {
 				projectId: formData.get("projectId"),
 				projectName: formData.get("projectName"),
-				client: formData.get("client"),
+				client: selectedIndex,
 				machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				plannedEnd: formData.get("projectPlannedEnd"),
 				projectArrivedBy: formData.get("projectArrivedBy"),
 				additionalInfo: formData.get("projectInfo")
 			};
-			console.log(dataToSave);
-
+			//console.log(dataToSave);
 			saveData(dataToSave);
-
 		} else {
-			//HelperText useEffect ja useState, kysi Siimult
-			console.log("viga")
 			if(!formData.get("projectId")){
-				//setHelperText("Projekti number puudu!");
-				setError(true);
-				//setColor("error");
-			}
+				setErrorProjectNumber(true);
+			}else{setValueProjectNumber(formData.get("projectId"));}
 			if(!formData.get("projectName")){
-				//setHelperText("Projekti nimi puudu!");
-				setError(true);
-				//setColor("error");
-			}
-			if(!formData.get("client")){
-				//setHelperText("Klient sisestamata!");
-				setError(true);
-				//setColor("error");
-			}
+				setErrorProjectName(true);
+			}else{setValueProjectName(formData.get("projectName"));}
+			// if(!formData.get("client")){
+			// 	setError3(true);
+			// }else{setValue3(formData.get("client"));}
 			if(!formData.get("projectMachineType")){
-				//setHelperText("Masinatüüp kirjutamata!");
-				setError(true);
-				//setColor("error");
-			}
+				setErrorMachineType(true);
+			}else{setValueMachineType(formData.get("projectMachineType"));}
 			if(!formData.get("projectPriority")){
-				//setHelperText("Prioriteet määramata!");
-				setError(true);
-				//setColor("error");
-			}
-			if(!formData.get("projectInfo")){
-				//setHelperText("Lisainfo kirjutamata!");
-				setError(true);
-				//setColor("error");
-			}
-			setHelperText("Kontrolli väljad üle!");
-			
+				setErrorPlannedEnd(true);
+			}else{setValuePlannedEnd(formData.get("projectPriority"));}
+			// if(!formData.get("projectInfo")){
+			// 	setError6(true);
+			// }else{setValue6(formData.get("projectInfo"));}
+			//setHelperText("Kontrolli väljad üle!");
+
 		}
 
 	};
@@ -143,9 +155,9 @@ export default function AddNewProject(){
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
 				</div>
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}} error={error}>
+					<FormControl sx={{width: "100%"}} >
 						<TextField
-							error={false}
+							error={errorProjectNumber}
 							required
 							autoFocus
 							id="projectId"
@@ -159,7 +171,7 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={false}
+							error={errorProjectName}
 							autoFocus
 							id="projectName"
 							label="Projekti nimi"
@@ -170,19 +182,7 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
-						<TextField
-							required
-							error={false}
-							id="client"
-							label="Tellija nimi"
-							name="client"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-
-						<List 
+						<List
 							component="nav"
 							aria-label="Klient"
 							sx={{ bgcolor: "Background.paper" }}
@@ -203,7 +203,7 @@ export default function AddNewProject(){
 							</ListItem>
 						</List>
 						<Menu
-							id="klient"
+							id="client"
 							anchorEl={anchorEl}
 							open={open}
 							onClose={handleClose}
@@ -226,7 +226,7 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={false}
+							error={errorMachineType}
 							id="projectMachineType"
 							label="Masina tüüp"
 							name="projectMachineType"
@@ -238,7 +238,6 @@ export default function AddNewProject(){
 
 						<RadioGroup
 							required
-							error={false}
 							id='projectPriority'
 							label="Projekti prioriteet"
 							name='projectPriority'
@@ -252,7 +251,7 @@ export default function AddNewProject(){
 
 						<TextField
 							required
-							error={false}
+							error={errorPlannedEnd}
 							id="projectPlannedEnd"
 							label="Planeeritud lõpp aaaa-kk-pp"
 							name="projectPlannedEnd"
@@ -275,7 +274,7 @@ export default function AddNewProject(){
 						</RadioGroup>
 
 						<TextField
-							error={false}
+							//error={error6}
 							// sx={{ width: 'auto'}}
 							id="projectInfo"
 							label="Projekti info"
@@ -284,6 +283,8 @@ export default function AddNewProject(){
 							type="text"
 							margin="dense"
 							size="small"
+							multiline
+         					 rows={4}
 							/>
 
 						<Button
@@ -295,7 +296,7 @@ export default function AddNewProject(){
 							>
 							Lisa Projekt
 						</Button>
-						<FormHelperText>{helperText}</FormHelperText>
+						{/* <FormHelperText>{helperText}</FormHelperText> */}
 					</FormControl>
 				</Box>
 			</section>
