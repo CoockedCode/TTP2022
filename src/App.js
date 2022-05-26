@@ -16,6 +16,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
 import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
+import ReadWorker from "./components/pages/ReadWorker";
 
 const App = () => {
 
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/TestAb" element={<TestAB />} />
             <Route path="/TestAb2" element={<TestAB2 />} />
             <Route path="/T" element={<Test />} />
+            <Route path="/ReadWorker" element={<ReadWorker />} />
           </Route>
         </Routes>
       <SnackBar />
