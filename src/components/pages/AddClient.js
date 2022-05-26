@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 
-const endpoint = "http://45.79.250.112/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function AddClient(){
 	//snackbar

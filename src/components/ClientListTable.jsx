@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 
 export default function ClientListTable() {
-    const endpoint = "http://45.79.250.112/api";
+    const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/fnc/fnc_read_clients.php");
