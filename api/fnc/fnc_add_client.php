@@ -24,7 +24,7 @@
         $conn->set_charset("utf8");
         $stmt = $conn->prepare("INSERT INTO klient(id,name,reg_nr,address,posti_indeks,kontakt_isik,e_mail,telefon,arve_email,lisa_info) VALUES (NULL,?,?,?,?,?,?,?,?,?)");
         $stmt->bind_param("sssisssss", $client_name, $client_reg_num, $client_addr, $post_index, $cont_person, $client_email, $client_phone, $invoice_email, $additional_info);
-        $stmt->execute()
+        $stmt->execute();
         $stmt->close();
         $conn->close();
     }
