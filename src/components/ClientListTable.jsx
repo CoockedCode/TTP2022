@@ -12,16 +12,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
-import axios from 'axios';
-
-
-
-//[
-   // {Nimi:'Firma 1', RegistriNR:'6654765746', Aadress:'Narva mnt 25', Postiindeks:'541524', KontaktIsik:'Andrus Seep', //Mail:'firma1@tartu.ee', Telefon:'5636573657', ArveMail:'lmao@tlu.ee', Lisainfo:'Lmao kek'}
-
-//]
-
-//console.log(typeof rows);
 
 export default function ClientListTable() {
     const endpoint = "http://45.79.250.112/api";

@@ -1,15 +1,15 @@
-import ClientListTable from "../ClientListTable";
+import WorkerListTable from "../WorkerListTable";
 import { FormControl, TextField } from "@mui/material";
 import "../../styles/pages/Home.css";
 
-const ClientList = () => {
+const WorkerList = () => {
   return (
     <>
       <main>
         <section style={{ width: "100%", padding: "0 5%" }}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3>Kliendid</h3>
+              <h3>Töötajad</h3>
             </div>
             <div id="srch-bar">
               <FormControl fullWidth>
@@ -17,11 +17,11 @@ const ClientList = () => {
               </FormControl>
             </div>
           </div>
-          <ClientListTable />
+          <WorkerListTable />
         </section>
       </main>
     </>
   );
 };
 
-export default ClientList;
+export default WorkerList;
