@@ -15,7 +15,7 @@ import axios from 'axios';
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
 
-const endpoint = "http://45.79.250.112/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function AddNewProject(){
 	//snackbar
@@ -53,7 +53,6 @@ export default function AddNewProject(){
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
 		const resp = await axios.get(endpoint + "/fnc/fnc_get_clients.php?client");
-
 		setOptions([]);
 
 		resp.data.forEach(element => {
