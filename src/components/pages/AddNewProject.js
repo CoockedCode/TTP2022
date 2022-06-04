@@ -130,7 +130,7 @@ export default function AddNewProject(){
 	return(
 		<>
 		<main>
-			<section>
+			<section style={{width: "50%"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>

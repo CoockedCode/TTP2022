@@ -93,7 +93,7 @@ export default function AddClient(){
 	return(
 		<>
 		<main>
-			<section>
+			<section style={{width: "50%"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
