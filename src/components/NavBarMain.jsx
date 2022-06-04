@@ -50,15 +50,15 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
   const handleLogout = () =>{
 	// TODO: fix endpoint and get
-	// axios.get(endpoint + "/session/fnc_sess.php?logout")
-    // .then(function(response){
-    //   if(response.status === 200){
-    //     dispatch(setUserSession(false,""));
-	// 	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
-    //   }else{
-	// 	dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
-	//   }
-    // })
+	axios.get(endpoint + "/session/Session.php?destroy")
+    .then(function(response){
+      if(response.status === 200){
+        dispatch(setUserSession(false,""));
+		dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+      }else{
+		dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
+	  }
+    })
 	dispatch(setUserSession(false,""));
 	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
 	navigate("/");
@@ -78,32 +78,32 @@ const ResponsiveAppBar = () => {
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
 
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}} >
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}} >
 							Valikute seaded<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/main")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}}>
 							Tööd ja etapid<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addClient")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/lisa-klient")}}>
 							Lisa Klient +<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ClientList")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/kliendid")}}>
 							Kliendid<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/lisa-tootaja")}}>
 							Lisa Töötaja +<br/>
 						</MenuItem>
-						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ReadWorker")}}>
+						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/tootajad")}}>
 							Töötajad<br/>
 						</MenuItem>
 					</Menu>
 				</Box>
 
 				<Box sx={{ display: 'inline-flex', minHeight: "2rem", maxHeight: "2rem", justifyContent: "center", flexGrow: 2, mx: 'auto',}}>
-					<Button onClick={()=>{handleCloseNavMenu; navigate("/Main")}} sx={{ p: 1, color: 'white' }}>
+					<Button onClick={()=>{handleCloseNavMenu; navigate("/avaleht")}} sx={{ p: 1, color: 'white' }}>
 						<Typography className="nav-link">Avaleht</Typography>
 					</Button>
-					<Button onClick={()=>{handleCloseNavMenu; navigate("/addNewProject")}} sx={{ p: 1, color: 'white' }}>
+					<Button onClick={()=>{handleCloseNavMenu; navigate("/lisa-projekt")}} sx={{ p: 1, color: 'white' }}>
 						<Typography className="nav-link">Lisa projekt&nbsp;+</Typography>
 					</Button>
 				</Box>

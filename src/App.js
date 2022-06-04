@@ -4,15 +4,17 @@ import LogIn from "./components/pages/LogIn";
 import MainPage from "./components/pages/MainPage";
 import AddNewProject from "./components/pages/AddNewProject";
 import AddClient from "./components/pages/AddClient";
-import AddWorker from "./components/pages/AddWorker";
+import AddEmployee from "./components/pages/AddEmployee";
 import SnackBar from "./components/Snackbar";
 import ClientList from "./components/pages/ClientList";
 import React, { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
 import { useSelector } from "react-redux";
-import ReadWorker from "./components/pages/ReadWorker";
+import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
+import User from "./components/pages/User";
+
 
 const App = () => {
 
@@ -38,12 +40,13 @@ const App = () => {
         <Route path='*' element={<NotFound />} />
           <Route path="/" element={<LogIn />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path="/main" element={<MainPage />} />
-            <Route path="/addNewProject" element={<AddNewProject />} />
-            <Route path="/addClient" element={<AddClient />} />
-            <Route path="/ClientList" element={<ClientList />} />
-            <Route path="/addWorker" element={<AddWorker />} />
-            <Route path="/ReadWorker" element={<ReadWorker />} />
+            <Route path="/avaleht" element={<MainPage />} />
+            <Route path="/lisa-projekt" element={<AddNewProject />} />
+            <Route path="/lisa-klient" element={<AddClient />} />
+            <Route path="/kliendid" element={<ClientList />} />
+            <Route path="/lisa-tootaja" element={<AddEmployee />} />
+            <Route path="/tootajad" element={<EmployeeList />} />
+            <Route path="/kasutaja-satted" element={<User />} />
           </Route>
         </Routes>
       <SnackBar />
