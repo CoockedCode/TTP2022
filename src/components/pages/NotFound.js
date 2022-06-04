@@ -1,5 +1,6 @@
 import { Box, Button, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 const ClientList = () => {
 
@@ -18,8 +19,10 @@ const ClientList = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     }}>
+                        <SentimentDissatisfiedIcon sx={{fontSize: "4rem"}} />
+                        <br />
                         <h1 style={{ margin: 0, padding: 0 }}>404 - Seda lehte pole olemas!</h1>
-                        <Button type="submit" variant="outlined" size="large" sx={{ px: 2.2, py: 1.2, mt: 3, mb: 2, bgcolor: "main" }} onClick={() => navigate("/main")}>
+                        <Button type="submit" variant="outlined" size="large" sx={{ px: 2.2, py: 1.2, mt: 3, mb: 2, bgcolor: "main" }} onClick={() => navigate("/avaleht")}>
                             <h4 style={{ margin: 0, padding: 0 }}>Tagasi avalehele</h4>
                         </Button>
                 </Box>
