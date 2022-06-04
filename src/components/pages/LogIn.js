@@ -36,7 +36,7 @@ export default function SignIn() {
   })
 
   const fetchUsr = async (usrNam, passWrd) => {
-      const {status, data} = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
       if (status === 200){
         if (data.length > 0){
           if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
