@@ -9,7 +9,7 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 
-const rows=[
+const rows = [
     {Nimi:'Heidi Kuusk', Mail:'heidi.kuusk@elktrm.ee', Number:'58585858', Roll:'Tööline'}
 
 ]
@@ -17,24 +17,24 @@ const rows=[
 export default function WorkerListTable() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    
+
       const handleChangePage = (event, newPage) => {
         setPage(newPage);
       };
-    
+
       const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
       };
-    
-    
+
+
     function Row(row, key){
-    
+
         return(
             <>
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}></IconButton></TableCell>
-    
+
                     <TableCell >{row.Nimi}</TableCell>
                     <TableCell >{row.Mail} </TableCell>
                     <TableCell >{row.Number} </TableCell>
@@ -43,14 +43,14 @@ export default function WorkerListTable() {
             </>
         );
     }
-    
+
     return (
         <Paper sx={{ width: '100%'}} elevation={2} >
             <TableContainer sx={{ maxHeight: "80vh", width: '100%' }} >
             <Table stickyHeader aria-label="sticky collapsible table" size="small">
                 <TableHead>
                 <TableRow>
-    
+
                     <TableCell padding='none' width={"12px"} />
                     <TableCell >Nimi</TableCell>
                     <TableCell >Mail </TableCell>
@@ -60,10 +60,10 @@ export default function WorkerListTable() {
                 </TableHead>
                 <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
-    
+
                     <Row {...row} key={key} />
                 ))}
-    
+
             </TableBody>
             </Table>
           </TableContainer>
@@ -75,7 +75,7 @@ export default function WorkerListTable() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-    
+
           />
         </Paper>
       );

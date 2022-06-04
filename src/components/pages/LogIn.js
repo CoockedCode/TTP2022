@@ -21,54 +21,44 @@ export default function SignIn() {
   //navigeermine
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios.get(endpoint + "/session/fnc_sess.php?querySess")
-  //   .then(function(response){
-  //     if(response.status === 200 && response.data[0].status == "true"){
-  //       dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-  //       dispatch(setUserSession(true, response.data[0].usrNam));
-  //       navigate("/main");
-  //     }else{
-  //       dispatch(setUserSession(false, ""));
-  //       // console.log('Küpsised puudvad!');
-  //     }
-  //   })
-  // })
+  useEffect(() => {
+    axios.get(endpoint + "/session/Session.php?querySess")
+    .then(function(response){
+      if(response.status === 200 && response.data[0].status == "true"){
+        dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
+        dispatch(setUserSession(true, response.data[0].usrNam));
+        navigate("/main");
+      }else{
+        dispatch(setUserSession(false, ""));
+        console.log('Küpsised puudvad!');
+      }
+    })
+  })
+
+  const fetchUsr = async (usrNam, passWrd) => {
+      const {status, data} = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      if (status === 200){
+        if (data.length > 0){
+          if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
+            dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
+            dispatch(setUserSession(true, data[0].usrNam));
+            navigate("/main");
+          }
+        }else{
+          dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
+        }
+      }
+    };
 
   //siise logimine kontroll
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const fetchUsr = async (usrNam, passWrd) => {
-      const { status, data } = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
-      console.log(status + " <- 1. samm sisselogimisel");
-      if (status === 200) {
-        if (data.length > 0) {
-          if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
-            //küpsiste lisamine ja session start...
-            // axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
-            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam)
-              .then(function(response){
-                console.log(response.status + " <- 2. samm sisselogimisel ehk sessioon");
-                if(response.status === 200){
-                  dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-                  dispatch(setUserSession(true, data[0].usrNam));
-                  navigate("./main");
-                }
-              })
-          } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-            dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-          } else {
-            dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-          }
-        } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-          dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-        } else {
-          dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-        }
-      }
-    };
-    fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+    if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
+      dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
+    } else {
+      fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+    }
   };
 
   return (
