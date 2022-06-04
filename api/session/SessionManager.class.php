@@ -24,9 +24,10 @@ class SessionManager
 				self::regenerateSession();
 
 				// Give a 5% chance of the session id changing on any request
-			} elseif (rand(1, 100) <= 5) {
-				self::regenerateSession();
 			}
+			// elseif (rand(1, 100) <= 5) {
+			// 	self::regenerateSession();
+			// }
 		} else {
 			$_SESSION = array();
 			session_destroy();
@@ -56,7 +57,7 @@ class SessionManager
 
 		// Set current session to expire in 10 seconds
 		$_SESSION['OBSOLETE'] = true;
-		$_SESSION['EXPIRES'] = time() + 10;
+		$_SESSION['EXPIRES'] = time() + 3600;
 
 		// Create new session without destroying the old one
 		session_regenerate_id(false);

@@ -16,7 +16,7 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/fnc/fnc_add_client.php`, {save: `${dataToSave}`})
+		axios.post(`${endpoint}/client/fnc_add_client.php`, {save: `${dataToSave}`})
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
@@ -30,17 +30,14 @@ export default function AddClient(){
 
 	};
 
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
 		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") && formData.get("postIndex") &&
 			 formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
-
 			console.log("väljad täidetud")
 			setHelperText("");
-
 			const dataToSave = {
 				//todo fix from Kert to myself
 				clientNamr: formData.get("clientName"),
@@ -53,9 +50,7 @@ export default function AddClient(){
 				invoiceEm: formData.get("invoiceEm"),
 				additionalInfo: formData.get("addInfo")
 			};
-
 			saveData(dataToSave);
-
 		} else {
 			console.log("viga")
 			if(!formData.get("clientName")){

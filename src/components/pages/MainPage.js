@@ -58,13 +58,11 @@ const MainPage = () => {
               <h3 style={{marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0}} >Aktiivsed Projektid</h3>
             </div>
             <div id="srch-bar" style={{width: "100%"}}>
-
               <Box sx={{display: "inline-flex", flexGrow: "3", mx: 0, p: 0, marginRight: "2%" ,alignItems: "center"}}>
                 <FormControl fullWidth >
                   <TextField id="filled-basic" label="Otsi..." variant="outlined" size="small" />
                 </FormControl>
               </Box>
-
               <Box sx={{flexGrow: "1", maxWidth: "50%"}}>
                 <FormControl>
                 <List
@@ -87,8 +85,6 @@ const MainPage = () => {
                     />
                   </ListItem>
                 </List>
-
-
                 <Menu
                   id="project-select"
                   anchorEl={anchorEl}
@@ -110,15 +106,8 @@ const MainPage = () => {
                     </MenuItem>
                   ))}
                 </Menu>
-
-
                 </FormControl>
               </Box>
-
-
-
-
-
             </div>
           </div>
           <WorkTable />

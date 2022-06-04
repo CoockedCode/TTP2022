@@ -12,6 +12,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
 import { useSelector } from "react-redux";
 import ReadWorker from "./components/pages/ReadWorker";
+import NotFound from "./components/pages/NotFound";
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
     <>
       <NavBar />
         <Routes>
+        <Route path='*' element={<NotFound />} />
           <Route path="/" element={<LogIn />} />
           <Route element={<ProtectedRoutes />}>
             <Route path="/main" element={<MainPage />} />

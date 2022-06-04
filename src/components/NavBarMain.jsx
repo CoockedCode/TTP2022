@@ -49,7 +49,7 @@ const ResponsiveAppBar = () => {
   //välja logimine
   const dispatch = useDispatch();
   const handleLogout = () =>{
-
+	// TODO: fix endpoint and get
 	// axios.get(endpoint + "/session/fnc_sess.php?logout")
     // .then(function(response){
     //   if(response.status === 200){
@@ -59,15 +59,15 @@ const ResponsiveAppBar = () => {
 	// 	dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
 	//   }
     // })
-
 	dispatch(setUserSession(false,""));
 	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
 	navigate("/");
 
-
   }
+
   //ursnam
   const usrNam = useSelector(state => state.userSession.userName);
+
   return (
 	<>
 		<AppBar position="sticky" sx={{ backgroundColor: "black", display: 'flex', justifyContent: 'center', alignItems: "center", width: "100%" }}>
