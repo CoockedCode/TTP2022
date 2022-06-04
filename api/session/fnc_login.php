@@ -42,5 +42,4 @@
 			echo json_encode(array("error"=>"Vale parool või kasutaja!"));
 		}
 	}
-
-	// TODO: ALUSTA SESSIOONI!!! KUI KASUTAJA KÜPSIS ON OLEMAS NING KASUTAJA ON KA OLEMAS!
+?>
