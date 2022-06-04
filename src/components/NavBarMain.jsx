@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 // import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Avatar from '@mui/material/Avatar';
 // import Grid from '@mui/material/Grid';
 
@@ -137,6 +138,9 @@ const ResponsiveAppBar = () => {
 					onClose={handleCloseUserMenu}>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseUserMenu(); handleLogout()}}>
 							<LogoutIcon />&nbsp;&nbsp;Logi välja
+						</MenuItem>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseUserMenu(); navigate("/kasutaja-satted")}}>
+							<SettingsIcon />&nbsp;&nbsp;Sätted
 						</MenuItem>
 					</Menu>
 				</Box>
