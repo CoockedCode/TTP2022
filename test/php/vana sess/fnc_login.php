@@ -1,5 +1,5 @@
 <?php
-	require_once('../config.php');
+
 	require_once('./Session.php');
 	header("Access-Control-Allow-Origin: *");
 
@@ -9,11 +9,7 @@
 	}
 
 	// Päringu filtreerimine
-	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
-		$usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
-		$passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
-		login_usr($usrNam, $passWrd);
-	}
+
 
 	// Funktsioonid
 	function login_usr($usrNam, $passWrd): void{
