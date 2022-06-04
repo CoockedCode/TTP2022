@@ -85,27 +85,96 @@ function Row(row, key){
 	);
 }
 
+function RowSX(row, key){
+
+ 	const [open, setOpen] = useState(false);
+
+	return(
+		<>
+		<TableRow>
+			<TableCell padding='none' sx={{mx: 0, px: 0}}><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton>
+			<ButtonBase href={row.DigiDokk} sx={{mx: 1}}><FileOpenIcon /></ButtonBase>
+			<Box sx={{mx: 1, display: "inline-flex"}}></Box>
+			</TableCell>
+			<TableCell>{row.ID}</TableCell>
+			<TableCell>{row.Projekt}</TableCell>
+		</TableRow>
+		<TableRow sx={{width: "100%"}}>
+			<TableCell colspan="3" sx={{display: "flex", justifyContent: "center"}}><WorkBox workName={row.Progress}/></TableCell>
+		</TableRow>
+		<TableRow></TableRow>
+		<TableRow key={key + 'dropDown'}>
+			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+				<Collapse in={open} timeout="auto" unmountOnExit>
+					<Box sx={{ margin: 1 }}>
+						{/* <Typography variant="h6" gutterBottom component="div">
+						History
+						</Typography> */}
+						<Table size="small" aria-label="muu">
+						<TableHead>
+							<TableRow>
+								<TableCell>Muu 1</TableCell>
+								<TableCell>Muu 2</TableCell>
+								<TableCell align="right">Muu 3</TableCell>
+								<TableCell align="right">Muu 4</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							<TableRow key={1}>
+								<TableCell component="th" scope="row">
+								asdsad
+								</TableCell>
+								<TableCell>asd</TableCell>
+								<TableCell align="right">asd</TableCell>
+								<TableCell align="right">
+								asd
+								</TableCell>
+							</TableRow>
+
+						</TableBody>
+						</Table>
+					</Box>
+				</Collapse>
+			</TableCell>
+		</TableRow>
+		</>
+	);
+}
+
   return (
 	<Paper sx={{ width: '100%'}} elevation={2} >
 		<TableContainer sx={{ maxHeight: "78vh", width: '100%' }} >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
-			<TableHead>
-			<TableRow>
 
-				<TableCell padding='none' width={"12px"} />
-				<TableCell >ID</TableCell>
-				<TableCell >DigiDokk</TableCell>
-				<TableCell >Projekt</TableCell>
-				<TableCell >Progress</TableCell>
-			</TableRow>
+			{/* SX Lai ekraan */}
+			<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
+				<TableRow>
+					<TableCell padding='none' width={"12px"} />
+					<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >ID</TableCell>
+					<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px">DigiDokk</TableCell>
+					<TableCell >Projekt</TableCell>
+					<TableCell >Progress</TableCell>
+				</TableRow>
 			</TableHead>
-			<TableBody>
+			<TableBody sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
 			{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
-
 				<Row {...row} key={key} />
 			))}
+        	</TableBody>
 
-        </TableBody>
+			{/* SX Kitsas ekraan */}
+			<TableHead sx={{ display: { xs: 'table-header-group', md: 'none' }}}>
+				<TableRow>
+					<TableCell></TableCell>
+					<TableCell>ID</TableCell>
+					<TableCell>Projekt</TableCell>
+				</TableRow>
+			</TableHead>
+			<TableBody sx={{ display: { xs: 'table-header-group', md: 'none' }}}>
+			{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
+				<RowSX {...row} key={key} />
+			))}
+        	</TableBody>
         </Table>
       </TableContainer>
       <TablePagination
