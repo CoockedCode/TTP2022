@@ -27,7 +27,7 @@ export default function SignIn() {
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
         dispatch(setUserSession(true, response.data[0].usrNam));
-        navigate("/main");
+        navigate("/avaleht");
       }else{
         dispatch(setUserSession(false, ""));
         console.log('Küpsised puudvad!');
@@ -42,7 +42,7 @@ export default function SignIn() {
           if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
             dispatch(setUserSession(true, data[0].usrNam));
-            navigate("/main");
+            navigate("/avaleht");
           }
         }else{
           dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
