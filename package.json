@@ -38,6 +38,7 @@
   },
   "scripts": {
     "start": "parcel",
-    "build": "parcel build src/index.html --no-optimize --public-url ./"
+    "build": "parcel build src/index.html --no-optimize --public-url ./",
+    "build2": "parcel build src/index.html --public-url ./"
   }
 }
