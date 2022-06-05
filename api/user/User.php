@@ -8,10 +8,12 @@
 		exit;
 	}
 
+    //uus objekt
+    $user = new User();
+
     //kasutaja info
 	if(isset($_GET["usr"]) and !empty($_GET["usr"])){
         $usrNam = filter_var($_GET["usr"], FILTER_SANITIZE_STRING);
-        $user = new User();
         $user->fetch_data($usrNam);
         echo($user->get_data());
 	}
@@ -20,7 +22,6 @@
 	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
 		$usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
 		$passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
-        $user = new User();
         $user->sign_in($usrNam, $passWrd);
         echo($user->get_data());
 	}
@@ -38,7 +39,6 @@
         $usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
         $passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
         $on_pay = filter_var($_GET["onPay"], FILTER_SANITIZE_STRING);
-        $user = new User();
         $user->store_new($first_name, $last_name, $usrNam, $passWrd, $on_pay);
         // echo($user->get_data());
     }
