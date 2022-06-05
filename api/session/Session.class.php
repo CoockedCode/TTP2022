@@ -21,7 +21,7 @@ class session {
 
 		// TODO: PÄRIS BULIDS SEE LIADA
 		$sessMan->sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
-		setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "elektrimasinad.digifi.eu");
+		setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "elektrimasinad.digifi.eu", true, true);
 
 		//TODO: JA SEE EEMALDADA
 		// $sessMan->sessionStart("ELMAS", 86400, "/", "/", true);
@@ -33,8 +33,8 @@ class session {
 	private function destroy_session_and_cookie(): void{
 		unset($_SESSION);
 		session_destroy();
-		setcookie("ELMAS", "", time()-3600);
-		setcookie("ELMAS_Session", "", time()-3600);
+		setcookie("ELMAS", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
+		setcookie("ELMAS_Session", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
 		unset($_COOKIE);
 	}
 	private function query_session_and_cookie(): void{
