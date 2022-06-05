@@ -31,7 +31,7 @@ export default function SignIn() {
         navigate("/avaleht");
       }else{
         dispatch(setUserSession(false, ""));
-        // console.log('Küpsised puudvad!');
+        console.log('Küpsised puudvad!');
       }
     })
   })
