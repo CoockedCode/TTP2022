@@ -7,6 +7,8 @@ class session {
 	// Ehk tehakse ka küpsis selle jaoks, et saaks pärast auto sisse logida!!!
 
 	// Meetodite välja kutsumine
+	private $return_data = null;
+    public function get_data(){return $this->return_data;}
 	public function start($usrNam){$this->start_session_and_cookie($usrNam);}
 	public function destroy(){$this->destroy_session_and_cookie();}
 	public function query(){$this->query_session_and_cookie();}
@@ -15,9 +17,17 @@ class session {
 	private function start_session_and_cookie($usrNam): void{
 		//SessionManager::sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
 		// OOP meetod, mitte katkine otsene nö vooid meetodi kasutamine. Ehk tehakse uus obj!
-		$sess = new SessionManager();
-		$sess->sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
+		$sessMan = new SessionManager();
+
+		// TODO: PÄRIS BULIDS SEE LIADA
+		$sessMan->sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
 		setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "elektrimasinad.digifi.eu");
+
+		//TODO: JA SEE EEMALDADA
+		// $sessMan->sessionStart("ELMAS", 86400, "/", "/", true);
+		// // setcookie("ELMAS", $usrNam, time()+(86400 * 7));
+		// setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "localhost:1234");
+
 		$_SESSION["sess_usr_nam"] = $usrNam;
 	}
 	private function destroy_session_and_cookie(): void{
@@ -28,12 +38,21 @@ class session {
 		unset($_COOKIE);
 	}
 	private function query_session_and_cookie(): void{
+		$this->return_data = null;
+        $list_html = array();
+
 		if(isset($_COOKIE) and !empty($_COOKIE)){
-			echo json_encode(['true',  $_COOKIE["ELMAS"]]);
+			// array_push($list_html, array("status"=>"true", "user_name"=>$_COOKIE));
+			// echo json_encode(['true',  $_COOKIE["ELMAS"]]);
 			//var_dump($_COOKIE);
 		}else{
-			echo json_encode(['false',  'No cookie']);
+			array_push($list_html, array("status"=>"false", "user_name"=>null));
+			// echo json_encode(['false',  'No cookie']);
 		}
+
+		// array_push($list_html, array("status"=>"tru2e", "user_name"=>$_COOKIE["ELMAS"]));
+
+		$this->return_data = json_encode($list_html);
 	}
 } // class end
 

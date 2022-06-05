@@ -15,11 +15,12 @@
 		$usrNam = filter_var($_GET["start"], FILTER_SANITIZE_STRING);
 		$sess->start($usrNam);
 	}
-	if(isset($_GET["destroy"])){
+	if($_GET["destroy"] == "true"){
 		$sess->destroy();
 	}
-	if(isset($_GET["querySess"])){
+	if($_GET["querySess"] == "true"){
 		$sess->query();
+		echo($sess->get_data());
 	}
 
     // var_dump($_SESSION);

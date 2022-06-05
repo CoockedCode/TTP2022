@@ -51,7 +51,7 @@ const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
   const handleLogout = () =>{
 	// TODO: fix endpoint and get
-	axios.get(endpoint + "/session/Session.php?destroy")
+	axios.get(endpoint + "/session/Session.php?destroy=true")
     .then(function(response){
       if(response.status === 200){
         dispatch(setUserSession(false,""));
