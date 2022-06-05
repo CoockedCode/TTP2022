@@ -24,10 +24,9 @@ export default function SignIn() {
   useEffect(() => {
     axios.get(endpoint + "/session/Session.php?querySess=true")
     .then(function(response){
-      console.log(response.data);
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-        dispatch(setUserSession(true, response.data[0].usrNam));
+        dispatch(setUserSession(true, response.data[0].user_name));
         navigate("/avaleht");
       }else{
         dispatch(setUserSession(false, ""));
@@ -45,6 +44,9 @@ export default function SignIn() {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
             dispatch(setUserSession(true, data[0].usrNam));
             navigate("/avaleht");
+          }
+          if(data[0].error){
+            dispatch(setSnackbar(true, "error", "Kasutaja on blokeeritud!"));
           }
         }else{
           dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
