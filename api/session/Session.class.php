@@ -31,11 +31,9 @@ class session {
 		$_SESSION["sess_usr_nam"] = $usrNam;
 	}
 	private function destroy_session_and_cookie(): void{
-		unset($_SESSION);
 		session_destroy();
 		setcookie("ELMAS", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
 		setcookie("ELMAS_Session", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
-		unset($_COOKIE);
 	}
 	private function query_session_and_cookie(): void{
 		$this->return_data = null;
