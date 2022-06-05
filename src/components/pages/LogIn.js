@@ -22,15 +22,16 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(endpoint + "/session/Session.php?querySess")
+    axios.get(endpoint + "/session/Session.php?querySess=true")
     .then(function(response){
+      console.log(response.data);
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
         dispatch(setUserSession(true, response.data[0].usrNam));
         navigate("/avaleht");
       }else{
         dispatch(setUserSession(false, ""));
-        console.log('Küpsised puudvad!');
+        // console.log('Küpsised puudvad!');
       }
     })
   })
