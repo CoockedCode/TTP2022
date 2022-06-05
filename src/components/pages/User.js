@@ -10,7 +10,7 @@ export default function User() {
 
     const [user, setUser] = useState([]);
 	const FetchUser = async ()=>{
-		const resp = await axios.get(endpoint + "/user/fnc_user.php?usr=" + usrNam);
+		const resp = await axios.get(endpoint + "/user/User.php?usr=" + usrNam);
 		setUser([]);
 		resp.data.forEach(element => {
 			setUser(oldArray => [...oldArray, element])

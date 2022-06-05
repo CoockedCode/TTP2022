@@ -3,7 +3,6 @@
     header("Access-Control-Allow-Headers: *");
     header("Content-Type: *; charset=UTF-8");
     require_once('../config.php');
-    require_once('./fnc_sess.php');
 
     if(isset($_GET["workStart"]) and !empty($_GET["workStart"])){
 		$workStart = filter_var($_GET["workStart"], FILTER_SANITIZE_STRING);
@@ -26,9 +25,9 @@
 		echo $conn->error;
 
 		if($stmt->execute()){
-            array_push($list_html, array("Edukalt tühistatud!");
+            array_push($list_html, array("Edukalt tühistatud!"));
 		}else{
-            array_push($list_html, array("Tekkis viga: " .$stmt->error);
+            array_push($list_html, array("Tekkis viga: " .$stmt->error));
 		}
 
 		$stmt->close();
@@ -48,9 +47,9 @@
 		echo $conn->error;
 
 		if($stmt->execute()){
-            array_push($list_html, array("Edukalt tühistatud!");
+            array_push($list_html, array("Edukalt tühistatud!"));
 		}else{
-            array_push($list_html, array("Tekkis viga: " .$stmt->error);
+            array_push($list_html, array("Tekkis viga: " .$stmt->error));
 		}
 
 		$stmt->close();

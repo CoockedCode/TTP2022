@@ -39,7 +39,8 @@ export default function SignIn() {
       const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
       if (status === 200){
         if (data.length > 0){
-          if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
+          console.log(data);
+          if (data[0].usrNam == usrNam && data[0].signIn == "true") {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
             dispatch(setUserSession(true, data[0].usrNam));
             navigate("/avaleht");

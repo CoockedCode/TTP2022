@@ -1,6 +1,6 @@
 <?php
     header("Access-Control-Allow-Origin: *"); // Allow cross domain AJAX requests
-	require_once("./Session.class.php");
+	require_once("Session.class.php");
 
     // Kas on ikka GET päring?
 	if ($_SERVER['REQUEST_METHOD'] != 'GET') {

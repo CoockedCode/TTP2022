@@ -1,7 +1,6 @@
 <?php
-	// header("Access-Control-Allow-Origin: *"); // Allow cross domain AJAX requests
-	require_once("./SessionManager.class.php");
-	// require_once('../config.php');
+
+	require_once("SessionManager.class.php");
 
 class session {
 	// Kui tehakse sess siis saadetakse kasutaja nimi ka sessiooni väljale!!!!
