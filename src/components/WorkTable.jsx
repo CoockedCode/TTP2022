@@ -100,7 +100,7 @@ function RowSX(row, key){
 			<TableCell>{row.Projekt}</TableCell>
 		</TableRow>
 		<TableRow sx={{width: "100%"}}>
-			<TableCell colspan="3" sx={{display: "flex", justifyContent: "center"}}><WorkBox workName={row.Progress}/></TableCell>
+			<TableCell colSpan={3} sx={{display: "flex", justifyContent: "center"}}><WorkBox workName={row.Progress}/></TableCell>
 		</TableRow>
 		<TableRow></TableRow>
 		<TableRow key={key + 'dropDown'}>
