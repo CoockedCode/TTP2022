@@ -40,7 +40,7 @@ class session {
         $list_html = array();
 
 		if(isset($_COOKIE) and !empty($_COOKIE)){
-			array_push($list_html, array("status"=>"true", "user_name"=>$_COOKIE));
+			array_push($list_html, array("status"=>"true", "user_name"=>$_COOKIE["ELMAS"]));
 			// echo json_encode(['true',  $_COOKIE["ELMAS"]]);
 			//var_dump($_COOKIE);
 		}else{

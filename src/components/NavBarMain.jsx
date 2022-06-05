@@ -50,22 +50,18 @@ const ResponsiveAppBar = () => {
   //välja logimine
   const dispatch = useDispatch();
   const handleLogout = () =>{
-	dispatch(setUserSession(false, ""));
-	// TODO: fix endpoint and get
 	axios.get(endpoint + "/session/Session.php?destroy=true")
     .then(function(response){
       if(response.status === 200){
         dispatch(setUserSession(false, ""));
 		dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
+		navigate("/");
       }else{
 		dispatch(setUserSession(false, ""));
 		dispatch(setSnackbar(true,"error","Ei saanud välja logida :("));
+		navigate("/");
 	  }
     })
-	dispatch(setUserSession(false, ""));
-	dispatch(setSnackbar(true,"info","Edukalt välja loginud!"));
-	navigate("/");
-
   }
 
   //ursnam
