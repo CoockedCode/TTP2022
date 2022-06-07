@@ -18,6 +18,7 @@
         $additional_info=$data["dataToSave"]["additionalInfo"];
         save_to_db($client_name, $client_reg_num, $client_addr, $post_index, $cont_person, $client_email, $client_phone, $invoice_email, $additional_info);
     }
+    echo $data;
 
     function save_to_db($client_name, $client_reg_num, $client_addr, $post_index, $cont_person, $client_email, $client_phone, $invoice_email, $additional_info){
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);

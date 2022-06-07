@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
+import { data } from 'jquery';
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -16,7 +17,7 @@ export default function AddClient(){
 	const [helperText, setHelperText] = useState();
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/client/fnc_add_client.php`, {save: `${dataToSave}`})
+		axios.post(endpoint+"/client/fnc_add_client.php", dataToSave)
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
@@ -39,8 +40,7 @@ export default function AddClient(){
 			console.log("väljad täidetud")
 			setHelperText("");
 			const dataToSave = {
-				//todo fix from Kert to myself
-				clientNamr: formData.get("clientName"),
+				clientName: formData.get("clientName"),
 				clientRegNum: formData.get("clientRegNum"),
 				clientAddr: formData.get("clientAddr"),
 				postIndex: formData.get("postIndex"),
