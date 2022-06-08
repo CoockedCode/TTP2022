@@ -9,14 +9,13 @@
     if(!empty($data)){
         $project_num = $data["projectId"];
         $project_name = $data["projectName"];
-        //TODO muuta js dropdowniks ja sealt väärtus saada
         $client = $data["client"];
         $machine_type = $data["machineType"];
         $priority = $data["priority"];
         $planned_end_date = $data["plannedEnd"];
         $project_arrived_by = $data["projectArrivedBy"];
         $additional_info = $data["additionalInfo"];
-        //var_dump($project_num);
+        var_dump($project_num);
         save_to_db($project_num, $client, $machine_type, $priority, $planned_end_date, $project_arrived_by);
     }
 

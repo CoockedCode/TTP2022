@@ -1,7 +1,11 @@
-import { FormControl, FormControlLabel, FormHelperText, RadioGroup } from '@mui/material';
+import { FormControl, FormControlLabel, FormHelperText, InputLabel, RadioGroup, Select } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { List, ListItem, ListItemText } from '@mui/material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import * as dayjs from 'dayjs';
+import et from 'dayjs/locale/et';
 import { Menu, MenuItem } from '@mui/material';
 import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
@@ -10,12 +14,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
-	// kuupäevade sisestused normaliseerida
 	// machineType üle vaadata
+	// transpordifirma dropdown
+	// transport - kui klient tõi ise ss transpordi dropdown disabled
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
-
-	// TODO: kui väljad täitmata siis lisama "warning" snackbari....
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -74,6 +77,22 @@ export default function AddNewProject(){
 		setAnchorEl(null);
 	}
 
+	// transpordifirma dropdown
+	const [selectedFirm, setSelectedFirm] = useState("");
+	const selectFirmHandler = (value) => setSelectedFirm(value);
+
+	// TODO firmsArr saab väärtuse ABst, value on ID
+	console.log(selectedFirm);
+	const firmsArr = [
+		{
+			name: "test",
+			value: "1"
+		},
+		{
+			name: "test2",
+			value: "2"
+		}]
+
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
 		axios.post(endpoint + "/project/fnc_save_project.php", dataToSave)
@@ -92,6 +111,13 @@ export default function AddNewProject(){
 
 	};
 
+	// kuupäeva valik
+	const [selectedDate, setDate] = useState(new Date());
+	const handleDateChange = (newDate) => {
+		setDate(newDate);
+		console.log(`${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`);
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -106,13 +132,15 @@ export default function AddNewProject(){
 				client: selectedIndex,
 				machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
-				plannedEnd: formData.get("projectPlannedEnd"),
+				//plannedEnd: formData.get("projectPlannedEnd"),
+				plannedEnd: `${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`,
 				projectArrivedBy: formData.get("projectArrivedBy"),
 				additionalInfo: formData.get("projectInfo")
 			};
 			//console.log(dataToSave);
+
 			saveData(dataToSave);
-		}else{
+		} else {
 			if(!formData.get("projectId")){
 				setErrorProjectNumber(true);
 			}else{setValueProjectNumber(formData.get("projectId"));}
@@ -230,17 +258,19 @@ export default function AddNewProject(){
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
 
-						<TextField
-							required
-							error={!!errorPlannedEnd}
-							id="projectPlannedEnd"
-							label="Planeeritud lõpp aaaa-kk-pp"
-							name="projectPlannedEnd"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
+						<LocalizationProvider dateAdapter={AdapterDayjs} locale={et}>
+							<DatePicker
+								id="projectPlannedEnd"
+								name="projectPlannedEnd"
+								label="Planeeritud lõpp"
+								invalidDateMessage="Viga kuupäeva sisestamisel"
+								inputFormat="DD/MM/YYYY"
+								error={!!errorPlannedEnd}
+								value={selectedDate}
+								onChange={date => handleDateChange(date)}
+								renderInput={(params) => <TextField {...params} />}
 							/>
+						</LocalizationProvider>
 
 						<RadioGroup
 							required
@@ -253,6 +283,24 @@ export default function AddNewProject(){
 							<FormControlLabel value="klient" control={<Radio />} label="Klient tõi ise" />
 							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
 						</RadioGroup>
+
+						<InputLabel id="transport-firm-label">Vali transpordifirma ↓</InputLabel>
+						<Select
+							labelId="transport-firm-label"
+							label="Transpordifirma"
+							id="Vali transpordifirma ↓"
+							value={selectedFirm}
+							onChange={(e) => selectFirmHandler(e.target.value)}
+						>
+							{firmsArr.map(({ name, value }) => (
+								<MenuItem
+									key={value}
+									value={value}									
+								>
+									{name}
+								</MenuItem>
+							))}
+						</Select>
 
 						<TextField
 							//error={error6}
