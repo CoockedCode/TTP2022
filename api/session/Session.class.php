@@ -1,6 +1,6 @@
 <?php
 
-	require_once("SessionManager.class.php");
+	// require_once("SessionManager.class.php");
 
 class session {
 	// Kui tehakse sess siis saadetakse kasutaja nimi ka sessiooni väljale!!!!
@@ -17,40 +17,45 @@ class session {
 	private function start_session_and_cookie($usrNam): void{
 		//SessionManager::sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
 		// OOP meetod, mitte katkine otsene nö vooid meetodi kasutamine. Ehk tehakse uus obj!
-		$sessMan = new SessionManager();
 
-		// TODO: PÄRIS BULIDS SEE LIADA
-		$sessMan->sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
+		// $sessMan = new SessionManager();
+		// SessionManager::sessionStart("ELMAS", time()+(86400 * 1), "/", "elektrimasinad.digifi.eu");
+
 		setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "elektrimasinad.digifi.eu", true, true);
 
-		//TODO: JA SEE EEMALDADA
-		// $sessMan->sessionStart("ELMAS", 86400, "/", "/", true);
-		// // setcookie("ELMAS", $usrNam, time()+(86400 * 7));
-		// setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "localhost:1234");
+		session_start();
+		$_SESSION["user_name"] = $usrNam;
+		$_SESSION["status"] = "true";
 
-		$_SESSION["sess_usr_nam"] = $usrNam;
 	}
 	private function destroy_session_and_cookie(): void{
+		session_start();
+		session_unset();
 		session_destroy();
+		$_SESSION["user_name"] = null;
+		$_SESSION["status"] = "false";
 		setcookie("ELMAS", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
-		setcookie("ELMAS_Session", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
+		// setcookie("ELMAS_Session", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
 	}
 	private function query_session_and_cookie(): void{
 		$this->return_data = null;
         $list_html = array();
 
+		session_destroy();
+
 		if(isset($_COOKIE) and !empty($_COOKIE)){
-			array_push($list_html, array("status"=>"true", "user_name"=>$_COOKIE["ELMAS"]));
-			// echo json_encode(['true',  $_COOKIE["ELMAS"]]);
-			//var_dump($_COOKIE);
+			session_start();
+			if ($_SESSION["status"] == 'true'){
+				array_push($list_html, array("status"=>"true", "user_name"=>$_SESSION["user_name"]));
+			}else{
+				array_push($list_html, array("status"=>"false", "user_name"=>null));
+			}
 		}else{
 			array_push($list_html, array("status"=>"false", "user_name"=>null));
-			// echo json_encode(['false',  'No cookie']);
 		}
 
-		// array_push($list_html, array("status"=>"tru2e", "user_name"=>$_COOKIE["ELMAS"]));
-
 		$this->return_data = json_encode($list_html);
+
 	}
 } // class end
 
