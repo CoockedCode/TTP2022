@@ -30,53 +30,55 @@ export default function UpdateClient(){
 		});
 
 	};
-	
+
 	const forRows = async (id) => {
-		const resp = await axios.get(endpoint + "/client/fnc_read_to_update.php?client=" + id);
-			setRegNum(resp.data[0].regNum);
-			setAdress(resp.data[0].address);
-			setPostIndex(resp.data[0].postInd);
-			setContPerson(resp.data[0].kontakt);
-			setMail(resp.data[0].mail);
-			setPhoneNR(resp.data[0].telefon);
-			setInvoiceEM(resp.data[0].invoiceEM);
-			setAddInfo(resp.data[0].addInf);
-			console.log(resp.data);
+		const resp = await axios.get(endpoint + "/client/fnc_read_to_update_client.php?client=" + id);
+			// setRegNum(resp.data[0].regNum);
+			// setAdress(resp.data[0].address);
+			// setPostIndex(resp.data[0].postInd);
+			// setContPerson(resp.data[0].kontakt);
+			// setMail(resp.data[0].mail);
+			// setPhoneNR(resp.data[0].telefon);
+			// setInvoiceEM(resp.data[0].invoiceEM);
+			// setAddInfo(resp.data[0].addInf);
+			console.log(resp.data[0].id);
+
 	}
 
 		// klient dropdown menu algus
 		const [options, setOptions] = useState([]);
 		const getOptions = async ()=>{
-			const resp = await axios.get(endpoint + "/project/fnc_get_clients_name_id.php?client");
+			const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
 			setOptions([]);
 			resp.data.forEach(element => {
 				setOptions(oldArray => [...oldArray, element.name])
 			});
 		};
-	
+
 		useEffect(() => {
 			getOptions();
 		  }, []);
-	
+
 		const[anchorEl, setAnchorEl] = useState(null);
 		const[selectedIndex, setSelectedIndex] = useState(1);
 		const open = Boolean(anchorEl);
-	
+
 		const handleClickListItem = (event) => {
 			setAnchorEl(event.currentTarget);
-			
+
 		};
-	
+
 		const handleMenuItemClick = (event, index) => {
 			setSelectedIndex(index);
-			const id={
-				clientID: selectedIndex
-			}
-			forRows(id);
+			// const id={
+			// 	clientID: selectedIndex
+			// }
+			forRows(selectedIndex);
+
 			setAnchorEl(null);
 		}
-		
-	
+
+
 		const handleClose = () => {
 			setAnchorEl(null);
 		}
