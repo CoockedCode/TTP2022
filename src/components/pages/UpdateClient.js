@@ -96,6 +96,7 @@ export default function UpdateClient(){
 			setCompanyID(e.target.value);
 			setCompanyName(e.target.key);
 			forRows(companyID);
+			// piin
 		};
 
 	return(
