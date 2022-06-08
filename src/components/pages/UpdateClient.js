@@ -30,14 +30,18 @@ export default function UpdateClient(){
 		});
 
 	};
-	const [rows, setRows] = useState([]);
-	const forRows = async () => {
-		const resp = await axios.get(endpoint + "/client/fnc_read_to_update.php?client");
-			setRows([]);
-			resp.data.forEach(element => {
-				setRows(oldArray => [...oldArray, element])
-			});
-			console.log(rows);
+	
+	const forRows = async (id) => {
+		const resp = await axios.get(endpoint + "/client/fnc_read_to_update.php?client=" + id);
+			setRegNum(resp.data[0].regNum);
+			setAdress(resp.data[0].address);
+			setPostIndex(resp.data[0].postInd);
+			setContPerson(resp.data[0].kontakt);
+			setMail(resp.data[0].mail);
+			setPhoneNR(resp.data[0].telefon);
+			setInvoiceEM(resp.data[0].invoiceEM);
+			setAddInfo(resp.data[0].addInf);
+			console.log(regNum);
 	}
 
 		// klient dropdown menu algus
