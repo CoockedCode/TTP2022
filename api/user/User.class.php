@@ -23,6 +23,10 @@ class User{
     }
 
     private function store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay){
+        //	kas ikka on sess olemas?
+        session_start();
+        if ($_SESSION["status"] != 'true') {exit;}
+
         $this->return_data = null;
         $list_html = array();
 
@@ -89,6 +93,10 @@ class User{
     }
 
     private function fetch_user_data($usrNam): void{
+        //	kas ikka on sess olemas?
+        session_start();
+        if ($_SESSION["status"] != 'true') {exit;}
+
         $this->return_data = null;
 		$list_html = array();
 

@@ -4,25 +4,24 @@
     require_once("User.class.php");
 
 	// Kas on ikka GET päring?
-	if($_SERVER['REQUEST_METHOD'] != 'GET') {
-		exit;
+	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;
 	}
 
     //uus objekt
     $user = new User();
-
-    //kasutaja info
-	if(isset($_GET["usr"]) and !empty($_GET["usr"])){
-        $usrNam = filter_var($_GET["usr"], FILTER_SANITIZE_STRING);
-        $user->fetch_data($usrNam);
-        echo($user->get_data());
-	}
 
     //sisse logimine
 	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
 		$usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
 		$passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
         $user->sign_in($usrNam, $passWrd);
+        echo($user->get_data());
+	}
+
+    //kasutaja info
+	if(isset($_GET["usr"]) and !empty($_GET["usr"])){
+        $usrNam = filter_var($_GET["usr"], FILTER_SANITIZE_STRING);
+        $user->fetch_data($usrNam);
         echo($user->get_data());
 	}
 
