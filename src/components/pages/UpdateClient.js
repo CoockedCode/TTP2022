@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { List, ListItem, ListItemText } from '@mui/material';
-import { Menu, MenuItem } from '@mui/material';
+import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -19,13 +19,13 @@ export default function UpdateClient(){
 	const saveData = (dataToSave) => {
 		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
-			console.log(response);
+			// console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 			}
 		})
 		.catch(function (err) {
-			console.log(err);
+			// console.log(err);
 			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
@@ -90,6 +90,7 @@ export default function UpdateClient(){
 		const[phoneNR,setPhoneNR]=useState();
 		const[invoiceEM,setInvoiceEM]=useState();
 		const[addInfo,setAddInfo]=useState();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -112,6 +113,17 @@ export default function UpdateClient(){
 		}
 	};
 
+	  const [companyID, setCompanyID] = useState();
+	  const [companyName, setCompanyName] = useState();
+
+		const handleChange = (e) => {
+			setCompanyID(e.target.value);
+			setCompanyID(e.target.key);
+			// console.log(e.target.value);
+			// console.log(e.target.key);
+			forRows(companyID);
+		};
+
 	return(
 		<>
 		<main>
@@ -122,47 +134,20 @@ export default function UpdateClient(){
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
-					<List
-							component="nav"
-							aria-label="Klient"
-							sx={{ bgcolor: "Background.paper" }}
-						>
-							<ListItem
-								button
-								id="client"
-								aria-haspopup="listbox"
-								aria-controls="lock-menu"
-								aria-label="Klient"
-								aria-expanded={open ? "true" : undefined}
-								onClick={handleClickListItem}
+
+							<InputLabel id="demo-simple-select-label">Vali klient</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								value={companyID}
+								label="companyID"
+								onChange={handleChange}
 							>
-								<ListItemText
-									primary="Vali klient ↓"
-									secondary={options[selectedIndex]}
-								/>
-							</ListItem>
-						</List>
-						<Menu
-							id="client"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleClose}
-							MenuListProps={{
-								"aria-labelledby": 'client',
-								role: "listbox",
-							}}
-						>
-							{options.map((option, index) => (
-								<MenuItem
-									key={option}
-									//disabled={index === 0}
-									selected={index === selectedIndex}
-									onClick={(event) => handleMenuItemClick(event, index)}
-								>
-									{option}
-								</MenuItem>
+								{options.map((option, index) => (
+								<MenuItem key={index} value={option}>{option}</MenuItem>
 							))}
-						</Menu>
+							</Select>
+
 						<TextField
 							required
 							fullWidth
