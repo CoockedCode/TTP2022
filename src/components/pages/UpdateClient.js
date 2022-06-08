@@ -33,15 +33,16 @@ export default function UpdateClient(){
 
 	const forRows = async (id) => {
 		const resp = await axios.get(endpoint + "/client/fnc_read_to_update_client.php?client=" + id);
-			// setRegNum(resp.data[0].regNum);
-			// setAdress(resp.data[0].address);
-			// setPostIndex(resp.data[0].postInd);
-			// setContPerson(resp.data[0].kontakt);
-			// setMail(resp.data[0].mail);
-			// setPhoneNR(resp.data[0].telefon);
-			// setInvoiceEM(resp.data[0].invoiceEM);
-			// setAddInfo(resp.data[0].addInf);
-			// console.log(resp.data[0].id);
+		console.log(resp)
+			setRegNum(resp.data[0].regNum);
+			setAdress(resp.data[0].address);
+			setPostIndex(resp.data[0].postInd);
+			setContPerson(resp.data[0].kontakt);
+			setMail(resp.data[0].mail);
+			setPhoneNR(resp.data[0].telefon);
+			setInvoiceEM(resp.data[0].invoiceEM);
+			setAddInfo(resp.data[0].addInf);
+			console.log(resp.data[0].id);
 	}
 
 		// klient dropdown menu algus
@@ -96,6 +97,7 @@ export default function UpdateClient(){
 			setCompanyID(e.target.value);
 			setCompanyName(e.target.key);
 			forRows(companyID);
+			console.log(companyID);
 		};
 
 	return(
@@ -104,7 +106,7 @@ export default function UpdateClient(){
 			<section style={{width: "50%"}}>
 				<br />
 				<div id="header-wrapper">
-					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
+					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Uuenda klienti</h3>
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
@@ -226,7 +228,7 @@ export default function UpdateClient(){
 							margin="dense"
 							//onClick={handleSubmit}
 							>
-							Lisa Klient
+							Uuenda Klient
 						</Button>
 					</FormControl>
 				</Box>

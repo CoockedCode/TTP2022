@@ -28,7 +28,8 @@
                 "addInf"=>$lisa_info_from_db
                 ));
         }
-        echo json_encode($client_array);
+        $json=json_encode($client_array);
+        echo $json;
         $stmt->close();
         $conn->close();
     }
