@@ -41,7 +41,7 @@ export default function UpdateClient(){
 			setPhoneNR(resp.data[0].telefon);
 			setInvoiceEM(resp.data[0].invoiceEM);
 			setAddInfo(resp.data[0].addInf);
-			console.log(regNum);
+			console.log(resp.data);
 	}
 
 		// klient dropdown menu algus
@@ -72,7 +72,7 @@ export default function UpdateClient(){
 			const id={
 				clientID: selectedIndex
 			}
-			forRows();
+			forRows(id);
 			setAnchorEl(null);
 		}
 		
