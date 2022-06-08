@@ -11,6 +11,8 @@ class SessionManager
 
 		// Set session cookie options
 		session_set_cookie_params($limit, $path, $domain, $https, true);
+		// ini_set('session.cookie_lifetime', 60 * 60 * 24 * 30);
+		// ini_set('session.gc-maxlifetime', 60 * 60 * 24 * 30);
 		session_start();
 
 		// Make sure the session hasn't expired, and destroy it if it has

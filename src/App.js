@@ -4,6 +4,7 @@ import LogIn from "./components/pages/LogIn";
 import MainPage from "./components/pages/MainPage";
 import AddNewProject from "./components/pages/AddNewProject";
 import AddClient from "./components/pages/AddClient";
+import UpdateClient from "./components/pages/UpdateClient";
 import AddEmployee from "./components/pages/AddEmployee";
 import SnackBar from "./components/Snackbar";
 import ClientList from "./components/pages/ClientList";
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/avaleht" element={<MainPage />} />
             <Route path="/lisa-projekt" element={<AddNewProject />} />
             <Route path="/lisa-klient" element={<AddClient />} />
+            <Route path="/uuenda-klient" element={<UpdateClient />} />
             <Route path="/kliendid" element={<ClientList />} />
             <Route path="/lisa-tootaja" element={<AddEmployee />} />
             <Route path="/tootajad" element={<EmployeeList />} />

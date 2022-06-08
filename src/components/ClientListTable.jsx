@@ -18,11 +18,12 @@ export default function ClientListTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
-    const resp = await axios.get(endpoint + "/project/fnc_get_all_clients.php?client");
+    const resp = await axios.get(endpoint + "/client/fnc_get_all_clients.php?client");
         setRows([]);
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])
         });
+        console.log(rows);
 }
 
 useEffect(() => {
@@ -52,14 +53,14 @@ useEffect(() => {
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
 
-                    <TableCell >{row.Nimi}</TableCell>
-                    <TableCell >{row.RegistriNR} </TableCell>
-                    <TableCell >{row.Postiindeks} </TableCell>
-                    <TableCell >{row.KontaktIsik} </TableCell>
-                    <TableCell >{row.Mail} </TableCell>
-                    <TableCell >{row.Telefon} </TableCell>
-                    <TableCell >{row.ArveMail}  </TableCell>
-                    <TableCell >{row.Lisainfo} </TableCell>
+                    <TableCell >{row.name}</TableCell>
+                    <TableCell >{row.regNum} </TableCell>
+                    <TableCell >{row.postInd} </TableCell>
+                    <TableCell >{row.kontakt} </TableCell>
+                    <TableCell >{row.mail} </TableCell>
+                    <TableCell >{row.telefon} </TableCell>
+                    <TableCell >{row.invoiceEm}  </TableCell>
+                    <TableCell >{row.addInf} </TableCell>
             </TableRow>
 
             <TableRow key={key + 'dropDown'}>

@@ -3,9 +3,7 @@
 	require_once("Session.class.php");
 
     // Kas on ikka GET päring?
-	if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-		exit;
-	}
+	if ($_SERVER['REQUEST_METHOD'] != 'GET') {exit;}
 
 	// Sess obj moodustamine
 	$sess = new session();

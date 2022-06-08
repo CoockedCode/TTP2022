@@ -6,74 +6,76 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
+import { List, ListItem, ListItemText } from '@mui/material';
+import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
-export default function AddClient(){
+export default function UpdateClient(){
 	//snackbar
 	const dispatch = useDispatch();
 
-
-	//1. Kliendi nimi
-	const [valueClientName, setValueClientName] = useState();
-	const [errorClientName, setErrorClientName] = useState(false);
-	//2. Registri number
-	const [valueRegNum, setValueRegNum] = useState();
-	const [errorRegNum, setErrorRegNum] = useState(false);
-	//4. Kliendi aadress
-	const [valueClientAddr, setValueClientAddr] = useState();
-	const [errorClientAddr, setErrorClientAddr] = useState(false);
-	//5. Postiindex
-	const [valuePostInd, setValuePostInd] = useState();
-	const [errorPostInd, setErrorPostInd] = useState(false);
-	//6. Kontakt isik
-	const [valueContPers, setValueContPers] = useState();
-	const [errorContPers, setErrorContPers] = useState(false);
-	//7. Email
-	const [valueEmail, setEmail] = useState();
-	const [errorEmail, setErrorEmail] = useState(false);
-	//8. Telefon
-	const [valuePhone, setValuePhone] = useState();
-	const [errorPhone, setErrorPhone] = useState(false);
-	//9. Arve mail
-	const [valueInvoiceEm, setValueInvoiceEm] = useState();
-	const [errorInvoiceEm, setErrorInvoiceEm] = useState(false);
-
-	useEffect(() => {
-		if(valueClientName){setErrorClientName(false);}
-		if(valueRegNum){setErrorRegNum(false);}
-		if(valueClientAddr){setErrorClientAddr(false);}
-		if(valuePostInd){setErrorPostInd(false);}
-		if(valueContPers){setErrorContPers(false);}
-		if(valueEmail){setErrorEmail(false);}
-		if(valuePhone){setErrorPhone(false);}
-		if(valueInvoiceEm){setErrorEnvoiceEm(false);}
-	}, [valueClientName, valueRegNum, valueClientAddr, valuePostInd, valueContPers, valueEmail, valuePhone, valueInvoiceEm])
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/client/fnc_add_client.php", dataToSave)
+		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
-			console.log(response);
+			// console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 			}
 		})
 		.catch(function (err) {
-			console.log(err);
+			// console.log(err);
 			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
 	};
 
+	const forRows = async (id) => {
+		const resp = await axios.get(endpoint + "/client/fnc_read_to_update_client.php?client=" + id);
+			// setRegNum(resp.data[0].regNum);
+			// setAdress(resp.data[0].address);
+			// setPostIndex(resp.data[0].postInd);
+			// setContPerson(resp.data[0].kontakt);
+			// setMail(resp.data[0].mail);
+			// setPhoneNR(resp.data[0].telefon);
+			// setInvoiceEM(resp.data[0].invoiceEM);
+			// setAddInfo(resp.data[0].addInf);
+			// console.log(resp.data[0].id);
+	}
+
+		// klient dropdown menu algus
+		const [options, setOptions] = useState([]);
+		const getOptions = async ()=>{
+			const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
+			setOptions([]);
+			resp.data.forEach(element => {
+				setOptions(oldArray => [...oldArray, element.name])
+			});
+		};
+
+		useEffect(() => {
+			getOptions();
+		  }, []);
+
+		const[regNum,setRegNum]=useState();
+		const[adress,setAdress]=useState();
+		const[postIndex,setPostIndex]=useState();
+		const[contPerson,setContPerson]=useState();
+		const[mail,setMail]=useState();
+		const[phoneNR,setPhoneNR]=useState();
+		const[invoiceEM,setInvoiceEM]=useState();
+		const[addInfo,setAddInfo]=useState();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") && formData.get("postIndex") &&
-			 formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
+		if(formData.get("clientRegNum") || formData.get("clientAddr") || formData.get("postIndex") ||
+			 formData.get("contPers") || formData.get("clientEmail") || formData.get("clientPhoneNr") || formData.get("invoiceEm")){
 			console.log("väljad täidetud")
 			const dataToSave = {
-				clientName: formData.get("clientName"),
+				clientId: selectedIndex,
 				clientRegNum: formData.get("clientRegNum"),
 				clientAddr: formData.get("clientAddr"),
 				postIndex: formData.get("postIndex"),
@@ -84,51 +86,17 @@ export default function AddClient(){
 				additionalInfo: formData.get("addInfo")
 			};
 			saveData(dataToSave);
-		} else {
-			console.log("viga")
-			if(!formData.get("clientName")){
-				setErrorClientName(true);
-			}else{
-				setValueClientName(formData.get("clientName"));
-			}
-			if(!formData.get("clientRegNum")){
-				setErrorRegNum(true);
-			}else{
-				setValueRegNum(formData.get("clientRegNum"))
-			}
-			if(!formData.get("clientAddr")){
-				setErrorClientAddr(true);
-			}else{
-				setValueClientAddr(formData.get("clientAddr"));
-			}
-			if(!formData.get("postIndex")){
-				setErrorPostInd(true);
-			}else{
-				setValuePostInd(formData.get("postIndex"));
-			}
-			if(!formData.get("contPers")){
-				setErrorContPers(true);
-			}else{
-				setValueContPers(formData.get("postIndex"));
-			}
-			if(!formData.get("clientEmail")){
-				setErrorEmail(true);
-			}else{
-				setEmail(formData.get("clientEmail"));
-			}
-			if(!formData.get("clientPhoneNr")){
-				setErrorPhone(true);
-			}else{
-				setValuePhone(formData.get("clientPhoneNr"));
-			}
-			if(!formData.get("invoiceEm")){
-				setErrorInvoiceEm(true);
-			}else{
-				setValueInvoiceEm(formData.get("invoiceEm"));
-			}
-
 		}
 	};
+
+	  const [companyID, setCompanyID] = useState("");
+	  const [companyName, setCompanyName] = useState("");
+
+		const handleChange = (e) => {
+			setCompanyID(e.target.value);
+			setCompanyName(e.target.key);
+			forRows(companyID);
+		};
 
 	return(
 		<>
@@ -140,23 +108,23 @@ export default function AddClient(){
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
+
+							<InputLabel id="demo-simple-select-label">Vali klient</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								value={companyID}
+								label="companyID"
+								onChange={handleChange}
+							>
+								{options.map((option, index) => (
+								<MenuItem key={index} value={option}>{option}</MenuItem>
+							))}
+							</Select>
+
 						<TextField
 							required
 							fullWidth
-							autoFocus
-							error={!!errorClientName}
-							id="clientName"
-							label="Kliendi nimi"
-							name="clientName"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							required
-							fullWidth
-							error={!!errorRegNum}
 							id="clientRegNum"
 							label="Kliendi registrinumber"
 							name="clientRegNum"
@@ -169,7 +137,6 @@ export default function AddClient(){
 							required
 							fullWidth
 							// sx={{ width: 'auto'}}
-							error={!!errorClientAddr}
 							id="clientAddr"
 							label="Kliendi address"
 							name="clientAddr"
@@ -182,7 +149,6 @@ export default function AddClient(){
 							required
 							fullWidth
 							autoFocus
-							error={!!errorPostInd}
 							id="postIndex"
 							label="Postiindeks"
 							name="postIndex"
@@ -195,7 +161,6 @@ export default function AddClient(){
 							required
 							fullWidth
 							autoFocus
-							error={!!errorContPers}
 							id="contPers"
 							label="Kontakt isik"
 							name="contPers"
@@ -207,7 +172,6 @@ export default function AddClient(){
 						<TextField
 							required
 							fullWidth
-							error={!!errorEmail}
 							id="clientEmail"
 							label="Kliendi e-mail"
 							name="clientEmail"
@@ -220,7 +184,6 @@ export default function AddClient(){
 						<TextField
 							required
 							fullWidth
-							error={!!errorPhone}
 							id="clientPhoneNr"
 							label="Kliendi tel nr"
 							name="clientPhoneNr"
@@ -234,7 +197,6 @@ export default function AddClient(){
 							required
 							fullWidth
 							autoFocus
-							error={!!errorInvoiceEm}
 							id="invoiceEm"
 							label="Arve e-mail"
 							name="invoiceEm"
