@@ -1,12 +1,9 @@
 <?php
 	require_once('../config.php');
 	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Headers: *");
-	header("Content-Type: *; charset=UTF-8");
-
 
     if($_GET["client"]){
-        get_client_info($_GET["client"]);
+        get_client_info(json_decode($_GET["client"]));
     }
 
     function get_client_info($id){
