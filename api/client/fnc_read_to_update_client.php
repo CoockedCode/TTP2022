@@ -4,12 +4,9 @@
 	header("Access-Control-Allow-Headers: *");
 	header("Content-Type: *; charset=UTF-8");
 
-    $data = json_decode(file_get_contents('php://input'), true);
 
-    if(!empty($data)){
-        $id=$data["id"]["clientID"];
-
-        get_client_info($id);
+    if($_GET["client"]){
+        get_client_info($_GET["client"]);
     }
 
     function get_client_info($id){
