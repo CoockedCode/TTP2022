@@ -41,7 +41,8 @@ export default function UpdateClient(){
 			// setPhoneNR(resp.data[0].telefon);
 			// setInvoiceEM(resp.data[0].invoiceEM);
 			// setAddInfo(resp.data[0].addInf);
-			// console.log(resp.data[0].id);
+			console.log(resp.data[0].id);
+
 	}
 
 		// klient dropdown menu algus
@@ -58,6 +59,29 @@ export default function UpdateClient(){
 			getOptions();
 		  }, []);
 
+		const[anchorEl, setAnchorEl] = useState(null);
+		const[selectedIndex, setSelectedIndex] = useState(1);
+		const open = Boolean(anchorEl);
+
+		const handleClickListItem = (event) => {
+			setAnchorEl(event.currentTarget);
+
+		};
+
+		const handleMenuItemClick = (event, index) => {
+			setSelectedIndex(index);
+			// const id={
+			// 	clientID: selectedIndex
+			// }
+			forRows(selectedIndex);
+
+			setAnchorEl(null);
+		}
+
+
+		const handleClose = () => {
+			setAnchorEl(null);
+		}
 		const[regNum,setRegNum]=useState();
 		const[adress,setAdress]=useState();
 		const[postIndex,setPostIndex]=useState();
