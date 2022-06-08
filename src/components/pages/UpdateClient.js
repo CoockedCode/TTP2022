@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { List, ListItem, ListItemText } from '@mui/material';
-import { Menu, MenuItem } from '@mui/material';
+import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -19,13 +19,13 @@ export default function UpdateClient(){
 	const saveData = (dataToSave) => {
 		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
-			console.log(response);
+			// console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 			}
 		})
 		.catch(function (err) {
-			console.log(err);
+			// console.log(err);
 			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
@@ -41,8 +41,7 @@ export default function UpdateClient(){
 			// setPhoneNR(resp.data[0].telefon);
 			// setInvoiceEM(resp.data[0].invoiceEM);
 			// setAddInfo(resp.data[0].addInf);
-			console.log(resp.data[0].id);
-
+			// console.log(resp.data[0].id);
 	}
 
 		// klient dropdown menu algus
@@ -59,29 +58,6 @@ export default function UpdateClient(){
 			getOptions();
 		  }, []);
 
-		const[anchorEl, setAnchorEl] = useState(null);
-		const[selectedIndex, setSelectedIndex] = useState(1);
-		const open = Boolean(anchorEl);
-
-		const handleClickListItem = (event) => {
-			setAnchorEl(event.currentTarget);
-
-		};
-
-		const handleMenuItemClick = (event, index) => {
-			setSelectedIndex(index);
-			// const id={
-			// 	clientID: selectedIndex
-			// }
-			forRows(selectedIndex);
-
-			setAnchorEl(null);
-		}
-
-
-		const handleClose = () => {
-			setAnchorEl(null);
-		}
 		const[regNum,setRegNum]=useState();
 		const[adress,setAdress]=useState();
 		const[postIndex,setPostIndex]=useState();
@@ -90,6 +66,7 @@ export default function UpdateClient(){
 		const[phoneNR,setPhoneNR]=useState();
 		const[invoiceEM,setInvoiceEM]=useState();
 		const[addInfo,setAddInfo]=useState();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -112,6 +89,15 @@ export default function UpdateClient(){
 		}
 	};
 
+	  const [companyID, setCompanyID] = useState("");
+	  const [companyName, setCompanyName] = useState("");
+
+		const handleChange = (e) => {
+			setCompanyID(e.target.value);
+			setCompanyName(e.target.key);
+			forRows(companyID);
+		};
+
 	return(
 		<>
 		<main>
@@ -122,47 +108,20 @@ export default function UpdateClient(){
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
-					<List
-							component="nav"
-							aria-label="Klient"
-							sx={{ bgcolor: "Background.paper" }}
-						>
-							<ListItem
-								button
-								id="client"
-								aria-haspopup="listbox"
-								aria-controls="lock-menu"
-								aria-label="Klient"
-								aria-expanded={open ? "true" : undefined}
-								onClick={handleClickListItem}
+
+							<InputLabel id="demo-simple-select-label">Vali klient</InputLabel>
+							<Select
+								labelId="demo-simple-select-label"
+								id="demo-simple-select"
+								value={companyID}
+								label="companyID"
+								onChange={handleChange}
 							>
-								<ListItemText
-									primary="Vali klient ↓"
-									secondary={options[selectedIndex]}
-								/>
-							</ListItem>
-						</List>
-						<Menu
-							id="client"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleClose}
-							MenuListProps={{
-								"aria-labelledby": 'client',
-								role: "listbox",
-							}}
-						>
-							{options.map((option, index) => (
-								<MenuItem
-									key={option}
-									//disabled={index === 0}
-									selected={index === selectedIndex}
-									onClick={(event) => handleMenuItemClick(event, index)}
-								>
-									{option}
-								</MenuItem>
+								{options.map((option, index) => (
+								<MenuItem key={index} value={option}>{option}</MenuItem>
 							))}
-						</Menu>
+							</Select>
+
 						<TextField
 							required
 							fullWidth
