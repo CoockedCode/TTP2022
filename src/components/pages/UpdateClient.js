@@ -42,6 +42,7 @@ export default function UpdateClient(){
 			// setInvoiceEM(resp.data[0].invoiceEM);
 			// setAddInfo(resp.data[0].addInf);
 			console.log(resp.data[0].id);
+
 	}
 
 		// klient dropdown menu algus
@@ -73,6 +74,7 @@ export default function UpdateClient(){
 			// 	clientID: selectedIndex
 			// }
 			forRows(selectedIndex);
+
 			setAnchorEl(null);
 		}
 
