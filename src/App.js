@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
-
+import DigiDokk from "./components/pages/DigiDokk";
 
 const App = () => {
 
@@ -49,6 +49,7 @@ const App = () => {
             <Route path="/lisa-tootaja" element={<AddEmployee />} />
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />
+            <Route path="/digidokk" element={<DigiDokk />} />
           </Route>
         </Routes>
       <SnackBar />

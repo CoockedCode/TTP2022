@@ -16,8 +16,10 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import { ButtonBase } from '@mui/material';
 import { rows } from "./WorkTableData";
+import { useNavigate } from "react-router-dom";
 
 export default function StickyHeadTable() {
+  const navigate = useNavigate();
 const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -42,7 +44,8 @@ function Row(row, key){
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
 
 			<TableCell width="48px" >{row.ID}</TableCell>
-			<TableCell width="12px" ><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase ></TableCell>
+			<TableCell width="12px" ><ButtonBase onClick={()=>navigate("/DigiDokk")}><FileOpenIcon /></ButtonBase ></TableCell>
+			{/* <TableCell width="12px" ><ButtonBase onClick={navigate("/DigiDokk")} href={row.DigiDokk}><FileOpenIcon /></ButtonBase ></TableCell> */}
 			<TableCell >{row.Projekt}</TableCell>
 			<TableCell ><WorkBox workName={row.Progress}/></TableCell>
 		</TableRow>
