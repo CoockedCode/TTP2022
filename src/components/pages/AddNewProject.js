@@ -15,8 +15,8 @@ import axios from 'axios';
 
 	// TODO
 	// machineType üle vaadata
-	// transpordifirma dropdown
 	// transport - kui klient tõi ise ss transpordi dropdown disabled
+	// transport - õige salvestus ABsse
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
 
@@ -50,15 +50,15 @@ export default function AddNewProject(){
 	const [companyID, setCompanyID] = useState("");
 	const handleChange = (e) => {
 		setCompanyID(e.target.value);
-		console.log(e.target.value);
+		//console.log(e.target.value);
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
 		const resp = await axios.get(`${endpoint}/client/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
-			setOptions(oldArray => [...oldArray, element])
-			console.log(options);
+			setOptions(oldArray => [...oldArray, element]);
+			//console.log(options);
 		});
 	};
 
@@ -73,24 +73,19 @@ export default function AddNewProject(){
 	const [selectedReturnFirm, setSelectedReturnFirm] = useState("");
 	const selectReturnFirmHandler = (value) => setSelectedReturnFirm(value);
 
-	// TODO firmsArr saab väärtuse ABst, value on ID
-	// console.log(selectedArrivalFirm);
-	// console.log(selectedReturnFirm);
-	const firmsArr = [
-		{
-			name: "transport 1",
-			value: "1"
-		},
-		{
-			name: "transport 2",
-			value: "2"
-		},
-		{
-			name: "transport 3",
-			value: "3"
+	const [firmsArr, setFirmArr] = useState([]);
+	const getFirms = async() => {
+		const resp = await axios.get(`${endpoint}/project/fnc_get_all_transport.php?transport`);
+		setFirmArr([]);
+		resp.data.forEach(element => {
+			setFirmArr(oldFirmArray => [...oldFirmArray, element]);
+			//console.log(firmsArr);
+		});
+	}
 
-		}
-	]
+	useEffect(() => {
+		getFirms();
+	}, []);
 
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
@@ -128,7 +123,7 @@ export default function AddNewProject(){
 	const [selectedDate, setDate] = useState(new Date());
 	const handleDateChange = (newDate) => {
 		setDate(newDate);
-		console.log(`${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`);
+		//console.log(`${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`);
 	};
 
 	const handleSubmit = (e) => {
@@ -148,9 +143,9 @@ export default function AddNewProject(){
 				//plannedEnd: formData.get("projectPlannedEnd"),
 				plannedEnd: `${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`,
 				projectArrivedBy: formData.get("projectArrivedBy"),
-				projectArrivedTransport: formData.get("transportArrivalFirmId"),
+				projectArrivedTransport: selectedArrivalFirm,
 				projectReturnBy: formData.get("projectReturnBy"),
-				projectReturnTransport: formData.get("transportReturnFirmId"),
+				projectReturnTransport: selectedReturnFirm,
 				additionalInfo: formData.get("projectInfo")
 			};
 			//console.log(dataToSave);
@@ -185,6 +180,7 @@ export default function AddNewProject(){
 					<FormControl sx={{width: "100%"}} >
 						<TextField
 							error={!!errorProjectNumber}
+							value={parseInt(lastProjectNum) + 1}
 							required
 							autoFocus
 							id="projectId"
@@ -290,12 +286,13 @@ export default function AddNewProject(){
 							value={selectedArrivalFirm}
 							onChange={(e) => selectArrivalFirmHandler(e.target.value)}
 						>
-							{firmsArr.map(({ name, value }) => (
+							{firmsArr.map((firmsArr, index) => (
 								<MenuItem
-									key={value}
-									value={value}									
+									key={index}
+									value={firmsArr.id}
+									placeholder={firmsArr.name}									
 								>
-									{name}
+									{firmsArr.name}
 								</MenuItem>
 							))}
 						</Select>
@@ -320,19 +317,18 @@ export default function AddNewProject(){
 							value={selectedReturnFirm}
 							onChange={(e) => selectReturnFirmHandler(e.target.value)}
 						>
-							{firmsArr.map(({ name, value }) => (
+							{firmsArr.map((firmsArr, index) => (
 								<MenuItem
-									key={value}
-									value={value}									
+									key={index}
+									value={firmsArr.id}
+									placeholder={firmsArr.name}								
 								>
-									{name}
+									{firmsArr.name}
 								</MenuItem>
 							))}
 						</Select>
 
 						<TextField
-							//error={error6}
-							// sx={{ width: 'auto'}}
 							id="projectInfo"
 							label="Projekti info"
 							name="projectInfo"
