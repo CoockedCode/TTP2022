@@ -61,12 +61,11 @@ class User{
         $this->return_data = null;
         $list_html = array();
 
-        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
-        $conn->set_charset("utf8");
-
-        $stmt = $conn->prepare("SELECT user_name, password FROM tootaja WHERE user_name = ? AND palgal = 1");
-        // echo $conn->error;
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+        $stmt = $conn->prepare("SELECT username, password FROM tootaja WHERE username = ? AND palgal = 1");
         $stmt->bind_param("s", $user_name);
+
 		$stmt->bind_result($user_name_from_db, $password_from_db);
 
         $stmt->execute();
@@ -79,8 +78,6 @@ class User{
         $stmt->close();
 		$conn->close();
 
-		// Kui on üks või rohkem vasteid, siis kasutaja on olemas...
-		// ...ja kui kasutaja on olemas, siis teeme sessiooni talle ja lisame küpsise
 		if(!empty($list_html)){
 			$sess = new session();
 			$sess->start($user_name);
