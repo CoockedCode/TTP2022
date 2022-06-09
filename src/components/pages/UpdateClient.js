@@ -53,8 +53,8 @@ export default function UpdateClient(){
 			const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
 			setOptions([]);
 			resp.data.forEach(element => {
-				setOptions(oldArray => [...oldArray, element.name])
-				console.log(options)
+				setOptions(oldArray => [...oldArray, element])
+				// console.log(element)
 			});
 		};
 
@@ -94,14 +94,13 @@ export default function UpdateClient(){
 	};
 
 	  const [companyID, setCompanyID] = useState("");
-	  const [companyName, setCompanyName] = useState("");
 
 		const handleChange = (e) => {
 			setCompanyID(e.target.value);
-			setCompanyName(e.target.key);
 			forRows(companyID);
-			console.log(index);
+			console.log(companyID);
 		};
+
 
 	return(
 		<>
@@ -122,8 +121,9 @@ export default function UpdateClient(){
 								label="companyID"
 								onChange={handleChange}
 							>
-								{options.map((option, index) => (
-								<MenuItem key={index} value={option}>{option}</MenuItem>
+								{options.map((options, index) => (
+									
+								<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>
 							))}
 							</Select>
 
