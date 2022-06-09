@@ -77,10 +77,8 @@ export default function UpdateClient(){
 		}
 	};
 	const deleteClient=()=>{
-		const clientToDelete={
-			clientId: companyID
-		}
-		axios.post(endpoint+"/client/fnc_delete_client.php", clientToDelete).then(function (response) {
+		axios.get(endpoint+"/client/fnc_delete_client.php?client")
+		.then(function (response) {
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Klient edukalt kustutatud!"));
 			}
