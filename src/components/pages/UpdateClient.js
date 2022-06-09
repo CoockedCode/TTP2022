@@ -21,7 +21,7 @@ export default function UpdateClient(){
 		.then(function (response) {
 			// console.log(response);
 			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
 			}
 		})
 		.catch(function (err) {
@@ -45,6 +45,8 @@ export default function UpdateClient(){
 			console.log(resp.data[0].id);
 	}
 
+	const[index,setSelectedIndex]=useState("")
+
 		// klient dropdown menu algus
 		const [options, setOptions] = useState([]);
 		const getOptions = async ()=>{
@@ -52,6 +54,7 @@ export default function UpdateClient(){
 			setOptions([]);
 			resp.data.forEach(element => {
 				setOptions(oldArray => [...oldArray, element.name])
+				console.log(options)
 			});
 		};
 
@@ -97,7 +100,7 @@ export default function UpdateClient(){
 			setCompanyID(e.target.value);
 			setCompanyName(e.target.key);
 			forRows(companyID);
-			console.log(companyID);
+			console.log(index);
 		};
 
 	return(
@@ -111,10 +114,10 @@ export default function UpdateClient(){
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
 
-							<InputLabel id="demo-simple-select-label">Vali klient</InputLabel>
+							<InputLabel id="clientLabel">Vali klient</InputLabel>
 							<Select
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
+								labelId="clientLabel"
+								id="client"
 								value={companyID}
 								label="companyID"
 								onChange={handleChange}

@@ -55,7 +55,7 @@ export default function AddClient(){
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 			}
 		})
 		.catch(function (err) {
