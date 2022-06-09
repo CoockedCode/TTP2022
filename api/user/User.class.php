@@ -63,7 +63,7 @@ class User{
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-        $stmt = $conn->prepare("SELECT username, password FROM tootaja WHERE username = ? AND palgal = 1");
+        $stmt = $conn->prepare("SELECT user_name, password FROM tootaja WHERE user_name = ? AND palgal = 1");
         $stmt->bind_param("s", $user_name);
 
 		$stmt->bind_result($user_name_from_db, $password_from_db);
