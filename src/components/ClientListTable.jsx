@@ -19,6 +19,7 @@ export default function ClientListTable() {
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/client/fnc_get_all_clients.php?client");
+        console.log(resp);
         setRows([]);
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])

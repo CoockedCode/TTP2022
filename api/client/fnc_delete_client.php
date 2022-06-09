@@ -13,7 +13,7 @@
         $client_array = array();
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
         $conn->set_charset("utf8");
-        $stmt = $conn->prepare("UPDATE klient SET deleted=1 WHERE id=?");
+        $stmt = $conn->prepare("UPDATE klient SET deleted='1' WHERE id=?");
         $stmt->bind_param("i",$id);
         $stmt->execute();
         $stmt->close();

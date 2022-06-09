@@ -30,22 +30,15 @@ export default function UpdateClient(){
 		});
 
 	};
-
+	const [rowOptions, setRowOptions] = useState([])
 	const forRows = async (id) => {
 		const resp = await axios.get(endpoint + "/client/fnc_read_to_update_client.php?client=" + id);
 		console.log(resp)
-			setRegNum(resp.data[0].regNum);
-			setAdress(resp.data[0].address);
-			setPostIndex(resp.data[0].postInd);
-			setContPerson(resp.data[0].kontakt);
-			setMail(resp.data[0].mail);
-			setPhoneNR(resp.data[0].telefon);
-			setInvoiceEM(resp.data[0].invoiceEM);
-			setAddInfo(resp.data[0].addInf);
-			console.log(resp.data[0].id);
+		setRoWOptions([]);
+		resp.data.forEach(element=>{
+			setRowOptions(oldArray=>[...oldArray, element])
+		});
 	}
-
-	const[index,setSelectedIndex]=useState("")
 
 		// klient dropdown menu algus
 		const [options, setOptions] = useState([]);
@@ -62,15 +55,6 @@ export default function UpdateClient(){
 			getOptions();
 		  }, []);
 
-		const[regNum,setRegNum]=useState();
-		const[adress,setAdress]=useState();
-		const[postIndex,setPostIndex]=useState();
-		const[contPerson,setContPerson]=useState();
-		const[mail,setMail]=useState();
-		const[phoneNR,setPhoneNR]=useState();
-		const[invoiceEM,setInvoiceEM]=useState();
-		const[addInfo,setAddInfo]=useState();
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
@@ -79,7 +63,7 @@ export default function UpdateClient(){
 			 formData.get("contPers") || formData.get("clientEmail") || formData.get("clientPhoneNr") || formData.get("invoiceEm")){
 			console.log("väljad täidetud")
 			const dataToSave = {
-				clientId: selectedIndex,
+				clientId: companyID,
 				clientRegNum: formData.get("clientRegNum"),
 				clientAddr: formData.get("clientAddr"),
 				postIndex: formData.get("postIndex"),
@@ -92,7 +76,19 @@ export default function UpdateClient(){
 			saveData(dataToSave);
 		}
 	};
-
+	const deleteClient=()=>{
+		const clientToDelete={
+			clientId: companyID
+		}
+		axios.post(endpoint+"/client/fnc_delete_client.php", clientToDelete).then(function (response) {
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Klient edukalt kustutatud!"));
+			}
+		})
+		.catch(function (err) {
+			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+		});
+	}
 	  const [companyID, setCompanyID] = useState("");
 
 		const handleChange = (e) => {
@@ -100,7 +96,12 @@ export default function UpdateClient(){
 			forRows(companyID);
 			console.log(companyID);
 		};
+	function Row(rowOptions){
 
+		return(
+		""
+		);
+	}
 
 	return(
 		<>
@@ -126,102 +127,102 @@ export default function UpdateClient(){
 								<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>
 							))}
 							</Select>
-
-						<TextField
-							required
-							fullWidth
-							id="clientRegNum"
-							label="Kliendi registrinumber"
-							name="clientRegNum"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							required
-							fullWidth
-							// sx={{ width: 'auto'}}
-							id="clientAddr"
-							label="Kliendi address"
-							name="clientAddr"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							required
-							fullWidth
-							autoFocus
-							id="postIndex"
-							label="Postiindeks"
-							name="postIndex"
-							autoComplete="none"
-							type="number"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							required
-							fullWidth
-							autoFocus
-							id="contPers"
-							label="Kontakt isik"
-							name="contPers"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							required
-							fullWidth
-							id="clientEmail"
-							label="Kliendi e-mail"
-							name="clientEmail"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-
-						<TextField
-							required
-							fullWidth
-							id="clientPhoneNr"
-							label="Kliendi tel nr"
-							name="clientPhoneNr"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-
-						<TextField
-							required
-							fullWidth
-							autoFocus
-							id="invoiceEm"
-							label="Arve e-mail"
-							name="invoiceEm"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
-						<TextField
-							optional
-							fullWidth
-							autoFocus
-							id="addInfo"
-							label="Lisa info"
-							name="addInfo"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/>
+							{rowOptions.map((rowOption)=>{
+							<>
+								<TextField
+									required
+									fullWidth
+									id="clientRegNum"
+									label="Kliendi registrinumber"
+									name="clientRegNum"
+									autoComplete="none"
+									value={rowOption.regNum}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									// sx={{ width: 'auto'}}
+									id="clientAddr"
+									label="Kliendi address"
+									name="clientAddr"
+									autoComplete="none"
+									value={rowOption.address}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									autoFocus
+									id="postIndex"
+									label="Postiindeks"
+									name="postIndex"
+									autoComplete="none"
+									value={rowOption.postInd}
+									type="number"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									autoFocus
+									id="contPers"
+									label="Kontakt isik"
+									name="contPers"
+									autoComplete="none"
+									value={rowOption.kontakt}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									id="clientEmail"
+									label="Kliendi e-mail"
+									name="clientEmail"
+									autoComplete="none"
+									value={rowOption.mail}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									id="clientPhoneNr"
+									label="Kliendi tel nr"
+									name="clientPhoneNr"
+									autoComplete="none"
+									value={rowOption.telefon}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									required
+									fullWidth
+									autoFocus
+									id="invoiceEm"
+									label="Arve e-mail"
+									name="invoiceEm"
+									autoComplete="none"
+									value={rowOption.invoiceEM}
+									type="text"
+									margin="dense"
+									size="small" />
+								<TextField
+									optional
+									fullWidth
+									autoFocus
+									id="addInfo"
+									label="Lisa info"
+									name="addInfo"
+									autoComplete="none"
+									value={rowOption.addInf}
+									type="text"
+									margin="dense"
+									size="small" /></>							
+						})}
 
 						<Button
 							type="submit"
@@ -232,6 +233,14 @@ export default function UpdateClient(){
 							//onClick={handleSubmit}
 							>
 							Uuenda Klient
+						</Button>
+						<Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={deleteClient}
+							>
+							Kustuta klient
 						</Button>
 					</FormControl>
 				</Box>
