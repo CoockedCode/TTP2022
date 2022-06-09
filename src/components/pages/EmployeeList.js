@@ -1,8 +1,9 @@
-import WorkerListTable from "../WorkerListTable";
+import React from "react";
+import EmployeeListTable from "../EmployeeListTable";
 import { FormControl, TextField } from "@mui/material";
 import "../../styles/pages/Home.css";
 
-const WorkerList = () => {
+const EmployeeList = () => {
   return (
     <>
       <main>
@@ -17,11 +18,11 @@ const WorkerList = () => {
               </FormControl>
             </div>
           </div>
-          <WorkerListTable />
+          <EmployeeListTable />
         </section>
       </main>
     </>
   );
 };
 
-export default WorkerList;
+export default EmployeeList;

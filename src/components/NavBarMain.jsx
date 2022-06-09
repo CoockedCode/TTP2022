@@ -90,10 +90,10 @@ const ResponsiveAppBar = () => {
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ClientList")}}>
 							Kliendid<br/>
 						</MenuItem>
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/addWorker")}}>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/AddEmployee")}}>
 							Lisa Töötaja +<br/>
 						</MenuItem>
-						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/ReadWorker")}}>
+						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/EmployeeList")}}>
 							Töötajad<br/>
 						</MenuItem>
 					</Menu>

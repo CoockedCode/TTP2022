@@ -4,7 +4,7 @@ import LogIn from "./components/pages/LogIn";
 import MainPage from "./components/pages/MainPage";
 import AddNewProject from "./components/pages/AddNewProject";
 import AddClient from "./components/pages/AddClient";
-import AddWorker from "./components/pages/AddWorker";
+import AddEmployee from "./components/pages/AddEmployee";
 import ArchivedProjects from "./components/pages/ArchivedProjects";
 import TestAB from "./components/pages/TestAB";
 import TestAB2 from "./components/pages/TestAB2";
@@ -16,7 +16,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
 import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
-import ReadWorker from "./components/pages/ReadWorker";
+import EmployeeList from "./components/pages/EmployeeList";
 
 const App = () => {
 
@@ -45,12 +45,12 @@ const App = () => {
             <Route path="/addNewProject" element={<AddNewProject />} />
             <Route path="/addClient" element={<AddClient />} />
             <Route path="/ClientList" element={<ClientList />} />
-            <Route path="/archivedProjects" element={<ArchivedProjects />} /> */}
-            <Route path="/addWorker" element={<AddWorker />} />
+            <Route path="/archivedProjects" element={<ArchivedProjects />} />
+            <Route path="/addEmployee" element={<AddEmployee />} />
             <Route path="/TestAb" element={<TestAB />} />
             <Route path="/TestAb2" element={<TestAB2 />} />
             <Route path="/T" element={<Test />} />
-            <Route path="/ReadWorker" element={<ReadWorker />} />
+            <Route path="/EmployeeList" element={<EmployeeList />} />
           </Route>
         </Routes>
       <SnackBar />
