@@ -47,12 +47,18 @@ export default function AddNewProject(){
 	}, [valueProjectNumber, valueProjectName, valueMachineType, valuePlannedEnd])
 
 	// klient dropdown menu algus
+	const [companyID, setCompanyID] = useState("");
+	const handleChange = (e) => {
+		setCompanyID(e.target.value);
+		console.log(e.target.value);
+	}
 	const [options, setOptions] = useState([]);
-	const getOptions = async ()=>{
-		const resp = await axios.get(endpoint + "/project/fnc_get_clients_name_id.php?client");
+	const getOptions = async () => {
+		const resp = await axios.get(`${endpoint}/client/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
-			setOptions(oldArray => [...oldArray, element.name])
+			setOptions(oldArray => [...oldArray, element])
+			console.log(options);
 		});
 	};
 
@@ -60,44 +66,51 @@ export default function AddNewProject(){
 		getOptions();
   	}, []);
 
-	const[anchorEl, setAnchorEl] = useState(null);
-	const[selectedIndex, setSelectedIndex] = useState(1);
-	const open = Boolean(anchorEl);
-
-	const handleClickListItem = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleMenuItemClick = (event, index) => {
-		setSelectedIndex(index);
-		setAnchorEl(null);
-	}
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	}
-
 	// transpordifirma dropdown
-	const [selectedFirm, setSelectedFirm] = useState("");
-	const selectFirmHandler = (value) => setSelectedFirm(value);
+	const [selectedArrivalFirm, setSelectedArrivalFirm] = useState("");
+	const selectArrivalFirmHandler = (value) => setSelectedArrivalFirm(value);
+
+	const [selectedReturnFirm, setSelectedReturnFirm] = useState("");
+	const selectReturnFirmHandler = (value) => setSelectedReturnFirm(value);
 
 	// TODO firmsArr saab väärtuse ABst, value on ID
-	console.log(selectedFirm);
+	// console.log(selectedArrivalFirm);
+	// console.log(selectedReturnFirm);
 	const firmsArr = [
 		{
-			name: "test",
+			name: "transport 1",
 			value: "1"
 		},
 		{
-			name: "test2",
+			name: "transport 2",
 			value: "2"
-		}]
+		},
+		{
+			name: "transport 3",
+			value: "3"
+
+		}
+	]
+
+	// viimase projekti nr
+	const [lastProjectNum, setLastProjectNum] = useState("");
+	const getLastProjectNum = () => {
+		axios.get(`${endpoint}/project/fnc_get_last_project_num.php`)
+			.then(function(response) {
+				// console.log(response.data);
+				setLastProjectNum(response.data);
+			})
+	}
+
+	useEffect(() => {
+		getLastProjectNum();
+	});
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + "/project/fnc_save_project.php", dataToSave)
+		axios.post(`${endpoint}/project/fnc_save_project.php`, dataToSave)
 		.then(function(response){
-			// console.log(dataToSave)
+			console.log(dataToSave)
 			console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
@@ -122,23 +135,25 @@ export default function AddNewProject(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && formData.get("projectName") && selectedIndex &&
+		if(formData.get("projectId") && formData.get("projectName") && options &&
 		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
 			console.log("väljad täidetud")
 			// php osa siia
 			const dataToSave = {
 				projectId: formData.get("projectId"),
 				projectName: formData.get("projectName"),
-				client: selectedIndex,
+				client: companyID,
 				machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				//plannedEnd: formData.get("projectPlannedEnd"),
 				plannedEnd: `${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`,
 				projectArrivedBy: formData.get("projectArrivedBy"),
+				projectArrivedTransport: formData.get("transportArrivalFirmId"),
+				projectReturnBy: formData.get("projectReturnBy"),
+				projectReturnTransport: formData.get("transportReturnFirmId"),
 				additionalInfo: formData.get("projectInfo")
 			};
 			//console.log(dataToSave);
-
 			saveData(dataToSave);
 		} else {
 			if(!formData.get("projectId")){
@@ -162,6 +177,9 @@ export default function AddNewProject(){
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
+				</div>
+				<div>
+					<p>Viimase projekti nr: {lastProjectNum}</p>
 				</div>
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} >
@@ -190,48 +208,24 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-
-						<List
-							component="nav"
-							aria-label="Klient"
-							sx={{ bgcolor: "Background.paper" }}
-						>
-							<ListItem
-								button
-								id="client"
-								aria-haspopup="listbox"
-								aria-controls="lock-menu"
-								aria-label="Klient"
-								aria-expanded={open ? "true" : undefined}
-								onClick={handleClickListItem}
-							>
-								<ListItemText
-									primary="Vali klient ↓"
-									secondary={options[selectedIndex]}
-								/>
-							</ListItem>
-						</List>
-						<Menu
+						
+						<p>Klient: </p>
+						<Select
 							id="client"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleClose}
-							MenuListProps={{
-								"aria-labelledby": 'client',
-								role: "listbox",
-							}}
+							value={companyID}
+							label="Klient"
+							onChange={handleChange}
 						>
-							{options.map((option, index) => (
+							{options.map((options, index) => (
 								<MenuItem
-									key={option}
-									//disabled={index === 0}
-									selected={index === selectedIndex}
-									onClick={(event) => handleMenuItemClick(event, index)}
+									key={index}
+									value={options.id}
+									placeholder={options.name}
 								>
-									{option}
+									{options.name}
 								</MenuItem>
 							))}
-						</Menu>
+						</Select>
 
 						<TextField
 							required
@@ -258,20 +252,24 @@ export default function AddNewProject(){
 							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
 						</RadioGroup>
 
-						<LocalizationProvider dateAdapter={AdapterDayjs} locale={et}>
+						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
 							<DatePicker
 								id="projectPlannedEnd"
 								name="projectPlannedEnd"
-								label="Planeeritud lõpp"
+								label="Kokkulepitud lõpp"
 								invalidDateMessage="Viga kuupäeva sisestamisel"
-								inputFormat="DD/MM/YYYY"
+								inputFormat="DD.MM.YYYY"
 								error={!!errorPlannedEnd}
 								value={selectedDate}
 								onChange={date => handleDateChange(date)}
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-
+						
+						<div className='add-project-label'>
+							<h4>Transpordi info</h4>
+							<p>Saabunud:</p>
+						</div>
 						<RadioGroup
 							required
 							error={false}
@@ -284,13 +282,43 @@ export default function AddNewProject(){
 							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
 						</RadioGroup>
 
-						<InputLabel id="transport-firm-label">Vali transpordifirma ↓</InputLabel>
+						{/* <InputLabel id="transport-firm-label">Vali transpordifirma ↓</InputLabel> */}
 						<Select
-							labelId="transport-firm-label"
-							label="Transpordifirma"
-							id="Vali transpordifirma ↓"
-							value={selectedFirm}
-							onChange={(e) => selectFirmHandler(e.target.value)}
+							// labelId="transport-firm-label"
+							label="Vali transpordifirma ↓"
+							id="transportArrivalFirmId"
+							value={selectedArrivalFirm}
+							onChange={(e) => selectArrivalFirmHandler(e.target.value)}
+						>
+							{firmsArr.map(({ name, value }) => (
+								<MenuItem
+									key={value}
+									value={value}									
+								>
+									{name}
+								</MenuItem>
+							))}
+						</Select>
+
+						<p>Tagastus:</p>
+						<RadioGroup
+							required
+							error={false}
+							id='projectReturnBy'
+							label="Tagastus:"
+							name='projectReturnBy'
+							row
+						>
+							<FormControlLabel value="klient" control={<Radio />} label="Klient viib ise" />
+							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
+						</RadioGroup>
+
+						<Select
+							// labelId="transport-firm-label"
+							label="Vali transpordifirma ↓"
+							id="transportReturnFirmId"
+							value={selectedReturnFirm}
+							onChange={(e) => selectReturnFirmHandler(e.target.value)}
 						>
 							{firmsArr.map(({ name, value }) => (
 								<MenuItem
