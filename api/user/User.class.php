@@ -22,10 +22,70 @@ class User{
         $this->fetch_user_data($usrNam);
     }
 
+    public function change_password($usrNam, $old_password, $new_password){
+        $this->change_user_password($usrNam, $old_password, $new_password);
+    }
+
+    private function change_user_password($usrNam, $old_password, $new_password): void{
+        //	TODO: see tööle panna..
+        // session_start();
+        // if ($_SESSION["status"] != 'true') {exit;}
+
+        $this->return_data = null;
+        $list_html = array();
+
+        // array_push($list_html, array("error1"=>$usrNam, $old_password, $new_password));
+
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+
+        // * kasutaja vana parooli kätte saamine ja lahti krüpteerimine
+        $stmt = $conn->prepare("SELECT id, password FROM tootaja WHERE user_name = ? AND palgal = 1");
+        $stmt->bind_param("s", $usrNam);
+		$stmt->bind_result($id_from_db, $password_from_db);
+
+        array_push($list_html, array("error2"=>$id_from_db));
+        array_push($list_html, array("error3"=>$password_from_db));
+
+        // $stmt->execute();
+        // if($stmt->fetch()){
+        //     // if(password_verify($old_password, $password_from_db)){
+        //     //     // * uue parooli krüpteermine
+        //     //     $option = ["cost" => 12];
+        //     //     $pwd_hash = password_hash($new_password, PASSWORD_BCRYPT, $option);
+        //     //     // * parooli muutmine
+        //     //     $stmt = $conn->prepare("UPDATE tootaja SET password = ? WHERE id = ?");
+        //     //     $stmt->bind_param("si", $pwd_hash, $id_from_db);
+        //     //     if($stmt->execute()){
+        //     //         array_push($list_html, array("error"=>"Edukalt salvestatud!"));
+        //     //     }else{
+        //     //         array_push($list_html, array("error"=>'Uue kasutaja loomisel tekkis viga.' .$stmt->error));
+        //     //     }
+        //     }
+        // }
+
+        $stmt->close();
+		$conn->close();
+
+        // if(!empty($list_html)){
+        //     $this->return_data = json_encode($list_html);
+		// }else{
+        //     array_push($list_html, array("error"=>"Vale parool või kasutaja!"));
+        //     $this->return_data = json_encode($list_html);
+		// }
+
+        $this->return_data = json_encode($list_html);
+
+    }
+
+    // private function change_user_name($old_usrNam, $new_usrNam, $password): void{
+    //     null;
+    // }
+
     private function store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay){
-        //	kas ikka on sess olemas?
-        session_start();
-        if ($_SESSION["status"] != 'true') {exit;}
+        //	TODO: see tööle panna.. kas ikka on sess olemas?
+        // session_start();
+        // if ($_SESSION["status"] != 'true') {exit;}
 
         $this->return_data = null;
         $list_html = array();
@@ -91,19 +151,23 @@ class User{
 
     private function fetch_user_data($usrNam): void{
         //	kas ikka on sess olemas?
-        session_start();
-        if ($_SESSION["status"] != 'true') {exit;}
+        // session_start();
+        // if ($_SESSION["status"] != 'true') {exit;}
 
         $this->return_data = null;
 		$list_html = array();
 
+        // // Error kontroll
+        // array_push($list_html, array("error"=>$_SESSION["status"]));
+        // $this->return_data = json_encode($list_html);
+
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
 
-		$stmt = $conn->prepare("SELECT * FROM tootaja WHERE user_name = ? ");
+		$stmt = $conn->prepare("SELECT id, eesnimi, perekonnanimi, user_name, email FROM tootaja WHERE user_name = ?");
 		$stmt->bind_param("s", $usrNam);
 		$stmt->bind_result(
-            $id_from_db, $first_name_from_db, $last_name_from_db, $usrNam_from_db, $passWrd_from_db, $on_pay_from_db);
+            $id_from_db, $first_name_from_db, $last_name_from_db, $user_name_from_db, $email_from_db);
 
 		$stmt->execute();
 		// echo $conn->error;
@@ -112,9 +176,8 @@ class User{
                 "id"=>$id_from_db,
                 "first_name"=>$first_name_from_db,
                 "last_name"=>$last_name_from_db,
-                "user_name"=>$usrNam_from_db,
-                "password"=>$passWrd_from_db,
-                "on_pay"=>$on_pay_from_db
+                "user_name"=>$user_name_from_db,
+                "email"=>$email_from_db
                 ));
 		}
 		$stmt->close();

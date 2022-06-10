@@ -3,14 +3,14 @@
 
     require_once("User.class.php");
 
-	// Kas on ikka GET päring?
+	// ! Kas on ikka GET päring?
 	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;
 	}
 
-    //uus objekt
+    // ! uus objekt
     $user = new User();
 
-    //sisse logimine
+    // * sisse logimine
 	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
 		$usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
 		$passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
@@ -18,14 +18,27 @@
         echo($user->get_data());
 	}
 
-    //kasutaja info
+    // * kasutaja info
 	if(isset($_GET["usr"]) and !empty($_GET["usr"])){
         $usrNam = filter_var($_GET["usr"], FILTER_SANITIZE_STRING);
         $user->fetch_data($usrNam);
         echo($user->get_data());
 	}
 
-    // uue kasutaja lisamine
+    // * kasutaja parooli muutmine
+	if(
+        isset($_GET["changePwdUsr"]) and !empty($_GET["changePwdUsr"]) and
+        isset($_GET["changePwdOld"]) and !empty($_GET["changePwdOld"]) and
+        isset($_GET["changePwdNew"]) and !empty($_GET["changePwdNew"])
+    ){
+        $usrNam = filter_var($_GET["changePwdUsr"], FILTER_SANITIZE_STRING);
+        $old_password = filter_var($_GET["changePwdOld"], FILTER_SANITIZE_STRING);
+        $new_password = filter_var($_GET["changePwdNew"], FILTER_SANITIZE_STRING);
+        $user->change_password($usrNam, $old_password, $new_password);
+        echo($user->get_data());
+	}
+
+    // * uue kasutaja lisamine
     if(
         isset($_GET["first_name"]) and !empty($_GET["first_name"]) and
         isset($_GET["last_name"]) and !empty($_GET["last_name"]) and
