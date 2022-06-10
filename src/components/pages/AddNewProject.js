@@ -14,11 +14,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
+	// uued lahtrid error control
 	// machineType üle vaadata
+	// fotode ja failide lisamine
 	// transport - kui klient tõi ise ss transpordi dropdown disabled
-	// transport - õige salvestus ABsse
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
+	// vormi lõppu vaata mirost millinevälastus on
+
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -65,6 +68,25 @@ export default function AddNewProject(){
 	useEffect(() => {
 		getOptions();
   	}, []);
+
+	// töö liigi dropdown
+	const [workID, setWorkID] = useState("");
+	const handleWorkChange = (e) => {
+		setWorkID(e.target.value);
+	}
+	const [workOptions, setWorkOptions] = useState([]);
+	const getWorkOptions = async () => {
+		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
+		console.log(resp);
+		setWorkOptions([]);
+		resp.data.forEach(element => {
+			setWorkOptions(oldArray => [...oldArray, element]);
+		});
+	};
+
+	useEffect(() => {
+		getWorkOptions();
+	}, []);
 
 	// transpordifirma dropdown
 	const [selectedArrivalFirm, setSelectedArrivalFirm] = useState("");
@@ -120,11 +142,15 @@ export default function AddNewProject(){
 	};
 
 	// kuupäeva valik
-	const [selectedDate, setDate] = useState(new Date());
-	const handleDateChange = (newDate) => {
-		setDate(newDate);
-		//console.log(`${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`);
+	const [selectedEndDate, setEndDate] = useState(new Date());
+	const handleEndDateChange = (newEndDate) => {
+		setEndDate(newEndDate);
+		//console.log(`${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`);
 	};
+	const [selectedStartDate, setStartDate] = useState(new Date());
+	const handleStartDateChange = (newStartDate) => {
+		setStartDate(newStartDate);
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -136,16 +162,24 @@ export default function AddNewProject(){
 			// php osa siia
 			const dataToSave = {
 				projectId: formData.get("projectId"),
-				projectName: formData.get("projectName"),
+				//projectName: formData.get("projectName"),
 				client: companyID,
-				machineType: formData.get("projectMachineType"),
+				//machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
-				//plannedEnd: formData.get("projectPlannedEnd"),
-				plannedEnd: `${selectedDate.$y}-${selectedDate.$M + 1}-${selectedDate.$D}`,
+				plannedEndDate: `${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`,
+				startDate: `${selectedStartDate.$y}-${selectedStartDate.$M + 1}-${selectedStartDate.$D}`,
 				projectArrivedBy: formData.get("projectArrivedBy"),
 				projectArrivedTransport: selectedArrivalFirm,
 				projectReturnBy: formData.get("projectReturnBy"),
 				projectReturnTransport: selectedReturnFirm,
+				offerNr: formData.get("offerNr"),
+				agreedPrice: formData.get("agreedPrice"),
+				clientPO: formData.get("clientPO"),
+				orderer: formData.get("orderer"),
+				ordererPhoneNr: formData.get("ordererPhoneNr"),
+				contractNr: formData.get("contractNr"),
+				firstDefecting: formData.get("firstDefecting"),
+				acceptedBy: formData.get("acceptedBy"),
 				additionalInfo: formData.get("projectInfo")
 			};
 			//console.log(dataToSave);
@@ -192,7 +226,7 @@ export default function AddNewProject(){
 							size="small"
 							/>
 
-						<TextField
+						{/* <TextField
 							required
 							error={!!errorProjectName}
 							autoFocus
@@ -203,7 +237,21 @@ export default function AddNewProject(){
 							type="text"
 							margin="dense"
 							size="small"
+							/> */}
+
+						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
+							<DatePicker
+								id="projectOpenedDate"
+								name="projectOpenedDate"
+								label="Avamise kuupäev"
+								invalidDateMessage="Viga kuupäeva sisestamisel"
+								inputFormat="DD.MM.YYYY"
+								// error={!!errorPlannedEnd}
+								value={selectedStartDate}
+								onChange={startDate => handleStartDateChange(startDate)}
+								renderInput={(params) => <TextField {...params} />}
 							/>
+						</LocalizationProvider>
 						
 						<p>Klient: </p>
 						<Select
@@ -223,7 +271,7 @@ export default function AddNewProject(){
 							))}
 						</Select>
 
-						<TextField
+						{/* <TextField
 							required
 							error={!!errorMachineType}
 							id="projectMachineType"
@@ -233,7 +281,24 @@ export default function AddNewProject(){
 							type="text"
 							margin="dense"
 							size="small"
-							/>
+							/> */}
+						<p>Töö liik: </p>
+						<Select
+							id="workType"
+							value={workID}
+							label="Töö liik"
+							onChange={handleWorkChange}
+						>
+							{workOptions.map((workOptions, index) => (
+								<MenuItem
+									key={index}
+									value={workOptions.id}
+									placeholder={workOptions.name}
+								>
+									{workOptions.name}
+								</MenuItem>
+							))}
+						</Select>
 
 						<RadioGroup
 							required
@@ -256,13 +321,13 @@ export default function AddNewProject(){
 								invalidDateMessage="Viga kuupäeva sisestamisel"
 								inputFormat="DD.MM.YYYY"
 								error={!!errorPlannedEnd}
-								value={selectedDate}
-								onChange={date => handleDateChange(date)}
+								value={selectedEndDate}
+								onChange={endDate => handleEndDateChange(endDate)}
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
 						
-						<div className='add-project-label'>
+						<div className='transport-label'>
 							<h4>Transpordi info</h4>
 							<p>Saabunud:</p>
 						</div>
@@ -328,16 +393,132 @@ export default function AddNewProject(){
 							))}
 						</Select>
 
+						<div className='bill-label'>
+							<h4>Arve info</h4>
+						</div>
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="offerNr"
+							label="Pakkumise nr"
+							name="offerNr"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="agreedPrice"
+							label="Kokkulepitud hind"
+							name="agreedPrice"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="clientPO"
+							label="Kliendi PO nr"
+							name="clientPO"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="orderer"
+							label="Tellimuse esitaja nimi"
+							name="orderer"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="ordererPhoneNr"
+							label="Telefoni nr"
+							name="ordererPhoneNr"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="contractNr"
+							label="Lepingu nr"
+							name="contractNr"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
+						<div className='first-defecting-label'>
+							<h4>Esmase defekteerimise info</h4>
+						</div>
+						<RadioGroup
+							required
+							// error={false}
+							id='firstDefecting'
+							label="Esmase defekteerimise info"
+							name='firstDefecting'
+							row
+						>
+							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
+							<FormControlLabel value="0" control={<Radio />} label="Mitte teostatav" />
+						</RadioGroup>
+						
+						<TextField
+							// error={!!errorProjectNumber}
+							// value={parseInt(lastProjectNum) + 1}
+							required
+							autoFocus
+							id="acceptedBy"
+							label="Vastuvõtja"
+							name="acceptedBy"
+							autoComplete="none"
+							type="text"
+							margin="dense"
+							size="small"
+							/>
+
 						<TextField
 							id="projectInfo"
-							label="Projekti info"
+							label="Projekti lisainfo"
 							name="projectInfo"
 							autoComplete="none"
 							type="text"
 							margin="dense"
 							size="small"
 							multiline
-         					 rows={4}
+         					rows={4}
 							/>
 
 						<Button
