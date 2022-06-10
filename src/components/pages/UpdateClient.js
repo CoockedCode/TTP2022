@@ -37,16 +37,16 @@ export default function UpdateClient(){
 	};
 
 
-	// const [rowOptions, setRowOptions] = useState([]);
-	// const forRows = async (idSend) => {
-	// 	//console.log(idSend);
-	// 	const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
-	// 	console.log(resp.data)
-	// 	setRowOptions([]);
-	// 	resp.data.forEach(element=>{
-	// 		setRowOptions(oldArray=>[...oldArray, element])
-	// 	});
-	// }
+	const [open, setOpen] = useState(false);
+
+	const handleClickOpen = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = () => {
+	  setOpen(false);
+	};
+  
 
 
 	// klient dropdown menu algus
@@ -88,8 +88,8 @@ export default function UpdateClient(){
 		}
 	}
 
-	const deleteClient=()=>{
-		axios.get(endpoint+"/client/fnc_delete_client.php?client")
+	const deleteClient=(toDelete)=>{
+		axios.post(endpoint+"/client/fnc_delete_client.php?client", toDelete)
 		.then(function (response) {
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Klient edukalt kustutatud!"));
@@ -98,6 +98,14 @@ export default function UpdateClient(){
 		.catch(function (err) {
 			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
+	}
+
+	const handleDeletionClick=()=>{
+		const toDelete = {
+			clientID: companyID
+		}
+		handleClose();
+		deleteClient(toDelete);
 	}
 
 	const [companyID, setCompanyID] = useState("");
@@ -317,10 +325,41 @@ export default function UpdateClient(){
 							type="button"
 							variant="contained"
 							sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
-							onClick={deleteClient}
+							onClick={handleClickOpen}
 							>
 							Kustuta klient
 						</Button>
+
+						<Dialog
+								open={open}
+								onClose={handleClose}
+								aria-labelledby="alert-dialog-title"
+								aria-describedby="alert-dialog-description"
+							>
+								<DialogTitle id="alert-dialog-title">
+								{"Kustuta klient?"}
+								</DialogTitle>
+								<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									Soovid tõeliselt klienti kustutada? Nagu FR FR?
+								</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+									width: 'auto' }}
+									margin="dense"onClick={handleClose}>
+									Cancel
+								</Button>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+									onClick={handleDeletionClick} autoFocus>
+									Jah, kustuta klient
+								</Button>
+								</DialogActions>
+							</Dialog>
 					</FormControl>
 				</Box>
 			</section>
