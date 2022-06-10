@@ -49,7 +49,7 @@ export default function UpdateClient(){
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
 		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
-		console.log(resp);
+		// console.log(resp);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element])
@@ -99,9 +99,13 @@ export default function UpdateClient(){
 	const [companyID, setCompanyID] = useState("");
 	const handleChange = (e) => {
 		setCompanyID(e.target.value);
+		console.log(companyID);
+
 		//forRows(companyID);
-		// console.log(companyID);
+
 	};
+
+	// TODO: filtreermine...
 
 
 	return(
@@ -123,11 +127,10 @@ export default function UpdateClient(){
 								label="companyID"
 								onChange={handleChange}
 							>
-								{options.map((options, index) => (
-
-								<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>
-							))}
+								{options.map((options, index) => (<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>))}
 							</Select>
+
+							{/* { console.log(options[2]) } */}
 
 							<>
 								<TextField
@@ -137,7 +140,7 @@ export default function UpdateClient(){
 									label="Kliendi registrinumber"
 									name="clientRegNum"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -149,7 +152,7 @@ export default function UpdateClient(){
 									label="Kliendi address"
 									name="clientAddr"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -161,7 +164,7 @@ export default function UpdateClient(){
 									label="Postiindeks"
 									name="postIndex"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="number"
 									margin="dense"
 									size="small" />
@@ -173,7 +176,7 @@ export default function UpdateClient(){
 									label="Kontakt isik"
 									name="contPers"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -184,7 +187,7 @@ export default function UpdateClient(){
 									label="Kliendi e-mail"
 									name="clientEmail"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -195,7 +198,7 @@ export default function UpdateClient(){
 									label="Kliendi tel nr"
 									name="clientPhoneNr"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -207,7 +210,7 @@ export default function UpdateClient(){
 									label="Arve e-mail"
 									name="invoiceEm"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -219,12 +222,11 @@ export default function UpdateClient(){
 									label="Lisa info"
 									name="addInfo"
 									autoComplete="none"
-
+									value={ companyID ? options[companyID].regNum : "" }
 									type="text"
 									margin="dense"
-									size="small" /></>
-
-
+									size="small" />
+							</>
 						<Button
 							type="submit"
 
