@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     require_once('../session/Session.class.php');
     require_once('../config.php');
 
@@ -26,6 +29,66 @@ class User{
         $this->change_user_password($usrNam, $old_password, $new_password);
     }
 
+    public function change_name($old_user_name, $new_user_name, $password){
+        $this->change_user_name($old_user_name, $new_user_name, $password);
+    }
+
+    private function change_user_name($old_user_name, $new_user_name, $password): void{
+        //	TODO: see tööle panna..
+        // session_start();
+        // if ($_SESSION["status"] != 'true') {exit;}
+
+        // TODO: kontrolli kas selline kasutaja nimi on olemas juba...
+
+        $this->return_data = null;
+        $list_html = array();
+
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+
+        // * Kasutaja nime jube olemas olu kontroll
+        $stmt = $conn->prepare("SELECT EXISTS (SELECT user_name FROM tootaja WHERE user_name = ? limit 1)");
+        $stmt->bind_param("s", $new_user_name);
+		$stmt->bind_result($response_from_db);
+        $stmt->execute();
+        if($stmt->fetch()){
+            if($response_from_db == 0){
+                $stmt->close();
+                // * kasutaja vana parooli kätte saamine ja lahti krüpteerimine ning kasutaja nimi
+                $stmt = $conn->prepare("SELECT id, password FROM tootaja WHERE user_name = ? AND palgal = '1'");
+                $stmt->bind_param("s", $old_user_name);
+                $stmt->bind_result($id_from_db, $password_from_db);
+                $stmt->execute();
+                if($stmt->fetch()){
+                    if(password_verify($password, $password_from_db)){
+                        $stmt->close();
+                        // * kasutajanime muutmine
+                        $stmt = $conn->prepare("UPDATE tootaja SET user_name = ? WHERE id = ?");
+                        $stmt->bind_param("si", $new_user_name, $id_from_db);
+                        if($stmt->execute()){
+                            array_push($list_html, array("notice"=>"Kasutajanimi edukalt muudetud!", "type"=>"success"));
+                        }else{
+                            array_push($list_html, array("notice"=>'Tekkis viga.' .$stmt->error, "type"=>"error"));
+                        }
+                    }
+                }
+            }else{
+                array_push($list_html, array("notice"=>'Sellsie nimega kasutaja on juba olemas!', "type"=>"error"));
+            }
+        }
+
+        $stmt->close();
+		$conn->close();
+        if(!empty($list_html)){
+            $this->return_data = json_encode($list_html);
+		}else{
+            array_push($list_html, array("notice"=>"Vale parool või kasutaja!", "type"=>"error"));
+            $this->return_data = json_encode($list_html);
+		}
+        $this->return_data = json_encode($list_html);
+    }
+
+
     private function change_user_password($usrNam, $old_password, $new_password): void{
         //	TODO: see tööle panna..
         // session_start();
@@ -33,54 +96,39 @@ class User{
 
         $this->return_data = null;
         $list_html = array();
-
-        // array_push($list_html, array("error1"=>$usrNam, $old_password, $new_password));
-
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-
         // * kasutaja vana parooli kätte saamine ja lahti krüpteerimine
-        $stmt = $conn->prepare("SELECT id, password FROM tootaja WHERE user_name = ? AND palgal = 1");
+        $stmt = $conn->prepare("SELECT id, password FROM tootaja WHERE user_name = ? AND palgal = '1'");
         $stmt->bind_param("s", $usrNam);
 		$stmt->bind_result($id_from_db, $password_from_db);
-
-        array_push($list_html, array("error2"=>$id_from_db));
-        array_push($list_html, array("error3"=>$password_from_db));
-
-        // $stmt->execute();
-        // if($stmt->fetch()){
-        //     // if(password_verify($old_password, $password_from_db)){
-        //     //     // * uue parooli krüpteermine
-        //     //     $option = ["cost" => 12];
-        //     //     $pwd_hash = password_hash($new_password, PASSWORD_BCRYPT, $option);
-        //     //     // * parooli muutmine
-        //     //     $stmt = $conn->prepare("UPDATE tootaja SET password = ? WHERE id = ?");
-        //     //     $stmt->bind_param("si", $pwd_hash, $id_from_db);
-        //     //     if($stmt->execute()){
-        //     //         array_push($list_html, array("error"=>"Edukalt salvestatud!"));
-        //     //     }else{
-        //     //         array_push($list_html, array("error"=>'Uue kasutaja loomisel tekkis viga.' .$stmt->error));
-        //     //     }
-        //     }
-        // }
-
+        $stmt->execute();
+        if($stmt->fetch()){
+            if(password_verify($old_password, $password_from_db)){
+                $stmt->close();
+                // * uue parooli krüpteermine
+                $option = ["cost" => 12];
+                $pwd_hash = password_hash($new_password, PASSWORD_BCRYPT, $option);
+                // * parooli muutmine
+                $stmt = $conn->prepare("UPDATE tootaja SET password = ? WHERE id = ?");
+                $stmt->bind_param("si", $pwd_hash, $id_from_db);
+                if($stmt->execute()){
+                    array_push($list_html, array("notice"=>"Parool edukalt muudetud!", "type"=>"success"));
+                }else{
+                    array_push($list_html, array("notice"=>'Tekkis viga.' .$stmt->error, "type"=>"error"));
+                }
+            }
+        }
         $stmt->close();
 		$conn->close();
-
-        // if(!empty($list_html)){
-        //     $this->return_data = json_encode($list_html);
-		// }else{
-        //     array_push($list_html, array("error"=>"Vale parool või kasutaja!"));
-        //     $this->return_data = json_encode($list_html);
-		// }
-
+        if(!empty($list_html)){
+            $this->return_data = json_encode($list_html);
+		}else{
+            array_push($list_html, array("notice"=>"Vale parool või kasutaja!", "type"=>"error"));
+            $this->return_data = json_encode($list_html);
+		}
         $this->return_data = json_encode($list_html);
-
     }
-
-    // private function change_user_name($old_usrNam, $new_usrNam, $password): void{
-    //     null;
-    // }
 
     private function store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay){
         //	TODO: see tööle panna.. kas ikka on sess olemas?

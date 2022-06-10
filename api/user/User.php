@@ -38,6 +38,19 @@
         echo($user->get_data());
 	}
 
+    // * kasutaja nime muutmine
+	if(
+        isset($_GET["changeNameOld"]) and !empty($_GET["changeNameOld"]) and
+        isset($_GET["changeNameNew"]) and !empty($_GET["changeNameNew"]) and
+        isset($_GET["changeNamePwd"]) and !empty($_GET["changeNamePwd"])
+    ){
+        $old_user_name = filter_var($_GET["changeNameOld"], FILTER_SANITIZE_STRING);
+        $new_user_name = filter_var($_GET["changeNameNew"], FILTER_SANITIZE_STRING);
+        $password = filter_var($_GET["changeNamePwd"], FILTER_SANITIZE_STRING);
+        $user->change_name($old_user_name, $new_user_name, $password);
+        echo($user->get_data());
+	}
+
     // * uue kasutaja lisamine
     if(
         isset($_GET["first_name"]) and !empty($_GET["first_name"]) and
