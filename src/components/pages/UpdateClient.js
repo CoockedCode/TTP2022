@@ -35,7 +35,7 @@ export default function UpdateClient(){
 
 
 	const forRows = async (idSend) => {
-		// console.log(idSend);
+		console.log(idSend);
 		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client=" + idSend);
 		console.log(resp.data)
 		setRowOptions([]);
