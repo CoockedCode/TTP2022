@@ -20,7 +20,7 @@
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
         $list_html = array();
-            $stmt = $conn->prepare("INSERT INTO tootaja (id, eesnimi, perekonnanimi, user_name, email, password, palgal, in_edit, telefon_nr) VALUES (NULL, ?, ?, ?, ?, ?, '1', '0', ?)");
+            $stmt = $conn->prepare("INSERT INTO tootaja (id, eesnimi, perekonnanimi, user_name, email, password, palgal, in_edit, telefon_nr) VALUES (NULL, ?, ?, ?, ?, ?, ?, '0', ?)");
             $option = ["cost" => 12];  // cost on palju vaeva nähakse parooli krüpteerimisesk 12 on max. sool lisatakse automaatselt.
             $pwd_hash = password_hash($passwd, PASSWORD_BCRYPT, $option);
             $stmt->bind_param("ssssss", $name, $sname, $usrNam, $mail, $pwd_hash, $telNr);
