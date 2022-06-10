@@ -7,23 +7,30 @@
     $data = json_decode(file_get_contents('php://input'), true);
 
     if(!empty($data)){
-        $employee_fname=$data["employeeFname"];
-        $employee_sname=$data["employeeSname"];
-        $employee_mail=$data["employeeMail"];
-        $employee_number=$data["employeeNumber"];
-        $employee_username=$data["employeeUsername"]
-        $employee_password=$data["employeePassword"]
-        $employee_active=$data["employeeActive"];
-        save_to_db($employee_fname, $employee_sname, $employee_mail, $employee_number, $employee_username, $employee_password, $employee_active);
+        $name=$data["employeeFname"];
+        $sname=$data["employeeSname"];
+        $mail=$data["employeeMail"];
+        $telNr=$data["employeeNumber"];
+        $usrNam=$data["employeeUsername"];
+        $passwd=$data["employeePassword"];
+        save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr);
     }
-    echo $data;
 
-    function save_to_db($employee_fname, $employee_sname, $employee_mail, $employee_number, $employee_username, $employee_password, $employee_active){
-        $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
-        $conn->set_charset("utf8");
-        $stmt = $conn->prepare("INSERT INTO tootaja(id,eesnimi,perekonnanimi,username,email,password,palgal,in_edit") VALUES (NULL,?,?,?,?,?,?,NULL)");
-        $stmt->bind_param("isssssii", $employee_fname, $employee_sname, $employee_mail, $employee_number, $employee_username, $employee_password, $employee_active);
-        $stmt->execute();
-        $stmt->close();
-        $conn->close();
+    function save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr){
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+        $list_html = array();
+            $stmt = $conn->prepare("INSERT INTO tootaja (id, eesnimi, perekonnanimi, user_name, email, password, palgal, in_edit, telefon_nr) VALUES (NULL, ?, ?, ?, ?, ?, '1', '0', ?)");
+            $option = ["cost" => 12];  // cost on palju vaeva nähakse parooli krüpteerimisesk 12 on max. sool lisatakse automaatselt.
+            $pwd_hash = password_hash($passwd, PASSWORD_BCRYPT, $option);
+            $stmt->bind_param("ssssss", $name, $sname, $usrNam, $mail, $pwd_hash, $telNr);
+
+            if($stmt->execute()){
+                array_push($list_html, array("error"=>"Edukalt salvestatud!"));
+            }else{
+                array_push($list_html, array("error"=>'Uue kasutaja loomisel tekkis viga.' .$stmt->error));
+            }
+		$stmt->close();
+		$conn->close();
+        echo json_encode($list_html);
     }
