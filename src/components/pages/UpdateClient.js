@@ -33,22 +33,23 @@ export default function UpdateClient(){
 	// };
 
 
-
-	const forRows = async (idSend) => {
-		console.log(idSend);
-		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client=" + idSend);
-		console.log(resp.data)
-		setRowOptions([]);
-		resp.data.forEach(element=>{
-			setRowOptions(oldArray=>[...oldArray, element])
-		});
-	}
+	// const [rowOptions, setRowOptions] = useState([]);
+	// const forRows = async (idSend) => {
+	// 	//console.log(idSend);
+	// 	const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
+	// 	console.log(resp.data)
+	// 	setRowOptions([]);
+	// 	resp.data.forEach(element=>{
+	// 		setRowOptions(oldArray=>[...oldArray, element])
+	// 	});
+	// }
 
 
 	// klient dropdown menu algus
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
-		const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
+		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
+		console.log(resp);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element])
@@ -56,7 +57,7 @@ export default function UpdateClient(){
 		});
 	};
 
-	useEffect(() => {getOptions(); forRows(1);
+	useEffect(() => {getOptions();
 	}, []);
 
 	// console.log(rowOptions);
@@ -98,7 +99,7 @@ export default function UpdateClient(){
 	const [companyID, setCompanyID] = useState("");
 	const handleChange = (e) => {
 		setCompanyID(e.target.value);
-		forRows(companyID);
+		//forRows(companyID);
 		// console.log(companyID);
 	};
 
