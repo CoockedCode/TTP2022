@@ -16,12 +16,24 @@
 
 .tg .tg-jnby{background-color:#c0c0c0;border-color:#333333;text-align:center;vertical-align:top}
 
-.tg .tg-6252{border-color:#333333;color:#3166ff;text-align:center;vertical-align:top}
+.tg .tg-title{border-width: 0;text-align:center;vertical-align:top; height: 100}
 
-.tg .tg-de2y{border-color:#333333;text-align:left;vertical-align:top}
+.tg .tg-de2y{border-width: 0;text-align:left;vertical-align:top}
 
 .tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
 
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 
 .tg .tg-y6fn{background-color:#c0c0c0;text-align:left;vertical-align:top}
+
+.tg .tg-VPR{border-width: 0}
+
+.tg .tg-prioV{align-items: center; justify-content:center; width: 80}
+
+.tg .tg-prioH{border-width: 0; align-items: center; justify-content: center; align-content: center}
+
+.tg .tg-prio{display: flex; justify-content: center; align-items: center; border-width: 0; align-content: center; height: 120}
+
+.tg .tg-prioL{background-color:#c0c0c0}
+
+.tg .tg-prioLS{border-width: 0; width: 300; min-width: 200}
