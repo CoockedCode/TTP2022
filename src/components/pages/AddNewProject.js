@@ -17,6 +17,7 @@ import axios from 'axios';
 	// uued lahtrid error control
 	// machineType üle vaadata
 	// fotode ja failide lisamine
+	// tööliigi salvestamine ABsee
 	// transport - kui klient tõi ise ss transpordi dropdown disabled
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
@@ -164,6 +165,7 @@ export default function AddNewProject(){
 				projectId: formData.get("projectId"),
 				//projectName: formData.get("projectName"),
 				client: companyID,
+				workType: formData.get("workType"),
 				//machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				plannedEndDate: `${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`,
