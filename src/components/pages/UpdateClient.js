@@ -6,7 +6,11 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
-import { List, ListItem, ListItemText } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -16,21 +20,21 @@ export default function UpdateClient(){
 	const dispatch = useDispatch();
 
 
-	// // info salvestamine php kaudu
-	// const saveData = (dataToSave) => {
-	// 	axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
-	// 	.then(function (response) {
-	// 		// console.log(response);
-	// 		if(response.status === 200){
-	// 			dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
-	// 		}
-	// 	})
-	// 	.catch(function (err) {
-	// 		// console.log(err);
-	// 		dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-	// 	});
+	// info salvestamine php kaudu
+	const saveData = (dataToSave) => {
+		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
+		.then(function (response) {
+			// console.log(response);
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
+			}
+		})
+		.catch(function (err) {
+			// console.log(err);
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+		});
 
-	// };
+	};
 
 
 	// const [rowOptions, setRowOptions] = useState([]);
@@ -80,7 +84,7 @@ export default function UpdateClient(){
 				invoiceEm: formData.get("invoiceEm"),
 				additionalInfo: formData.get("addInfo")
 			};
-			// saveData(dataToSave);
+			saveData(dataToSave);
 		}
 	}
 
@@ -99,14 +103,78 @@ export default function UpdateClient(){
 	const [companyID, setCompanyID] = useState("");
 	const handleChange = (e) => {
 		setCompanyID(e.target.value);
-		console.log(companyID);
+		//console.log(companyID);
 
 		//forRows(companyID);
 
 	};
 
 	// TODO: filtreermine...
-
+	const handleUpdateRegNum=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].regNum=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdateAddress=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].address=e.target.value;
+		console.log(o2);
+		
+		setOptions(o2);
+	}
+	const handleUpdatePostIndex=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].postInd=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdateContPers=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].kontakt=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdateMail=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].mail=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdatePhone=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].telefon=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdateInvoiceEM=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].invoiceEm=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
+	const handleUpdateAddInfo=(e)=>{
+		console.log(e.target.value);
+		//e.target.value="";
+		o2=[...options];
+		o2[companyID-1].addInf=e.target.value;
+		console.log(o2);
+		setOptions(o2);
+	}
 
 	return(
 		<>
@@ -141,6 +209,7 @@ export default function UpdateClient(){
 									name="clientRegNum"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].regNum : "" }
+									onChange={(e)=>handleUpdateRegNum(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -153,6 +222,7 @@ export default function UpdateClient(){
 									name="clientAddr"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].address : "" }
+									onChange={(e)=>handleUpdateAddress(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -165,6 +235,7 @@ export default function UpdateClient(){
 									name="postIndex"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].postInd : "" }
+									onChange={(e)=>handleUpdatePostIndex(e)}
 									type="number"
 									margin="dense"
 									size="small" />
@@ -177,6 +248,7 @@ export default function UpdateClient(){
 									name="contPers"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].kontakt : "" }
+									onChange={(e)=>handleUpdateContPers(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -188,6 +260,7 @@ export default function UpdateClient(){
 									name="clientEmail"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].mail : "" }
+									onChange={(e)=>handleUpdateMail(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -199,6 +272,7 @@ export default function UpdateClient(){
 									name="clientPhoneNr"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].telefon : "" }
+									onChange={(e)=>handleUpdatePhone(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -211,6 +285,7 @@ export default function UpdateClient(){
 									name="invoiceEm"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].invoiceEm : "" }
+									onChange={(e)=>handleUpdateInvoiceEM(e)}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -223,6 +298,7 @@ export default function UpdateClient(){
 									name="addInfo"
 									autoComplete="none"
 									value={ companyID ? options[companyID-1].addInf : "" }
+									onChange={(e)=>handleUpdateAddInfo(e)}
 									type="text"
 									margin="dense"
 									size="small" />
