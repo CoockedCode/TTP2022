@@ -140,7 +140,7 @@ export default function UpdateClient(){
 									label="Kliendi registrinumber"
 									name="clientRegNum"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].regNum : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -152,7 +152,7 @@ export default function UpdateClient(){
 									label="Kliendi address"
 									name="clientAddr"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].address : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -164,7 +164,7 @@ export default function UpdateClient(){
 									label="Postiindeks"
 									name="postIndex"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].postInd : "" }
 									type="number"
 									margin="dense"
 									size="small" />
@@ -176,7 +176,7 @@ export default function UpdateClient(){
 									label="Kontakt isik"
 									name="contPers"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].kontakt : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -187,7 +187,7 @@ export default function UpdateClient(){
 									label="Kliendi e-mail"
 									name="clientEmail"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].mail : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -198,7 +198,7 @@ export default function UpdateClient(){
 									label="Kliendi tel nr"
 									name="clientPhoneNr"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].telefon : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -210,7 +210,7 @@ export default function UpdateClient(){
 									label="Arve e-mail"
 									name="invoiceEm"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].invoiceEm : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -222,7 +222,7 @@ export default function UpdateClient(){
 									label="Lisa info"
 									name="addInfo"
 									autoComplete="none"
-									value={ companyID ? options[companyID].regNum : "" }
+									value={ companyID ? options[companyID-1].addInf : "" }
 									type="text"
 									margin="dense"
 									size="small" />
@@ -240,7 +240,7 @@ export default function UpdateClient(){
 						<Button
 							type="button"
 							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
 							onClick={deleteClient}
 							>
 							Kustuta klient
