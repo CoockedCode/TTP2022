@@ -39,7 +39,7 @@ export default function SignIn() {
       const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
       if (status === 200){
         if (data.length > 0){
-          console.log(data);
+          // console.log(data);
           if (data[0].usrNam == usrNam && data[0].signIn == "true") {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
             dispatch(setUserSession(true, data[0].usrNam));
@@ -78,9 +78,7 @@ export default function SignIn() {
               alignItems: "center",
             }}>
             <Avatar sx={{ m: 1, bgcolor: "white", color: "black" }}></Avatar>
-
             <h1 style={{ margin: 0, padding: 0 }}>Logi Sisse</h1>
-
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

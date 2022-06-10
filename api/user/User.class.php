@@ -66,7 +66,7 @@ class User{
                         $stmt = $conn->prepare("UPDATE tootaja SET user_name = ? WHERE id = ?");
                         $stmt->bind_param("si", $new_user_name, $id_from_db);
                         if($stmt->execute()){
-                            array_push($list_html, array("notice"=>"Kasutajanimi edukalt muudetud!", "type"=>"success"));
+                            array_push($list_html, array("notice"=>"Kasutajanimi edukalt muudetud!", "type"=>"success", "user_name"=>$new_user_name));
                         }else{
                             array_push($list_html, array("notice"=>'Tekkis viga.' .$stmt->error, "type"=>"error"));
                         }

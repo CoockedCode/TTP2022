@@ -6,27 +6,23 @@ import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { setUserSession } from "../../redux/ducks/userSession";
 import axios from 'axios';
-import {width} from "@mui/system";
+
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 function stringToColor(string) {
   let hash = 0;
   let i;
-
   /* eslint-disable no-bitwise */
   for (i = 0; i < string.length; i += 1) {
     hash = string.charCodeAt(i) + ((hash << 5) - hash);
   }
-
   let color = '#';
-
   for (i = 0; i < 3; i += 1) {
     const value = (hash >> (i * 8)) & 0xff;
     color += `00${value.toString(16)}`.slice(-2);
   }
   /* eslint-enable no-bitwise */
-
   return color;
 }
 
@@ -61,8 +57,6 @@ export default function User() {
 		});
 	};
 
-    useEffect(() => {FetchUser();}, []);
-
 	const ChangePassword = async (usrNam, oldPassword, newPassword) =>{
 		const resp = await axios.get(endpoint + "/user/User.php?changePwdUsr=" + usrNam + "&changePwdOld=" + oldPassword + "&changePwdNew=" + newPassword);
 		dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
@@ -72,6 +66,8 @@ export default function User() {
 		const resp = await axios.get(endpoint + "/user/User.php?changeNameOld=" + oldName + "&changeNameNew=" + newName + "&changeNamePwd=" + password);
 		console.log(resp.data.notice);
         dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
+        dispatch(setUserSession(true, resp.data[0].user_name));
+        FetchUser();
 	};
 
     const handleSubmitPassword = (e) => {
@@ -92,6 +88,8 @@ export default function User() {
         ChangeUserName(oldName, newName, password);
     };
 
+    useEffect(() => {FetchUser();}, [handleSubmitUsername]);
+
     return(
         <>
         <main>
@@ -102,16 +100,9 @@ export default function User() {
                 </div>
             </div>
             <div id="content-wrapper">
-
                 {user.map((user) => (
-                    <>
-                    <div
-                        key={user}
-                        id={user.id}
-                        style={{display: "flex"}}
-                    >
-
-                    </div>
+                    <div key={user}
+                        id={user.id}>
                     <TableContainer component={Paper} elevation={3}>
                         <Table sx={{ width: "100%" }} aria-label="simple table">
                             <TableHead>
@@ -261,7 +252,7 @@ export default function User() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    </>
+                    </div>
                 ))}
 
 
