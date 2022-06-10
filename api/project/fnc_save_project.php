@@ -12,7 +12,7 @@
         $client = $data["client"];
         $machine_type = $data["machineType"];
         $priority = $data["priority"];
-        $work_type = $data["workType"];
+        $work_type = $data["workType"]; // ei saada prg
         $planned_end_date = $data["plannedEndDate"];
         $start_date = $data["startDate"];
         $project_arrived_by = $data["projectArrivedBy"];
