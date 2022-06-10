@@ -15,45 +15,51 @@ export default function UpdateClient(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	// info salvestamine php kaudu
-	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
-		.then(function (response) {
-			// console.log(response);
-			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
-			}
-		})
-		.catch(function (err) {
-			// console.log(err);
-			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
-		});
 
-	};
-	const [rowOptions, setRowOptions] = useState([])
-	const forRows = async (id) => {
-		const resp = await axios.get(endpoint + "/client/fnc_read_to_update_client.php?client=" + id);
-		console.log(resp)
-		setRoWOptions([]);
+	// // info salvestamine php kaudu
+	// const saveData = (dataToSave) => {
+	// 	axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
+	// 	.then(function (response) {
+	// 		// console.log(response);
+	// 		if(response.status === 200){
+	// 			dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
+	// 		}
+	// 	})
+	// 	.catch(function (err) {
+	// 		// console.log(err);
+	// 		dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+	// 	});
+
+	// };
+
+
+
+	const forRows = async (idSend) => {
+		// console.log(idSend);
+		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client=" + idSend);
+		console.log(resp.data)
+		setRowOptions([]);
 		resp.data.forEach(element=>{
 			setRowOptions(oldArray=>[...oldArray, element])
 		});
 	}
 
-		// klient dropdown menu algus
-		const [options, setOptions] = useState([]);
-		const getOptions = async ()=>{
-			const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
-			setOptions([]);
-			resp.data.forEach(element => {
-				setOptions(oldArray => [...oldArray, element])
-				// console.log(element)
-			});
-		};
 
-		useEffect(() => {
-			getOptions();
-		  }, []);
+	// klient dropdown menu algus
+	const [options, setOptions] = useState([]);
+	const getOptions = async ()=>{
+		const resp = await axios.get(endpoint + "/client/fnc_get_clients_name_id.php?client");
+		setOptions([]);
+		resp.data.forEach(element => {
+			setOptions(oldArray => [...oldArray, element])
+			// console.log(element)
+		});
+	};
+
+	useEffect(() => {getOptions(); forRows(1);
+	}, []);
+
+	// console.log(rowOptions);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -61,7 +67,7 @@ export default function UpdateClient(){
 		//console.log(formData);
 		if(formData.get("clientRegNum") || formData.get("clientAddr") || formData.get("postIndex") ||
 			 formData.get("contPers") || formData.get("clientEmail") || formData.get("clientPhoneNr") || formData.get("invoiceEm")){
-			console.log("väljad täidetud")
+			// console.log("väljad täidetud")
 			const dataToSave = {
 				clientId: companyID,
 				clientRegNum: formData.get("clientRegNum"),
@@ -73,9 +79,10 @@ export default function UpdateClient(){
 				invoiceEm: formData.get("invoiceEm"),
 				additionalInfo: formData.get("addInfo")
 			};
-			saveData(dataToSave);
+			// saveData(dataToSave);
 		}
-	};
+	}
+
 	const deleteClient=()=>{
 		axios.get(endpoint+"/client/fnc_delete_client.php?client")
 		.then(function (response) {
@@ -87,19 +94,14 @@ export default function UpdateClient(){
 			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
 	}
-	  const [companyID, setCompanyID] = useState("");
 
-		const handleChange = (e) => {
-			setCompanyID(e.target.value);
-			forRows(companyID);
-			console.log(companyID);
-		};
-	function Row(rowOptions){
+	const [companyID, setCompanyID] = useState("");
+	const handleChange = (e) => {
+		setCompanyID(e.target.value);
+		forRows(companyID);
+		// console.log(companyID);
+	};
 
-		return(
-		""
-		);
-	}
 
 	return(
 		<>
@@ -121,11 +123,11 @@ export default function UpdateClient(){
 								onChange={handleChange}
 							>
 								{options.map((options, index) => (
-									
+
 								<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>
 							))}
 							</Select>
-							{rowOptions.map((rowOption)=>{
+
 							<>
 								<TextField
 									required
@@ -134,7 +136,7 @@ export default function UpdateClient(){
 									label="Kliendi registrinumber"
 									name="clientRegNum"
 									autoComplete="none"
-									value={rowOption.regNum}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -146,7 +148,7 @@ export default function UpdateClient(){
 									label="Kliendi address"
 									name="clientAddr"
 									autoComplete="none"
-									value={rowOption.address}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -158,7 +160,7 @@ export default function UpdateClient(){
 									label="Postiindeks"
 									name="postIndex"
 									autoComplete="none"
-									value={rowOption.postInd}
+
 									type="number"
 									margin="dense"
 									size="small" />
@@ -170,7 +172,7 @@ export default function UpdateClient(){
 									label="Kontakt isik"
 									name="contPers"
 									autoComplete="none"
-									value={rowOption.kontakt}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -181,7 +183,7 @@ export default function UpdateClient(){
 									label="Kliendi e-mail"
 									name="clientEmail"
 									autoComplete="none"
-									value={rowOption.mail}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -192,7 +194,7 @@ export default function UpdateClient(){
 									label="Kliendi tel nr"
 									name="clientPhoneNr"
 									autoComplete="none"
-									value={rowOption.telefon}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -204,7 +206,7 @@ export default function UpdateClient(){
 									label="Arve e-mail"
 									name="invoiceEm"
 									autoComplete="none"
-									value={rowOption.invoiceEM}
+
 									type="text"
 									margin="dense"
 									size="small" />
@@ -216,11 +218,11 @@ export default function UpdateClient(){
 									label="Lisa info"
 									name="addInfo"
 									autoComplete="none"
-									value={rowOption.addInf}
+
 									type="text"
 									margin="dense"
-									size="small" /></>							
-						})}
+									size="small" /></>
+
 
 						<Button
 							type="submit"
