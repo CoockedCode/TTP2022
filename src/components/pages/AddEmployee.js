@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import WorkerJobsList from '../WorkerJobsList';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { Select } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { Box } from '@mui/material';
 import axios from 'axios';
@@ -81,6 +82,7 @@ export default function AddWorker(){
 				employeePassword: employeePassword
 
 			};
+			console.log(WorkerJobsList);
 
 			saveData(dataToSave);
 
@@ -126,7 +128,7 @@ export default function AddWorker(){
 				</div>
 
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}}>
+					<FormControl sx={{width: "100%", padding: '0'}}>
 						<TextField
 							required
 							fullWidth
@@ -191,6 +193,11 @@ export default function AddWorker(){
 							type="number"
 							margin="dense"
 							size="small"
+							/>
+						<WorkerJobsList
+							required
+							margin="dense"
+							sx={{width: "100%"}}
 							/>
 
 						<Button

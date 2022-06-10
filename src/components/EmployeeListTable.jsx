@@ -43,9 +43,6 @@ useEffect(() => {
 
     function Row(row, key){
 
-      if(row.employeeActive == 1){
-        row.employeeActive = "Aktiivne"
-      }
 
         return(
             <>

@@ -19,6 +19,7 @@ const EmployeeList = () => {
             </div>
           </div>
           <EmployeeListTable />
+
         </section>
       </main>
     </>
