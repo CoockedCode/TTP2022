@@ -14,14 +14,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 	// TODO
+	// projekti nr sisestus korda teha (hektel fikseeritud eelmine projekti nr + 1)
 	// uued lahtrid error control
+	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// machineType üle vaadata
 	// fotode ja failide lisamine
 	// tööliigi salvestamine ABsee
 	// transport - kui klient tõi ise ss transpordi dropdown disabled
-	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// error handling save_project axioses
-	// vormi lõppu vaata mirost millinevälastus on
+	// vormi lõppu vaata mirost milline väljastus on
 
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -30,25 +31,64 @@ export default function AddNewProject(){
 	//snackbar
 	const dispatch = useDispatch();
 
-	//1. projekt nr
-	const [valueProjectNumber, setValueProjectNumber] = useState();
+	//1. projekt nr error
+	const [projectNumber, setProjectNumber] = useState("");
 	const [errorProjectNumber, setErrorProjectNumber] = useState(false);
-	//2. projekt name
-	const [valueProjectName, setValueProjectName] = useState();
-	const [errorProjectName, setErrorProjectName] = useState(false);
-	//4. machine type
-	const [valueMachineType, setValueMachineType] = useState();
-	const [errorMachineType, setErrorMachineType] = useState(false);
+	//2. avamise kuupäeva error
+	const [errorStartDate, setErrorStartDate] = useState(false);
+	//3. klient error
+	const [errorClient, setErrorClient] = useState(false);
+	//4. tööliik error
+	const [errorWorkType, setErrorWorkType] = useState(false);
 	//5. planned end
-	const [valuePlannedEnd, setValuePlannedEnd] = useState();
 	const [errorPlannedEnd, setErrorPlannedEnd] = useState(false);
+	//6. saabumis transport error
+	const [errorArrivedTransport, setErrorArrivedTransport] = useState(false);
+	//7. tagastus transport error
+	const [errorReturnTransport, setErrorReturnTransport] = useState(false);
+	
 
 	useEffect(() => {
-		if(valueProjectNumber){setErrorProjectNumber(false);}
-		if(valueProjectName){setErrorProjectName(false);}
-		if(valueMachineType){setErrorMachineType(false);}
-		if(valuePlannedEnd){setErrorPlannedEnd(false);}
-	}, [valueProjectNumber, valueProjectName, valueMachineType, valuePlannedEnd])
+		if(projectNumber){setErrorProjectNumber(false);}
+		// if(valueProjectName){setErrorProjectName(false);}
+		// if(valueMachineType){setErrorMachineType(false);}
+		if(plannedEnd){setErrorPlannedEnd(false);}
+	}, [projectNumber, plannedEnd])
+
+	// form validation
+	const formValues = {
+		nr:{
+			value: "",
+			error: false,
+			errorMessage: "Projekti nr sisestamata"
+		},
+		startDate:{
+			value: "",
+			error: false,
+			errorMessage: "Alustamise kuupäev valimata!"
+		},
+		client:{
+			value: "",
+			error: false,
+			errorMessage: "Klient valimata!"
+		},
+		workType:{
+			value: "",
+			error: false,
+			errorMessage: "Töö liik valimata!"
+		},
+		priority:{
+			value: "",
+			error: false,
+			errorMessage: "Prioriteet valimata!"
+		},
+		endDate:{
+			value: "",
+			error: false,
+			errorMessage: "Kokkulepitud lõpp valimata!"
+		}
+
+	}
 
 	// klient dropdown menu algus
 	const [companyID, setCompanyID] = useState("");
@@ -113,7 +153,7 @@ export default function AddNewProject(){
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
 	const getLastProjectNum = () => {
-		axios.get(`${endpoint}/project/fnc_get_last_project_num.php`)
+		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
 				// console.log(response.data);
 				setLastProjectNum(response.data);
@@ -146,7 +186,6 @@ export default function AddNewProject(){
 	const [selectedEndDate, setEndDate] = useState(new Date());
 	const handleEndDateChange = (newEndDate) => {
 		setEndDate(newEndDate);
-		//console.log(`${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`);
 	};
 	const [selectedStartDate, setStartDate] = useState(new Date());
 	const handleStartDateChange = (newStartDate) => {
@@ -157,10 +196,14 @@ export default function AddNewProject(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && formData.get("projectName") && options &&
-		 formData.get("projectMachineType") && formData.get("projectPriority") && formData.get("projectInfo")){
+		if(formData.get("projectId") && companyID && formData.get("workType") && formData.get("projectPriority") 
+			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
+			&& formData.get("projectReturnBy") && formData.get("projectInfo") && formData.get("offerNr")
+			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer") 
+			&& formData.get("ordererPhoneNR") && formData.get("contractNr") && formData.get("firstDefecting")
+			&& formData.get("acceptedBy")){
 			console.log("väljad täidetud")
-			// php osa siia
+			// json objekti loomine
 			const dataToSave = {
 				projectId: formData.get("projectId"),
 				//projectName: formData.get("projectName"),
@@ -189,7 +232,7 @@ export default function AddNewProject(){
 		} else {
 			if(!formData.get("projectId")){
 				setErrorProjectNumber(true);
-			}else{setValueProjectNumber(formData.get("projectId"));}
+			}else{setProjectNumber(formData.get("projectId"));}
 			if(!formData.get("projectName")){
 				setErrorProjectName(true);
 			}else{setValueProjectName(formData.get("projectName"));}
@@ -215,8 +258,9 @@ export default function AddNewProject(){
 				<Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}} >
 						<TextField
-							error={!!errorProjectNumber}
+							// error={formValues.nr.error && formValues.nr.errorMessage}
 							value={parseInt(lastProjectNum) + 1}
+
 							required
 							autoFocus
 							id="projectId"
@@ -247,6 +291,7 @@ export default function AddNewProject(){
 								name="projectOpenedDate"
 								label="Avamise kuupäev"
 								invalidDateMessage="Viga kuupäeva sisestamisel"
+								error={formValues.startDate.error && formValues.startDate.errorMessage}
 								inputFormat="DD.MM.YYYY"
 								// error={!!errorPlannedEnd}
 								value={selectedStartDate}
