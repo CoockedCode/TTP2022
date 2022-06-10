@@ -63,21 +63,25 @@ export default function AddWorker(){
 		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive")){
 			// console.log("väljad täidetud")
+
+			//Kasutajanime loomine ees- ja perekonnanime järgi
+			const employeeFname = formData.get("employeeFname");
+			const employeeSname =  formData.get("employeeSname");
+			const employeeUsername = employeeFname.concat(employeeSname);
+			const employeePassword = employeeFname
+			console.log(employeeUsername);
+			console.log(employeePassword);
 			const dataToSave = {
 				employeeFname: formData.get("employeeFname"),
 				employeeSname: formData.get("employeeSname"),
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
 				employeeActive: formData.get("employeeActive"),
+				employeeUsername: employeeUsername,
+				employeePassword: employeePassword
 
 			};
-			//Kasutajanime loomine ees- ja perekonnanime järgi
-			const employeeFname = formData.get("employeeFname");
-			const employeeSname =  formData.get("employeeSname");
-			const employeeUsername = employeeFname.concat(employeeSname);
-			const employeePassword = employeeFname
-			// console.log(employeeUsername);
-			// console.log(employeePassword);
+
 			saveData(dataToSave);
 
 		} else {
@@ -97,7 +101,7 @@ export default function AddWorker(){
 			}else{
 				setValueEmpMail(formData.get("employeeMail"));
 			}
-			if(!formData.get("employeePhone")){
+			if(!formData.get("employeeNumber")){
 				setErrorEmpNumber(true);
 			}else{
 				setValueEmpNumber(formData.get("employeeNumber"));

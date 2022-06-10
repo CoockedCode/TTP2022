@@ -9,13 +9,15 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
+import { unstable_composeClasses } from '@mui/material';
 
 export default function ClientListTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
-    const resp = await axios.get(endpoint + "/client/fnc_get_all_clients.php?client");
+    const resp = await axios.get(endpoint + "/employee/fnc_read_employees.php?client");
         setRows([]);
+        console.log(resp);
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])
         });
@@ -41,14 +43,20 @@ useEffect(() => {
 
     function Row(row, key){
 
+      if(row.employeeActive == 1){
+        row.employeeActive = "Aktiivne"
+      }
+
         return(
             <>
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}> </IconButton></TableCell>
+                    <TableCell >{row.employeeID} </TableCell>
                     <TableCell >{row.employeeFname}</TableCell>
                     <TableCell >{row.employeeSname}</TableCell>
                     <TableCell >{row.employeeMail} </TableCell>
                     <TableCell >{row.employeeNumber} </TableCell>
+                    <TableCell >{row.employeeUsername} </TableCell>
                     <TableCell >{row.employeeActive} </TableCell>
             </TableRow>
             </>
@@ -63,10 +71,12 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
+                    <TableCell >ID </TableCell>
                     <TableCell >Eesnimi</TableCell>
                     <TableCell >Perekonnanimi</TableCell>
                     <TableCell >Meil </TableCell>
                     <TableCell >Number </TableCell>
+                    <TableCell >Kasutajanimi </TableCell>
                     <TableCell >Staatus </TableCell>
                 </TableRow>
                 </TableHead>
