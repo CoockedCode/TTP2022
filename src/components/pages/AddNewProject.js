@@ -244,7 +244,7 @@ export default function AddNewProject(){
 
 						<RadioGroup
 							required
-							error={false}
+							error={tets ? true : false}
 							id='projectArrivedBy'
 							label="Saabunud:"
 							name='projectArrivedBy'
