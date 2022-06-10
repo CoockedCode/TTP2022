@@ -487,10 +487,12 @@ export default function AddNewProject(){
 						</div>
 						<RadioGroup
 							required
+
 							// error={false}
 							id='firstDefecting'
 							label="Esmase defekteerimise info"
 							name='firstDefecting'
+
 							row
 						>
 							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
