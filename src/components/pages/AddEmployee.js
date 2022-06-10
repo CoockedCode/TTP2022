@@ -44,7 +44,7 @@ export default function AddWorker(){
 	const saveData = (dataToSave) => {
 		axios.post(endpoint+"/employee/fnc_add_employee.php", dataToSave)
 		.then(function (response) {
-			console.log(response);
+			console.log(response.data);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 			}
@@ -62,7 +62,7 @@ export default function AddWorker(){
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive")){
-			console.log("väljad täidetud")
+			// console.log("väljad täidetud")
 			const dataToSave = {
 				employeeFname: formData.get("employeeFname"),
 				employeeSname: formData.get("employeeSname"),
@@ -76,8 +76,8 @@ export default function AddWorker(){
 			const employeeSname =  formData.get("employeeSname");
 			const employeeUsername = employeeFname.concat(employeeSname);
 			const employeePassword = employeeFname
-			console.log(employeeUsername);
-			console.log(employeePassword);
+			// console.log(employeeUsername);
+			// console.log(employeePassword);
 			saveData(dataToSave);
 
 		} else {
@@ -110,17 +110,17 @@ export default function AddWorker(){
 
 		}
 	}
-	
+
 	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 	return(
 		<>
 		<main>
 			<section>
-				 
+
 				<div id="header-wrapper">
 					<h3>Lisa uus Töötaja:</h3>
 				</div>
-				
+
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%"}}>
 						<TextField
@@ -149,7 +149,7 @@ export default function AddWorker(){
 							margin="dense"
 							size="small"
 							/>
-						
+
 						<TextField
 							required
 							fullWidth
@@ -202,7 +202,7 @@ export default function AddWorker(){
 						{/* <FormHelperText>{helperText}</FormHelperText> */}
 					</FormControl>
 				</Box>
-				
+
 			</section>
 		</main>
 		</>
