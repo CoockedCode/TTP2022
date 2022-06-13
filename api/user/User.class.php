@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
     require_once('../session/Session.class.php');
     require_once('../config.php');
 
