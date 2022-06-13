@@ -4,7 +4,9 @@
 	header("Access-Control-Allow-Headers: *");
 	header("Content-Type: *; charset=UTF-8");
 
-    get_last_project_num();
+    if(isset($_GET["last_project"])){
+        get_last_project_num();
+    }
 
     function get_last_project_num(){
         $last_project_num = null;
