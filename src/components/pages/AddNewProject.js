@@ -97,11 +97,11 @@ export default function AddNewProject(){
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
-		const resp = await axios.get(`${endpoint}/client/fnc_get_clients_name_id.php?client`);
+		const resp = await axios.get(`${endpoint}/project/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element]);
-			//console.log(options);
+			console.log(options);
 		});
 	};
 
