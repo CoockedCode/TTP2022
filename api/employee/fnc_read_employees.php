@@ -34,6 +34,7 @@
                 "employeeActive"=>$status_from_db
                 ));
         }
+        echo json_encode($employee_array);
         echo $conn->error;
         $stmt->close();
         $conn->close();

@@ -9,9 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
-import { unstable_composeClasses } from '@mui/material';
 
-export default function ClientListTable() {
+export default function EmployeeListTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
@@ -48,7 +47,6 @@ useEffect(() => {
             <>
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}> </IconButton></TableCell>
-                    <TableCell >{row.employeeID} </TableCell>
                     <TableCell >{row.employeeFname}</TableCell>
                     <TableCell >{row.employeeSname}</TableCell>
                     <TableCell >{row.employeeMail} </TableCell>
@@ -68,7 +66,6 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
-                    <TableCell >ID </TableCell>
                     <TableCell >Eesnimi</TableCell>
                     <TableCell >Perekonnanimi</TableCell>
                     <TableCell >Meil </TableCell>

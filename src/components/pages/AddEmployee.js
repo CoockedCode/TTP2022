@@ -128,7 +128,7 @@ export default function AddWorker(){
 				</div>
 
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%", padding: '0'}}>
+					<FormControl sx={{width: "100%", py: '20px'}}>
 						<TextField
 							required
 							fullWidth
@@ -197,12 +197,10 @@ export default function AddWorker(){
 						<WorkerJobsList
 							required
 							margin="dense"
-							sx={{width: "100%"}}
 							/>
 
 						<Button
 							type="submit"
-
 							variant="contained"
 							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
 							margin="dense"
