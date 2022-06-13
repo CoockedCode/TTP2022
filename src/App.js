@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
+import ChoiceList from "./components/pages/ChoiceList";
 
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/lisa-klient" element={<AddClient />} />
             <Route path="/uuenda-klient" element={<UpdateClient />} />
             <Route path="/kliendid" element={<ClientList />} />
+            <Route path="/valikud" element={<ChoiceList />} />
             <Route path="/lisa-tootaja" element={<AddEmployee />} />
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />

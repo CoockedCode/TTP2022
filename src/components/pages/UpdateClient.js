@@ -57,9 +57,9 @@ export default function UpdateClient(){
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element])
-			console.log(element)
+			//console.log(element)
 		});
-		console.log(options);
+		//console.log(options);
 	};
 
 	useEffect(() => {getOptions();
@@ -90,7 +90,6 @@ export default function UpdateClient(){
 	}
 
 	const deleteClient=()=>{
-		console.log("FUCK YOU!");
 		const toDelete = {
 			clientId: options[companyRealId].id,
 		};
@@ -99,7 +98,6 @@ export default function UpdateClient(){
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
-				console.log('what');
 				dispatch(setSnackbar(true,"success","Klient edukalt kustutatud!"));
 			}
 		})
@@ -108,16 +106,6 @@ export default function UpdateClient(){
 		});
 		handleClose();
 	}
-
-	// const handleDeletionClick=()=>{
-	// 	const toDelete = {
-	// 		clientID: companyRealID
-	// 	};
-	// 	console.log("FUCK YOU BUT EARLIER!");
-	// 	deleteClient(toDelete);
-	// 	handleClose();
-	// }
-
 
 
 	// TODO: filtreermine...
@@ -175,11 +163,6 @@ export default function UpdateClient(){
 	const handleChange = (e) => {
 		setCompanyID(e.target.key);
 		setCompanyRealId(e.target.value);
-		console.log(e.target);
-		console.log(options[companyRealId].address);
-
-		//forRows(companyID);
-
 	};
 
 	return(
