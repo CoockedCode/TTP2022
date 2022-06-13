@@ -53,6 +53,7 @@ useEffect(() => {
                     <TableCell >{row.employeeNumber} </TableCell>
                     <TableCell >{row.employeeUsername} </TableCell>
                     <TableCell >{row.employeeActive} </TableCell>
+                    <TableCell >{row.employeeRole} </TableCell>
             </TableRow>
             </>
         );
@@ -72,6 +73,7 @@ useEffect(() => {
                     <TableCell >Number </TableCell>
                     <TableCell >Kasutajanimi </TableCell>
                     <TableCell >Staatus </TableCell>
+                    <TableCell >Tööroll </TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>

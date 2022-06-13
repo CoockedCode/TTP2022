@@ -20,22 +20,30 @@
             if($status_from_db == 1){
                 $status_from_db = "Aktiivne";
             }
-            if($number_from_db == ''){
-                $number_from_db = 'Puudub';
+            if($phone_from_db == ''){
+                $phone_from_db = 'Puudub';
             }
-            array_push($employee_array, array(
-                "employeeID"=>$id_from_db,
-                "employeeFname"=>$fname_from_db,
-                "employeeSname"=>$sname_from_db,
-                "employeeNumber"=>$phone_from_db,
-                "employeeUsername"=>$username_from_db,
-                "employeeMail"=>$email_from_db,
-                "employeePassword"=>$password_from_db,
-                "employeeActive"=>$status_from_db
-                ));
+            $conn2 = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+            $stmt2 = $conn2->prepare("SELECT roll.rolli_nimi FROM roll INNER JOIN tootaja_roll ON roll.id=tootaja_roll.roll_id WHERE tootaja_roll.tootaja_id = ?");
+                $stmt2->bind_param("i", $id_from_db);
+                $stmt2->bind_result($rolename_from_db);
+                $stmt2->execute();
+                while($stmt2->fetch()){
+                        array_push($employee_array, array(
+                    "employeeID"=>$id_from_db,
+                    "employeeFname"=>$fname_from_db,
+                    "employeeSname"=>$sname_from_db,
+                    "employeeNumber"=>$phone_from_db,
+                    "employeeUsername"=>$username_from_db,
+                    "employeeMail"=>$email_from_db,
+                    "employeePassword"=>$password_from_db,
+                    "employeeActive"=>$status_from_db,
+                    "employeeRole"=>$rolename_from_db
+                    ));
+                }
         }
         echo json_encode($employee_array);
-        echo $conn->error;
+        // echo $conn->error;
         $stmt->close();
         $conn->close();
     }
