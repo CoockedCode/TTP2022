@@ -4,6 +4,7 @@
 
     //if(isset($_GET["client"]) and !empty($_GET["client"])){
     get_client_info();
+    $deltaIND=0;
     //}
 
     function get_client_info(){

@@ -53,12 +53,13 @@ export default function UpdateClient(){
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
 		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
-		// console.log(resp);
+		console.log(resp);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element])
-			// console.log(element)
+			console.log(element)
 		});
+		console.log(options);
 	};
 
 	useEffect(() => {getOptions();
@@ -74,7 +75,7 @@ export default function UpdateClient(){
 			 formData.get("contPers") || formData.get("clientEmail") || formData.get("clientPhoneNr") || formData.get("invoiceEm")){
 			// console.log("väljad täidetud")
 			const dataToSave = {
-				clientId: companyID,
+				clientId: options[companyRealId].id,
 				clientRegNum: formData.get("clientRegNum"),
 				clientAddr: formData.get("clientAddr"),
 				postIndex: formData.get("postIndex"),
@@ -88,101 +89,98 @@ export default function UpdateClient(){
 		}
 	}
 
-	const deleteClient=(toDelete)=>{
+	const deleteClient=()=>{
+		console.log("FUCK YOU!");
+		const toDelete = {
+			clientId: options[companyRealId].id,
+		};
+		
 		axios.post(endpoint+"/client/fnc_delete_client.php?client", toDelete)
 		.then(function (response) {
+			console.log(response);
 			if(response.status === 200){
+				console.log('what');
 				dispatch(setSnackbar(true,"success","Klient edukalt kustutatud!"));
 			}
 		})
 		.catch(function (err) {
 			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
+		handleClose();
 	}
 
-	const handleDeletionClick=()=>{
-		const toDelete = {
-			clientID: companyID
-		}
-		handleClose();
-		deleteClient(toDelete);
+	// const handleDeletionClick=()=>{
+	// 	const toDelete = {
+	// 		clientID: companyRealID
+	// 	};
+	// 	console.log("FUCK YOU BUT EARLIER!");
+	// 	deleteClient(toDelete);
+	// 	handleClose();
+	// }
+
+
+
+	// TODO: filtreermine...
+	const handleUpdateRegNum=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].regNum=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdateAddress=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].address=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdatePostIndex=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].postInd=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdateContPers=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].kontakt=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdateMail=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].mail=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdatePhone=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].telefon=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdateInvoiceEM=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].invoiceEm=e.target.value;
+		setOptions(o2);
+	}
+	const handleUpdateAddInfo=(e)=>{
+		//e.target.value="";
+		o2=[...options];
+		o2[companyRealId].addInf=e.target.value;
+		setOptions(o2);
 	}
 
 	const [companyID, setCompanyID] = useState("");
+	const [companyRealId, setCompanyRealId] = useState("");
 	const handleChange = (e) => {
-		setCompanyID(e.target.value);
-		//console.log(companyID);
+		setCompanyID(e.target.key);
+		setCompanyRealId(e.target.value);
+		console.log(e.target);
+		console.log(options[companyRealId].address);
 
 		//forRows(companyID);
 
 	};
-
-	// TODO: filtreermine...
-	const handleUpdateRegNum=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].regNum=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdateAddress=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].address=e.target.value;
-		console.log(o2);
-		
-		setOptions(o2);
-	}
-	const handleUpdatePostIndex=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].postInd=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdateContPers=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].kontakt=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdateMail=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].mail=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdatePhone=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].telefon=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdateInvoiceEM=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].invoiceEm=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
-	const handleUpdateAddInfo=(e)=>{
-		console.log(e.target.value);
-		//e.target.value="";
-		o2=[...options];
-		o2[companyID-1].addInf=e.target.value;
-		console.log(o2);
-		setOptions(o2);
-	}
 
 	return(
 		<>
@@ -199,11 +197,11 @@ export default function UpdateClient(){
 							<Select
 								labelId="clientLabel"
 								id="client"
-								value={companyID}
+								value={companyRealId}
 								label="companyID"
 								onChange={handleChange}
 							>
-								{options.map((options, index) => (<MenuItem key={index} value={options.id} placeholder={options.name}>{options.name}</MenuItem>))}
+								{options.map((option, index) => (<MenuItem key={index} value={index} placeholder={option.name}>{option.name}</MenuItem>))}
 							</Select>
 
 							{/* { console.log(options[2]) } */}
@@ -216,7 +214,7 @@ export default function UpdateClient(){
 									label="Kliendi registrinumber"
 									name="clientRegNum"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].regNum : "" }
+									value={ options[companyRealId] ? options[companyRealId].regNum : "" }
 									onChange={(e)=>handleUpdateRegNum(e)}
 									type="text"
 									margin="dense"
@@ -229,7 +227,7 @@ export default function UpdateClient(){
 									label="Kliendi address"
 									name="clientAddr"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].address : "" }
+									value={ options[companyRealId] ? options[companyRealId].address : "" }
 									onChange={(e)=>handleUpdateAddress(e)}
 									type="text"
 									margin="dense"
@@ -242,7 +240,7 @@ export default function UpdateClient(){
 									label="Postiindeks"
 									name="postIndex"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].postInd : "" }
+									value={options[companyRealId] ? options[companyRealId].postInd : "" }
 									onChange={(e)=>handleUpdatePostIndex(e)}
 									type="number"
 									margin="dense"
@@ -255,7 +253,7 @@ export default function UpdateClient(){
 									label="Kontakt isik"
 									name="contPers"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].kontakt : "" }
+									value={options[companyRealId] ? options[companyRealId].kontakt : "" }
 									onChange={(e)=>handleUpdateContPers(e)}
 									type="text"
 									margin="dense"
@@ -267,7 +265,7 @@ export default function UpdateClient(){
 									label="Kliendi e-mail"
 									name="clientEmail"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].mail : "" }
+									value={ options[companyRealId] ? options[companyRealId].mail : "" }
 									onChange={(e)=>handleUpdateMail(e)}
 									type="text"
 									margin="dense"
@@ -279,7 +277,7 @@ export default function UpdateClient(){
 									label="Kliendi tel nr"
 									name="clientPhoneNr"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].telefon : "" }
+									value={ options[companyRealId] ? options[companyRealId].telefon : "" }
 									onChange={(e)=>handleUpdatePhone(e)}
 									type="text"
 									margin="dense"
@@ -292,7 +290,7 @@ export default function UpdateClient(){
 									label="Arve e-mail"
 									name="invoiceEm"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].invoiceEm : "" }
+									value={ options[companyRealId] ? options[companyRealId].invoiceEm : "" }
 									onChange={(e)=>handleUpdateInvoiceEM(e)}
 									type="text"
 									margin="dense"
@@ -305,7 +303,7 @@ export default function UpdateClient(){
 									label="Lisa info"
 									name="addInfo"
 									autoComplete="none"
-									value={ companyID ? options[companyID-1].addInf : "" }
+									value={ options[companyRealId] ? options[companyRealId].addInf : "" }
 									onChange={(e)=>handleUpdateAddInfo(e)}
 									type="text"
 									margin="dense"
@@ -349,13 +347,14 @@ export default function UpdateClient(){
 									variant="contained"
 									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
 									width: 'auto' }}
-									margin="dense"onClick={handleClose}>
+									margin="dense"
+									onClick={handleClose}>
 									Cancel
 								</Button>
 								<Button 
 									variant="contained"
 									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
-									onClick={handleDeletionClick} autoFocus>
+									onClick={() => deleteClient()} autoFocus>
 									Jah, kustuta klient
 								</Button>
 								</DialogActions>
