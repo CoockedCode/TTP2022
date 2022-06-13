@@ -1,39 +1,39 @@
-.tg  {border-collapse:collapse;border-spacing:0;}
+.leht{width: 800; padding: 50;}
 
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
+.pdf {align-items: center; justify-content: center; display: flex; margin-top: 25;}
 
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg  {border-collapse: collapse; border-spacing:0; width: 901; height: 91; margin: 0; padding: 0;}
 
-.tg .tg-baqh{text-align:center;vertical-align:top}
+/* .thead{min-width: 900; width: 900; margin: 0; padding: 0; height: 90} */
 
-.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tr-titlebar{height: 70; max-height: 70; margin: 0; padding: 0;}
 
-.tg .tg-llyw{background-color:#c0c0c0;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-title{border-width: 0; text-align: center; width: 600px; color:#000000; font-weight: bolder; font-size: 16; padding: 0; vertical-align: bottom;}
 
-.tg .tg-0lax{text-align:left;vertical-align:top}
+.elektrimasinad-logo{height: 40;}
 
-.tg .tg-jnby{background-color:#c0c0c0;border-color:#333333;text-align:center;vertical-align:top}
+.tg .tg-grundfos{border-width: 0; padding: 0; margin: 0; justify-content: end; vertical-align: bottom; justify-content: end;}
 
-.tg .tg-title{border-width: 0;text-align:center;vertical-align:top; height: 100}
+.grundfos-logo{height: 55px; width: auto;}
 
-.tg .tg-de2y{border-width: 0;text-align:left;vertical-align:top}
+.tg .tg-prio{border-width: 0; vertical-align: center; align-items: center; display: flex; justify-content: right; margin: 0; padding: 0; vertical-align: bottom;}
 
-.tg .tg-73oq{border-color:#000000;text-align:left;vertical-align:top}
+.tg .tg-prioH{border-width: 0; padding: 0; font-weight: bold; text-align: center; justify-content: center; vertical-align: bottom;}
 
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-prioV{align-items: center; justify-content:center; font-weight: bold; margin: 0; padding: 0;}
 
-.tg .tg-y6fn{background-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-prioL{background-color:#dddddd; padding: 0; font-weight: bold; text-align: left; padding-left: 5px;}
 
-.tg .tg-VPR{border-width: 0}
+.tg .tg-73oq{border-right-width: 0;text-align: left;width:150}
 
-.tg .tg-prioV{align-items: center; justify-content:center; width: 80}
+.tg .tg-73oq2{border-left-width: 0; text-align: left;width:150}
 
-.tg .tg-prioH{border-width: 0; align-items: center; justify-content: center; align-content: center}
+.tg .tg-c3ow1{vertical-align: top; font-size: 10}
 
-.tg .tg-prio{display: flex; justify-content: center; align-items: center; border-width: 0; align-content: center; height: 120}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:10px;
+  overflow:hidden;word-break:normal;padding:1;margin:0}
 
-.tg .tg-prioL{background-color:#c0c0c0}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:10px;
+  font-weight:normal;overflow:hidden;word-break:normal;padding:1;margin:0}
 
-.tg .tg-prioLS{border-width: 0; width: 300; min-width: 200}
+.tg tr{height:16}
