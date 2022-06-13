@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LogIn from "./components/pages/LogIn";
 import MainPage from "./components/pages/MainPage";
 import AddNewProject from "./components/pages/AddNewProject";
+import AddNewDevice from "./components/pages/AddNewDevice";
 import AddClient from "./components/pages/AddClient";
 import UpdateClient from "./components/pages/UpdateClient";
 import AddEmployee from "./components/pages/AddEmployee";
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/lisa-tootaja" element={<AddEmployee />} />
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />
+            <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
           </Route>
         </Routes>
       <SnackBar />

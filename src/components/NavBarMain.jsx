@@ -80,6 +80,9 @@ const ResponsiveAppBar = () => {
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}} >
 							Valikute seaded<br/>
 						</MenuItem>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/seadme-tehniline-info")}} >
+							Seadme tehniline info<br/>
+						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}}>
 							Tööd ja etapid<br/>
 						</MenuItem>
@@ -142,7 +145,7 @@ const ResponsiveAppBar = () => {
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseUserMenu(); navigate("/kasutaja-satted")}}>
 							<SettingsIcon />&nbsp;&nbsp;Sätted
-						</MenuItem>
+						</MenuItem> 
 					</Menu>
 				</Box>
 
