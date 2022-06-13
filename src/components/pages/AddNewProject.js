@@ -12,9 +12,9 @@ import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 	// TODO
-	// projekti nr sisestus korda teha (hektel fikseeritud eelmine projekti nr + 1)
 	// projekti nr edasiandmine seadme tehnilise info sisestusse
 	// uued lahtrid error control
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
@@ -107,10 +107,6 @@ export default function AddNewProject(){
 		});
 	};
 
-	useEffect(() => {
-		getOptions();
-  	}, []);
-
 	// töö liigi dropdown
 	const [workID, setWorkID] = useState("");
 	const handleWorkChange = (e) => {
@@ -125,10 +121,6 @@ export default function AddNewProject(){
 			setWorkOptions(oldArray => [...oldArray, element]);
 		});
 	};
-
-	useEffect(() => {
-		getWorkOptions();
-	}, []);
 
 	// transpordifirma dropdown
 	const [selectedArrivalFirm, setSelectedArrivalFirm] = useState("");
@@ -149,21 +141,25 @@ export default function AddNewProject(){
 
 	useEffect(() => {
 		getFirms();
+		getOptions();
+		getWorkOptions();
+		getLastProjectNum();
 	}, []);
 
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
+	const [projectNum, setProjectNum] = useState("");
 	const getLastProjectNum = () => {
 		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
-				// console.log(response.data);
 				setLastProjectNum(response.data);
+				setProjectNum(parseInt(response.data) + 1);
 			})
 	}
 
-	useEffect(() => {
-		getLastProjectNum();
-	});
+	const handleProjectNumChange = (e) => {
+		setProjectNum(e.target.value);
+	}
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -191,6 +187,15 @@ export default function AddNewProject(){
 	const [selectedStartDate, setStartDate] = useState(new Date());
 	const handleStartDateChange = (newStartDate) => {
 		setStartDate(newStartDate);
+	}
+
+	// defekteerimine - teostatav projekt avab seadme tehnilise info kuva
+	// navigeerimine
+	const navigate = useNavigate();
+	const handleDefectingClick = (e) => {
+		if(e.target.value == 1){
+			navigate("/seadme-tehniline-info", { state: {nr: projectNum} });
+		}
 	}
 
 	const handleSubmit = (e) => {
@@ -260,8 +265,8 @@ export default function AddNewProject(){
 					<FormControl sx={{width: "100%"}} >
 						<TextField
 							// error={formValues.nr.error && formValues.nr.errorMessage}
-							value={parseInt(lastProjectNum) + 1}
-
+							value={projectNum}
+							onChange={handleProjectNumChange}
 							required
 							autoFocus
 							id="projectId"
@@ -446,7 +451,7 @@ export default function AddNewProject(){
 						</div>
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="offerNr"
@@ -460,7 +465,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="agreedPrice"
@@ -474,7 +479,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="clientPO"
@@ -488,7 +493,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="orderer"
@@ -502,7 +507,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="ordererPhoneNr"
@@ -516,7 +521,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="contractNr"
@@ -538,7 +543,7 @@ export default function AddNewProject(){
 							id='firstDefecting'
 							label="Esmase defekteerimise info"
 							name='firstDefecting'
-
+							onClick={handleDefectingClick}
 							row
 						>
 							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
@@ -547,7 +552,7 @@ export default function AddNewProject(){
 						
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="acceptedBy"
