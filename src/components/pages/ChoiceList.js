@@ -12,8 +12,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { FormControl } from '@mui/material';;
 import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
+import { useDispatch } from "react-redux";
 
 const ChoiceList = () => {
+  const dispatch = useDispatch();
+
   const endpoint = "https://elektrimasinad.digifi.eu/api";
       // seadme liik
       const [deviceID, setDeviceID] = useState("");
@@ -266,10 +269,103 @@ const ChoiceList = () => {
     setDeletionOpen(false);
   };
   const handleDeletion=()=>{
-    switch(deviceID||rotPerMin||manufacturer){
-      case 1:
-
+    let toDelete={
+      deletedID: ""
     }
+    switch(deviceID||powerID||rotPerMin||manufacturer||shaftHeight||powerSupply||frequency||isolationClass||IPClass||hourlyPrice||resitanceUnit||tensionUnit||tensioTestUnit||connection||testing){
+      case deviceID:
+        toDelete ={
+          deletedID: deviceID
+        }
+        break;
+      case powerID:
+        toDelete={
+          deletedID: powerID
+        }
+        break;
+      case rotPerMin:
+        toDelete={
+          deletedID: rotPerMin
+        }
+        break;
+      case manufacturer:
+        toDelete={
+          deletedID: manufacturer
+        }
+        break;
+      case shaftHeight:
+        toDelete={
+          deletedID: shaftHeight
+        }
+        break;
+      case powerSupply:
+        toDelete = {
+          deletedID: powerSupply
+        }
+        break;
+      case frequency:
+        toDelete={
+          deletedID: frequency
+        }
+        break;
+      case isolationClass:
+        toDelete={
+          deletedID: isolationClass
+        }
+        break;
+      case IPClass:
+        toDelete={
+          deletedID: IPClass
+        }
+        break;
+      case hourlyPrice:
+        toDelete={
+          deletedID: hourlyPrice
+        }
+        break;
+      case resitanceUnit:
+        toDelete={
+          deletedID: resitanceUnit
+        }
+        break;
+      case tensionUnit:
+        toDelete={
+          deletedID: tensionUnit
+        }
+        break;
+      case tensioTestUnit:
+        toDelete={
+          deletedID: tensioTestUnit
+        }
+        break;
+      case connection:
+        toDelete={
+          deletedID: connection
+        }
+        break;
+      case testing:
+        toDelete={
+          deletedID: testing
+        }
+        break;
+    }
+    console.log(toDelete);
+    deleteChoice(toDelete);
+  }
+
+  const deleteChoice=(toDelete)=>{
+    axios.post(endpoint+"/choice/fnc_delete_choice.php", toDelete)
+		.then(function (response) {
+			console.log(response);
+			if(response.status === 200){
+				// dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
+			}
+		})
+		.catch(function (err) {
+			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+		});
+		handleClose();
+  
   }
 
   return (
@@ -303,7 +399,7 @@ const ChoiceList = () => {
                 sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
                 onClick={handleDeletionOpen}
                 >
-                Kustuta klient
+                Kustuta
 						  </Button>
               <DropDown
                 name="Võimsus KW" ID="choicePower" 
@@ -311,90 +407,210 @@ const ChoiceList = () => {
                 onChange={handlePowerChange}
                 options={powerOptions}
                 />
+               <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="p/min" ID="choiceRotPerMin" 
                 value={rotPerMin} label="p/min"
                 onChange={handleRotPerMinChange}
                 options={rotPerMinOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Tootja" ID="choiceManufacturer" 
                 value={manufacturer} label="Tootja"
                 onChange={handleManufacturerChange}
                 options={manufacturerOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Võlli kõrgus" ID="choiceShaft" 
                 value={shaftHeight} label="Võlli kõrgus"
                 onChange={handleShaftHeightChange}
                 options={shaftHeightOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Toite liik" ID="choicePowerSupply" 
                 value={powerSupply} label="Toite liik"
                 onChange={handlePowerSupplyChange}
                 options={powerSupplyOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Sagedus HZ" ID="choiceFrequency" 
                 value={frequency} label="Sagedus HZ"
                 onChange={handleFrequencyChange}
                 options={frequencyOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Isol.Klass" ID="choiceIsolation" 
                 value={isolationClass} label="Isol.Klass"
                 onChange={handleIsolationClassChange}
                 options={isolationClassOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="IP klass" ID="choiceIPClass" 
                 value={IPClass} label="IP Klass"
                 onChange={handleIPClassChange}
                 options={IPClassOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Transpordi firma" ID="choiceTransport" 
                 value={transportCompany} label="Transpordi firma"
                 onChange={HandleTransportChange}
                 options={transportCompanyOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Tunni hind" ID="choiceHourlyPrice" 
                 value={hourlyPrice} label="Tunni hind"
                 onChange={HandlePriceChange}
                 options={hourlyPriceOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Takistuse ühik" ID="choiceRecistance" 
                 value={resitanceUnit} label="Takistuse ühik"
                 onChange={HandleResistanceChange}
                 options={resitanceUnitOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Pingeteim" ID="choiceTension" 
                 value={tensionUnit} label="Pingeteim"
                 onChange={HandleTensionChnage}
                 options={tensionOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Katsetuse pinge" ID="choiceTensionUnit" 
                 value={tensioTestUnit} label="Katsetuse pinge"
                 onChange={HandleTensionTestChnage}
                 options={tensionTestOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Ühendus" ID="choiceConnection" 
                 value={connection} label="Ühendus"
                 onChange={HandleConnectionChange}
                 options={connectionOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
               <DropDown
                 name="Katsetatud" ID="choiceTestin" 
                 value={testing} label="Katsetatud"
                 onChange={handleTestingChange}
                 options={testingOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta
+						  </Button>
             </FormControl>
           </Box>
           <Dialog
@@ -483,7 +699,7 @@ const ChoiceList = () => {
 								</DialogTitle>
 								<DialogContent>
 								<DialogContentText id="alert-dialog-description">
-									Soovid tõeliselt klienti kustutada? Nagu FR FR?
+									Soovid tõeliselt valikut kustutada?
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
@@ -493,13 +709,13 @@ const ChoiceList = () => {
 									width: 'auto' }}
 									margin="dense"
 									onClick={handleDeletionClose}>
-									Cancel
+									Ei
 								</Button>
 								<Button 
 									variant="contained"
 									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
 									onClick={handleDeletion} autoFocus>
-									Jah, kustuta klient
+									Jah
 								</Button>
 								</DialogActions>
 							</Dialog>
