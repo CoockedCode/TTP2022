@@ -22,7 +22,7 @@ class Protect{
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
         $stmt = $conn->prepare("SELECT in_edit FROM $table WHERE id = ?");
-        $stmt->bind_param("s", $id);
+        $stmt->bind_param("i", $id);
         $stmt->bind_result($in_edit_from_db);
         $stmt->execute();
         if($stmt->fetch()){
@@ -58,10 +58,10 @@ class Protect{
 
         // * in_edit uuenadmine nr 1-ks
         $stmt = $conn->prepare("UPDATE $table SET in_edit = ? WHERE id = ?");
-        $stmt->bind_param("is", $set_in_edit, $id);
+        $stmt->bind_param("ii", $set_in_edit, $id);
         $stmt->execute();
         if($stmt->fetch()){
-            if($set_in_edit == "1"){
+            if($set_in_edit == 1){
                 array_push($list_html, array("in_edit"=>"1", "notice"=>"Keegi juba muudab!", "type"=>"error"));
             }else{
                 array_push($list_html, array("in_edit"=>"0", "notice"=>"Saad muuta!", "type"=>"info"));

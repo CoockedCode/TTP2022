@@ -38,22 +38,17 @@ function stringAvatar(name) {
 export default function User() {
     const dispatch = useDispatch();
     const usrNam = useSelector(state => state.userSession.userName);
-
     const [openPassword, setOpenPassword] = useState(false);
-    const handleClickOpenPassword = () => {setOpenPassword(true);};
-    const handleClosePassword = () => {setOpenPassword(false);};
-
     const [openName, setOpenName] = useState(false);
-    const handleClickOpenName = () => {setOpenName(true);};
-    const handleCloseName = () => {setOpenName(false);};
-
     const [user, setUser] = useState([]);
+    const [userID, setUserID] = useState("");
 	const FetchUser = async (name)=>{
 		const resp = await axios.get(endpoint + "/user/User.php?usr=" + name);
 		setUser([]);
 		resp.data.forEach( element => {
 			setUser(oldArray => [...oldArray, element])
 		});
+        setUserID(resp.data[0].id);
 	};
 
 	const ChangePassword = async (usrNam, oldPassword, newPassword) =>{
@@ -69,29 +64,58 @@ export default function User() {
         FetchUser(resp.data[0].user_name);
 	};
 
-    const handleSubmitPassword = (e) => {
+    const HandleSubmitPassword = (e) => {
         e.preventDefault();
 		const formData = new FormData(e.currentTarget);
         const usrNam = formData.get("name");
         const oldPassword = formData.get("old");
         const newPassword = formData.get("new");
         ChangePassword(usrNam, oldPassword, newPassword);
+        SetInEdit(userID, 0);
 
     };
-    const handleSubmitUsername = (e) => {
+    const HandleSubmitUsername = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const oldName = formData.get("oldName");
         const newName = formData.get("newName");
         const password = formData.get("password");
         ChangeUserName(oldName, newName, password);
+        SetInEdit(userID, 0);
     };
 
-    const handleEditUser = (e) => {
-        const resp = await axios.get(endpoint + "/api/protect/Protect.php?set_table=tootaja&set_id=" + "1" + "&set_in_edit=1");
+    const SetInEdit = async (id, arg1) => {
+        await axios.get(endpoint + "/protect/Protect.php?set_table=tootaja&set_id=" + id + "&set_in_edit=" + arg1)
+        .then(function(resp){
+            // console.log(resp);
+        })
+        }
+
+    const fetchInEdit = (id, value) => {
+        axios.get(endpoint + "/protect/Protect.php?table=tootaja&id=" + id)
+        .then(function(resp){
+            console.log(resp.data);
+            if(resp.data[0].in_edit == "1"){
+                dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
+                setOpenPassword(false);
+                setOpenName(false);
+            }else{
+                // ! Siin paneb in_edit true...
+                SetInEdit(userID, 1);
+                if(value == 0){setOpenPassword(true);}
+                if(value == 1){setOpenName(true);}
+
+            }
+        })
+    }
+
+    const HandleQueryEditUser = (e, value) => {
         e.preventDefault();
-    };
+        if(value == 0){fetchInEdit(userID, 0)};
+        if(value == 1){fetchInEdit(userID, 1)};
+    }
 
+    const HandleClose = (e) => {e.preventDefault(), setOpenPassword(false); setOpenName(false); SetInEdit(userID, "NULL");};
 
     useEffect(() => {FetchUser(usrNam);}, [usrNam]);
 
@@ -116,16 +140,16 @@ export default function User() {
                                 <TableCell align="center" padding="none">
                                     <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
                                         <div style={{ display: "flex", margin: "0.4rem", width: "40%"}}>
-                                            <Button fullWidth variant="contained" onClick={handleClickOpenPassword} >
+                                            <Button fullWidth variant="contained" onClick={(e)=>{HandleQueryEditUser(e, 0)}} >
                                                 Muuda parool
                                             </Button>
-                                            <Dialog open={openPassword} onClose={handleClosePassword}>
+                                            <Dialog open={openPassword} onClose={HandleClose}>
                                                 <DialogTitle>Parooli muutmine:</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
                                                         Parooli muutmine on võimalik kui oled sisse loginud.
                                                     </DialogContentText>
-                                                    <Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmitPassword}>
+                                                    <Box  component="form" noValidate autoComplete="off" onSubmit={HandleSubmitPassword}>
                                                         <FormControl sx={{width: "100%"}} >
                                                             <TextField
                                                                 autoFocus
@@ -162,8 +186,8 @@ export default function User() {
                                                                 autoComplete="none"
                                                             />
                                                             <Box sx={{display: "flex", justifyContent: "space-evenly", my: "1.2rem", mx: "2.5rem"}}>
-                                                                <Button variant="outlined" onClick={handleClosePassword}>tühista</Button>
-                                                                <Button type="submit" variant="contained" onClick={handleClosePassword}>muuda parool</Button>
+                                                                <Button variant="outlined" onClick={HandleClose}>tühista</Button>
+                                                                <Button type="submit" variant="contained" onClick={HandleClose}>muuda parool</Button>
                                                             </Box>
                                                         </FormControl>
                                                     </Box>
@@ -171,16 +195,16 @@ export default function User() {
                                             </Dialog>
                                         </div>
                                         <div style={{ display: "flex", margin: "0.4rem", width: "40%"}}>
-                                            <Button fullWidth variant="outlined" onClick={()=> {handleClickOpenName(), handleEditUser()}}>
+                                            <Button fullWidth variant="outlined" onClick={(e)=> {HandleQueryEditUser(e, 1)}}>
                                                 Muuda kasutajanimi
                                             </Button>
-                                            <Dialog open={openName} onClose={handleCloseName}>
+                                            <Dialog open={openName} onClose={HandleClose}>
                                                 <DialogTitle>Kasutajanime muutmine:</DialogTitle>
                                                 <DialogContent>
                                                     <DialogContentText>
                                                         Kasutajanime muutmine on võimalik kui oled sisse loginud.
                                                     </DialogContentText>
-                                                    <Box  component="form" noValidate autoComplete="off" onSubmit={handleSubmitUsername}>
+                                                    <Box  component="form" noValidate autoComplete="off" onSubmit={HandleSubmitUsername}>
                                                         <FormControl sx={{width: "100%"}} >
                                                             <TextField
                                                                 autoFocus
@@ -217,8 +241,8 @@ export default function User() {
                                                                 autoComplete="none"
                                                             />
                                                             <Box sx={{display: "flex", justifyContent: "space-evenly", my: "1.2rem", mx: "2.5rem"}}>
-                                                                <Button variant="outlined" onClick={handleCloseName}>tühista</Button>
-                                                                <Button type="submit" variant="contained" onClick={handleCloseName}>muuda kasutajanimi</Button>
+                                                                <Button variant="outlined" onClick={HandleClose}>tühista</Button>
+                                                                <Button type="submit" variant="contained" onClick={HandleClose}>muuda kasutajanimi</Button>
                                                             </Box>
                                                         </FormControl>
                                                     </Box>
