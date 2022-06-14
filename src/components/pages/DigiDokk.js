@@ -8,6 +8,10 @@
 
 import '../../styles/pages/php.css';
 import Checkbox from '@mui/material/Checkbox';
+import {FormControlLabel} from '@mui/material';
+// import {TextField} from '@mui/material';
+
+
 
 
 const DigiDokk = () => {
@@ -19,176 +23,302 @@ const DigiDokk = () => {
           <section class="leht">
             <div class="pdf">
               <table class="tg">
+
                   <tr class="tr-titlebar">
                     <td class="tg-prio">
                       <td class="tg-prioH">Töö prioriteet
-                        <td class="tg-prioV">(prio autofill)</td>
+                        <td class="tg-prioV">
+                          <form>
+                            <input type="text" id="prioautofill"></input>
+                          </form>
+                        </td>
                         <td class="tg-prioL">K - kiire<br />T - tähtajaline<br />M - määramata</td>
                       </td>
                     </td>
-
-                    
                     <th class="tg-title" colSpan="12"><img class="elektrimasinad-logo" src="https://elektrimasinad.digifi.eu/media/DigiDokk/Picture_4.png" alt="logo"></img><br /><span style={{color:'#000'}}>TELLIMUSLEHT - TÖÖKÄSK - SAATELEHT</span></th>
                     <td class="tg-grundfos">
                     <img class="grundfos-logo" src="https://elektrimasinad.digifi.eu/media/DigiDokk/Picture_3.png" alt="grundfos volitus"></img>
                     </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-73oq">Aadress:</td>
-                    <td class="tg-73oq2">Reg. nr.</td>
-                    <td class="tg-c3ow1" rowSpan="2">Saabumise kp.</td>
-                    <td class="tg-0pky" colSpan="5" rowSpan="2">Arve nr.<br />&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td class="tg-0pky" colSpan="7" rowSpan="2">Töö nr.<br />&nbsp;&nbsp;&nbsp;</td>
+                    <td class="tg-aadress">Aadress:</td>
+                    <td class="tg-regnr">Reg. nr.</td>
+                    <td class="tg-0pky" rowSpan="2">Saabumise kp.
+                      <form>
+                        <input type="text" id="saabumisekp"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="5" rowSpan="2">Arve nr.
+                      <form> 
+                        <input type="text" id="arvenr"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="7" rowSpan="2">Töö nr.
+                      <form> 
+                        <input type="text" id="toonr"></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky1" colSpan="2"></td>
+                    <td class="tg-0pky1" colSpan="2">
+                      <form>
+                        <input type="text" id="aadress"></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="13" rowSpan="2">Tellija:</td>
+                    <td class="tg-0pky" colSpan="2">
+                      <form>
+                        <input type="text" id="aadress"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="13" rowSpan="2">Tellija:
+                      <form>
+                        <input type="text" id="tellija">
+                        </input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky" colSpan="2">Kontaktisik:</td>
+                    <td class="tg-0pky" colSpan="2">Kontaktisik:
+                      <form id="ktkisikf"> 
+                        <input type="text" id="ktkisik"></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky" colSpan="2">Tel.nr</td>
-                    <td class="tg-0pky" colSpan="11">Arve e-post:</td>
-                    <td class="tg-c3ow" colSpan="2">allkiri</td>
+                    <td class="tg-0pky" colSpan="2">Tel.nr
+                      <form id="telnrf">
+                        <input type="text" id="telnr"></input>
+                      </form>
+                    </td>
+                    <td class="tg-arveepost" colSpan="11">Arve e-post:
+                      <form id="arveepostf">
+                        <input type="name" id="arveepost"></input>
+                      </form>
+                    </td>
+                    <td class="tg-allkiri" colSpan="2">allkiri</td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky" colSpan="2">E-post:</td>
-                    <td class="tg-0pky" colSpan="9">Tellimuse esitaja nimi:</td>
-                    <td class="tg-0pky" colSpan="4" rowSpan="2"></td>
+                    <td class="tg-0pky" colSpan="2">E-post:
+                      <form id="epostf">
+                        <input type="text" id="epost"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="9">Tellimuse esitaja nimi:
+                      <form id="tellijanimif">
+                        <input type="text" id="tellijanimi"></input>
+                      </form>
+                    </td>
+                    <td class="tg-allkirjalahter" colSpan="4" rowSpan="2">
+                      <form>
+                        <input type="name" id="allkirjalahter"></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky" colSpan="2">Lisainfo:</td>
+                    <td class="tg-0pky" colSpan="2">Lisainfo:
+                      <form id="lisainfof">
+                        <input type="name" id="lisainfo"></input>
+                      </form>
+                    </td>
                     <td class="tg-0pky" colSpan="9">Tel.nr.</td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky">Saabunud:</td>
-                    <td class="tg-0pky">Kliendi toodud <Checkbox /></td>
+                    <td class="tg-0pky1">Saabunud:</td>
+                    <td class="tg-0pky2">
+                      <FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Kliendi toodud" labelPlacement="end"/>
+                    </td>
                     <td class="tg-0pky" colSpan="6">Pakkum. Nr.</td>
                     <td class="tg-0pky" colSpan="7">Kokkulepitud hind:</td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Transp. firma nimi</td>
-                    <td class="tg-0pky"><Checkbox /></td>
+                    <td class="tg-0pky1">Transp. firma nimi</td>
+                    <td class="tg-0pky2"></td>
                     <td class="tg-0pky" colSpan="6">Lepingu Nr.</td>
                     <td class="tg-0pky" colSpan="7">Kokkulepitud tähtaeg:</td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Tagastus:</td>
-                    <td class="tg-0pky">Klient tuleb järgi <Checkbox /></td>
+                    <td class="tg-0pky1">Tagastus:</td>
+                    <td class="tg-0pky2"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Klient tuleb järgi" labelPlacement="end"/></td>
                     <td class="tg-0pky" colSpan="6">Kliendi PO</td>
                     <td class="tg-0pky" colSpan="7">Lõpetatud:</td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Transp. firma nimi</td>
-                    <td class="tg-0pky"><Checkbox /></td>
+                    <td class="tg-0pky1">Transp. firma nimi</td>
+                    <td class="tg-0pky2"></td>
                     <td class="tg-0pky" colSpan="13">Lisainfo:</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2" rowSpan="2">Seadme liik</td>
-                    <td class="tg-0pky">Varustus:</td>
-                    <td class="tg-0pky" colSpan="6">Klemmkarp <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Küttekeha <Checkbox /></td>
+                    <td class="tg-varustus">Varustus:</td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Klemmkarp" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Küttekeha" labelPlacement="end"/></td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Võlli kiil <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Klemmk.kaas <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Pidur <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Võlli kiil" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Klemmk. kaas" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Pidur" labelPlacement="end"/></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2" rowSpan="2">Tüüp</td>
-                    <td class="tg-0pky">Rihmaratas <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Klemmik <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Alaldi <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Rihmaratas" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Klemmik" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Alaldi" labelPlacement="end"/></td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Poolmuhv <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Sillad <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Kondensaator <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Poolmuhv" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Sillad" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Kondensaator" labelPlacement="end"/></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" rowSpan="2">Võlli kõrgus</td>
                     <td class="tg-0pky" rowSpan="2">Tootja</td>
-                    <td class="tg-0pky">Hammasrat.<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Riviklemmik<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Tahhomeeter <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Hammasrat." labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Riviklemmik" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Tahhomeeter" labelPlacement="end"/></td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Tööratas <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Läbiviik <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Sag.muund<Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Tööratas" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Läbiviik" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Sag. muundur" labelPlacement="end"/></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2" rowSpan="2">Tehase nr.</td>
-                    <td class="tg-0pky">Ketiratas<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Kork <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Konks <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Ketiratas" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Kork" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Konks" labelPlacement="end"/></td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Reduktor <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Poolik läbiviik <Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Tõstekarab. <Checkbox /></td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Reduktor" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Poolik läbiviik" labelPlacement="end"/></td>
+                    <td class="tg-varustus1" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Tõstekarab." labelPlacement="end"/></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" rowSpan="2">Võimsus</td>
                     <td class="tg-0pky" rowSpan="2">Pöörete arv</td>
-                    <td class="tg-0pky">Tiivikukate<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Andurid <Checkbox /></td>
-                    <td class="tg-c3ow" colSpan="6">Klemmikarbi asend</td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Tiivikukate" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Andurid" labelPlacement="end"/></td>
+                    <td class="tg-varustus2" colSpan="6">Klemmikarbi asend</td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky">Tiivik<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6">Ühend.kaabel<Checkbox /></td>
-                    <td class="tg-0pky" colSpan="6" rowSpan="4">placeholder img (picture1)</td>
+                    <td class="tg-varustus"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Tiivik" labelPlacement="end"/></td>
+                    <td class="tg-varustus" colSpan="6"><FormControlLabel
+                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        label="Ühend.kaabel" labelPlacement="end"/></td>
+                    <td class="tg-klemmikarp" colSpan="6" rowSpan="4"><img class="klemmikarbi-asend" src="https://elektrimasinad.digifi.eu/media/DigiDokk/Picture_1.png" alt="klemmikarbi asend"></img></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" rowSpan="2">Pinge (V)</td>
                     <td class="tg-0pky" rowSpan="2">Nimivool (A)</td>
-                    <td class="tg-0pky" colSpan="7">Muud varustuse märkused:</td>
+                    <td class="tg-varustus" colSpan="7">Muud varustuse märkused:</td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky" colSpan="7"></td>
+                    <td class="tg-markused" colSpan="7"></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Toite liik</td>
                     <td class="tg-0pky">Sagedus (Hz)</td>
-                    <td class="tg-0pky" colSpan="7"></td>
+                    <td class="tg-markused" colSpan="7"></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Isol. Klass</td>
                     <td class="tg-0pky">IP-klass</td>
                     <td class="tg-0pky" colSpan="7">Skeem:</td>
-                    <td class="tg-0pky" colSpan="6">Klemmliistu ühendus</td>
+                    <td class="tg-klemmiliist" colSpan="6">Klemmliistu ühendus</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Režiim</td>
                     <td class="tg-0pky">Ex märge</td>
-                    <td class="tg-0pky"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="3"></td>
-                    <td class="tg-0pky" colSpan="3" rowSpan="4">picture2</td>
+                    <td class="tg-skeem"></td>
+                    <td class="tg-skeem" colSpan="2"></td>
+                    <td class="tg-skeem" colSpan="2"></td>
+                    <td class="tg-skeem" colSpan="2"></td>
+                    <td class="tg-varustus" colSpan="3"></td>
+                    <td class="tg-klemmiliistu1" colSpan="3" rowSpan="4"><img class="klemmliistu-yhendus" src="https://elektrimasinad.digifi.eu/media/DigiDokk/Picture_2.png" alt="klemmliistu ühendus"></img></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Laager DE</td>
                     <td class="tg-0pky">Laager NDE</td>
-                    <td class="tg-0pky"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="3">Väljaviike</td>
+                    <td class="tg- skeem"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg-valjaviike" colSpan="3">Väljaviike</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2">MÄRKUSED:</td>
-                    <td class="tg-0pky"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-c3ow" colSpan="3">(box)</td>
+                    <td class="tg- skeem"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg- skeem" colSpan="2"></td>
+                    <td class="tg-valjaviiketext" colSpan="3"><form id="valjaviikeform"><input type="text" id="valjaviike" name="valjaviike"></input></form>
+                    {/* <TextField id="outlined-basic" variant="outlined" size="small"/> */}
+                    </td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2"></td>
@@ -196,7 +326,7 @@ const DigiDokk = () => {
                     <td class="tg-0pky" colSpan="2"></td>
                     <td class="tg-0pky" colSpan="2"></td>
                     <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="3">Märkused:</td>
+                    <td class="tg-varustus3" colSpan="3">Märkused:</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2"></td>
@@ -204,7 +334,7 @@ const DigiDokk = () => {
                     <td class="tg-0pky" colSpan="2"></td>
                     <td class="tg-0pky" colSpan="2"></td>
                     <td class="tg-0pky" colSpan="2"></td>
-                    <td class="tg-0pky" colSpan="6"></td>
+                    <td class="tg-markused2" colSpan="6"></td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2"></td>
@@ -228,32 +358,32 @@ const DigiDokk = () => {
                     <td class="tg-c3ow" colSpan="5">Mähkijale<br /></td>
                   </tr>
                   <tr>
-                    <td class="tg-0pky" colSpan="7"><Checkbox /> Staat.korp välja</td>
-                    <td class="tg-0pky" colSpan="5"><Checkbox /> Mähisepärja mõõdud</td>
+                    <td class="tg-0pky" colSpan="7"><Checkbox style={{transform: "scale(0.5)" }}/> Staat.korp välja</td>
+                    <td class="tg-0pky" colSpan="5"><Checkbox style={{transform: "scale(0.5)" }}/> Mähisepärja mõõdud</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Valikud &gt;</td>
                     <td class="tg-llyw" colSpan="2">Hooldus, Remont, Defekteerimine, Müük;<br />Garantii,<br />Välitöö/Diagnostika, Välitöö/Laagrite vahetus,<br />Välitöö/Remondi tööd, Välitöö/Tasakaalustus,<br />Välitöö/Joondamine, Välitöö/Seadme vahetus</td>
-                    <td class="tg-0pky" colSpan="7"><Checkbox /> Erilaagrid<br /><br /><Checkbox /> Uued vedrutihendid<br /><br /><Checkbox /> Pumba tihend. ktrl.</td>
-                    <td class="tg-0pky" colSpan="5"><Checkbox /> Täpne skeem<br /><br /><Checkbox /> Raua test<br /><br /><Checkbox /> Andurid</td>
+                    <td class="tg-0pky" colSpan="7"><Checkbox style={{transform: "scale(0.5)" }}/> Erilaagrid<br /><br /><Checkbox style={{transform: "scale(0.5)" }}/> Uued vedrutihendid<br /><br /><Checkbox style={{transform: "scale(0.5)" }}/> Pumba tihend. ktrl.</td>
+                    <td class="tg-0pky" colSpan="5"><Checkbox style={{transform: "scale(0.5)" }}/> Täpne skeem<br /><br /><Checkbox style={{transform: "scale(0.5)" }}/> Raua test<br /><br /><Checkbox style={{transform: "scale(0.5)" }}/> Andurid</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky">Käsitleja:</td>
                     <td class="tg-0pky">box</td>
                     <td class="tg-0pky">Käsitletud:</td>
-                    <td class="tg-0pky" colSpan="7"><Checkbox /> Silikooniga tihend.</td>
-                    <td class="tg-0pky" colSpan="5"><Checkbox /> "H" klassi materjalid</td>
+                    <td class="tg-0pky" colSpan="7"><Checkbox style={{transform: "scale(0.5)" }}/> Silikooniga tihend.</td>
+                    <td class="tg-0pky" colSpan="5"><Checkbox style={{transform: "scale(0.5)" }}/> "H" klassi materjalid</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="2"></td>
                     <td class="tg-0pky">Kuup. dd.mm.yyyy</td>
-                    <td class="tg-0pky" colSpan="7"><Checkbox /> Muu erimääre</td>
-                    <td class="tg-0pky" colSpan="5"><Checkbox /> uurdeisol. -MYLAR</td>
+                    <td class="tg-0pky" colSpan="7"><Checkbox style={{transform: "scale(0.5)" }}/> Muu erimääre</td>
+                    <td class="tg-0pky" colSpan="5"><Checkbox style={{transform: "scale(0.5)" }}/> uurdeisol. -MYLAR</td>
                   </tr>
                   <tr>
                     <td class="tg-0pky" colSpan="3">Tööetapid töökoja töödele</td>
-                    <td class="tg-0pky" colSpan="7"><Checkbox /> Õli vahetus</td>
-                    <td class="tg-0pky" colSpan="5"><Checkbox /> Nomex v.v juhtmed</td>
+                    <td class="tg-0pky" colSpan="7"><Checkbox style={{transform: "scale(0.5)" }}/> Õli vahetus</td>
+                    <td class="tg-0pky" colSpan="5"><Checkbox style={{transform: "scale(0.5)" }}/> Nomex v.v juhtmed</td>
                   </tr>
                   <tr>
                     <td class="tg-0lax" colSpan="2">(DE) (L) (MÄR) (V) (TA) (LV) (KO) (KA) (VÄ)</td>
