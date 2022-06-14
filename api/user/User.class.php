@@ -202,6 +202,7 @@ class User{
 
         $this->return_data = null;
 		$list_html = array();
+        $roles = null;
 
         // // Error kontroll
         // array_push($list_html, array("error"=>$_SESSION["status"]));
@@ -218,16 +219,30 @@ class User{
 		$stmt->execute();
 		// echo $conn->error;
 		while($stmt->fetch()){
-			array_push($list_html, array(
-                "id"=>$id_from_db,
-                "first_name"=>$first_name_from_db,
-                "last_name"=>$last_name_from_db,
-                "user_name"=>$user_name_from_db,
-                "email"=>$email_from_db
+            $conn2 = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+            $stmt2 = $conn2->prepare("SELECT roll.rolli_nimi FROM roll INNER JOIN tootaja_roll ON roll.id=tootaja_roll.roll_id WHERE tootaja_roll.tootaja_id = ?");
+                $stmt2->bind_param("i", $id_from_db);
+                $stmt2->bind_result($rolename_from_db);
+                $stmt2->execute();
+
+                while($stmt2->fetch()){
+                    $roles .= $rolename_from_db . " ";
+                }
+
+                array_push($list_html, array(
+                        "id"=>$id_from_db,
+                        "first_name"=>$first_name_from_db,
+                        "last_name"=>$last_name_from_db,
+                        "user_name"=>$user_name_from_db,
+                        "email"=>$email_from_db,
+                        "roles"=>$roles
                 ));
+
 		}
 		$stmt->close();
 		$conn->close();
+        $stmt2->close();
+		$conn2->close();
 
 		if(!empty($list_html)){
             $this->return_data = json_encode($list_html);

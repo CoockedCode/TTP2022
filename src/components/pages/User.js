@@ -48,9 +48,8 @@ export default function User() {
     const handleCloseName = () => {setOpenName(false);};
 
     const [user, setUser] = useState([]);
-	const FetchUser = async ()=>{
-		const resp = await axios.get(endpoint + "/user/User.php?usr=" + usrNam);
-        // console.log(resp.data);
+	const FetchUser = async (name)=>{
+		const resp = await axios.get(endpoint + "/user/User.php?usr=" + name);
 		setUser([]);
 		resp.data.forEach( element => {
 			setUser(oldArray => [...oldArray, element])
@@ -60,14 +59,14 @@ export default function User() {
 	const ChangePassword = async (usrNam, oldPassword, newPassword) =>{
 		const resp = await axios.get(endpoint + "/user/User.php?changePwdUsr=" + usrNam + "&changePwdOld=" + oldPassword + "&changePwdNew=" + newPassword);
 		dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
+        FetchUser(resp.data[0].user_name);
 	};
 
     const ChangeUserName = async (oldName, newName, password) =>{
 		const resp = await axios.get(endpoint + "/user/User.php?changeNameOld=" + oldName + "&changeNameNew=" + newName + "&changeNamePwd=" + password);
-		console.log(resp.data.notice);
         dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
         dispatch(setUserSession(true, resp.data[0].user_name));
-        FetchUser();
+        FetchUser(resp.data[0].user_name);
 	};
 
     const handleSubmitPassword = (e) => {
@@ -77,18 +76,24 @@ export default function User() {
         const oldPassword = formData.get("old");
         const newPassword = formData.get("new");
         ChangePassword(usrNam, oldPassword, newPassword);
+
     };
     const handleSubmitUsername = (e) => {
         e.preventDefault();
-		const formData = new FormData(e.currentTarget);
+        const formData = new FormData(e.currentTarget);
         const oldName = formData.get("oldName");
         const newName = formData.get("newName");
         const password = formData.get("password");
-        // console.log(oldName, newName, password);
         ChangeUserName(oldName, newName, password);
     };
 
-    useEffect(() => {FetchUser();}, [handleSubmitUsername]);
+    const handleEditUser = (e) => {
+        const resp = await axios.get(endpoint + "/api/protect/Protect.php?set_table=tootaja&set_id=" + "1" + "&set_in_edit=1");
+        e.preventDefault();
+    };
+
+
+    useEffect(() => {FetchUser(usrNam);}, [usrNam]);
 
     return(
         <>
@@ -166,7 +171,7 @@ export default function User() {
                                             </Dialog>
                                         </div>
                                         <div style={{ display: "flex", margin: "0.4rem", width: "40%"}}>
-                                            <Button fullWidth variant="outlined" onClick={handleClickOpenName}>
+                                            <Button fullWidth variant="outlined" onClick={()=> {handleClickOpenName(), handleEditUser()}}>
                                                 Muuda kasutajanimi
                                             </Button>
                                             <Dialog open={openName} onClose={handleCloseName}>
@@ -246,6 +251,10 @@ export default function User() {
                                 <TableRow>
                                     <TableCell align="center" variant="head">Perekonnaimi</TableCell>
                                     <TableCell align="center" >{user.last_name}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell align="center" variant="head">Roll(id)</TableCell>
+                                    <TableCell align="center" >{user.roles}</TableCell>
                                 </TableRow>
 
 

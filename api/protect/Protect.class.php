@@ -8,10 +8,10 @@ class Protect{
     private $return_data = null;
     public function get_data(){return $this->return_data;}
 
-    public function query($table, $id){$this->query_in_eit($table, $id);}
-    public function start($table, $id, $set_in_edit){$this->set_in_edit($table, $id, $set_in_edit);}
+    public function query($table, $id){$this->query_in_edit($table, $id);}
+    public function set($table, $id, $set_in_edit){$this->set_in_edit($table, $id, $set_in_edit);}
 
-    private function query_in_eit($table, $id): void{
+    private function query_in_edit($table, $id): void{
         //	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
