@@ -13,7 +13,7 @@ import { FormControl } from '@mui/material';;
 import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
 
-const ClientList = () => {
+const ChoiceList = () => {
   const endpoint = "https://elektrimasinad.digifi.eu/api";
       // seadme liik
       const [deviceID, setDeviceID] = useState("");
@@ -240,7 +240,7 @@ const ClientList = () => {
         })
         .catch(function (err) {
         });
-
+        handleClose();
 	};
   const [nameValue, setNameValue] = useState("")
   const handleValueChange=(e)=>{
@@ -258,16 +258,29 @@ const ClientList = () => {
     //console.log(valueValue);
   }
 
+  const [deletionOpen, setDeletionOpen] = useState(false);
+  const handleDeletionOpen= ()=>{
+    setDeletionOpen(true);
+  }
+  const handleDeletionClose = () => {
+    setDeletionOpen(false);
+  };
+  const handleDeletion=()=>{
+    switch(deviceID||rotPerMin||manufacturer){
+      case 1:
+
+    }
+  }
+
   return (
     <>
       <main>
         <section style={{ width: "100%", padding: "0 5%" }}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3>Kliendid</h3>
+              <h3>Seadme valikud</h3>
             </div>
           </div>
-          <Box component="form" noValidate autoComplete="off">
           <Button
 							type="button"
 							variant="contained"
@@ -276,99 +289,108 @@ const ClientList = () => {
 							>
 							Lisa
 						</Button>
+          <Box component="form" noValidate autoComplete="off">
             <FormControl sc={{width: "100%"}}>
               <DropDown
-                name="Seadme liik" ID="choiceName" 
+                name="Seadme liik" ID="choiceType" 
                 value={deviceID} label="Seadme liik"
                 onChange={handleDeviceChange}
                 options={typeOptions}
                 />
+              <Button
+                type="button"
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                onClick={handleDeletionOpen}
+                >
+                Kustuta klient
+						  </Button>
               <DropDown
-                name="Võimsus KW" ID="choiceName" 
+                name="Võimsus KW" ID="choicePower" 
                 value={powerID} label="Võimsus KW"
                 onChange={handlePowerChange}
                 options={powerOptions}
                 />
               <DropDown
-                name="p/min" ID="choiceName" 
+                name="p/min" ID="choiceRotPerMin" 
                 value={rotPerMin} label="p/min"
                 onChange={handleRotPerMinChange}
                 options={rotPerMinOptions}
                 />
               <DropDown
-                name="Tootja" ID="choiceName" 
+                name="Tootja" ID="choiceManufacturer" 
                 value={manufacturer} label="Tootja"
                 onChange={handleManufacturerChange}
                 options={manufacturerOptions}
                 />
               <DropDown
-                name="Võlli kõrgus" ID="choiceName" 
+                name="Võlli kõrgus" ID="choiceShaft" 
                 value={shaftHeight} label="Võlli kõrgus"
                 onChange={handleShaftHeightChange}
                 options={shaftHeightOptions}
                 />
               <DropDown
-                name="Toite liik" ID="choiceName" 
+                name="Toite liik" ID="choicePowerSupply" 
                 value={powerSupply} label="Toite liik"
                 onChange={handlePowerSupplyChange}
                 options={powerSupplyOptions}
                 />
               <DropDown
-                name="Sagedus HZ" ID="choiceName" 
+                name="Sagedus HZ" ID="choiceFrequency" 
                 value={frequency} label="Sagedus HZ"
                 onChange={handleFrequencyChange}
                 options={frequencyOptions}
                 />
               <DropDown
-                name="Isol.Klass" ID="choiceName" 
+                name="Isol.Klass" ID="choiceIsolation" 
                 value={isolationClass} label="Isol.Klass"
                 onChange={handleIsolationClassChange}
                 options={isolationClassOptions}
                 />
               <DropDown
-                name="IP klass" ID="choiceName" 
+                name="IP klass" ID="choiceIPClass" 
                 value={IPClass} label="IP Klass"
                 onChange={handleIPClassChange}
                 options={IPClassOptions}
                 />
               <DropDown
-                name="Transpordi firma" ID="choiceName" 
+                name="Transpordi firma" ID="choiceTransport" 
                 value={transportCompany} label="Transpordi firma"
                 onChange={HandleTransportChange}
                 options={transportCompanyOptions}
                 />
               <DropDown
-                name="Tunni hind" ID="choiceName" 
+                name="Tunni hind" ID="choiceHourlyPrice" 
                 value={hourlyPrice} label="Tunni hind"
                 onChange={HandlePriceChange}
                 options={hourlyPriceOptions}
                 />
               <DropDown
-                name="Takistuse ühik" ID="choiceName" 
+                name="Takistuse ühik" ID="choiceRecistance" 
                 value={resitanceUnit} label="Takistuse ühik"
                 onChange={HandleResistanceChange}
                 options={resitanceUnitOptions}
                 />
               <DropDown
-                name="Pingeteim" ID="choiceName" 
+                name="Pingeteim" ID="choiceTension" 
                 value={tensionUnit} label="Pingeteim"
                 onChange={HandleTensionChnage}
                 options={tensionOptions}
                 />
               <DropDown
-                name="Katsetuse pinge" ID="choiceName" 
+                name="Katsetuse pinge" ID="choiceTensionUnit" 
                 value={tensioTestUnit} label="Katsetuse pinge"
                 onChange={HandleTensionTestChnage}
                 options={tensionTestOptions}
                 />
               <DropDown
-                name="Ühendus" ID="choiceName" 
+                name="Ühendus" ID="choiceConnection" 
                 value={connection} label="Ühendus"
                 onChange={HandleConnectionChange}
                 options={connectionOptions}
                 />
               <DropDown
-                name="Katsetatud" ID="choiceName" 
+                name="Katsetatud" ID="choiceTestin" 
                 value={testing} label="Katsetatud"
                 onChange={handleTestingChange}
                 options={testingOptions}
@@ -450,10 +472,41 @@ const ClientList = () => {
                 </Button>
                 </DialogActions>
             </Dialog>
+            <Dialog
+								open={deletionOpen}
+								onClose={handleDeletionClose}
+								aria-labelledby="alert-dialog-title"
+								aria-describedby="alert-dialog-description"
+							>
+								<DialogTitle id="alert-dialog-title">
+								{"Kustuta klient?"}
+								</DialogTitle>
+								<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									Soovid tõeliselt klienti kustutada? Nagu FR FR?
+								</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+									width: 'auto' }}
+									margin="dense"
+									onClick={handleDeletionClose}>
+									Cancel
+								</Button>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+									onClick={handleDeletion} autoFocus>
+									Jah, kustuta klient
+								</Button>
+								</DialogActions>
+							</Dialog>
         </section>
       </main>
     </>
   );
 };
 
-export default ClientList;
+export default ChoiceList;
