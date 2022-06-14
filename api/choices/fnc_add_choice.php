@@ -5,12 +5,13 @@
     require_once("../config.php");
 
     $data = json_decode(file_get_contents('php://input'), true);
+    // $data=file_get_contents('php://input');
 
     if(!empty($data)){
-        $choice_type_id=["choiceID"];
-        $choice_value=["name"];
-        $choice_unit=["unit"];
-        $choice_add_info=["comment"];
+        $choice_type_id=$data["choiceID"];
+        $choice_value=$data["name"];
+        $choice_unit=$data["unit"];
+        $choice_add_info=$data["comment"];
         add_new_choice($choice_type_id,$choice_value,$choice_unit,$choice_add_info);
     }
     echo $data;

@@ -219,21 +219,19 @@ const ClientList = () => {
         setChoiceID(e.target.value);
     }
     const handleSubmit = (e) => {
-      console.log("siin")
       e.preventDefault();
       // const formData = new FormData(e.currentTarget);
       const toSave={
         choiceID: choiceID,
-        name: valueValue,
+        name: nameValue,
         unit: unitValue,
         comment: addInfValue
       }
-      console.log(valueValue);
       handleAddition(toSave);
     }
 
     const handleAddition=(toSave)=>{
-      console.log("Hello");
+      console.log(toSave);
       axios.post(endpoint+"/choice/fnc_add_choice.php", toSave)
         .then(function (response) {
           console.log(response);
@@ -244,9 +242,9 @@ const ClientList = () => {
         });
 
 	};
-  const [valueValue, setValueValue] = useState("")
+  const [nameValue, setNameValue] = useState("")
   const handleValueChange=(e)=>{
-    setValueValue(e.target.value);
+    setNameValue(e.target.value);
     //console.log(valueValue);
   }
   const [unitValue, setUnitValue] = useState("")
