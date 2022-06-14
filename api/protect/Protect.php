@@ -1,6 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
     require_once("Protect.class.php");
+
 	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;}		// ! Kas on ikka GET päring?
 	$protect = new Protect();							// ! uus objekt
 
@@ -21,9 +22,13 @@
     // * tabeli kohta infi küsimine
 	if(isset($_GET["table"]) and !empty($_GET["table"]) and isset($_GET["id"]) and !empty($_GET["id"])){
 		$table = filter_var($_GET["table"], FILTER_SANITIZE_STRING);
+		// $table = clean($_GET["table"]);
 		$id = $_GET["id"];
+		// $id = clean($_GET["id"]);
+
         $protect->query($table, $id);
         echo($protect->get_data());
+
 	}
 
 	// ! SHUDOWN
