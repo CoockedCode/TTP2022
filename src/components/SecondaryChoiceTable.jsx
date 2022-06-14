@@ -14,7 +14,7 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import axios from 'axios';
 
-export default function ClientListTable() {
+export default function SecondaryChoiceTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
@@ -59,9 +59,6 @@ useEffect(() => {
                     <TableCell >{row.postInd} </TableCell>
                     <TableCell >{row.kontakt} </TableCell>
                     <TableCell >{row.mail} </TableCell>
-                    <TableCell >{row.telefon} </TableCell>
-                    <TableCell >{row.invoiceEm}  </TableCell>
-                    <TableCell >{row.addInf} </TableCell>
             </TableRow>
 
             <TableRow key={key + 'dropDown'}>
@@ -110,14 +107,11 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
-                    <TableCell >Nimi</TableCell>
-                    <TableCell >Registri NR </TableCell>
-                    <TableCell >Postiindeks </TableCell>
-                    <TableCell >Kontakt isik </TableCell>
-                    <TableCell >Mail </TableCell>
-                    <TableCell >Telefon </TableCell>
-                    <TableCell >Arve mail </TableCell>
-                    <TableCell >Lisainfo </TableCell>
+                    <TableCell >Takistuse ühik</TableCell>
+                    <TableCell >Pingeteim</TableCell>
+                    <TableCell >Katsetuse pinge(V)</TableCell>
+                    <TableCell >Ühendus</TableCell>
+                    <TableCell >Katsetatud</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>

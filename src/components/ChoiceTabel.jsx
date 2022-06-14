@@ -13,8 +13,14 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ClientListTable() {
+export default function ChoiceTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
@@ -26,12 +32,20 @@ export default function ClientListTable() {
         });
         console.log(rows);
 }
+const [open, setOpen] = useState(false);
+
+const handleClickOpen = () => {
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
 
 useEffect(() => {
     forRows();
   }, []);
-
-    const [open, setOpen] = useState(false);
+  
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -110,14 +124,27 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
-                    <TableCell >Nimi</TableCell>
-                    <TableCell >Registri NR </TableCell>
-                    <TableCell >Postiindeks </TableCell>
-                    <TableCell >Kontakt isik </TableCell>
-                    <TableCell >Mail </TableCell>
-                    <TableCell >Telefon </TableCell>
-                    <TableCell >Arve mail </TableCell>
-                    <TableCell >Lisainfo </TableCell>
+                    <TableCell >Seadme liik
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                    <TableCell >Võimsus kW</TableCell>
+                    <TableCell >p/min </TableCell>
+                    <TableCell >Tootja</TableCell>
+                    <TableCell >Võlli kõrgus </TableCell>
+                    <TableCell >Toite liik </TableCell>
+                    <TableCell >Sagedus Hz</TableCell>
+                    <TableCell >Isol.klass </TableCell>
+                    <TableCell >IP Klass</TableCell>
+                    <TableCell >Transpordi firma</TableCell>
+                    <TableCell >Tarnija</TableCell>
+                    <TableCell >Tunnihind</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -139,6 +166,38 @@ useEffect(() => {
             onRowsPerPageChange={handleChangeRowsPerPage}
 
           />
+            <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title">
+            {"Kustuta klient?"}
+            </DialogTitle>
+            <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+                Andmete lisamine
+            </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+            <Button 
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+                width: 'auto' }}
+                margin="dense"
+                onClick={handleClose}>
+                Cancel
+            </Button>
+            <Button 
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
+                onClick={handleClose} autoFocus>
+                Lisa!
+            </Button>
+            </DialogActions>
+            </Dialog>
         </Paper>
+
       );
     }
