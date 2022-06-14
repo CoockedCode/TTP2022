@@ -6,8 +6,10 @@ import DropDown from "../DropDown";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import WindingDialog from "../WindingDialog";
+import DeviceTestingDialog from "../DeviceTestingDialog";
 
 // TODO
+// kui väljad täidetud, siis projekti kuvasse naasemine
 // Fotode ja failide lisamine/vaatamine
 // Mähise andmed dialog box
 // Seadme katsetus
@@ -29,61 +31,79 @@ export default function AddNewProject(){
     const handleDeviceChange = (e) => {
         setDeviceID(e.target.value);
     }
+    const [typeOptions, setTypeOptions] = useState([]);
+
     // võimsus
     const [powerID, setPowerID] = useState("");
     const handlePowerChange = (e) => {
         setPowerID(e.target.value);
     }
+    const [powerOptions, setPowerOptions] = useState([]);
+
     // p/min
     const [rotPerMin, setRotPerMin] = useState("");
     const handleRotPerMinChange = (e) => {
         setRotPerMin(e.target.value);
     }
+    const [rotPerMinOptions, setRotPerMinOptions] = useState([]);
+
     // tootja
     const [manufacturer, setManufacturer] = useState("");
     const handleManufacturerChange = (e) => {
         setManufacturer(e.target.value);
     }
+    const [manufacturerOptions, setManufacturerOptions] = useState([]);
+
     // võlli kõrgus
     const [shaftHeight, setShaftHeight] = useState("");
     const handleShaftHeightChange = (e) => {
         setShaftHeight(e.target.value);
     }
+    const [shaftHeightOptions, setShaftHeightOptions] = useState([]);
+
     // toite liik
     const [powerSupply, setPowerSupply] = useState("");
     const handlePowerSupplyChange = (e) => {
         setPowerSupply(e.target.value);
     }
+    const [powerSupplyOptions, setPowerSupplyOptions] = useState([]);
+
     // sagedus Hz
     const [frequency, setFrequency] = useState("");
     const handleFrequencyChange = (e) => {
         setFrequency(e.target.value);
     }
+    const [frequencyOptions, setFrequencyOptions] = useState([]);
+
     // Isol. klass
     const [isolationClass, setIsolationClass] = useState("");
     const handleIsolationClassChange = (e) => {
         setIsolationClass(e.target.value);
     }
+    const [isolationClassOptions, setIsolationClassOptions] = useState([]);
+
     // IP klass
     const [IPClass, setIPClass] = useState("");
     const handleIPClassChange = (e) => {
         setIPClass(e.target.value);
     }
+    const [IPClassOptions, setIPClassOptions] = useState([]);
+
     // tunnihind
     // takistuse ühik
+    const [resistanceArr, setResistanceArr] = useState([]);
+
     // pingeteim
+    const [voltageTestArr, setVoltageTestArr] = useState([]);
+
     // katsetuse pinge(V)
+    const [testingVoltageArr, setTestingVoltageArr] = useState([]);
+
     // ühendus
+    const [connectionArr, setConnectionArr] = useState([]);
+
     // katsetatud
-    const [typeOptions, setTypeOptions] = useState([]);
-    const [powerOptions, setPowerOptions] = useState([]);
-    const [rotPerMinOptions, setRotPerMinOptions] = useState([]);
-    const [manufacturerOptions, setManufacturerOptions] = useState([]);
-    const [shaftHeightOptions, setShaftHeightOptions] = useState([]);
-    const [powerSupplyOptions, setPowerSupplyOptions] = useState([]);
-    const [frequencyOptions, setFrequencyOptions] = useState([]);
-    const [isolationClassOptions, setIsolationClassOptions] = useState([]);
-    const [IPClassOptions, setIPClassOptions] = useState([]);
+    const [testMethodArr, setTestMethodArr] = useState([]);
 
     const getDeviceOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
@@ -96,6 +116,11 @@ export default function AddNewProject(){
         setFrequencyOptions([]);
         setIsolationClassOptions([]);
         setIPClassOptions([]);
+        setResistanceArr([]);
+        setVoltageTestArr([]);
+        setTestingVoltageArr([]);
+        setConnectionArr([]);
+        setTestMethodArr([]);
         response.data.forEach(element => {
             switch(element.attribute){
                 case 1:
@@ -125,6 +150,20 @@ export default function AddNewProject(){
                 case 9:
                     setIPClassOptions(oldArray => [...oldArray, element]);
                     break;
+                case 11:
+                    setResistanceArr(oldArray => [...oldArray, element]);
+                    break;
+                case 12:
+                    setVoltageTestArr(oldArray => [...oldArray, element]);
+                    break;
+                case 13:
+                    setTestingVoltageArr(oldArray => [...oldArray, element]);
+                    break;
+                case 14:
+                    setConnectionArr(oldArray => [...oldArray, element]);
+                    break;
+                case 15:
+                    setTestMethodArr(oldArray => [...oldArray, element]);
             }
         });
     }
@@ -269,8 +308,6 @@ export default function AddNewProject(){
                             size="small"
                         />
 
-                        <WindingDialog />
-
                         <TextField
                             required
                             id="additionalInfo"
@@ -281,6 +318,17 @@ export default function AddNewProject(){
                             margin="dense"
                             size="small"
                         />
+
+                        <WindingDialog />
+
+                        <DeviceTestingDialog
+                         resistanceOptions={resistanceArr}
+                         voltageTestOptions={voltageTestArr}
+                         testingVoltageOptions={testingVoltageArr}
+                         connectionOptions={connectionArr}
+                         testMethodOptions={testMethodArr}
+                        />
+
                     </FormControl>
                 </Box>
 

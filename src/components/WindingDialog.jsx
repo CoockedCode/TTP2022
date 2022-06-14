@@ -4,25 +4,9 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody, Input } from '@mui/material';
 
-// function createData(name, statorValue, rotorValue){
-//     return { name, statorValue, rotorValue };
-// }
-
-// const rows = [
-//     createData("Pooluste arv","-","-"),
-//     createData("Mähise liik","-","-"),
-//     createData("Ühendusviis","-","-"),
-//     createData("Mähise samm","-","-"),
-//     createData("Uurete arv","-","-"),
-//     createData("Keerdude arv","-","-"),
-//     createData("Raua mõõdud","-","-"),
-//     createData("Traatide arv keerus","-","-"),
-//     createData("Traadi mõõdud","-","-"),
-// ];
 const rows = [
     {
         name: "Pooluste arv",
@@ -83,11 +67,12 @@ export default function WindingDialog({ setsList = rows}){
     };
 
     const [state, setState] = useState(setsList)
-    console.log(state)
+    console.log(state.find(mahis => mahis.name === "Mähise liik").statorValue);
+    // console.log(state);
 
     const handleChange = (e, i) => {
         const { value, name } = e.target;
-        console.log(value)
+        //console.log(value)
 
         const newState = [...state];
         newState[i] = {
@@ -117,7 +102,7 @@ export default function WindingDialog({ setsList = rows}){
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {state.map(({ name, value }, index) => {
+                            {state.map(({ name, statorValue, rotorValue }, index) => {
                                 return(
                                     <TableRow
                                         key={index}
@@ -129,14 +114,14 @@ export default function WindingDialog({ setsList = rows}){
                                         <TableCell align="left">
                                             <TextField
                                                 name="statorValue"
-                                                value={value}
+                                                value={statorValue}
                                                 onChange={(e) => handleChange(e, index)}
                                             />
                                         </TableCell>
                                         <TableCell align="left">
                                             <TextField
                                                 name="rotorValue"
-                                                value={value}
+                                                value={rotorValue}
                                                 onChange={(e) => handleChange(e, index)}
                                             />
                                         </TableCell>
