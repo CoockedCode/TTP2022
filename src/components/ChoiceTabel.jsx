@@ -87,14 +87,8 @@ useEffect(() => {
             <TableRow key={key} className="main-table-row">
                 <TableCell padding='none'>
                 </TableCell>
-                    <TableCell >{row.name}</TableCell>
+                    <TableCell >{row.type}</TableCell>
                     <TableCell >{row.name} </TableCell>
-                    <TableCell >{row.postInd} </TableCell>
-                    <TableCell >{row.kontakt} </TableCell>
-                    <TableCell >{row.mail} </TableCell>
-                    <TableCell >{row.telefon} </TableCell>
-                    <TableCell >{row.invoiceEm}  </TableCell>
-                    <TableCell >{row.addInf} </TableCell>
             </TableRow>
             </>
         );
@@ -108,122 +102,12 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
-                    <TableCell >Seadme liik
+                  <TableCell >Valiku tüüp
                     </TableCell>
-                    <TableCell >Võimsus kW</TableCell>
-                    <TableCell >p/min </TableCell>
-                    <TableCell >Tootja</TableCell>
-                    <TableCell >Võlli kõrgus </TableCell>
-                    <TableCell >Toite liik </TableCell>
-                    <TableCell >Sagedus Hz</TableCell>
-                    <TableCell >Isol.klass </TableCell>
-                    <TableCell >IP Klass</TableCell>
-                    <TableCell >Transpordi firma</TableCell>
-                    <TableCell >Tarnija</TableCell>
-                    <TableCell >Tunnihind</TableCell>
+                    <TableCell >Valiku väärtus</TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell padding='none' width={"12px"}/>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
-                    <TableCell>
-                    <Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-                    </TableCell>
                     <TableCell>
                     <Button
 							type="button"
@@ -296,7 +180,6 @@ useEffect(() => {
                                     margin="dense"
                                     size="small" />
                                 <TextField
-                                    optional
                                     fullWidth
                                     id="choiceUnit"
                                     label="Sisesta valiku mõõtühikut(Kui on)"
@@ -306,7 +189,6 @@ useEffect(() => {
                                     margin="dense"
                                     size="small" />
                                 <TextField
-                                    optional
                                     fullWidth
                                     id="choiceAddInfo"
                                     label="Sisesta märkus(Kui on)"
