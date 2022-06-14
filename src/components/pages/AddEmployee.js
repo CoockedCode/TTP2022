@@ -9,8 +9,7 @@ import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { data } from 'jquery';
 import FormControl from '@mui/material/FormControl';
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import EmployeeRolesList from '../EmployeeRolesList';
 
 export default function AddWorker(){
 
@@ -29,9 +28,12 @@ export default function AddWorker(){
 	//4. Töötaja number
 	const [valueEmpNumber, setValueEmpNumber] = useState();
 	const [errorEmpNumber, setErrorEmpNumber] = useState(false);
-	//5. Töötaja roll
+	//5. Töötaja staatus
 	const [valueEmpActive, setValueEmpActive] = useState();
 	const [errorEmpActive, setErrorEmpActive] = useState(false);
+	//6. Töötaja roll
+	const [valueEmpRole, setValueEmpRole] = useState();
+	const [errorEmpRole, setErrorEmpRole] = useState(false);
 
 	useEffect(() => {
 		if(valueEmpFname){setErrorEmpFname(false);}
@@ -39,7 +41,8 @@ export default function AddWorker(){
 		if(valueEmpMail){setErrorEmpMail(false);}
 		if(valueEmpNumber){setErrorEmpNumber(false);}
 		if(valueEmpActive){setErrorEmpActive(false);}
-	}, [valueEmpFname, valueEmpSname, valueEmpMail, valueEmpNumber, valueEmpActive])
+		if(valueEmpRole){setErrorEmpRole(false);}
+	}, [valueEmpFname, valueEmpSname, valueEmpMail, valueEmpNumber, valueEmpActive, valueEmpRole])
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -62,7 +65,7 @@ export default function AddWorker(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive")){
+		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive") && formData.get("employeeRole")){
 			// console.log("väljad täidetud")
 
 			//Kasutajanime loomine ees- ja perekonnanime järgi
@@ -78,11 +81,13 @@ export default function AddWorker(){
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
 				employeeActive: formData.get("employeeActive"),
+				employeeRole: formData.get("employeeRole"),
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
 
 			};
 			console.log(WorkerJobsList);
+			console.log(employeeRole);
 
 			saveData(dataToSave);
 
@@ -112,6 +117,11 @@ export default function AddWorker(){
 				setErrorEmpActive(true);
 			}else{
 				setValueEmpActive(formData.get("employeeActive"));
+			}
+			if(!formData.get("employeeRole")){
+				setErrorEmpRole(true);
+			}else{
+				setValueEmpRole(formData.get("employeeRole"));
 			}
 
 		}
@@ -193,11 +203,20 @@ export default function AddWorker(){
 							type="number"
 							margin="dense"
 							size="small"
+							
 							/>
 						<WorkerJobsList
 							required
+							error={!!errorEmpRole}
 							margin="dense"
+							id="employeeRoles"
+							label="Töötajate rollid"
+							name="employeeRoles"
+							autoComplete="none"
+							type="text"
+							size="small"
 							/>
+						<EmployeeRolesList/>
 
 						<Button
 							type="submit"

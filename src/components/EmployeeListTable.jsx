@@ -16,11 +16,11 @@ export default function EmployeeListTable() {
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/employee/fnc_read_employees.php?client");
         setRows([]);
-        console.log(resp);
+
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])
         });
-        console.log(rows);
+
 }
 
 useEffect(() => {

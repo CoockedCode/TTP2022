@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 
 const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_PADDING_TOP = 15;
 const MenuProps = {
   PaperProps: {
     style: {
@@ -19,7 +19,7 @@ const MenuProps = {
   },
 };
 
-const names = [
+names = [
   'Tööline',
   'Käsitleja',
   'Katsetaja',
