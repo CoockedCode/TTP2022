@@ -10,8 +10,8 @@ const DigiDokk = () => {
 
     const [dokk, setDokk] = useState([]);
       const FetchDokk = async (idDB) =>{
-        const resp = await axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB.toString() );
-        setDokk([]);
+        const resp = await axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB );
+        //setDokk([]);
         resp.data.forEach(element => {
           setDokk(oldArray => [...oldArray, element])
         });
@@ -62,7 +62,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="7" rowSpan="2">Töö nr.
                       <form>
-                        <input type="text" id="toonr" defaultValue={dokk[0].projekt_nr} ></input>
+                        {/*<input type="text" id="toonr" defaultValue={dokk[0].projekt_nr} ></input>*/}
                       </form>
                     </td>
                   </tr>
