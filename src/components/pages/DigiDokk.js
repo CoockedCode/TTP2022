@@ -14,7 +14,7 @@ const DigiDokk = () => {
         const resp = await axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB );
        setDokk(resp.data);
       };
-      //console.log(dokk);
+      console.log(dokk);
 
     useEffect(() => {
 	  	FetchDokk(2);
