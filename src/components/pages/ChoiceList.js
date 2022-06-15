@@ -374,7 +374,7 @@ const ChoiceList = () => {
         <section style={{ width: "100%", padding: "0 5%" }}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3>Seadme valikud</h3>
+              <h3>Valikute seaded</h3>
             </div>
           </div>
           <Button
