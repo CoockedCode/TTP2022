@@ -10,8 +10,10 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 import { data } from 'jquery';
 import FormControl from '@mui/material/FormControl';
 import EmployeeRolesList from '../EmployeeRolesList';
+import DropDown from '../DropDown';
 
 export default function AddWorker(){
+	const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 	//snackbar
 	const dispatch = useDispatch();
@@ -59,6 +61,24 @@ export default function AddWorker(){
 		});
 
 	};
+	const [roleName, setRoleName] = useState("");
+	const handleRoleChange = (e) => {
+		setRoleName(e.target.value);
+	  }
+	const [roleNameOptions, setRoleNameOptions] = useState([]);
+	const getRoleOptions = async() =>{
+		const response = await axios.get(`${endpoint}/employee/fnc_employee_role.php?role`);
+		console.log(response)
+		setRoleNameOptions([]);
+		response.data.forEach(element=>{
+			setRoleNameOptions(oldArray=>[...oldArray, element]);
+		})
+		console.log(roleNameOptions)
+	}
+
+	useEffect(() => {
+		getRoleOptions();
+	}, []);
 
 
 	const handleSubmit = (e) => {
@@ -205,18 +225,12 @@ export default function AddWorker(){
 							size="small"
 							
 							/>
-						<WorkerJobsList
-							required
-							error={!!errorEmpRole}
-							margin="dense"
-							id="employeeRoles"
-							label="Töötajate rollid"
-							name="employeeRoles"
-							autoComplete="none"
-							type="text"
-							size="small"
-							/>
-						<EmployeeRolesList/>
+						<DropDown
+						name="Töötaja roll" ID="roleName" 
+						value={roleName} label="Tööroll"
+						onChange={handleRoleChange}
+						options={roleNameOptions}
+						/>
 
 						<Button
 							type="submit"
