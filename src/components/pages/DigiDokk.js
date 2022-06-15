@@ -1,26 +1,28 @@
-//import { jsPDF } from "jspdf";
-
-// Default export is a4 paper, portrait, using millimeters for units
-//const doc = new jsPDF();
-
-//doc.text("Hello world!", 10, 10);
-//doc.save("a4.pdf");
-
 import '../../styles/pages/php.css';
 import Checkbox from '@mui/material/Checkbox';
 import {FormControlLabel} from '@mui/material';
 import axios from 'axios';
-// import {TextField} from '@mui/material';
-
-
+import { useEffect, useState } from 'react';
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
+
 const DigiDokk = () => {
 
-  axios.get(endpoint + "/digidokk/DigiDokk.php?id=1")
-    .then(function(response){
-      console.log(response.data)
-    })
+    const [dokk, setDokk] = useState([]);
+      const FetchDokk = async (idDB) =>{
+        const resp = await axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB.toString() );
+        setDokk([]);
+        resp.data.forEach(element => {
+          setDokk(oldArray => [...oldArray, element])
+        });
+             console.log(dokk);
+      };
+
+    useEffect(() => {
+	  	FetchDokk(2);
+  	}, [!dokk]);
+
+
     return (
       <>
         <main>
@@ -54,13 +56,13 @@ const DigiDokk = () => {
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="5" rowSpan="2">Arve nr.
-                      <form> 
+                      <form>
                         <input type="text" id="arvenr"></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="7" rowSpan="2">Töö nr.
-                      <form> 
-                        <input type="text" id="toonr"></input>
+                      <form>
+                        <input type="text" id="toonr" defaultValue={dokk[0].projekt_nr} ></input>
                       </form>
                     </td>
                   </tr>
@@ -89,7 +91,7 @@ const DigiDokk = () => {
 
                   <tr>
                     <td class="tg-0pky" colSpan="2">Kontaktisik:
-                      <form id="ktkisikf"> 
+                      <form id="ktkisikf">
                         <input type="text" id="ktkisik"></input>
                       </form>
                     </td>
@@ -530,6 +532,5 @@ const DigiDokk = () => {
       </>
     );
   };
-  
+
   export default DigiDokk;
-  
