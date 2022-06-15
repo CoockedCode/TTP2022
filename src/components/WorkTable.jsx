@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import WorkBox from	'./WorkBox';
+import WorkPrio from	'./WorkPrio';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
 import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -41,7 +42,7 @@ function Row(row, key){
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
 			<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >{row.ID}</TableCell>
-			<TableCell >{row.PT}</TableCell>
+			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
 
 			<TableCell >{row.Avatud}</TableCell>
@@ -75,16 +76,17 @@ function Row(row, key){
 						</TableHead>
 						<TableBody>
 							<TableRow key={1}>
-								<TableCell component="th" scope="row">
-								asdsad
-								</TableCell>
-								<TableCell>asd</TableCell>
-								<TableCell align="right">asd</TableCell>
-								<TableCell align="right">
-								asd
-								</TableCell>
+								<TableCell>Tootja</TableCell>
+								<TableCell>Seadme liik</TableCell>
+								<TableCell>Seadme tüüp</TableCell>
+								<TableCell align="right">kW</TableCell>
+								<TableCell align="right">p/min</TableCell>
+								<TableCell >Kokkulepitud tähtaeg</TableCell>
+								<TableCell >Lõpetatud</TableCell>
+								<TableCell >Väljaviidud</TableCell>
+								<TableCell >Arhiivi</TableCell>
+								<TableCell >Kustuta</TableCell>
 							</TableRow>
-
 						</TableBody>
 						</Table>
 					</Box>
