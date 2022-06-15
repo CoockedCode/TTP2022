@@ -2,6 +2,7 @@
 	header("Access-Control-Allow-Origin: *");
 
     require_once("User.class.php");
+    require_once('../Validate.class.php');
 
 	// ! Kas on ikka GET päring?
 	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;
@@ -12,15 +13,15 @@
 
     // * sisse logimine
 	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
-		$usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
-		$passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
+		$usrNam = Validate::str($_GET["usrNam"]);
+		$passWrd = Validate::str($_GET["passWrd"]);
         $user->sign_in($usrNam, $passWrd);
         echo($user->get_data());
 	}
 
     // * kasutaja info
 	if(isset($_GET["usr"]) and !empty($_GET["usr"])){
-        $usrNam = filter_var($_GET["usr"], FILTER_SANITIZE_STRING);
+        $usrNam = Validate::str($_GET["usr"]);
         $user->fetch_data($usrNam);
         echo($user->get_data());
 	}
@@ -31,9 +32,9 @@
         isset($_GET["changePwdOld"]) and !empty($_GET["changePwdOld"]) and
         isset($_GET["changePwdNew"]) and !empty($_GET["changePwdNew"])
     ){
-        $usrNam = filter_var($_GET["changePwdUsr"], FILTER_SANITIZE_STRING);
-        $old_password = filter_var($_GET["changePwdOld"], FILTER_SANITIZE_STRING);
-        $new_password = filter_var($_GET["changePwdNew"], FILTER_SANITIZE_STRING);
+        $usrNam = Validate::str($_GET["changePwdUsr"]);
+        $old_password = Validate::str($_GET["changePwdOld"]);
+        $new_password = Validate::str(($_GET["changePwdNew"]);
         $user->change_password($usrNam, $old_password, $new_password);
         echo($user->get_data());
 	}
@@ -44,9 +45,9 @@
         isset($_GET["changeNameNew"]) and !empty($_GET["changeNameNew"]) and
         isset($_GET["changeNamePwd"]) and !empty($_GET["changeNamePwd"])
     ){
-        $old_user_name = filter_var($_GET["changeNameOld"], FILTER_SANITIZE_STRING);
-        $new_user_name = filter_var($_GET["changeNameNew"], FILTER_SANITIZE_STRING);
-        $password = filter_var($_GET["changeNamePwd"], FILTER_SANITIZE_STRING);
+        $old_user_name = Validate::str($_GET["changeNameOld"]);
+        $new_user_name = Validate::str($_GET["changeNameNew"]);
+        $password = Validate::str($_GET["changeNamePwd"]);
         $user->change_name($old_user_name, $new_user_name, $password);
         echo($user->get_data());
 	}
@@ -59,11 +60,10 @@
         isset($_GET["passWrd"]) and !empty($_GET["passWrd"]) and
         isset($_GET["onPay"]) and !empty($_GET["onPay"])
     ){
-        $first_name = filter_var($_GET["first_name"], FILTER_SANITIZE_STRING);
-        $last_name = filter_var($_GET["last_name"], FILTER_SANITIZE_STRING);
-        $usrNam = filter_var($_GET["usrNam"], FILTER_SANITIZE_STRING);
-        $passWrd = filter_var($_GET["passWrd"], FILTER_SANITIZE_STRING);
-        $on_pay = filter_var($_GET["onPay"], FILTER_SANITIZE_STRING);
+        $last_name = Validate::str($_GET["last_name"]);
+        $usrNam = Validate::str($_GET["usrNam"]);
+        $passWrd = Validate::str($_GET["passWrd"]);
+        $on_pay = Validate::int($_GET["onPay"]);
         $user->store_new($first_name, $last_name, $usrNam, $passWrd, $on_pay);
         // echo($user->get_data());
     }
