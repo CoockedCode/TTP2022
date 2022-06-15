@@ -119,6 +119,10 @@
 
 #allkirjalahter{border-width: 0;margin:0;padding:0;width:113;height:35}
 
+#vottisvastu{border-width: 0; margin: 0; margin-left: 10; padding: 0}
+
+#vottisvastuf{display: inline-block}
+
 .tg .tg-0pky1{border-right-width: 0;}
 
 .tg .tg-0pky2{border-left-width: 0;}
@@ -150,6 +154,8 @@
 #valjaviikeform{width:28;height: 14; margin: 0; display: inline-block;}
 
 #valjaviike{width:20;height:8}
+
+/* #vottisvastu{border-width: 0;} */
 
 .tg .tg-markused2{border-top-width: 0;}
 

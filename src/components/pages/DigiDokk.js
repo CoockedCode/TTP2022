@@ -36,7 +36,7 @@ const DigiDokk = () => {
                       <td class="tg-prioH">Töö prioriteet
                         <td class="tg-prioV">
                           <form>
-                            <input type="text" id="prioautofill"></input>
+                            <input type="text" id="prioautofill" defaultValue={dokk[0].prioriteet}></input>
                           </form>
                         </td>
                         <td class="tg-prioL">K - kiire<br />T - tähtajaline<br />M - määramata</td>
@@ -53,7 +53,7 @@ const DigiDokk = () => {
                     <td class="tg-regnr">Reg. nr.</td>
                     <td class="tg-0pky" rowSpan="2">Saabumise kp.
                       <form>
-                        <input type="text" id="saabumisekp"></input>
+                        <input type="text" id="saabumisekp" ></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="5" rowSpan="2">Arve nr.
@@ -150,7 +150,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky2">
                       <FormControlLabel
-                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        value ="end" control={<Checkbox checked='false' style={{transform: "scale(0.5)" }} />}
                         label="Kliendi toodud" labelPlacement="end"/>
                     </td>
                     <td class="tg-0pky" colSpan="6">Pakkum. Nr.
@@ -178,7 +178,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="7">Kokkulepitud tähtaeg:
                      <form id="tahtaegf">
-                      <input type="text" id="tahtaeg"></input>
+                      <input type="text" id="tahtaeg" defaultValue={dokk[0].kokkulepitud_lopp}></input>
                      </form>
                     </td>
                   </tr>
@@ -499,10 +499,16 @@ const DigiDokk = () => {
                     <td class="tg-0lax" colSpan="7"></td>
                     <td class="tg-0lax" colSpan="4">Kuup. dd/mm/yyyy. a.</td>
                   </tr>
+
                   <tr>
                     <td class="tg-0lax" colSpan="4">Andis välja</td>
-                    <td class="tg-0lax" colSpan="11">Võttis vastu</td>
+                    <td class="tg-0lax" colSpan="11">Võttis vastu
+                      <form id="vottisvastuf">
+                        <input type="text" id="vottisvastu" defaultValue={dokk[0].vottis_vastu}></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
                     <td class="tg-0lax"></td>
                     <td class="tg-0lax">(Nimi, allkiri)</td>
