@@ -7,13 +7,12 @@ import axios from "axios";
 import { useLocation } from 'react-router-dom';
 import WindingDialog from "../WindingDialog";
 import DeviceTestingDialog from "../DeviceTestingDialog";
+import DeviceEquipment from "../DeviceEquipment";
 
 // TODO
 // kui väljad täidetud, siis projekti kuvasse naasemine
 // Fotode ja failide lisamine/vaatamine
-// Mähise andmed dialog box
-// Seadme katsetus
-// Seadme varustus
+// Seadme varustus popup
 // form validation
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -139,7 +138,7 @@ export default function AddNewProject(){
                     setShaftHeightOptions(oldArray => [...oldArray, element]);
                     break;
                 case 6:
-                    setPowerSupplyOptions(oldArray => [...oldArray, element]);;
+                    setPowerSupplyOptions(oldArray => [...oldArray, element]);
                     break;
                 case 7:
                     setFrequencyOptions(oldArray => [...oldArray, element]);
@@ -328,6 +327,8 @@ export default function AddNewProject(){
                          connectionOptions={connectionArr}
                          testMethodOptions={testMethodArr}
                         />
+
+                        <DeviceEquipment />
 
                     </FormControl>
                 </Box>
