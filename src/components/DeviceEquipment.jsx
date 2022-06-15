@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Checkbox, FormLabel } from "@mui/material";
+import { Box, Checkbox, FormLabel } from "@mui/material";
 import { FormControl, FormGroup, FormControlLabel } from "@mui/material";
 import { equipment } from "./EquipmentData";
 import TerminalBlockConnection from "./TerminalBlockConnection";
@@ -13,7 +13,6 @@ import "../styles/TerminalBlockConnection.css";
 
 
     // TODO
-    // klemmliistu ühendus skeem
     // klemmkarbi asendi skeem
     // skeemi joonistamise canvas(?)
     // ABsse salvestamine kui kõik väljad täidetud
@@ -52,7 +51,8 @@ export default function DeviceEquipment(){
                 <DialogTitle>Seadme varustus</DialogTitle>
                 <DialogContent>
                     <FormControl component="fieldset">
-                        <FormGroup>
+                        <Box sx={{ display: "grid", gap: 1, gridTemplateColumns: "repeat(3, 1fr)" }}>
+                            <FormGroup>
                             {equipment.map((element, index) => (
                                 <FormControlLabel
                                     value={element.label}
@@ -62,7 +62,9 @@ export default function DeviceEquipment(){
                                     onChange={() => handleChange(index)}
                                 />
                             ))}
-                        </FormGroup>
+                            </FormGroup>
+                        </Box>
+                        
 
                         <h5>Muud varustuse märkused</h5>
                         <TextField
@@ -93,6 +95,7 @@ export default function DeviceEquipment(){
                         {/* no idea kuidas teha, vormistada checkboxide? */}
                     </FormControl>
                 </DialogContent>
+                
                 <DialogActions>
                     <Button onClick={handleClose}>Katkesta</Button>
                     <Button onClick={handleClose}>Salvesta</Button>
