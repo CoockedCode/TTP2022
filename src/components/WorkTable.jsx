@@ -40,11 +40,15 @@ function Row(row, key){
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
+			<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >{row.ID}</TableCell>
+			<TableCell >{row.PT}</TableCell>
+			<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
 
-			<TableCell width="48px" >{row.ID}</TableCell>
-			<TableCell width="12px" ><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase ></TableCell>
-			<TableCell >{row.Projekt}</TableCell>
+			<TableCell >{row.Avatud}</TableCell>
+			<TableCell >{row.Klient}</TableCell>
+			<TableCell >{row.Too_nimetus}</TableCell>
 			<TableCell ><WorkBox workName={row.Progress}/></TableCell>
+
 		</TableRow>
 
 		<TableRow key={key + 'dropDown'}>
@@ -57,10 +61,16 @@ function Row(row, key){
 						<Table size="small" aria-label="muu">
 						<TableHead>
 							<TableRow>
-								<TableCell>Muu 1</TableCell>
-								<TableCell>Muu 2</TableCell>
-								<TableCell align="right">Muu 3</TableCell>
-								<TableCell align="right">Muu 4</TableCell>
+								<TableCell>Tootja</TableCell>
+								<TableCell>Seadme liik</TableCell>
+								<TableCell>Seadme tüüp</TableCell>
+								<TableCell align="right">kW</TableCell>
+								<TableCell align="right">p/min</TableCell>
+								<TableCell >Kokkulepitud tähtaeg</TableCell>
+								<TableCell >Lõpetatud</TableCell>
+								<TableCell >Väljaviidud</TableCell>
+								<TableCell >Arhiivi</TableCell>
+								<TableCell >Kustuta</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -93,9 +103,12 @@ function Row(row, key){
 			<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
 				<TableRow>
 					<TableCell padding='none' width={"12px"} />
-					<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >ID</TableCell>
+					<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >Projekti NR.</TableCell>
+					<TableCell >PT</TableCell>
 					<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px">DigiDokk</TableCell>
-					<TableCell >Projekt</TableCell>
+					<TableCell >Avatud</TableCell>
+					<TableCell >Kliendi nimi</TableCell>
+					<TableCell >Töö nimetus</TableCell>
 					<TableCell >Progress</TableCell>
 				</TableRow>
 			</TableHead>

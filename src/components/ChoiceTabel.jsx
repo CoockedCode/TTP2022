@@ -45,7 +45,7 @@ const handleClose = () => {
 useEffect(() => {
     forRows();
   }, []);
-  
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -181,17 +181,17 @@ useEffect(() => {
             </DialogContentText>
             </DialogContent>
             <DialogActions>
-            <Button 
+            <Button
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+                sx={{ mt: 2, mb: 2, bgcolor: 'main',
                 width: 'auto' }}
                 margin="dense"
                 onClick={handleClose}>
                 Cancel
             </Button>
-            <Button 
+            <Button
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
+                sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
                 onClick={handleClose} autoFocus>
                 Lisa!
             </Button>
