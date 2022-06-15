@@ -130,7 +130,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 						name='deviceFunctionalTest'
 						row
 					>
-						<FormControlLabel value="1" control={<Radio />} label="Sead tunnistatud kontrolli põhjal ohutuks" />
+						<FormControlLabel value="1" control={<Radio />} label="Seade tunnistatud kontrolli põhjal ohutuks" />
 						<FormControlLabel value="2" control={<Radio />} label="Seade tunnistatud kontrolli põhjal puudulikuks" />
 						<FormControlLabel value="3" control={<Radio />} label="Seade tunnistatud remondiks mittekõlbulikuks" />
 					</RadioGroup>
@@ -149,7 +149,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 					/>
 
                     <DropDown
-                     name="Ühiku valik" ID="isolationResistance"
+                     name="" ID="isolationResistance"
                      value={selectedIsolationResistance} label="Ühik"
                      onChange={(e) => selectResistanceHandler(e.target.value)}
                      options={resistanceOptions}
@@ -168,7 +168,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Pinge teim kV: </h4>
                     <DropDown
-                     name="Pinge valik" ID="voltageTest"
+                     name="" ID="voltageTest"
                      value={selectedVoltageTest} label="kV"
                      onChange={(e) => selectVoltageTestHandler(e.target.value)}
                      options={voltageTestOptions}
@@ -210,7 +210,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Katsetuse pinge V: </h4>
                     <DropDown
-                     name="Pinge valik" ID="testingVoltage"
+                     name="" ID="testingVoltage"
                      value={selectedTestingVoltage} label="kV"
                      onChange={(e) => selectTestingVoltageHandler(e.target.value)}
                      options={testingVoltageOptions}
@@ -218,7 +218,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Ühendus:</h4>
                     <DropDown
-                     name="Ühenduse valik" ID="connectionType"
+                     name="" ID="connectionType"
                      value={selectedConnectionType} label="tüüp"
                      onChange={(e) => selectConnectionHandler(e.target.value)}
                      options={connectionOptions}
@@ -226,7 +226,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Katsetatud:</h4>
                     <DropDown
-                     name="Katsetuse meetodi valik" ID="testingMethod"
+                     name="" ID="testingMethod"
                      value={selectedTestMethod} label="meetod"
                      onChange={(e) => selectTestMethod(e.target.value)}
                      options={testMethodOptions}
@@ -402,7 +402,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     />
 
                     <DropDown
-                     name="Ühiku valik" ID="windingResistanceU"
+                     name="" ID="windingResistanceU"
                      value={selectedWindingResistanceU} label="Ühik"
                      onChange={(e) => selectWindingResistanceU(e.target.value)}
                      options={resistanceOptions}
@@ -422,7 +422,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     />
 
                     <DropDown
-                     name="Ühiku valik" ID="windingResistanceV"
+                     name="" ID="windingResistanceV"
                      value={selectedWindingResistanceV} label="Ühik"
                      onChange={(e) => selectWindingResistanceV(e.target.value)}
                      options={resistanceOptions}
@@ -442,7 +442,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     />
 
                     <DropDown
-                     name="Ühiku valik" ID="windingResistanceW"
+                     name="" ID="windingResistanceW"
                      value={selectedWindingResistanceW} label="Ühik"
                      onChange={(e) => selectWindingResistanceW(e.target.value)}
                      options={resistanceOptions}

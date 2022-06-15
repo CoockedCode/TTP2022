@@ -3,6 +3,7 @@
 @import url(./styles/NavBar.css);
 @import url(./styles/WorkBox.css);
 @import url(./styles/Popup.css);
+@import url(./styles/TerminalBlockConnection.css);
 
 #root{
 	margin: 0;

@@ -8,6 +8,15 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Checkbox, FormLabel } from "@mui/material";
 import { FormControl, FormGroup, FormControlLabel } from "@mui/material";
 import { equipment } from "./EquipmentData";
+import TerminalBlockConnection from "./TerminalBlockConnection";
+import "../styles/TerminalBlockConnection.css";
+
+
+    // TODO
+    // klemmliistu ühendus skeem
+    // klemmkarbi asendi skeem
+    // skeemi joonistamise canvas(?)
+    // ABsse salvestamine kui kõik väljad täidetud
 
 export default function DeviceEquipment(){
 
@@ -18,6 +27,7 @@ export default function DeviceEquipment(){
     );
 
     const handleChange = (e) => {
+        console.log(e)
         const updatedCheckedState = checkedState.map((item, index) => 
             index === e ? !item : item
         );
@@ -43,16 +53,44 @@ export default function DeviceEquipment(){
                 <DialogContent>
                     <FormControl component="fieldset">
                         <FormGroup>
-                            {equipment.map((element) => (
+                            {equipment.map((element, index) => (
                                 <FormControlLabel
                                     value={element.label}
-                                    control={<Checkbox checked={checkedState} />}
+                                    control={<Checkbox checked={checkedState[index]} />}
                                     label={element.label}
                                     labelPlacement="start"
-                                    onChange={handleChange}
+                                    onChange={() => handleChange(index)}
                                 />
                             ))}
                         </FormGroup>
+
+                        <h5>Muud varustuse märkused</h5>
+                        <TextField
+                            id="deviceEquipmentNotes"
+                            label="Tekstina"
+                            name="deviceEquipmentNotes"
+                            autoComplete="none"
+                            type="text"
+                            margin="dense"
+                            size="small"
+                        />
+
+                        <h4>Klemmliistu ühendus</h4>
+                        <TerminalBlockConnection />
+
+                        <h5>Väljaviike: </h5>
+                        <TextField
+                            id="devicePinAmount"
+                            label="Trüki arv"
+                            name="devicePinAmount"
+                            autoComplete="none"
+                            type="text"
+                            margin="dense"
+                            size="small"
+                        />
+
+                        <h4>Klemmkarbi asend</h4>
+                        {/* no idea kuidas teha, vormistada checkboxide? */}
                     </FormControl>
                 </DialogContent>
                 <DialogActions>
