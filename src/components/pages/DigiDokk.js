@@ -8,11 +8,14 @@ const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 const DigiDokk = () => {
 
-    const [dokk, setDokk] = useState([]);
+    const [dokk, setDokk] = useState([[]]);
 
-      const FetchDokk = async (idDB) =>{
-        const resp = await axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB );
-       setDokk(resp.data);
+      const FetchDokk = (idDB) =>{
+        axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB )
+        .then(function(resp){
+            setDokk(resp.data);
+
+        })
       };
       console.log(dokk);
 
@@ -60,7 +63,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="7" rowSpan="2">Töö nr.
                       <form>
-                        {/*<input type="text" id="toonr" defaultValue={dokk[0].projekt_nr} ></input>*/}
+                        <input type="text" id="toonr" defaultValue={dokk[0].projekt_nr} ></input>
                       </form>
                     </td>
                   </tr>
