@@ -9,14 +9,18 @@
 import '../../styles/pages/php.css';
 import Checkbox from '@mui/material/Checkbox';
 import {FormControlLabel} from '@mui/material';
+import axios from 'axios';
 // import {TextField} from '@mui/material';
 
 
 
-
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 const DigiDokk = () => {
 
-
+  axios.get(endpoint + "/digidokk/DigiDokk.php?id=1")
+    .then(function(response){
+      console.log(response.data)
+    })
     return (
       <>
         <main>
@@ -118,7 +122,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-allkirjalahter" colSpan="4" rowSpan="2">
                       <form>
-                        <input type="name" id="allkirjalahter"></input>
+                        <input type="text" id="allkirjalahter"></input>
                       </form>
                     </td>
                   </tr>
@@ -126,41 +130,90 @@ const DigiDokk = () => {
                   <tr>
                     <td class="tg-0pky" colSpan="2">Lisainfo:
                       <form id="lisainfof">
-                        <input type="name" id="lisainfo"></input>
+                        <input type="text" id="lisainfo"></input>
                       </form>
                     </td>
-                    <td class="tg-0pky" colSpan="9">Tel.nr.</td>
+                    <td class="tg-0pky" colSpan="9">Tel.nr.
+                      <form id="telnrf2"></form>
+                        <input type="text" id="telnr2"></input>
+                    </td>
                   </tr>
 
                   <tr>
-                    <td class="tg-0pky1">Saabunud:</td>
+                    <td class="tg-0pky1">Saabunud:
+                      <form id="saabunudf">
+                        <input type="text" id="saabunud"></input>
+                      </form>
+                    </td>
                     <td class="tg-0pky2">
                       <FormControlLabel
                         value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
                         label="Kliendi toodud" labelPlacement="end"/>
                     </td>
-                    <td class="tg-0pky" colSpan="6">Pakkum. Nr.</td>
-                    <td class="tg-0pky" colSpan="7">Kokkulepitud hind:</td>
+                    <td class="tg-0pky" colSpan="6">Pakkum. Nr.
+                      <form id="pakkumnrf">
+                        <input type="text" id="pakkumnr"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="7">Kokkulepitud hind:
+                      <form id="hindf">
+                        <input type="text" id="hind"></input>
+                      </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky1">Transp. firma nimi</td>
-                    <td class="tg-0pky2"></td>
-                    <td class="tg-0pky" colSpan="6">Lepingu Nr.</td>
-                    <td class="tg-0pky" colSpan="7">Kokkulepitud tähtaeg:</td>
+                    <td class="tg-0pky1" colSpan="2">Transp. firma nimi
+                      <form id="transfirmaf">
+                        <input type="text" id="transfirma"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="6">Lepingu Nr.
+                      <form id="lepingunrf">
+                        <input type="text" id="lepingunr"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="7">Kokkulepitud tähtaeg:
+                     <form id="tahtaegf">
+                      <input type="text" id="tahtaeg"></input>
+                     </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky1">Tagastus:</td>
+                    <td class="tg-0pky1">Tagastus:
+                      <form id="tagastusf">
+                        <input type="text" id="tagastus"></input>
+                      </form>
+                    </td>
                     <td class="tg-0pky2"><FormControlLabel
                         value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
                         label="Klient tuleb järgi" labelPlacement="end"/></td>
-                    <td class="tg-0pky" colSpan="6">Kliendi PO</td>
-                    <td class="tg-0pky" colSpan="7">Lõpetatud:</td>
+                    <td class="tg-0pky" colSpan="6">Kliendi PO
+                      <form id="kliendipof">
+                        <input type="text" id="kliendipo"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="7">Lõpetatud:
+                     <form id="lopetatudf">
+                      <input type="text" id="lopetatud"></input>
+                     </form>
+                    </td>
                   </tr>
+
                   <tr>
-                    <td class="tg-0pky1">Transp. firma nimi</td>
-                    <td class="tg-0pky2"></td>
-                    <td class="tg-0pky" colSpan="13">Lisainfo:</td>
+                    <td class="tg-0pky1" colSpan="2">Transp. firma nimi
+                      <form id="transfirmaf">
+                        <input type="text" id="transfirma"></input>
+                      </form>
+                    </td>
+                    <td class="tg-0pky" colSpan="13">Lisainfo:
+                     <form id="lisainfof2">
+                      <input type="text" id="lisainfo2"></input>
+                     </form>
+                    </td>
                   </tr>
+
                   <tr>
                     <td class="tg-0pky" colSpan="2" rowSpan="2">Seadme liik</td>
                     <td class="tg-varustus">Varustus:</td>
