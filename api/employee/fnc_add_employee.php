@@ -13,24 +13,37 @@
         $telNr=$data["employeeNumber"];
         $usrNam=$data["employeeUsername"];
         $passwd=$data["employeePassword"];
-        save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr);
+        $roleID=$data["employeeRoleID"];
+
+
+        save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr, $roleID, $last_added_empID);
+
     }
 
-    function save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr){
+    function save_to_db($name, $sname, $mail, $usrNam, $passwd, $telNr, $roleID, $last_added_empID){
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-        $list_html = array();
-            $stmt = $conn->prepare("INSERT INTO tootaja (id, eesnimi, perekonnanimi, user_name, email, password, palgal, in_edit, telefon_nr) VALUES (NULL, ?, ?, ?, ?, ?, ?, '0', ?)");
-            $option = ["cost" => 12];  // cost on palju vaeva nähakse parooli krüpteerimisesk 12 on max. sool lisatakse automaatselt.
-            $pwd_hash = password_hash($passwd, PASSWORD_BCRYPT, $option);
-            $stmt->bind_param("ssssss", $name, $sname, $usrNam, $mail, $pwd_hash, $telNr);
-
-            if($stmt->execute()){
-                array_push($list_html, array("error"=>"Edukalt salvestatud!"));
-            }else{
-                array_push($list_html, array("error"=>'Uue kasutaja loomisel tekkis viga.' .$stmt->error));
+        $stmt = $conn->prepare("INSERT INTO tootaja(id, eesnimi, perekonnanimi, telefon_nr, user_name, email, password, palgal, in_edit) VALUES (NULL, ?, ?, ?, ?, ?, ?, '1', '0')");
+        $option = ["cost" => 12];  // cost on palju vaeva nähakse parooli krüpteerimisesk 12 on max. sool lisatakse automaatselt.
+        $pwd_hash = password_hash($passwd, PASSWORD_BCRYPT, $option);
+        $stmt->bind_param("ssssss", $name, $sname, $telNr, $usrNam, $mail, $pwd_hash);
+        $stmt->execute();
+        $stmt->close();
+        if(!empty($roleID)){
+            // just lisatud tootaja id andmebaasist saamine
+            $stmt = $conn->prepare("SELECT MAX(id) FROM tootaja");
+            $stmt->bind_result($last_added_empID);
+            $stmt->execute();
+            $stmt->close();
+            if(!empty($last_added_empID)){
+                // Tootaja id ja rolli id sisestamine tootaja_roll tabelisse
+                $stmt = $conn->prepare("INSERT INTO tootaja_roll (id, tootaja_id, roll_id, deleted, in_edit) VALUES (NULL, ?, ?, "1", "1")");
+                $stmt->bind_param("ii", $last_added_empID, $roleID);
+                $stmt->execute();
+                $stmt->close();
+                $conn->close();
             }
-		$stmt->close();
-		$conn->close();
-        echo json_encode($list_html);
+        }
+
     }
+?>
