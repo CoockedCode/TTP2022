@@ -52,7 +52,9 @@ useEffect(() => {
         return(
             <>
             <TableRow key={key} className="main-table-row">
-                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
+                <TableCell padding='none'>
+                    {/* <IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton> */}
+                    </TableCell>
 
                     <TableCell >{row.name}</TableCell>
                     <TableCell >{row.regNum} </TableCell>
