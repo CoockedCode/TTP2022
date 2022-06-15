@@ -15,3 +15,7 @@
 	display: flex;
 	width: 100%;
 }
+
+.add-project-label {
+	margin: 0;
+}

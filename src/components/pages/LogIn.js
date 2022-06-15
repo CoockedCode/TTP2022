@@ -12,7 +12,7 @@ import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
 
-const endpoint = "http://45.79.250.112/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function SignIn() {
   //snackbar/usrSession
@@ -21,54 +21,48 @@ export default function SignIn() {
   //navigeermine
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios.get(endpoint + "/session/fnc_sess.php?querySess")
-  //   .then(function(response){
-  //     if(response.status === 200 && response.data[0].status == "true"){
-  //       dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-  //       dispatch(setUserSession(true, response.data[0].usrNam));
-  //       navigate("/main");
-  //     }else{
-  //       dispatch(setUserSession(false, ""));
-  //       // console.log('Küpsised puudvad!');
-  //     }
-  //   })
-  // })
+  useEffect(() => {
+    axios.get(endpoint + "/session/Session.php?querySess=true")
+    .then(function(response){
+      if(response.status === 200 && response.data[0].status == "true"){
+        dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
+        dispatch(setUserSession(true, response.data[0].user_name));
+        navigate("/avaleht");
+      }else{
+        dispatch(setUserSession(false, ""));
+        console.log('Küpsised puudvad!');
+      }
+    })
+  })
+
+  const fetchUsr = async (usrNam, passWrd) => {
+      const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      if (status === 200){
+        if (data.length > 0){
+          // console.log(data);
+          if (data[0].usrNam == usrNam && data[0].signIn == "true") {
+            dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
+            dispatch(setUserSession(true, data[0].usrNam));
+            navigate("/avaleht");
+          }
+          if(data[0].error){
+            dispatch(setSnackbar(true, "error", "Kasutaja on blokeeritud!"));
+          }
+        }else{
+          dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
+        }
+      }
+    };
 
   //siise logimine kontroll
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const fetchUsr = async (usrNam, passWrd) => {
-      const { status, data } = await axios.get(endpoint + "/session/fnc_login.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
-      console.log(status + " <- 1. samm sisselogimisel");
-      if (status === 200) {
-        if (data.length > 0) {
-          if (data[0].usrNam == usrNam && data[0].passWrd == passWrd) {
-            //küpsiste lisamine ja session start...
-            // axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam + "&reLog=true")
-            axios.get( endpoint + "/session/fnc_sess.php?login=" + data[0].usrNam)
-              .then(function(response){
-                console.log(response.status + " <- 2. samm sisselogimisel ehk sessioon");
-                if(response.status === 200){
-                  dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-                  dispatch(setUserSession(true, data[0].usrNam));
-                  navigate("./main");
-                }
-              })
-          } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-            dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-          } else {
-            dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-          }
-        } else if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
-          dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
-        } else {
-          dispatch(setSnackbar(true, "error", "Sisse logimine ebaõnnestus!"));
-        }
-      }
-    };
-    fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+    if ("" === formData.get("usrNam") || "" === formData.get("passwd")) {
+      dispatch(setSnackbar(true, "warning", "Täida kõik väljad!"));
+    } else {
+      fetchUsr(formData.get("usrNam"), formData.get("passwd"));
+    }
   };
 
   return (
@@ -84,9 +78,7 @@ export default function SignIn() {
               alignItems: "center",
             }}>
             <Avatar sx={{ m: 1, bgcolor: "white", color: "black" }}></Avatar>
-
             <h1 style={{ margin: 0, padding: 0 }}>Logi Sisse</h1>
-
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
               <TextField
                 margin="normal"

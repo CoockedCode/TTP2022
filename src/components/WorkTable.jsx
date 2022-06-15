@@ -15,7 +15,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import { ButtonBase } from '@mui/material';
-import { rows } from './WorkTableData';
+import { rows } from "./WorkTableData";
 
 export default function StickyHeadTable() {
 const [open, setOpen] = useState(false);
@@ -89,23 +89,22 @@ function Row(row, key){
 	<Paper sx={{ width: '100%'}} elevation={2} >
 		<TableContainer sx={{ maxHeight: "78vh", width: '100%' }} >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
-			<TableHead>
-			<TableRow>
 
-				<TableCell padding='none' width={"12px"} />
-				<TableCell >ID</TableCell>
-				<TableCell >DigiDokk</TableCell>
-				<TableCell >Projekt</TableCell>
-				<TableCell >Progress</TableCell>
-			</TableRow>
+			<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
+				<TableRow>
+					<TableCell padding='none' width={"12px"} />
+					<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >ID</TableCell>
+					<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px">DigiDokk</TableCell>
+					<TableCell >Projekt</TableCell>
+					<TableCell >Progress</TableCell>
+				</TableRow>
 			</TableHead>
 			<TableBody>
 			{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
-
 				<Row {...row} key={key} />
 			))}
+        	</TableBody>
 
-        </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
@@ -116,7 +115,6 @@ function Row(row, key){
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-
       />
     </Paper>
   );

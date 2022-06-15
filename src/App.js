@@ -3,20 +3,21 @@ import { Route, Routes } from "react-router-dom";
 import LogIn from "./components/pages/LogIn";
 import MainPage from "./components/pages/MainPage";
 import AddNewProject from "./components/pages/AddNewProject";
+import AddNewDevice from "./components/pages/AddNewDevice";
 import AddClient from "./components/pages/AddClient";
+import UpdateClient from "./components/pages/UpdateClient";
 import AddEmployee from "./components/pages/AddEmployee";
-import ArchivedProjects from "./components/pages/ArchivedProjects";
-import TestAB from "./components/pages/TestAB";
-import TestAB2 from "./components/pages/TestAB2";
-import Test from "./components/pages/Test";
 import SnackBar from "./components/Snackbar";
 import ClientList from "./components/pages/ClientList";
 import React, { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoutes";
 import NavBarMain from "./components/NavBarMain";
-import Footer from "./components/Footer";
 import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
+import NotFound from "./components/pages/NotFound";
+import User from "./components/pages/User";
+import ChoiceList from "./components/pages/ChoiceList";
+
 
 const App = () => {
 
@@ -39,22 +40,22 @@ const App = () => {
     <>
       <NavBar />
         <Routes>
+        <Route path='*' element={<NotFound />} />
           <Route path="/" element={<LogIn />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path="/main" element={<MainPage />} />
-            <Route path="/addNewProject" element={<AddNewProject />} />
-            <Route path="/addClient" element={<AddClient />} />
-            <Route path="/ClientList" element={<ClientList />} />
-            <Route path="/archivedProjects" element={<ArchivedProjects />} />
-            <Route path="/addEmployee" element={<AddEmployee />} />
-            <Route path="/TestAb" element={<TestAB />} />
-            <Route path="/TestAb2" element={<TestAB2 />} />
-            <Route path="/T" element={<Test />} />
-            <Route path="/EmployeeList" element={<EmployeeList />} />
+            <Route path="/avaleht" element={<MainPage />} />
+            <Route path="/lisa-projekt" element={<AddNewProject />} />
+            <Route path="/lisa-klient" element={<AddClient />} />
+            <Route path="/uuenda-klient" element={<UpdateClient />} />
+            <Route path="/kliendid" element={<ClientList />} />
+            <Route path="/valikud" element={<ChoiceList />} />
+            <Route path="/lisa-tootaja" element={<AddEmployee />} />
+            <Route path="/tootajad" element={<EmployeeList />} />
+            <Route path="/kasutaja-satted" element={<User />} />
+            <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
           </Route>
         </Routes>
       <SnackBar />
-      <Footer />
     </>
   );
 };

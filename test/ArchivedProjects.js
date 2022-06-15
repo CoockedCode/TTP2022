@@ -8,24 +8,24 @@ export default function ArchivedProjects(){
 		console.log(searchID);
 		document.getElementById(searchID).style.color = "red";
 	}
-	
+
 	return(
 		<>
 		<main>
 			<section>
 				<div id="header-wrapper">
 					<h3>Arhiveeritud projektid</h3>
-				</div>				
+				</div>
 				<div id="content-wrapper">
-					<div id="search-wrapper" style={{paddingBottom: "22px"}}> 
+					<div id="search-wrapper" style={{paddingBottom: "22px"}}>
 						<form onSubmit={(e) => searchFnc(e)}>
 							<label htmlFor="searchID">Otsi: </label>
 							<input type="search" name="searchID" id="searchID" onInputCapture={(e) => setSearchID(e.target.value)}/>
 							<label htmlFor="searchBtn"></label>
 							<input type="submit" value="Otsi" />
 						</form>
-											
-					</div>										
+
+					</div>
 					<table className="tg">
 						<thead>
 							<tr>
@@ -43,7 +43,7 @@ export default function ArchivedProjects(){
 								<td className="tg-0lax" id="column2">Laagri vahetus</td>
 								<td className="tg-0lax" id="column3">lõpetatud</td>
 							</tr>
-							<tr id='324'> 
+							<tr id='324'>
 								<td className="tg-0lax" >324</td>
 								<td className="tg-0lax" id="column2">Mootori hooldus</td>
 								<td className="tg-0lax" id="column3">lõpetatud</td>
