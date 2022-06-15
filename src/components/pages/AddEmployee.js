@@ -68,12 +68,12 @@ export default function AddWorker(){
 	const [roleNameOptions, setRoleNameOptions] = useState([]);
 	const getRoleOptions = async() =>{
 		const response = await axios.get(`${endpoint}/employee/fnc_employee_role.php?role`);
-		console.log(response)
+		// console.log(response)
 		setRoleNameOptions([]);
 		response.data.forEach(element=>{
 			setRoleNameOptions(oldArray=>[...oldArray, element]);
 		})
-		console.log(roleNameOptions)
+		// console.log(roleNameOptions)
 	}
 
 	useEffect(() => {
@@ -85,7 +85,7 @@ export default function AddWorker(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive") && formData.get("employeeRole")){
+		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive")){
 			// console.log("väljad täidetud")
 
 			//Kasutajanime loomine ees- ja perekonnanime järgi
@@ -101,15 +101,16 @@ export default function AddWorker(){
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
 				employeeActive: formData.get("employeeActive"),
-				employeeRole: formData.get("employeeRole"),
+				employeeRoleID: roleName,
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
 
 			};
-			console.log(WorkerJobsList);
-			console.log(employeeRole);
+			// console.log(WorkerJobsList);
+			// console.log(employeeRoleID);
 
 			saveData(dataToSave);
+			console.log(dataToSave);
 
 		} else {
 			console.log("viga")
@@ -138,12 +139,11 @@ export default function AddWorker(){
 			}else{
 				setValueEmpActive(formData.get("employeeActive"));
 			}
-			if(!formData.get("employeeRole")){
+			if(!roleName){
 				setErrorEmpRole(true);
 			}else{
-				setValueEmpRole(formData.get("employeeRole"));
+				setValueEmpRole(roleName);
 			}
-
 		}
 	}
 
@@ -226,10 +226,15 @@ export default function AddWorker(){
 							
 							/>
 						<DropDown
-						name="Töötaja roll" ID="roleName" 
-						value={roleName} label="Tööroll"
-						onChange={handleRoleChange}
-						options={roleNameOptions}
+							required
+							fullWidth
+							error={!!errorEmpRole}
+							autoFocus
+							id="roleName" 
+							label="Tööroll"
+							value={roleName}
+							onChange={handleRoleChange}
+							options={roleNameOptions}
 						/>
 
 						<Button
