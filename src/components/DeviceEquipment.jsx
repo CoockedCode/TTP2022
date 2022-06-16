@@ -9,6 +9,8 @@ import { Box, Checkbox, FormLabel } from "@mui/material";
 import { FormControl, FormGroup, FormControlLabel } from "@mui/material";
 import { equipment } from "./EquipmentData";
 import TerminalBlockConnection from "./TerminalBlockConnection";
+import TerminalBlockPosition from "./TerminalBlockPosition";
+import Canvas from "./Canvas";
 import "../styles/TerminalBlockConnection.css";
 
 
@@ -92,7 +94,11 @@ export default function DeviceEquipment(){
                         />
 
                         <h4>Klemmkarbi asend</h4>
-                        {/* no idea kuidas teha, vormistada checkboxide? */}
+                        <TerminalBlockPosition />
+
+                        <h4>Skeem</h4>
+                        <Canvas />
+
                     </FormControl>
                 </DialogContent>
                 

@@ -3,75 +3,83 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import {  FormControlLabel } from "@mui/material";
 import { Box, Checkbox } from "@mui/material";
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
-import CircleIcon from '@mui/icons-material/Circle';
+import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import RectangleOutlinedIcon from '@mui/icons-material/RectangleOutlined';
 
 const boxes = [
     {
         id: 1,
-        hide: false
+        icon: "box"
     },
     {
         id: 2,
-        hide: false
+        icon: "box"
     },
     {
         id: 3,
-        hide: false
+        icon: "box"
     },
     {
         id: 4,
-        hide: true
+        icon: "arrowDown"
     },
     {
         id: 5,
-        hide: false
+        icon: "arrowDown"
     },
     {
         id: 6,
-        hide: false
+        icon: "arrowDown"
     },
     {
         id: 7,
-        hide: false
+        icon: "box"
     },
     {
         id: 8,
-        hide: false
+        icon: "box"
     },
     {
         id: 9,
-        hide: false
+        icon: "box"
     },
     {
         id: 10,
-        hide: false
+        icon:  "arrowUp"
     },
     {
         id: 11,
-        hide: false
+        icon:  "arrowUp"
     },
     {
         id: 12,
-        hide: true
+        icon:  "arrowUp"
     },
     {
         id: 13,
-        hide: true
+        icon: "box"
     },
     {
         id: 14,
-        hide: false
+        icon: "box"
     },
     {
         id: 15,
-        hide: true
-    },
-    {
-        id: 16,
-        hide: true
+        icon: "box"
     }
 ]
+
+const Icons = {
+    box: RectangleOutlinedIcon,
+    arrowDown: ArrowDownwardOutlinedIcon,
+    arrowUp: ArrowUpwardOutlinedIcon
+}
+
+const GenerateIcon = ( variant, props = {}) => {
+    const IconName = Icons[variant];
+    return <IconName {...props} />;
+}
 
 export default function TerminalBlockConnection(){
 
@@ -90,26 +98,28 @@ export default function TerminalBlockConnection(){
 
     return(
         <>
-        <div style={{ width:"100%" }}>
+        <div style={{ width:"100%", display: "flex", justifyContent: "center", position: "relative" }}>
+            <div style={{ position: "absolute", top: "45%", left: "10%" }}>DE</div>
+            <div style={{ border: "1px solid black", width: "50px", height: "20px", position: "absolute", top: "45%", left: "16.5%" }}></div>
+            <div style={{ border: "1px solid black", width: "200px", height: "165px", position: "absolute", top: "30px" }}></div>
             <Box 
                 sx={{
                     display: "grid",
                     gap: 0.5,
-                    gridTemplateColumns: "repeat(4, 1fr)"
+                    gridTemplateColumns: "repeat(3, 0fr)",
+                    justifyContent: "center"
                 }}
             >
                
             {boxes.map((element, index) => (
                 
-                <FormControlLabel 
+                <FormControlLabel
                     value={element.id}
                     control={
                             <Checkbox 
                                 sx={{ color: "black", "&.Mui-checked": {color: "black"}, "&.Mui-disabled": {color: "white"} }}
                                 checked={checkedState[index]}
-                                disabled={element.hide}
-                                icon={<CircleOutlinedIcon/>}
-                                checkedIcon={<CircleIcon sx={{color: "black"}}/>}
+                                icon={GenerateIcon(element.icon)}
                             />
                             }
                     label={element.label}
@@ -119,6 +129,7 @@ export default function TerminalBlockConnection(){
             ))}
                 
             </Box>
+            <div style={{ position: "absolute", top: "45%", right: "15%" }}>NDE</div>
         </div>
         </>
     );
