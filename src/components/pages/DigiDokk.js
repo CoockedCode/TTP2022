@@ -20,7 +20,7 @@ const DigiDokk = () => {
       console.log(dokk);
 
     useEffect(() => {
-	  	FetchDokk(2);
+	  	FetchDokk(1);
   	}, [!dokk]);
 
 
@@ -53,7 +53,7 @@ const DigiDokk = () => {
                     <td class="tg-regnr">Reg. nr.</td>
                     <td class="tg-0pky" rowSpan="2">Saabumise kp.
                       <form>
-                        <input type="text" id="saabumisekp" ></input>
+                        <input type="text" id="saabumisekp" defaultValue={dokk[0].alustatud}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="5" rowSpan="2">Arve nr.
@@ -79,7 +79,7 @@ const DigiDokk = () => {
                   <tr>
                     <td class="tg-0pky" colSpan="2">
                       <form>
-                        <input type="text" id="aadress"></input>
+                        <input type="text" id="aadress" defaultValue={dokk[0].reg_nr}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="13" rowSpan="2">Tellija:
@@ -150,7 +150,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky2">
                       <FormControlLabel
-                        value ="end" control={<Checkbox checked='false' style={{transform: "scale(0.5)" }} />}
+                        value ="end" control={<Checkbox checked={dokk[0].saabunud == "klient" ? dokk[0].saabunud : false} style={{transform: "scale(0.5)" }}/>}
                         label="Kliendi toodud" labelPlacement="end"/>
                     </td>
                     <td class="tg-0pky" colSpan="6">Pakkum. Nr.
@@ -190,7 +190,7 @@ const DigiDokk = () => {
                       </form>
                     </td>
                     <td class="tg-0pky2"><FormControlLabel
-                        value ="end" control={<Checkbox style={{transform: "scale(0.5)" }} />}
+                        value ="end" control={<Checkbox checked={dokk[0].tagastus == "klient"} style={{transform: "scale(0.5)" }}/>}
                         label="Klient tuleb järgi" labelPlacement="end"/></td>
                     <td class="tg-0pky" colSpan="6">Kliendi PO
                       <form id="kliendipof">
