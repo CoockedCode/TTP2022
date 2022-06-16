@@ -15,8 +15,7 @@ import "../styles/TerminalBlockConnection.css";
 
 
     // TODO
-    // klemmkarbi asendi skeem
-    // skeemi joonistamise canvas(?)
+    // skeemi joonistamise canvas breakpoints + kustutamise funktsionaalsus
     // ABsse salvestamine kui kõik väljad täidetud
 
 export default function DeviceEquipment(){
@@ -36,8 +35,9 @@ export default function DeviceEquipment(){
         setCheckedState(updatedCheckedState);
     };
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (e) => {
         setOpen(true);
+        console.log(e);
     };
     const handleClose = () => {
         setOpen(false);
@@ -52,6 +52,23 @@ export default function DeviceEquipment(){
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Seadme varustus</DialogTitle>
                 <DialogContent>
+
+                    {/* <div style={{ position: "relative", width: "500px", height: "500px"}}>
+                    <h4>Skeem</h4>
+                        <Canvas />
+
+                    </div> */}
+                    {/* <Button variant="outlined" onClick={(e) => handleClickOpen(e)}>
+                        <Dialog open={open} onClose={handleClose}>
+                            <DialogTitle>Skeem</DialogTitle>
+                            <DialogContent>
+                                <h4>Skeem</h4>
+                                <Canvas />
+                            </DialogContent>
+
+                        </Dialog>
+                    </Button> */}
+                    
                     <FormControl component="fieldset">
                         <Box sx={{ display: "grid", gap: 1, gridTemplateColumns: "repeat(3, 1fr)" }}>
                             <FormGroup>
@@ -96,9 +113,8 @@ export default function DeviceEquipment(){
                         <h4>Klemmkarbi asend</h4>
                         <TerminalBlockPosition />
 
-                        <h4>Skeem</h4>
-                        <Canvas />
-
+                        {/* <h4>Skeem</h4>
+                        <Canvas /> */}
                     </FormControl>
                 </DialogContent>
                 

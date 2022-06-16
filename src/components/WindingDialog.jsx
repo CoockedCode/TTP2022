@@ -67,7 +67,7 @@ export default function WindingDialog({ setsList = rows}){
     };
 
     const [state, setState] = useState(setsList)
-    console.log(state.find(mahis => mahis.name === "Mähise liik").statorValue);
+    //console.log(state.find(mahis => mahis.name === "Mähise liik").statorValue);
     // console.log(state);
 
     const handleChange = (e, i) => {

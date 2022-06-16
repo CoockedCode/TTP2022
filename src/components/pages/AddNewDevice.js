@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { FormControl, MenuItem, TextField } from "@mui/material";
+import { FormControl, MenuItem, TextField, Button } from "@mui/material";
 import { Box, Select } from "@mui/material";
 import DropDown from "../DropDown";
 import axios from "axios";
@@ -12,7 +12,6 @@ import DeviceEquipment from "../DeviceEquipment";
 // TODO
 // kui väljad täidetud, siis projekti kuvasse naasemine
 // Fotode ja failide lisamine/vaatamine
-// Seadme varustus popup
 // form validation
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -106,7 +105,7 @@ export default function AddNewProject(){
 
     const getDeviceOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
-        console.log(response.data);
+        //console.log(response.data);
         setTypeOptions([]);
         setPowerOptions([]);
         setManufacturerOptions([]);
@@ -174,6 +173,29 @@ export default function AddNewProject(){
     // submit vajutus
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+
+        const dataToSave = {
+            projectId: projectNum,
+            deviceType: deviceID,
+            power: powerID,
+            rotPerMin: rotPerMin,
+            typeNr: formData.get("type"),
+            manufacturer: manufacturer,
+            shaftHeight: shaftHeight,
+            powerSupply: powerSupply,
+            frequency: frequency,
+            isolationClass: isolationClass,
+            IPClass: IPClass,
+            factoryNr: formData.get("factoryNr"),
+            mode: formData.get("mode"),
+            EXMarking: formData.get("EXMarking"),
+            bearingDE: formData.get("bearingDE"),
+            bearingNDE: formData.get("bearingNDE"),
+            additionalInfo: formData.get("additionalInfo")
+        }
+
+        console.log(dataToSave);
     }
 
     return(
@@ -208,6 +230,18 @@ export default function AddNewProject(){
                          value={rotPerMin} label="p/min"
                          onChange={handleRotPerMinChange}
                          options={rotPerMinOptions}
+                        />
+
+            	        <h4>Tüüp</h4>
+                        <TextField
+                            required
+                            id="type"
+                            label="Tüüp"
+                            name="type"
+                            autoComplete="none"
+                            type="text"
+                            margin="dense"
+                            size="small"
                         />
 
                         <DropDown
@@ -329,6 +363,15 @@ export default function AddNewProject(){
                         />
 
                         <DeviceEquipment />
+
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            sx={{ mt: 2, mb: 2, bgcolor: "main", width: "auto" }}
+                            margin="dense"
+                        >
+                            Salvesta
+                        </Button>
 
                     </FormControl>
                 </Box>
