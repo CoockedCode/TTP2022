@@ -17,7 +17,8 @@ import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
 import ChoiceList from "./components/pages/ChoiceList";
-import RolesListTable from "./components/WorkStages";
+import WorkStages from "./components/WorkStages";
+
 
 const App = () => {
 
