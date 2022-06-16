@@ -7,20 +7,68 @@ header("Content-Type: *; charset=UTF-8");
 $data = json_decode(file_get_contents('php://input'), true);
 
     if(!empty($data)){
-        $client_name=$data["projectID"];
-        $client_reg_num=$data["clientRegNum"];
-        $client_addr=$data["clientAddr"];
-        $post_index=$data["postIndex"];
-        $cont_person=$data["contPers"];
-        $client_email=$data["clientEmail"];
-        $client_phone=$data["clientPhoneNr"];
-        $invoice_email=$data["invoiceEm"];
-        $additional_info=$data["additionalInfo"];
-        set_project_hours()
+        $project_id=$data["projectID"];
+        $project_all_hours=$data["projectAllHours"];
+        $project_normal_hours=$data["projectNormalHours"];
+        $project_over_hours=$data["projectOverHours"];
+        $worker_id=$data["workerID"];
+        $work_id=$data["workID"];
+        $date_opened=$data["projectOpenedDate"];
+        $worker_normal_hours=$data["projectWorkerNormalHours"];
+        $worker_over_hours=$data["projectWorkerOverHours"];
+        set_project_hours($project_id,$project_all_hours,$project_normal_hours,$project_over_hours);
     }
     echo $data;
 
 
-function set_project_hours(){
+function set_project_hours($project_id,$project_all_hours,$project_normal_hours,$project_over_hours){
+    $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+    $conn->set_charset("utf8");
+    $stmt=$conn->prepare("SELECT id from toode_tunnid WHERE projekt_id=?");
+    $stmt->bind_param("i",$project_id);
+    $stmt->execute();
+    if($stmt->fetch()){
+        $stmt->close();
+        $stmt=$conn->prepare("SELECT kokku_h,kokku_norm_h,kokku_ule_h FROM toode_tunnid WHERE project_id=?");
+        $stmt->bind_param("i",$project_id);
+        $stmt->execute();
+        $stmt->bind_result($all_hours_from_db,$nomal_hours_from_db,$over_hours_from_db);
+        $stmt->close();
+        $total_hours=$all_hours_from_db+$project_all_hours;
+        $total_normal_hours=$nomal_hours_from_db+$project_normal_hours;
+        $total_over_hours=$over_hours_from_db+$project_over_hours;
+        $stmt=$conn->prepare("UPDATE toode_tunnid SET kokku_h=?,kokku_norm_h=?,kokku_ule_h=? WHERE project_id=?");
+        $stmt->bind_param("iiii",$total_hours,$total_normal_hours,$total_over_hours,$project_id);
+        $stmt->execute();
+        $stmt->close();
+    } else {
+        $stmt->close();
+        $stmt=$conn->prepare("INSERT INTO toode_tunnid(id,projekt_id,kokku_h,kokku_norm_h,kokku_ule_h,in_edit,deleted) VALUES (NULL,?,?,?,?,'0','0')");
+        $stmt->bind_param("iiii",$project_id,$project_all_hours,$project_normal_hours,$project_over_hours);
+        $stmt->execute();
+        if($stmt->error()){
+            echo $conn->error;
+        }
+        $stmt->close();
+        echo("else");
+    }
+    $conn->close();
+    set_worker_hours($project_id,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours);
+
+}
+
+function set_worker_hours($project_id,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours){
+    $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+    $conn->set_charset("utf8");
+    $stmt=$conn->prepare("SELECT id from toode_tunnid WHERE projekt_id=?");
+    $stmt->bind_param("i",$project_id);
+    $stmt->execute();
+    $stmt->bind_result($project_hours_id_from_db);
+    $stmt->close();
+    $stmt=$conn->prepare("INSERT INTO tootajate_tunnid(id,toode_tunnid_id,tootaja_id,tooetappi_nimetus_id,kuupaev,norm_h,ule_h,in_edit,deleted) VALUES(NULL,?,?,?,?,?,?,'0','0')");
+    $stmt->bind_param("iiisii",$project_hours_id_from_db,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours);
+    $stmt->execute();
+    $stmt->close();
+    $conn->close();
 
 }

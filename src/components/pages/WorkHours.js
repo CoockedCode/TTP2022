@@ -43,9 +43,9 @@ export default function WorkHours(){
 	const saveData = (dataToSave) => {
 		axios.post(endpoint+"/workhours/fnc_set_work_hours.php", dataToSave)
 		.then(function (response) {
-			// console.log(response);
+			console.log(response);
 			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
+				dispatch(setSnackbar(true,"success","Töötunnid edukalt sisestatud!"));
 			}
 		})
 		.catch(function (err) {
@@ -66,6 +66,36 @@ export default function WorkHours(){
 	const handleProjectChange = (e) =>{
 	  setProjecID(e.target.value);
 	}
+	const [projectAllHours, setProjectAllHours]= useState("");
+	const handleAllHoursChange = (e) =>{
+	  setProjectAllHours(e.target.value);s
+	}
+	const [projectNormalHours, setProjectNormalHours]= useState("");
+	const handleNormalHoursChange = (e) =>{
+	  setProjectNormalHours(e.target.value);
+	  
+	}
+	const [projectOverHours, setProjectOverHours]= useState("");
+	const handleOverHoursChange = (e) =>{
+	  setProjectOverHours(e.target.value);
+	 
+	}
+	const [workerNormalHours, setWorkerNormalHours]= useState("");
+	const handleWorkerNormalHoursChange = (e) =>{
+	  setWorkerNormalHours(e.target.value);
+	  setDisplayAllHours(e.target.value);
+	  setDisplayNormalHours(parseInt(e.target.value));
+	}
+	const [workerOverHours, setWorkerOverHours]= useState("");
+	const handleWorkerOverHoursChange = (e) =>{
+	  setWorkerOverHours(e.target.value);
+	  setDisplayOverHours(parseInt(e.target.value)*1.5);
+	  setDisplayAllHours(parseInt(displayAllHours)+parseInt(e.target.value));
+	}
+	const [displayAllHours, setDisplayAllHours]=useState("")
+	const [displayNormalHours, setDisplayNormalHours]=useState("");
+	const [displayOverHours, setDisplayOverHours]=useState("")
+
 
 	const [ workerOptions, setWorkerOptions ] = useState([]);
 	const getEmployeeOptions = async() =>{
@@ -105,21 +135,21 @@ export default function WorkHours(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(e.target)
-		const formData = new FormData(e.currentTarget);
+		// const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("projecAllHours") && formData.get("projectNormalHours") && formData.get("projectOverHours") &&
-			 formData.get("projectOpenedDate") && formData.get("projectWorkerNormalHours") && formData.get("projectWorkerOverHours")){
+		if(projectAllHours && projectNormalHours && projectNormalHours &&
+			DateValues.todayDate && workerNormalHours && workerOverHours){
 			// console.log("väljad täidetud")
 			const dataToSave = {
 				projectID: projectID,
-				projectAllHours: formData.get("projecAllHours"),
-				projectNormalHours: formData.get("projectNormalHours"),
-				projectOverHours: formData.get("projectOverHours"),
+				projectAllHours: projectAllHours,
+				projectNormalHours: projectNormalHours,
+				projectOverHours: projectOverHours,
 				workerID: workerID,
 				workID: workID,
 				projectOpenedDate: DateValues.todayDate,
-				projectWorkerNormalHours: formData.get("projectWorkerNormalHours"),
-				projectWorkerOverHours: formData.get("projectWorkerOverHours"),
+				projectWorkerNormalHours: workerNormalHours,
+				projectWorkerOverHours: workerOverHours,
 			};
 			console.log(dataToSave);
 			saveData(dataToSave);
@@ -139,7 +169,7 @@ export default function WorkHours(){
 
 							<>
 								<DropDown
-									name="I FACKED PROJECTS MAZER" ID="project" 
+									name="Projekti number" ID="project" 
 									value={projectID} label="Projekt"
 									onChange={handleProjectChange}
 									options={projectOptions}
@@ -151,6 +181,8 @@ export default function WorkHours(){
 									label="Kokku tunde projektile"
 									name="projectAllHours"
 									autoComplete="none"
+									onChange={handleAllHoursChange}
+									value={displayAllHours}
 									type="number"
 									margin="dense"
 									size="small" />
@@ -162,6 +194,8 @@ export default function WorkHours(){
 									label="Kokku normaaltunde"
 									name="projectNormalHours"
 									autoComplete="none"
+									onChange={handleNormalHoursChange}
+									value={displayNormalHours}
 									type="number"
 									margin="dense"
 									size="small" />
@@ -173,6 +207,8 @@ export default function WorkHours(){
 									label="Kokku ületöö tunde"
 									name="projectOverHours"
 									autoComplete="none"
+									onChange={handleOverHoursChange}
+									value={displayOverHours}
 									type="number"
 									margin="dense"
 									size="small" />
@@ -209,6 +245,7 @@ export default function WorkHours(){
 									label="Töötaja tunnid projektis"
 									name="projectWorkerNormalHours"
 									autoComplete="none"
+									onChange={handleWorkerNormalHoursChange}
 									type="text"
 									margin="dense"
 									size="small" />
@@ -220,6 +257,7 @@ export default function WorkHours(){
 									label="Töötaja ületöö tunnid projektis"
 									name="projectWorkerOverHours"
 									autoComplete="none"
+									onChange={handleWorkerOverHoursChange}
 									type="text"
 									margin="dense"
 									size="small" />
