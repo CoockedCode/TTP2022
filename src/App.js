@@ -17,7 +17,7 @@ import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
 import ChoiceList from "./components/pages/ChoiceList";
-import RolesListTable from "./components/RolesListTable";
+import RolesListTable from "./components/WorkStages";
 
 const App = () => {
 
@@ -53,7 +53,7 @@ const App = () => {
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />
             <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
-            <Route path="/toorollid" element={<RolesListTable />} />
+            <Route path="/toonimetused" element={<WorkStages />} />
           </Route>
         </Routes>
       <SnackBar />
