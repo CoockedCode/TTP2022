@@ -58,7 +58,7 @@ class MainView {
 				"Klient"=>$from_db_projekt_klient_name,
 				"DigiDokk"=> '<LINK>',
 				"Avatud"=> "homme",
-				"Too_nimetus"=> 'Mähkimine ja asd sadsa das dsa',
+				"Too_nimetus"=> 'Mähkimine',
 				"Tootja"=> "ABB",
 				"Seadme_liik"=> "ASD",
 				"Seadme_tüüp"=> "ASD",

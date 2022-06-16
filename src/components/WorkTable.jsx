@@ -20,8 +20,9 @@ import axios from 'axios';
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
-export default function StickyHeadTable() {
-const [open, setOpen] = useState(false);
+//export default function WorkTable({ srchQuery, srchOption }) {
+export default function WorkTable(props) {
+  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -34,6 +35,7 @@ const [open, setOpen] = useState(false);
 			setRows(oldArray => [...oldArray, element])
 		});
 	};
+
 
   useEffect(() => {
 	FetchAllData();
@@ -113,6 +115,8 @@ function Row(row, key){
 		</>
 	);
 }
+
+
 
   return (
 	<Paper sx={{ width: '100%'}} elevation={2} >
