@@ -12,6 +12,7 @@
     // * convert to boolean -> $bool = Validate::bool($_POST['boolean']);
     // * validate an email -> $email = Validate::email($_POST['email']);
     // * validate a URL -> $url = Validate::url($_POST['url']);
+    // * validate a pwd -> $pwd = Validate::pwd($_POST['url']);
 
 class Validate {
 	static $errors = true;
@@ -40,6 +41,11 @@ class Validate {
 			self::throwError('Invalid String', 902);
 		}
 		$val = trim(htmlspecialchars($val));
+		return $val;
+	}
+
+	static function pwd($val) {
+        $val = filter_var($val, FILTER_SANITIZE_STRING);
 		return $val;
 	}
 

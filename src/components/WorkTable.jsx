@@ -16,12 +16,29 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import { ButtonBase } from '@mui/material';
-import { rows } from "./WorkTableData";
+import axios from 'axios';
+
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function StickyHeadTable() {
 const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const [rows, setRows] = useState([]);
+
+  const FetchAllData = async () =>{
+		const resp = await axios.get(endpoint + "/main_view/MainView.php?fetch=data");
+		setRows([]);
+		resp.data.forEach( element => {
+			setRows(oldArray => [...oldArray, element])
+		});
+	};
+
+  useEffect(() => {
+	FetchAllData();
+  }, [])
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

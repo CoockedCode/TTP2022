@@ -2,28 +2,18 @@ import WorkTable from "../WorkTable";
 import { Box, FormControl, IconButton, List, ListItem, ListItemText, Menu, MenuItem, TextField, Grid } from "@mui/material";
 import "../../styles/pages/Home.css";
 import React, { useState } from "react";
-import { rows } from "../WorkTableData";
 import { MenuItem, Select } from "@mui/material";
 
 // TODO
 // vastavalt options valikule (0 v 1) kuvada õigeid projekte
 // otsingu funktsioon korda teha, hetkel läheb katki
 
-const data = rows;
 
 const options = [
   { id: 0 , name: "Arhiveeritud projektid"},
   { id: 1 , name: "Aktiivsed projektid"},
 ]
 
-// TODO fix this, kuna data nested objektid ss vaja enne mappida?
-// const filterData = (query, data) => {
-//   if(!query){
-//     return data;
-//   } else {
-//     return data.filter((d) => d.toLowerCase().includes(query));
-//   }
-// };
 
 const MainPage = () => {
 
@@ -33,10 +23,8 @@ const MainPage = () => {
     setQueryOption(event.target.value);
   };
 
-
   // searchbar
   const [searchQuery, setSearchQuery] = useState();
-  //const dataFiltered = filterData(searchQuery, data);
 
   return (
     <>
