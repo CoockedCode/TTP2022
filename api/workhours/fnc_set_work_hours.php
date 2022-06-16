@@ -26,18 +26,20 @@ function set_project_hours($project_id,$project_all_hours,$project_normal_hours,
     $conn->set_charset("utf8");
     $stmt=$conn->prepare("SELECT id from toode_tunnid WHERE projekt_id=?");
     $stmt->bind_param("i",$project_id);
+    $stmt->bind_result($test);
     $stmt->execute();
     if($stmt->fetch()){
         $stmt->close();
-        $stmt=$conn->prepare("SELECT kokku_h,kokku_norm_h,kokku_ule_h FROM toode_tunnid WHERE project_id=?");
+        $stmt=$conn->prepare("SELECT kokku_h,kokku_norm_h,kokku_ule_h FROM toode_tunnid WHERE projekt_id=?");
         $stmt->bind_param("i",$project_id);
-        $stmt->execute();
         $stmt->bind_result($all_hours_from_db,$nomal_hours_from_db,$over_hours_from_db);
-        $stmt->close();
+        $stmt->execute();
+        echo "Kaa vigane".$stmt->error;
         $total_hours=$all_hours_from_db+$project_all_hours;
         $total_normal_hours=$nomal_hours_from_db+$project_normal_hours;
         $total_over_hours=$over_hours_from_db+$project_over_hours;
-        $stmt=$conn->prepare("UPDATE toode_tunnid SET kokku_h=?,kokku_norm_h=?,kokku_ule_h=? WHERE project_id=?");
+        $stmt->close();
+        $stmt=$conn->prepare("UPDATE toode_tunnid SET kokku_h=?,kokku_norm_h=?,kokku_ule_h=? WHERE projekt_id=?");
         $stmt->bind_param("iiii",$total_hours,$total_normal_hours,$total_over_hours,$project_id);
         $stmt->execute();
         $stmt->close();
@@ -53,21 +55,28 @@ function set_project_hours($project_id,$project_all_hours,$project_normal_hours,
         echo("else");
     }
     $conn->close();
-    set_worker_hours($project_id,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours);
+    set_worker_hours($GLOBALS["project_id"],$GLOBALS["worker_id"],$GLOBALS["work_id"],$GLOBALS["date_opened"],$GLOBALS["worker_normal_hours"],$GLOBALS["worker_over_hours"]);
 
 }
 
 function set_worker_hours($project_id,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours){
+    $id_for_insert=null;
     $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
     $conn->set_charset("utf8");
     $stmt=$conn->prepare("SELECT id from toode_tunnid WHERE projekt_id=?");
+    echo $conn->error;
     $stmt->bind_param("i",$project_id);
-    $stmt->execute();
     $stmt->bind_result($project_hours_id_from_db);
-    $stmt->close();
-    $stmt=$conn->prepare("INSERT INTO tootajate_tunnid(id,toode_tunnid_id,tootaja_id,tooetappi_nimetus_id,kuupaev,norm_h,ule_h,in_edit,deleted) VALUES(NULL,?,?,?,?,?,?,'0','0')");
-    $stmt->bind_param("iiisii",$project_hours_id_from_db,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours);
     $stmt->execute();
+    echo "Viga siin".$stmt->error;
+    $id_for_insert=$project_hours_id_from_db;
+    $stmt->close();
+    echo($id_for_insert);
+    $stmt=$conn->prepare("INSERT INTO tootajate_tunnid(id,toode_tunnid_id,tootaja_id,tooetapi_nimetus_id,kuupaev,norm_h,ule_h,in_edit,deleted) VALUES(NULL,?,?,?,?,?,?,'0','0')");
+    echo "Viga seal".$conn->error;
+    $stmt->bind_param("iiisii",$id_for_insert,$worker_id,$work_id,$date_opened,$worker_normal_hours,$worker_over_hours);
+    $stmt->execute();
+    echo $stmt->error;
     $stmt->close();
     $conn->close();
 
