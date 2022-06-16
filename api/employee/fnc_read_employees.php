@@ -24,9 +24,9 @@
                 $phone_from_db = 'Puudub';
             }
             $conn2 = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
-            $stmt2 = $conn2->prepare("SELECT roll.rolli_nimi FROM roll INNER JOIN tootaja_roll ON roll.id=tootaja_roll.roll_id WHERE tootaja_roll.tootaja_id = ?");
+            $stmt2 = $conn2->prepare("SELECT roll.rolli_nimi, tootaja_roll.tootaja_id FROM roll INNER JOIN tootaja_roll ON roll.id=tootaja_roll.roll_id WHERE tootaja_roll.tootaja_id = ?");
                 $stmt2->bind_param("i", $id_from_db);
-                $stmt2->bind_result($rolename_from_db);
+                $stmt2->bind_result($rolename_from_db, $employee_id_from_db);
                 $stmt2->execute();
                 while($stmt2->fetch()){
                         array_push($employee_array, array(

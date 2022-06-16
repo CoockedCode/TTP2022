@@ -101,6 +101,9 @@ const ResponsiveAppBar = () => {
 						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/tootajad")}}>
 							Töötajad<br/>
 						</MenuItem>
+						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/toorollid")}}>
+							Rollid<br/>
+						</MenuItem>
 					</Menu>
 				</Box>
 

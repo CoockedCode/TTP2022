@@ -31,9 +31,9 @@ export default function AddWorker(){
 	const [valueEmpNumber, setValueEmpNumber] = useState();
 	const [errorEmpNumber, setErrorEmpNumber] = useState(false);
 	//5. Töötaja staatus
-	const [valueEmpActive, setValueEmpActive] = useState();
-	const [errorEmpActive, setErrorEmpActive] = useState(false);
-	//6. Töötaja roll
+	// const [valueEmpActive, setValueEmpActive] = useState();
+	// const [errorEmpActive, setErrorEmpActive] = useState(false);
+	// 6. Töötaja roll
 	const [valueEmpRole, setValueEmpRole] = useState();
 	const [errorEmpRole, setErrorEmpRole] = useState(false);
 
@@ -42,9 +42,9 @@ export default function AddWorker(){
 		if(valueEmpSname){setErrorEmpSname(false);}
 		if(valueEmpMail){setErrorEmpMail(false);}
 		if(valueEmpNumber){setErrorEmpNumber(false);}
-		if(valueEmpActive){setErrorEmpActive(false);}
+		// if(valueEmpActive){setErrorEmpActive(false);}
 		if(valueEmpRole){setErrorEmpRole(false);}
-	}, [valueEmpFname, valueEmpSname, valueEmpMail, valueEmpNumber, valueEmpActive, valueEmpRole])
+	}, [valueEmpFname, valueEmpSname, valueEmpMail, valueEmpNumber, valueEmpRole])
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -85,7 +85,7 @@ export default function AddWorker(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
-		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber") && formData.get("employeeActive")){
+		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber")){
 			// console.log("väljad täidetud")
 
 			//Kasutajanime loomine ees- ja perekonnanime järgi
@@ -100,7 +100,7 @@ export default function AddWorker(){
 				employeeSname: formData.get("employeeSname"),
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
-				employeeActive: formData.get("employeeActive"),
+				// employeeActive: formData.get("employeeActive"),
 				employeeRoleID: roleName,
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
@@ -134,11 +134,11 @@ export default function AddWorker(){
 			}else{
 				setValueEmpNumber(formData.get("employeeNumber"));
 			}
-			if(!formData.get("employeeActive")){
-				setErrorEmpActive(true);
-			}else{
-				setValueEmpActive(formData.get("employeeActive"));
-			}
+			// if(!formData.get("employeeActive")){
+			// 	setErrorEmpActive(true);
+			// }else{
+			// 	setValueEmpActive(formData.get("employeeActive"));
+			// }
 			if(!roleName){
 				setErrorEmpRole(true);
 			}else{
@@ -211,7 +211,7 @@ export default function AddWorker(){
 							margin="dense"
 							size="small"
 							/>
-						<TextField
+						{/* <TextField
 							required
 							fullWidth
 							error={!!errorEmpActive}
@@ -224,8 +224,9 @@ export default function AddWorker(){
 							margin="dense"
 							size="small"
 							
-							/>
+							/> */}
 						<DropDown
+							sx={{m: 0, pt: -10}}
 							required
 							fullWidth
 							error={!!errorEmpRole}
