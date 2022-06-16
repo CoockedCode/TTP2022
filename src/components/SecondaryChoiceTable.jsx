@@ -13,12 +13,21 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import axios from 'axios';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import DropDown from "./DropDown";
+import { FormControl, FormHelperText } from '@mui/material';
+import TextField from '@mui/material/TextField';
 
 export default function SecondaryChoiceTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
-    const resp = await axios.get(endpoint + "/client/fnc_get_all_clients.php?client");
+        const resp = await axios.get(endpoint + "/client/fnc_select_choices.php");
         console.log(resp);
         setRows([]);
         resp.data.forEach(element => {
@@ -30,8 +39,6 @@ export default function SecondaryChoiceTable() {
 useEffect(() => {
     forRows();
   }, []);
-
-    const [open, setOpen] = useState(false);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -43,7 +50,31 @@ useEffect(() => {
         setRowsPerPage(+event.target.value);
         setPage(0);
       };
-
+    const [open, setOpen] = useState(false);
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const [choiceOptions, setChoiceOptions] = useState([]);
+    const getChoiceOptions = async() => {
+        const response = await axios.get(endpoint+'/choice/fnc_get_all_choice_info.php');
+        console.log(response);
+        setChoiceOptions([]);
+        response.data.forEach(element => {
+            setChoiceOptions(oldArray => [...oldArray, element]);
+          })
+      }
+      useEffect(() => {
+        getChoiceOptions();
+      }, []);
+  
+    const [choiceID, setChoiceID] = useState("");
+    const handleChoiceChange = (e) => {
+        setChoiceID(e.target.value);
+    }
 
     function Row(row, key){
 
@@ -52,7 +83,7 @@ useEffect(() => {
         return(
             <>
             <TableRow key={key} className="main-table-row">
-                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
+                <TableCell padding='none'></TableCell>
 
                     <TableCell >{row.name}</TableCell>
                     <TableCell >{row.regNum} </TableCell>
@@ -61,14 +92,14 @@ useEffect(() => {
                     <TableCell >{row.mail} </TableCell>
             </TableRow>
 
-            <TableRow key={key + 'dropDown'}>
+            {/* <TableRow key={key + 'dropDown'}>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{ margin: 1 }}>
+                        <Box sx={{ margin: 1 }}> */}
                             {/* <Typography variant="h6" gutterBottom component="div">
                             History
                             </Typography> */}
-                            <Table size="small" aria-label="muu">
+                            {/* <Table size="small" aria-label="muu">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Muu 1</TableCell>
@@ -94,7 +125,7 @@ useEffect(() => {
                         </Box>
                     </Collapse>
                 </TableCell>
-            </TableRow>
+            </TableRow> */}
             </>
         );
     }
@@ -113,6 +144,59 @@ useEffect(() => {
                     <TableCell >Ühendus</TableCell>
                     <TableCell >Katsetatud</TableCell>
                 </TableRow>
+                <TableRow>
+                    <TableCell padding='none' width={"12px"}/>
+                    <TableCell>
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                    <TableCell>
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                    <TableCell>
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                    <TableCell>
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                    <TableCell>
+                    <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleClickOpen}
+							>
+							Lisa
+						</Button>
+                    </TableCell>
+                </TableRow>
                 </TableHead>
                 <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
@@ -123,7 +207,7 @@ useEffect(() => {
             </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          {/* <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
             count={rows.length}
@@ -132,7 +216,76 @@ useEffect(() => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
 
-          />
+          /> */}
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title">
+            {"Kustuta klient?"}
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Andmete lisamine
+                </DialogContentText>
+                    <FormControl sc={{width: "100%"}}>
+                            <DropDown
+                            name="Valik nimi" ID="choiceName" 
+                            value={choiceID} label="Valiku nimetus"
+                            onChange={handleChoiceChange}
+                            options={choiceOptions}
+                            />
+                            <TextField
+                                required
+                                fullWidth
+                                id="choiceValue"
+                                label="Sisesta valik mida tahad lisada"
+                                name="choiceValue"
+                                autoComplete="none"
+                                type="text"
+                                margin="dense"
+                                size="small" />
+                            <TextField
+                                optional
+                                fullWidth
+                                id="choiceUnit"
+                                label="Sisesta valiku mõõtühikut(Kui on)"
+                                name="choiceUnit"
+                                autoComplete="none"
+                                type="text"
+                                margin="dense"
+                                size="small" />
+                            <TextField
+                                optional
+                                fullWidth
+                                id="choiceAddInfo"
+                                label="Sisesta märkus(Kui on)"
+                                name="choiceAddInfo"
+                                autoComplete="none"
+                                type="text"
+                                margin="dense"
+                                size="small" />
+                    </FormControl>
+                </DialogContent>
+                <DialogActions>
+                    <Button 
+                        variant="contained"
+                        sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+                        width: 'auto' }}
+                        margin="dense"
+                        onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
+                        onClick={handleClose} autoFocus>
+                        Lisa!
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Paper>
       );
     }
