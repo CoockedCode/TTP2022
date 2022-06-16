@@ -10,7 +10,7 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 import { data } from 'jquery';
 import FormControl from '@mui/material/FormControl';
 import EmployeeRolesList from '../EmployeeRolesList';
-import DropDown from '../DropDown';
+import DropDown2 from '../DropDown2';
 
 export default function AddWorker(){
 	const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -210,38 +210,23 @@ export default function AddWorker(){
 							type="text"
 							margin="dense"
 							size="small"
+							padding="none"
+
 							/>
-						{/* <TextField
-							required
-							fullWidth
-							error={!!errorEmpActive}
-							autoFocus
-							id="employeeActive"
-							label="Töötaja staatus"
-							name="employeeActive"
-							autoComplete="none"
-							type="number"
-							margin="dense"
-							size="small"
-							
-							/> */}
-						<DropDown
-							sx={{m: 0, pt: -10}}
-							required
-							fullWidth
-							error={!!errorEmpRole}
-							autoFocus
-							id="roleName" 
+						<DropDown2
+							ID="roleName"
 							label="Tööroll"
-							value={roleName}
 							onChange={handleRoleChange}
 							options={roleNameOptions}
+							name=""
 						/>
+
+						{/*< DropDown({name, ID, value, label, onChange, options}) />*/}
 
 						<Button
 							type="submit"
 							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							sx={{ mt: "0.3rem", bgcolor: 'main', width: 'auto' }}
 							margin="dense"
 							//onClick={handleSubmit}
 							>
