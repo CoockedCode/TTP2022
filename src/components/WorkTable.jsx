@@ -60,9 +60,9 @@ function Row(row, key){
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-			<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >{row.ID}</TableCell>
+			<TableCell padding='none' width="48px" sx={{mx: "4px"}} >{row.ID}</TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
-			<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
+			<TableCell padding='none' sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
 
 			<TableCell >{row.Avatud}</TableCell>
 			<TableCell >{row.Klient}</TableCell>
@@ -125,10 +125,10 @@ function Row(row, key){
 
 			<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
 				<TableRow>
-					<TableCell padding='none' width={"12px"} />
-					<TableCell padding='none' width="48px" sx={{paddingLeft: "4px"}} >Projekti NR.</TableCell>
-					<TableCell >PT</TableCell>
-					<TableCell padding='none' sx={{paddingLeft: "4px"}} width="12px">DigiDokk</TableCell>
+					<TableCell align="justify" padding='none' width={"12px"} />
+					<TableCell align="justify" padding='none' width="48px" sx={{mx: "4px"}} >NR.</TableCell>
+					<TableCell align="justify" >PT</TableCell>
+					<TableCell padding='none' sx={{mx: "4px"}} width="12px">DigiDokk</TableCell>
 					<TableCell >Avatud</TableCell>
 					<TableCell >Kliendi nimi</TableCell>
 					<TableCell >Töö nimetus</TableCell>

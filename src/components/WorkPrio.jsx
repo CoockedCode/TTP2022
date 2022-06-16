@@ -51,12 +51,12 @@ export default function WorkPrio({prio}) {
 			workColor = "#2A86CE";
 			name = "M" 					// * Määramata
 		}else{
-			workColor = "#CEE741";
+			workColor = "#009000";
 		}
 
 	return(
 		<div className='work-box-wrap' key={prio}>
-			<ButtonBase onClick={handleOpen} className="work-box" style={{backgroundColor: workColor, color: 'black'}}>{name}</ButtonBase>
+			<ButtonBase onClick={handleOpen} className="work-box" style={{backgroundColor: workColor, color: 'black' }}>{name}</ButtonBase>
 
 				<Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box sx={style}>
