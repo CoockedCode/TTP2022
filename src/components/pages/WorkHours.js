@@ -27,17 +27,14 @@ export default function WorkHours(){
 	}else{
 		currMonth="."+date.getMonth()+1;
 	}
-	console.log(currMonth);
 	if(date.getDate()<10){
 		currDay=".0"+(date.getDate());
 	}else{
 		currDay="."+date.getDate();
 	}
-	console.log(currDay);
 	const DateValues = {
 		todayDate: date.getFullYear()+currMonth+currDay
 	}
-	console.log(DateValues.todayDate);
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -68,7 +65,8 @@ export default function WorkHours(){
 	}
 	const [projectAllHours, setProjectAllHours]= useState("");
 	const handleAllHoursChange = (e) =>{
-	  setProjectAllHours(e.target.value);s
+	  setProjectAllHours(e.target.value);
+	  
 	}
 	const [projectNormalHours, setProjectNormalHours]= useState("");
 	const handleNormalHoursChange = (e) =>{
@@ -83,6 +81,7 @@ export default function WorkHours(){
 	const [workerNormalHours, setWorkerNormalHours]= useState("");
 	const handleWorkerNormalHoursChange = (e) =>{
 	  setWorkerNormalHours(e.target.value);
+	  setProjectNormalHours(parseInt(e.target.value));
 	  setDisplayAllHours(e.target.value);
 	  setDisplayNormalHours(parseInt(e.target.value));
 	}
@@ -90,12 +89,13 @@ export default function WorkHours(){
 	const handleWorkerOverHoursChange = (e) =>{
 	  setWorkerOverHours(e.target.value);
 	  setDisplayOverHours(parseInt(e.target.value)*1.5);
+	  setProjectOverHours(parseInt(e.target.value));
 	  setDisplayAllHours(parseInt(displayAllHours)+parseInt(e.target.value));
+	  setProjectAllHours(parseInt(displayAllHours)+parseInt(e.target.value));
 	}
 	const [displayAllHours, setDisplayAllHours]=useState("")
 	const [displayNormalHours, setDisplayNormalHours]=useState("");
 	const [displayOverHours, setDisplayOverHours]=useState("")
-
 
 	const [ workerOptions, setWorkerOptions ] = useState([]);
 	const getEmployeeOptions = async() =>{

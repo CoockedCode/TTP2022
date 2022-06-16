@@ -34,7 +34,8 @@ function set_project_hours($project_id,$project_all_hours,$project_normal_hours,
         $stmt->bind_param("i",$project_id);
         $stmt->bind_result($all_hours_from_db,$nomal_hours_from_db,$over_hours_from_db);
         $stmt->execute();
-        echo "Kaa vigane".$stmt->error;
+        $stmt->fetch();
+        echo $stmt->error;
         $total_hours=$all_hours_from_db+$project_all_hours;
         $total_normal_hours=$nomal_hours_from_db+$project_normal_hours;
         $total_over_hours=$over_hours_from_db+$project_over_hours;
@@ -68,7 +69,8 @@ function set_worker_hours($project_id,$worker_id,$work_id,$date_opened,$worker_n
     $stmt->bind_param("i",$project_id);
     $stmt->bind_result($project_hours_id_from_db);
     $stmt->execute();
-    echo "Viga siin".$stmt->error;
+    $stmt->fetch();
+    echo $stmt->error;
     $id_for_insert=$project_hours_id_from_db;
     $stmt->close();
     echo($id_for_insert);
