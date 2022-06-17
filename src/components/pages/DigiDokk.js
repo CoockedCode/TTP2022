@@ -14,13 +14,15 @@ const DigiDokk = () => {
         axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB )
         .then(function(resp){
             setDokk(resp.data);
-
+            console.log(resp.data)
         })
+        
+
       };
-      console.log(dokk);
 
     useEffect(() => {
-	  	FetchDokk(1);
+	  	FetchDokk(8);
+      
   	}, [!dokk]);
 
 
@@ -30,7 +32,7 @@ const DigiDokk = () => {
           <section class="leht">
             <div class="pdf">
               <table class="tg">
-
+                <tbody>
                   <tr class="tr-titlebar">
                     <td class="tg-prio">
                       <td class="tg-prioH">Töö prioriteet
@@ -50,7 +52,11 @@ const DigiDokk = () => {
 
                   <tr>
                     <td class="tg-aadress">Aadress:</td>
-                    <td class="tg-regnr">Reg. nr.</td>
+                    <td class="tg-regnr">Reg. nr.
+                    <form id="regnrf">
+                        <input type="text" id="regnr" defaultValue={dokk[0].regnr}></input>
+                      </form>
+                    </td>
                     <td class="tg-0pky" rowSpan="2">Saabumise kp.
                       <form>
                         <input type="text" id="saabumisekp" defaultValue={dokk[0].alustatud}></input>
@@ -69,19 +75,19 @@ const DigiDokk = () => {
                   </tr>
 
                   <tr>
-                    <td class="tg-0pky1" colSpan="2">
+                    <td class="tg-0pky1" colSpan="2" rowSpan="2">
                       <form>
-                        <input type="text" id="aadress"></input>
+                        <input type="text" id="aadress" defaultValue={dokk[0].post_address} ></input>
                       </form>
                     </td>
                   </tr>
 
                   <tr>
-                    <td class="tg-0pky" colSpan="2">
+                    {/* <td class="tg-0pky" colSpan="2">
                       <form>
-                        <input type="text" id="aadress" defaultValue={dokk[0].reg_nr}></input>
+                        <input type="text" id="aadress"></input>
                       </form>
-                    </td>
+                    </td> */}
                     <td class="tg-0pky" colSpan="13" rowSpan="2">Tellija:
                       <form>
                         <input type="text" id="tellija">
@@ -93,7 +99,7 @@ const DigiDokk = () => {
                   <tr>
                     <td class="tg-0pky" colSpan="2">Kontaktisik:
                       <form id="ktkisikf">
-                        <input type="text" id="ktkisik"></input>
+                        <input type="text" id="ktkisik" defaultValue={dokk[0].kontaktisik}></input>
                       </form>
                     </td>
                   </tr>
@@ -101,7 +107,7 @@ const DigiDokk = () => {
                   <tr>
                     <td class="tg-0pky" colSpan="2">Tel.nr
                       <form id="telnrf">
-                        <input type="text" id="telnr"></input>
+                        <input type="text" id="telnr" defaultValue={dokk[0].klient_telefon}></input>
                       </form>
                     </td>
                     <td class="tg-arveepost" colSpan="11">Arve e-post:
@@ -120,7 +126,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="9">Tellimuse esitaja nimi:
                       <form id="tellijanimif">
-                        <input type="text" id="tellijanimi"></input>
+                        <input type="text" id="tellijanimi" defaultValue={dokk[0].tellimuse_esitaja}></input>
                       </form>
                     </td>
                     <td class="tg-allkirjalahter" colSpan="4" rowSpan="2">
@@ -138,7 +144,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="9">Tel.nr.
                       <form id="telnrf2"></form>
-                        <input type="text" id="telnr2"></input>
+                        <input type="text" id="telnr2" defaultValue={dokk[0].telefon_nr}></input>
                     </td>
                   </tr>
 
@@ -155,12 +161,12 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="6">Pakkum. Nr.
                       <form id="pakkumnrf">
-                        <input type="text" id="pakkumnr"></input>
+                        <input type="text" id="pakkumnr" defaultValue={dokk[0].pakkumise_nr}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="7">Kokkulepitud hind:
                       <form id="hindf">
-                        <input type="text" id="hind"></input>
+                        <input type="text" id="hind" defaultValue={dokk[0].kokkulep_hind}></input>
                       </form>
                     </td>
                   </tr>
@@ -173,7 +179,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-0pky" colSpan="6">Lepingu Nr.
                       <form id="lepingunrf">
-                        <input type="text" id="lepingunr"></input>
+                        <input type="text" id="lepingunr" defaultValue={dokk[0].lepingu_nr}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="7">Kokkulepitud tähtaeg:
@@ -194,7 +200,7 @@ const DigiDokk = () => {
                         label="Klient tuleb järgi" labelPlacement="end"/></td>
                     <td class="tg-0pky" colSpan="6">Kliendi PO
                       <form id="kliendipof">
-                        <input type="text" id="kliendipo"></input>
+                        <input type="text" id="kliendipo" defaultValue={dokk[0].kliendi_po_nr}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="7">Lõpetatud:
@@ -532,6 +538,7 @@ const DigiDokk = () => {
                     <td class="tg-0lax" colSpan="5">Tel. 56862291</td>
                     <td class="tg-0lax" colSpan="6">a/a EE402200221059825730</td>
                   </tr>
+                  </tbody>
                 </table>
               </div>
             </section>

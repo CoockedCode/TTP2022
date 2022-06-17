@@ -35,6 +35,10 @@
 
 #aadress{border-width: 0; width:302; margin:0; padding: 0}
 
+#regnrf{display:inline-block}
+
+#regnr{border-width: 0; margin:0; padding:0; width: 80; margin-left:10}
+
 .tg .tg-regnr{border-left-width: 0; text-align: left;width:150}
 
 #saabumisekp{border-width: 0; padding:0; margin: 0; height: 23}

@@ -19,19 +19,18 @@ class DigiDokk{
         $this->return_data = null;
         $list_html = array();
 
-
-
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
         $stmt = $conn->prepare("SELECT id, projekt_nr, prioriteet, alustatud, klient_id, kokkulepitud_lopp, lopp, valjaviidud, arve, saabunud, tagastus, teostatav, vottis_vastu, arhiivi FROM projekt WHERE id = ?");
         $stmt->bind_param("i", $id);
-         $stmt->bind_result($id2, $projekt_nr, $prioriteet, $alustatud, $klient_id, $kokkulepitud_lopp, $lopp, $valjaviidud, $arve, $saabunud, $tagastus, $teostatav, $vottis_vastu, $arhiivi);
+        $stmt->bind_result($id2, $projekt_nr, $prioriteet, $alustatud, $klient_id, $kokkulepitud_lopp, $lopp, $valjaviidud, $arve, $saabunud, $tagastus, $teostatav, $vottis_vastu, $arhiivi);
         $stmt->execute();
         if($stmt->fetch()){
             array_push($list_html, array(
                 "id"=>$id2,
                 "projekt_nr"=>$projekt_nr,
                 "prioriteet"=>$prioriteet,
+                "alustatud"=>$alustatud,
                 "kliendi_id"=>$klient_id,
                 "kokkulepitud_lopp"=>$kokkulepitud_lopp,
                 "lopp"=>$lopp,
@@ -44,21 +43,15 @@ class DigiDokk{
                 "arhiivi"=>$arhiivi,
                 "notice"=>"Info edukalt saadud!",
                 "type"=>"success"));
-        }else{
-            array_push($list_html, array(
-            "notice"=>"Infot ei saadud!",
-            "type"=>"error"));
         }
 
         $stmt->close();
 		$conn->close();
 
-        if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
-		}else{
-            array_push($list_html, array("notice"=>"Viga andmebaasiga suhtlemisel!", "type"=>"error"));
-            $this->return_data = json_encode($list_html);
+        if(empty($list_html)){
+            array_push($list_html, array("notice"=>"Infot ei saadud!", "type"=>"error"));
 		}
+        $this->return_data = json_encode($list_html);
     }
 
 }
