@@ -103,6 +103,120 @@ export default function AddNewProject(){
     // katsetatud
     const [testMethodArr, setTestMethodArr] = useState([]);
 
+
+    // mähise andmete saamine
+    const [windingData, setWindingData] = useState(
+        [
+            {
+                name: "Pooluste arv",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Mähise liik",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Ühendusviis",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Mähise samm",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Uurete arv",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name:"Keerdude arv",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Raua mõõdud",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Traatide arv keerus",
+                statorValue: "",
+                rotorValue: ""
+            },
+            {
+                name: "Traadi mõõdud",
+                statorValue: "",
+                rotorValue: ""
+            }
+        ]
+        
+    );
+
+    const passWindingData = (data) => {
+        setWindingData(data);
+        console.log(data)
+    }
+
+    // seadme katsetuse andmete saamine
+    const [deviceTestingData, setDeviceTestingData] = useState(
+        [
+            {
+                tester: "",
+                testingDate: "",
+                functionalTest: "",
+                isolationResistance: "",
+                isolationSuitability: "",
+                voltageTest: "",
+                voltageTestSuitability: "",
+                functionalTestNotes: "",
+                functionalTestSuitability: "",
+                testingVoltage: "",
+                connectionType: "",
+                testingMethod: "",
+                currents:
+                {
+                    current1: "",
+                    current2: "",
+                    current3: ""
+                },
+                tableDataHV:
+                {
+                    HMms: "",
+                    HgE: "",
+                    VMms: "",
+                    VgE: ""
+                },
+                tableDataHVA:
+                {
+                    HMms: "",
+                    HgE: "",
+                    VMms: "",
+                    VgE: "",
+                    AMms: "",
+                    AgE: ""
+                },
+                audioNotes: "",
+                otherNotes: "",
+                windingResistance: 
+                {
+                    resistanceU: "",
+                    resistanceV: "",
+                    resistanceW: ""
+                }
+            }
+        ]
+    );
+
+    const passTestingData = (data) => {
+        setDeviceTestingData(data);
+        console.log(data);
+    }
+
+
     const getDeviceOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
         //console.log(response.data);
@@ -192,7 +306,8 @@ export default function AddNewProject(){
             EXMarking: formData.get("EXMarking"),
             bearingDE: formData.get("bearingDE"),
             bearingNDE: formData.get("bearingNDE"),
-            additionalInfo: formData.get("additionalInfo")
+            additionalInfo: formData.get("additionalInfo"),
+            windingData: windingData,
         }
 
         console.log(dataToSave);
@@ -352,7 +467,7 @@ export default function AddNewProject(){
                             size="small"
                         />
 
-                        <WindingDialog />
+                        <WindingDialog passWindingData={passWindingData}/>
 
                         <DeviceTestingDialog
                          resistanceOptions={resistanceArr}
@@ -360,6 +475,7 @@ export default function AddNewProject(){
                          testingVoltageOptions={testingVoltageArr}
                          connectionOptions={connectionArr}
                          testMethodOptions={testMethodArr}
+                         passTestingData={passTestingData}
                         />
 
                         <DeviceEquipment />

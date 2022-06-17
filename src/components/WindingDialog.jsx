@@ -7,68 +7,68 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody, Input } from '@mui/material';
 
-const rows = [
-    {
-        name: "Pooluste arv",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Mähise liik",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Ühendusviis",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Mähise samm",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Uurete arv",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name:"Keerdude arv",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Raua mõõdud",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Traatide arv keerus",
-        statorValue: "",
-        rotorValue: ""
-    },
-    {
-        name: "Traadi mõõdud",
-        statorValue: "",
-        rotorValue: ""
-    }
-];
 
-export default function WindingDialog({ setsList = rows}){
+export default function WindingDialog(props){
+
+    const rows = [
+        {
+            name: "Pooluste arv",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Mähise liik",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Ühendusviis",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Mähise samm",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Uurete arv",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name:"Keerdude arv",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Raua mõõdud",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Traatide arv keerus",
+            statorValue: "",
+            rotorValue: ""
+        },
+        {
+            name: "Traadi mõõdud",
+            statorValue: "",
+            rotorValue: ""
+        }
+    ];
 
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
+        // console.log(props)
     };
     const handleClose = () => {
         setOpen(false);
     };
 
-    const [state, setState] = useState(setsList)
-    //console.log(state.find(mahis => mahis.name === "Mähise liik").statorValue);
-    // console.log(state);
+    const [state, setState] = useState(rows)
 
     const handleChange = (e, i) => {
         const { value, name } = e.target;
@@ -80,8 +80,13 @@ export default function WindingDialog({ setsList = rows}){
             [name]: value
         };
 
-        //console.log(newState);
         setState(newState);
+    }
+
+    // saatmine hüpikaknast väljapoole
+    const handleSave = () => {
+        props.passWindingData(state);
+        setOpen(false);
     }
 
     return(
@@ -133,7 +138,7 @@ export default function WindingDialog({ setsList = rows}){
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Katkesta</Button>
-                    <Button onClick={handleClose}>Salvesta</Button>
+                    <Button onClick={handleSave}>Salvesta</Button>
                 </DialogActions>
 
             </Dialog>
