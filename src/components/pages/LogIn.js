@@ -101,7 +101,7 @@ export default function SignIn() {
                 // autoComplete="current-password"
                 autoComplete="none"
               />
-              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Jäta mind meelde" />
+              {/*<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Jäta mind meelde" />*/}
               <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 2, mb: 2, bgcolor: "main" }}>
                 Logi sisse
               </Button>

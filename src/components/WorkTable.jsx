@@ -81,7 +81,6 @@ function Row(row, key){
 			<TableCell sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
-			{/*<TableCell >{row.Avatud}</TableCell>*/}
 			<TableCell >xx.xx.xxxx</TableCell>
 			<TableCell >{row.Klient}</TableCell>
 			<TableCell >{row.Too_nimetus}</TableCell>
@@ -116,7 +115,7 @@ function Row(row, key){
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
-								<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Arhiivi</Button></TableCell>
+								{(queryOption == 1) ? <TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Aktiveeri</Button></TableCell> :<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Arhiivi</Button></TableCell>}
 								<TableCell  ><Button type="small" variant='contained' sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
 							</TableRow>
 						</TableBody>
