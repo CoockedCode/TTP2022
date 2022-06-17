@@ -13,6 +13,7 @@ import { FormControl } from '@mui/material';;
 import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
 import { useDispatch } from "react-redux";
+import { setSnackbar } from "../../redux/ducks/snackbar";
 
 const ChoiceList = () => {
   const dispatch = useDispatch();
@@ -185,7 +186,7 @@ const ChoiceList = () => {
     getAllChoiceOptions();
   }, []);
     const getTransportOptions = async() =>{
-      const response = await axios.get(endpoint+'/choice/fnc_select_transport.php');
+      const response = await axios.get(endpoint+'/choice/fnc_select_transport.php?transport');
       console.log(response);
       setTransportCompanyOptions([]);
       response.data.forEach(element=>{
@@ -223,7 +224,6 @@ const ChoiceList = () => {
     }
     const handleSubmit = (e) => {
       e.preventDefault();
-      // const formData = new FormData(e.currentTarget);
       const toSave={
         choiceID: choiceID,
         name: nameValue,
@@ -239,9 +239,11 @@ const ChoiceList = () => {
         .then(function (response) {
           console.log(response);
           if(response.status === 200){
+            dispatch(setSnackbar(true,"success","Valik edukalt lisatud!"));
           }
         })
         .catch(function (err) {
+          dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
         });
         handleClose();
 	};
@@ -358,15 +360,39 @@ const ChoiceList = () => {
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
-				// dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
+				dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
 			}
 		})
 		.catch(function (err) {
-			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
-		handleClose();
+		handleDeletionClose();
   
   }
+  const deleteTransport=()=>{
+    toDelete ={
+      transportID: transportCompany
+    }
+    axios.post(endpoint+"/choice/fnc_delete_transport.php", toDelete)
+		.then(function (response) {
+			console.log(response);
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Transpordi firma edukalt kustutatud!"));
+			}
+		})
+		.catch(function (err) {
+			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+		});
+		handleTransportDeletionClose();
+  
+  }
+  const [transportDeletionOpen, setTransportDeletionOpen] = useState(false);
+  const handleTransportDeletionOpen= ()=>{
+    setTransportDeletionOpen(true);
+  }
+  const handleTransportDeletionClose = () => {
+    setTransportDeletionOpen(false);
+  };
 
   return (
     <>
@@ -523,7 +549,7 @@ const ChoiceList = () => {
                 type="button"
                 variant="contained"
                 sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
-                onClick={handleDeletionOpen}
+                onClick={handleTransportDeletionOpen}
                 >
                 Kustuta
 						  </Button>
@@ -715,6 +741,37 @@ const ChoiceList = () => {
 									variant="contained"
 									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
 									onClick={handleDeletion} autoFocus>
+									Jah
+								</Button>
+								</DialogActions>
+							</Dialog>
+              <Dialog
+								open={transportDeletionOpen}
+								onClose={handleTransportDeletionClose}
+								aria-labelledby="alert-dialog-title"
+								aria-describedby="alert-dialog-description"
+							>
+								<DialogTitle id="alert-dialog-title">
+								{"Kustuta klient?"}
+								</DialogTitle>
+								<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									Soovid tõeliselt transpordifirma kustutada?
+								</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+									width: 'auto' }}
+									margin="dense"
+									onClick={handleTransportDeletionClose}>
+									Ei
+								</Button>
+								<Button 
+									variant="contained"
+									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+									onClick={deleteTransport} autoFocus>
 									Jah
 								</Button>
 								</DialogActions>

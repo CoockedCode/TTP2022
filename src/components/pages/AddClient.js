@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText } from '@mui/material';
+import { FormControl } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from "react-redux";
@@ -47,7 +47,7 @@ export default function AddClient(){
 		if(valueContPers){setErrorContPers(false);}
 		if(valueEmail){setErrorEmail(false);}
 		if(valuePhone){setErrorPhone(false);}
-		if(valueInvoiceEm){setErrorEnvoiceEm(false);}
+		if(valueInvoiceEm){setErrorInvoiceEm(false);}
 	}, [valueClientName, valueRegNum, valueClientAddr, valuePostInd, valueContPers, valueEmail, valuePhone, valueInvoiceEm])
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -68,7 +68,6 @@ export default function AddClient(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		//console.log(formData);
 		if(formData.get("clientName") && formData.get("clientRegNum") && formData.get("clientAddr") && formData.get("postIndex") &&
 			 formData.get("contPers") && formData.get("clientEmail")&& formData.get("clientPhoneNr")&& formData.get("invoiceEm")){
 			console.log("väljad täidetud")
