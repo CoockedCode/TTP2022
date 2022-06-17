@@ -5,40 +5,40 @@
 
 class User{
 
-    private $return_data = null;
+    private static $return_data = null;
 
-    public function get_data(){
-        return $this->return_data;
+    public static function get_data(){
+        return self::$return_data;
     }
 
-    public function store_new($first_name, $last_name, $usrNam, $passWrd, $on_pay){
-        $this->store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay);
+    public static function store_new($first_name, $last_name, $usrNam, $passWrd, $on_pay){
+        self::store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay);
     }
 
-    public function sign_in($user_name, $password){
-        $this->sign_in_user($user_name, $password);
+    public static function sign_in($user_name, $password){
+        self::sign_in_user($user_name, $password);
     }
 
-    public function fetch_data($usrNam){
-        $this->fetch_user_data($usrNam);
+    public static function fetch_data($usrNam){
+        self::fetch_user_data($usrNam);
     }
 
-    public function change_password($usrNam, $old_password, $new_password){
-        $this->change_user_password($usrNam, $old_password, $new_password);
+    public static function change_password($usrNam, $old_password, $new_password){
+        self::change_user_password($usrNam, $old_password, $new_password);
     }
 
-    public function change_name($old_user_name, $new_user_name, $password){
-        $this->change_user_name($old_user_name, $new_user_name, $password);
+    public static function change_name($old_user_name, $new_user_name, $password){
+        self::change_user_name($old_user_name, $new_user_name, $password);
     }
 
-    private function change_user_name($old_user_name, $new_user_name, $password): void{
+    private static function change_user_name($old_user_name, $new_user_name, $password): void{
         //	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
         // TODO: kontrolli kas selline kasutaja nimi on olemas juba...
 
-        $this->return_data = null;
+        self::$return_data = null;
         $list_html = array();
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
@@ -78,21 +78,21 @@ class User{
         $stmt->close();
 		$conn->close();
         if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("notice"=>"Vale parool või kasutaja!", "type"=>"error"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
-        $this->return_data = json_encode($list_html);
+        self::$return_data = json_encode($list_html);
     }
 
 
-    private function change_user_password($usrNam, $old_password, $new_password): void{
+    private static function change_user_password($usrNam, $old_password, $new_password): void{
         //	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
-        $this->return_data = null;
+        self::$return_data = null;
         $list_html = array();
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
@@ -120,20 +120,20 @@ class User{
         $stmt->close();
 		$conn->close();
         if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("notice"=>"Vale parool või kasutaja!", "type"=>"error"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
-        $this->return_data = json_encode($list_html);
+        self::$return_data = json_encode($list_html);
     }
 
-    private function store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay){
+    private static function store_new_user($first_name, $last_name, $usrNam, $passWrd, $on_pay){
         //	TODO: see tööle panna.. kas ikka on sess olemas?
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
-        $this->return_data = null;
+        self::$return_data = null;
         $list_html = array();
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
@@ -159,12 +159,12 @@ class User{
 		$stmt->close();
 		$conn->close();
 
-        $this->return_data = json_encode($list_html);
+        self::$return_data = json_encode($list_html);
 
 	}
 
-    private function sign_in_user($user_name, $password): void{
-        $this->return_data = null;
+    private static function sign_in_user($user_name, $password): void{
+        self::$return_data = null;
         $list_html = array();
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
@@ -187,26 +187,26 @@ class User{
 		if(!empty($list_html)){
 			$sess = new session();
 			$sess->start($user_name);
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("error"=>"Vale parool või kasutaja!"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
 
     }
 
-    private function fetch_user_data($usrNam): void{
+    private static function fetch_user_data($usrNam): void{
         //	kas ikka on sess olemas?
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
-        $this->return_data = null;
+        self::$return_data = null;
 		$list_html = array();
         $roles = null;
 
         // // Error kontroll
         // array_push($list_html, array("error"=>$_SESSION["status"]));
-        // $this->return_data = json_encode($list_html);
+        // self::$return_data = json_encode($list_html);
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
@@ -245,10 +245,10 @@ class User{
 		$conn2->close();
 
 		if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("error"=>"Vale parool või kasutaja!"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
 
 	}
