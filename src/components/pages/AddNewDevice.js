@@ -13,6 +13,7 @@ import DeviceEquipment from "../DeviceEquipment";
 // kui väljad täidetud, siis projekti kuvasse naasemine
 // Fotode ja failide lisamine/vaatamine
 // form validation
+// testkasutaja id on vaja andmebaasis nimena salvestada
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
@@ -169,6 +170,7 @@ export default function AddNewProject(){
                 testingDate: "",
                 functionalTest: "",
                 isolationResistance: "",
+                isolationResistanceUnit: "",
                 isolationSuitability: "",
                 voltageTest: "",
                 voltageTestSuitability: "",
@@ -204,8 +206,11 @@ export default function AddNewProject(){
                 windingResistance: 
                 {
                     resistanceU: "",
+                    resistanceUunit: "",
                     resistanceV: "",
-                    resistanceW: ""
+                    resistanceVunit: "",
+                    resistanceW: "",
+                    resistanceWunit: ""
                 }
             }
         ]
@@ -308,6 +313,7 @@ export default function AddNewProject(){
             bearingNDE: formData.get("bearingNDE"),
             additionalInfo: formData.get("additionalInfo"),
             windingData: windingData,
+            deviceTestingData: deviceTestingData
         }
 
         console.log(dataToSave);

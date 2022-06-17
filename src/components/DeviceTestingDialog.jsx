@@ -24,20 +24,64 @@ import { useRef } from "react";
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
-export default function DeviceTestingDialog({resistanceOptions, voltageTestOptions, testingVoltageOptions, connectionOptions, testMethodOptions, props}){
+export default function DeviceTestingDialog({resistanceOptions, voltageTestOptions, testingVoltageOptions, connectionOptions, testMethodOptions, passTestingData}){
 
     const [open, setOpen] = useState(false);
+
+    const form = [
+        {
+            functionalTest: "", // kuidas raadionuppu saada/määrata?
+            isolationResistance: "", // selectedAmount ka juurde
+            isolationSuitability: "", // raadionupp
+            voltageTestSuitability: "", // raadionupp
+            functionalTestNotes: "",
+            functionalTestSuitability: "", // raadionupp
+            current1: "",
+            current2: "",
+            current3: "",
+            HMms1: "",
+            HgE1: "",
+            VMms1: "",
+            VgE1: "",
+            HMms2: "",
+            HgE2: "",
+            VMms2: "",
+            VgE2: "",
+            AMms2: "",
+            AgE2: "",
+            audioNotes: "",
+            otherNotes: "",
+            resistanceU: "",
+            resistanceV: "",
+            resistanceW: ""
+        }
+    ]
+
+    const [formValue, setFormValue] = useState(form);
+
+    const handleChange = (e) => {
+        const {value, name} = e.target;
+        // const newValue = [...formValue];
+        const newValue = {
+            ...formValue,
+            [name]: value
+        };
+        //console.log(newValue);
+        setFormValue(newValue);
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
         setOpen(false);
+        console.log(formValue)
     };
 
     // katsetaja dropdown
     const [testerID, setTesterID] = useState("");
     const handleTesterChange = (e) => {
+        console.log(e.target);
         setTesterID(e.target.value);
     }
     const [testerOptions, setTesterOptions] = useState([]);
@@ -49,6 +93,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 		response.data.forEach(element => {
 			setTesterOptions(oldFirmArray => [...oldFirmArray, element]);
 		});
+        console.log(testerOptions[0].name);
     }
 
     // kuupäeva valik
@@ -89,8 +134,6 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
     const [selectedWindingResistanceW, setSelectedWindingResistanceW] = useState("");
     const selectWindingResistanceW = (value) => setSelectedWindingResistanceW(value);
 
-    const ref = useRef(null);
-
     useEffect(() => {
         getTesterOptions();
         // const el = ref.current;
@@ -100,53 +143,62 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
     const handleSave = (e) => {
         e.preventDefault();
-        console.log(e);
+        // console.log(formValue);
+
         const formData = new FormData();
-        const deviceTestingData = {
+        const deviceTestingData = [
+            {
                 tester: testerID,
                 testingDate: `${selectedTestingDate.$y}-${selectedTestingDate.$M + 1}-${selectedTestingDate.$D}`,
-                functionalTest: formData.get("deviceFunctionalTest"),
-                isolationResistance: `${formData.get("deviceIsolationAmount")} ${selectedIsolationResistance}`,
-                isolationSuitability: formData.get("deviceIsolation"),
+                functionalTest: formData.get("functionalTest"),
+                isolationResistance: formValue.isolationResistance,
+                isolationResistanceUnit: selectedIsolationResistance,
+                isolationSuitability: formData.get("isolationSuitability"), // raadionupp ??
                 voltageTest: selectedVoltageTest,
-                voltageTestSuitability: formData.get("deviceVoltageTest"),
-                functionalTestNotes: formData.get("deviceFunctionalTestNotes"),
-                functionalTestSuitability: formData.get("deviceFunctionalTestSuitability"),
+                voltageTestSuitability: formData.get("deviceVoltageTest"), // raadionupp
+                functionalTestNotes: formValue.functionalTestNotes,
+                functionalTestSuitability: formData.get("deviceFunctionalTestSuitability"), // raadionupp
                 testingVoltage: selectedTestingVoltage,
                 connectionType: selectedConnectionType,
                 testingMethod: selectedTestMethod,
                 currents:
                 {
-                    current1: formData.get("current-1"),
-                    current2: formData.get("current-2"),
-                    current3: formData.get("current-3")
+                    current1: formValue.current1,
+                    current2: formValue.current2,
+                    current3: formValue.current3
                 },
                 tableDataHV:
                 {
-                    HMms: formData.get("nde1-mms-h"),
-                    HgE: formData.get("nde1-ge-h"),
-                    VMms: formData.get("nde1-mms-v"),
-                    VgE: formData.get("nde1-ge-v")
+                    HMms: formValue.HMms1,
+                    HgE: formValue.HgE1,
+                    VMms: formValue.VMms1,
+                    VgE: formValue.VgE1
                 },
                 tableDataHVA:
                 {
-                    HMms: formData.get("nde2-mms-h"),
-                    HgE: formData.get("nde2-ge-h"),
-                    VMms: formData.get("nde2-mms-v"),
-                    VgE: formData.get("nde2-ge-v"),
-                    AMms: formData.get("nde2-mms-a"),
-                    AgE: formData.get("nde2-ge-a")
+                    HMms: formValue.HMms2,
+                    HgE: formValue.HgE2,
+                    VMms: formValue.VMms2,
+                    VgE: formValue.VgE2,
+                    AMms: formValue.AMms2,
+                    AgE: formValue.AgE2
                 },
-                audioNotes: formData.get("audioNotes"),
-                otherNotes: formData.get("otherNotes"),
+                audioNotes: formValue.audioNotes,
+                otherNotes: formValue.otherNotes,
                 windingResistance:
                 {
-                    resistanceU: `${formData.get("winding-u1-u2")} ${selectedWindingResistanceU}`,
-                    resistanceV: `${formData.get("winding-v1-v2")} ${selectedWindingResistanceV}`,
-                    resistanceW: `${formData.get("winding-w1-w2")} ${selectedWindingResistanceW}`
+                    resistanceU: formValue.resistanceU,
+                    resistanceUunit: selectedWindingResistanceU,
+                    resistanceV: formValue.resistanceV,
+                    resistanceVunit: selectedWindingResistanceV,
+                    resistanceW: formValue.resistanceW,
+                    resistanceWunit: selectedWindingResistanceW
                 }
             }
+        ]
+        
         console.log(deviceTestingData);
+        passTestingData(deviceTestingData);
         setOpen(false);
     }
     
@@ -186,9 +238,9 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <h4>Talitluskatse: </h4>
                     <RadioGroup
                         required
-                        id='deviceFunctionalTest'
+                        id='functionalTest'
                         label="Talitluskatse"
-                        name='deviceFunctionalTest'
+                        name='functionalTest'
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Seade tunnistatud kontrolli põhjal ohutuks" />
@@ -200,9 +252,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="deviceIsolationAmount"
+                        id="isolationResistance"
+                        value={formValue.isolationResistance}
+                        onChange={(e) => handleChange(e)}
                         label="Takistuse nr"
-                        name="deviceIsolationAmount"
+                        name="isolationResistance"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -210,7 +264,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     />
 
                     <DropDown
-                    name="" ID="isolationResistance"
+                    name="" ID="isolationResistanceUnit"
                     value={selectedIsolationResistance} label="Ühik"
                     onChange={(e) => selectResistanceHandler(e.target.value)}
                     options={resistanceOptions}
@@ -218,9 +272,9 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <RadioGroup
                         required
-                        id='deviceIsolation'
+                        id='isolationSuitability'
                         label="Isolatsiooni takistus"
-                        name='deviceisolation'
+                        name='isolationSuitability'
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -237,9 +291,9 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <RadioGroup
                         required
-                        id='deviceVoltageTest'
+                        id='voltageTestSuitability'
                         label="Pinge teim"
-                        name='deviceVoltageTest'
+                        name='voltageTestSuitability'
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -249,9 +303,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <h4>Talitluskatse märkused:</h4>
                     <TextField
                         
-                        id="deviceFunctionalTestNotes"
+                        id="functionalTestNotes"
+                        value={formValue.functionalTestNotes}
+                        onChange={(e) => handleChange(e)}
                         label="Märkused"
-                        name="deviceFunctionalTestNotes"
+                        name="functionalTestNotes"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -260,9 +316,9 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <RadioGroup
                         required
-                        id='deviceFunctionalTestSuitability'
+                        id='functionalTestSuitability'
                         label="Talitluskatse"
-                        name='deviceFunctionalTestSuitability'
+                        name='functionalTestSuitability'
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -298,9 +354,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="current-1"
+                        id="current1"
                         label="1 - lv"
-                        name="current-1"
+                        value={formValue.current1}
+                        onChange={(e) => handleChange(e)}
+                        name="current1"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -310,9 +368,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="current-2"
+                        id="current2"
                         label="1 - lv"
-                        name="current-2"
+                        value={formValue.current2}
+                        onChange={(e) => handleChange(e)}
+                        name="current2"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -322,9 +382,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="current-3"
+                        id="current3"
                         label="1 - lv"
-                        name="current-3"
+                        name="current3"
+                        value={formValue.current3}
+                        onChange={(e) => handleChange(e)}
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -345,14 +407,18 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                                 <TableCell align="right">H</TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde1-mms-h"
-                                        id="nde1-mms-h"
+                                        name="HMms1"
+                                        id="HMms1"
+                                        value={formValue.HMms1}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde1-ge-h"
-                                        id="nde1-ge-h"
+                                        name="HgE1"
+                                        id="HgE1"
+                                        value={formValue.HgE1}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -360,14 +426,18 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                                 <TableCell align="right">V</TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde1-mms-v"
-                                        id="nde1-mms-v"
+                                        name="VMms1"
+                                        id="VMms1"
+                                        value={formValue.VMms1}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde1-ge-v"
-                                        id="nde1-ge-v"
+                                        name="VgE1"
+                                        id="VgE1"
+                                        value={formValue.VgE1}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -387,14 +457,18 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                                 <TableCell align="right">H</TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-mms-h"
-                                        id="nde2-mms-h"
+                                        name="HMms2"
+                                        id="HMms2"
+                                        value={formValue.HMms2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-ge-h"
-                                        id="nde2-ge-h"
+                                        name="HgE2"
+                                        id="HgE2"
+                                        value={formValue.HgE2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -402,14 +476,18 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                                 <TableCell align="right">V</TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-mms-v"
-                                        id="nde2-mms-v"
+                                        name="VMms2"
+                                        id="VMms2"
+                                        value={formValue.VMms2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-ge-v"
-                                        id="nde2-ge-v"
+                                        name="VgE2"
+                                        id="VgE2"
+                                        value={formValue.VgE2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -417,14 +495,18 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                                 <TableCell align="right">A</TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-mms-a"
-                                        id="nde2-mms-a"
+                                        name="AMms2"
+                                        id="AMms2"
+                                        value={formValue.AMms2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                                 <TableCell align="right">
                                     <TextField
-                                        name="nde2-ge-a"
-                                        id="nde2-ge-a"
+                                        name="AgE2"
+                                        id="AgE2"
+                                        value={formValue.AgE2}
+                                        onChange={(e) => handleChange(e)}
                                     />
                                 </TableCell>
                             </TableRow>
@@ -437,7 +519,9 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                         autoFocus
                         id="audioNotes"
                         label="Tekstina"
-                        name="audtioNotes"
+                        value={formValue.audioNotes}
+                        onChange={(e) => handleChange(e)}
+                        name="audioNotes"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -449,6 +533,8 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                         autoFocus
                         id="otherNotes"
                         label="Tekstina"
+                        value={formValue.otherNotes}
+                        onChange={(e) => handleChange(e)}
                         name="otherNotes"
                         autoComplete="none"
                         type="text"
@@ -461,9 +547,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="winding-u1-u2"
+                        id="resistanceU"
                         label=""
-                        name="winding-u1-u2"
+                        value={formValue.resistanceU}
+                        onChange={(e) => handleChange(e)}
+                        name="resistanceU"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -481,9 +569,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="winding-v1-v2"
+                        id="resistanceV"
                         label=""
-                        name="winding-v1-v2"
+                        value={formValue.resistanceV}
+                        onChange={(e) => handleChange(e)}
+                        name="resistanceV"
                         autoComplete="none"
                         type="text"
                         margin="dense"
@@ -501,9 +591,11 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <TextField
                         required
                         autoFocus
-                        id="winding-w1-w2"
+                        id="resistanceW"
                         label=""
-                        name="winding-w1-w1"
+                        value={formValue.resistanceW}
+                        onChange={(e) => handleChange(e)}
+                        name="resistanceW"
                         autoComplete="none"
                         type="text"
                         margin="dense"
