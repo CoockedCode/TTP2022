@@ -1,8 +1,6 @@
 <?php
-	header("Access-Control-Allow-Origin: *");
 	require_once("Protect.class.php");
-	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;}		// ! Kas on ikka GET päring?
-	$protect = new Protect();							// ! uus objekt
+	require_once("../config.php");
 
 	// * tabeli in_edit muutmine
 	if(
@@ -13,8 +11,8 @@
 		$set_table = filter_var($_GET["set_table"], FILTER_SANITIZE_STRING);
 		$set_id = $_GET["set_id"];
 		$set_in_edit = $_GET["set_in_edit"];
-		$protect->set($set_table, $set_id, $set_in_edit);
-		echo($protect->get_data());
+		Protect::set($set_table, $set_id, $set_in_edit);
+		echo(Protect::get_data());
 		// revert_in_edit($set_table, $set_id);
 	}
 
@@ -22,8 +20,8 @@
 	if(isset($_GET["table"]) and !empty($_GET["table"]) and isset($_GET["id"]) and !empty($_GET["id"])){
 		$table = filter_var($_GET["table"], FILTER_SANITIZE_STRING);
 		$id = $_GET["id"];
-        $protect->query($table, $id);
-        echo($protect->get_data());
+        Protect::query($table, $id);
+        echo(Protect::get_data());
 	}
 
 	// ! SHUDOWN
@@ -36,7 +34,7 @@
 	function revert_in_edit($set_table, $set_id): void{
 		$protect = new Protect();
 		if(connection_aborted()){
-			$protect->set($set_table, $set_id, 0);
+			Protect::set($set_table, $set_id, 0);
 			exit();
 		}
 		//$max_time = time_sleep_until(time() + 60*15);	// ! paus ennem kui php läheb kinni. (Sek)
@@ -45,9 +43,9 @@
 		// 		usleep(1);
 		// 		break;
 		// 	}else{
-		// 		$protect->set($set_table, $set_id, 0);
+		// 		Protect::set($set_table, $set_id, 0);
 		// 		exit();
 		// 	}
-		// 	//$protect->set($set_table, $set_id, 0);
+		// 	//Protect::set($set_table, $set_id, 0);
 		// }
 	}

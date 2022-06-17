@@ -1,11 +1,6 @@
 <?php
-	//ini_set('display_errors', 1);
-	//ini_set('display_startup_errors', 1);
-	//error_reporting(E_ALL);
-
-	header("Access-Control-Allow-Origin: *");
     require_once("MainView.class.php");
-	//if($_SERVER['REQUEST_METHOD'] != 'GET' ) {exit;}		// ! Kas on ikka GET / POST päring?
+	require_once("../config.php");
 
 	// * Kõikide tabelite kohta infi küsimine
 	if(isset($_GET["fetch"]) and !empty($_GET["fetch"])){
