@@ -306,7 +306,7 @@ export default function UpdateClient(){
 								</DialogTitle>
 								<DialogContent>
 								<DialogContentText id="alert-dialog-description">
-									Soovid tõeliselt klienti kustutada? Nagu FR FR?
+									Soovid klienti kustutada?
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
