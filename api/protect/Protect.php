@@ -23,8 +23,8 @@
 	if(isset($_GET["table"]) and !empty($_GET["table"]) and isset($_GET["id"]) and !empty($_GET["id"])){
 		$table = filter_var($_GET["table"], FILTER_SANITIZE_STRING);
 		// $table = clean($_GET["table"]);
-		$id = $_GET["id"];
-		// $id = clean($_GET["id"]);
+		//$id = $_GET["id"];
+		 $id = clean($_GET["id"]);
 
         $protect->query($table, $id);
         echo($protect->get_data());

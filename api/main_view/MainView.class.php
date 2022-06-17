@@ -8,9 +8,11 @@ class MainView {
 	private static $return_data = null;
     public static function get_data(){return self::$return_data;}
 
-	public static function query($query){return self::query_all_projects($query);}
+	public static function fetch($query){return self::fetch_all_projects($query);}
+	public static function archive($id){return self::archive_project($id);}
+	public static function query_archive($id){return self::query_archive_project($id);}
 
-	private static function query_all_projects($query): void{
+	private static function fetch_all_projects($query): void{
 		//	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
@@ -90,6 +92,48 @@ class MainView {
         if(empty($list_html)){array_push($list_html, array("notice"=>"AB-ga suhtlemisel tekkis viga!", "type"=>"error"));}
         self::$return_data = json_encode($list_html);
 
+	}
+
+	private static function archive_project($id): void{
+		//	TODO: see tööle panna..
+        // session_start();
+        // if ($_SESSION["status"] != 'true') {exit;}
+
+		self::$return_data = null;
+        $list_html = array();
+
+		$value = self::query_archive_project($id);
+		$value = !$value;
+
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+		 $stmt = $conn->prepare("UPDATE projekt SET arhiivi = ? WHERE id = ?");
+        $stmt->bind_param("ii", $value, $id);
+        $stmt->execute();
+        while($stmt->fetch()){
+			array_push($list_html, array("notice"=>"Projekt edukalt arhiveeritud!", "type"=>"success"));
+        }
+        $stmt->close();
+		$conn->close();
+        //if(empty($list_html)){array_push($list_html, array("notice"=>"AB-ga suhtlemisel tekkis viga!", "type"=>"error"));}
+        self::$return_data = json_encode($list_html);
+	}
+
+	private static function query_archive_project($id){
+
+		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
+		$conn->set_charset("utf8");
+		$stmt = $conn->prepare("SELECT arhiivi FROM projekt WHERE id = ?");
+        $stmt->bind_param("i", $id);
+		$stmt->bind_result($from_db_projekt_arhiivi);
+        $stmt->execute();
+        while($stmt->fetch()){
+			$from_db_projekt_arhiivi;
+        }
+        $stmt->close();
+		$conn->close();
+
+		return $from_db_projekt_arhiivi;
 	}
 
 }

@@ -26,7 +26,7 @@ const MainPage = () => {
         <section style={{ width: "98%", margin: "0 5%"}}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3 style={{marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0}} >Aktiivsed Projektid</h3>
+              <h3 style={{marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0}} >Projektid</h3>
             </div>
             <div id="srch-bar" style={{width: "100%"}}>
               <Box sx={{display: "inline-flex", flexGrow: "5", mx: 0, py: "0.55rem"}} >

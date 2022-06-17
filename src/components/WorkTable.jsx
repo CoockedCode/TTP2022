@@ -17,11 +17,13 @@ import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
 import { ButtonBase, Button } from '@mui/material';
 import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "../redux/ducks/snackbar";
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
-//export default function WorkTable({ srchQuery, srchOption }) {
 export default function WorkTable({queryOption, searchQuery}) {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -52,55 +54,70 @@ export default function WorkTable({queryOption, searchQuery}) {
     setPage(0);
   };
 
+  const saveData = (dataToSave) => {
+		axios.post(`${endpoint}/main_view/MainView.php`, dataToSave)
+		.then(function(response){
+			console.log(dataToSave)
+			console.log(response);
+			if(response.status === 200){
+				dispatch(setSnackbar(true, response.data[0].type, response.data[0].notice));
+			}
+		})
+	};
 
 function Row(row, key){
  	const [open, setOpen] = useState(false);
+	const [idDB, setIdDB] = useState(row.id_DB);
+
+	const handleArchive = (e) => {
+		e.preventDefault();
+		saveData(idDB);
+	}
+
 	return(
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
+			<TableCell sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
-			<TableCell padding='none' sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
+			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
 			{/*<TableCell >{row.Avatud}</TableCell>*/}
 			<TableCell >xx.xx.xxxx</TableCell>
 			<TableCell >{row.Klient}</TableCell>
 			<TableCell >{row.Too_nimetus}</TableCell>
+			<TableCell>EL.Mootor</TableCell>
+			<TableCell >53</TableCell>
+			<TableCell >1000</TableCell>
+			<TableCell>fA3-90S4</TableCell>
+			<TableCell>ABB</TableCell>
 			<TableCell ><WorkBox workName={row.Progress}/></TableCell>
 		</TableRow>
 
 		<TableRow key={key + 'dropDown'}>
-			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={13}>
 				<Collapse in={open} timeout="auto" unmountOnExit>
 					<Box sx={{ mb: 2 }}>
 
 						<Table size="small">
 						<TableHead>
 							<TableRow>
-								<TableCell>Tootja</TableCell>
-								<TableCell>Seadme liik</TableCell>
-								<TableCell>Seadme tüüp</TableCell>
-								<TableCell align="right">kW</TableCell>
-								<TableCell align="right">p/min</TableCell>
+
+								<TableCell ></TableCell>
 								<TableCell >Kokkulepitud tähtaeg</TableCell>
 								<TableCell >Lõpetatud</TableCell>
 								<TableCell >Väljaviidud</TableCell>
-								<TableCell padding="none" >Arhiivi</TableCell>
-								<TableCell padding="none" >Kustuta</TableCell>
+								<TableCell >Arhiivi</TableCell>
+								<TableCell >Kustuta</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							<TableRow >
-								<TableCell>ABB</TableCell>
-								<TableCell>Mootor</TableCell>
-								<TableCell>El. mootor</TableCell>
-								<TableCell align="right">50</TableCell>
-								<TableCell align="right">1200</TableCell>
+								<TableCell ></TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
-								<TableCell padding="none" ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}}>Arhiivi</Button></TableCell>
-								<TableCell padding="none" ><Button type="small" variant='contained' sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
+								<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Arhiivi</Button></TableCell>
+								<TableCell  ><Button type="small" variant='contained' sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
 							</TableRow>
 						</TableBody>
 						</Table>
@@ -123,12 +140,17 @@ function Row(row, key){
 			<TableHead >
 				<TableRow>
 					<TableCell align="justify" padding='none' width={"12px"} />
-					<TableCell align="justify" padding='none' >NR.</TableCell>
-					<TableCell align="justify" >PT</TableCell>
 					<TableCell padding='none' sx={{mx: "4px"}} width="12px">DigiDokk</TableCell>
+					<TableCell align="justify" >PT</TableCell>
+					<TableCell align="justify" padding='none' >NR.</TableCell>
 					<TableCell >Avatud</TableCell>
 					<TableCell >Kliendi nimi</TableCell>
 					<TableCell >Töö nimetus</TableCell>
+					<TableCell>Seadme liik</TableCell>
+					<TableCell >kW</TableCell>
+					<TableCell >p/min</TableCell>
+					<TableCell>Seadme tüüp</TableCell>
+					<TableCell >Tootja</TableCell>
 					<TableCell >Progress</TableCell>
 				</TableRow>
 			</TableHead>
