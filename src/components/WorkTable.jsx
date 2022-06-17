@@ -30,7 +30,7 @@ export default function WorkTable({queryOption, searchQuery}) {
   const [rows, setRows] = useState([]);
 
   const FetchAllData = async (query) =>{
-		const resp = await axios.get(endpoint + "/main_view/MainView.php?fetch=" + query)
+		const resp = await axios.get(endpoint + "/mainview/MainView.php?fetch=" + query)
 		setRows([]);
 		resp.data.forEach( element => {
 			setRows(oldArray => [...oldArray, element])
@@ -55,7 +55,7 @@ export default function WorkTable({queryOption, searchQuery}) {
   };
 
   const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/main_view/MainView.php`, dataToSave)
+		axios.post(`${endpoint}/mainview/MainView.php`, dataToSave)
 		.then(function(response){
 			console.log(dataToSave)
 			console.log(response);

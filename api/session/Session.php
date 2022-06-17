@@ -1,5 +1,5 @@
 <?php
-	require_once("../config.php");
+	require_once("../config_header.php");
 	require_once("Session.class.php");
 
 	// Päringu filtreerimine

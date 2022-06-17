@@ -1,7 +1,6 @@
 <?php
-
     require_once("User.class.php");
-    require_once("../config.php");
+    require_once("../config_header.php");
 
     // * sisse logimine
 	if(isset($_GET["usrNam"]) and !empty($_GET["usrNam"]) and isset($_GET["passWrd"]) and !empty($_GET["passWrd"])){
