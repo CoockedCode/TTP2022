@@ -77,7 +77,7 @@ const ResponsiveAppBar = () => {
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
 
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}} >
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/valikud")}} >
 							Valikute seaded<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/seadme-tehniline-info")}} >

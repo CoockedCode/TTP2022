@@ -52,7 +52,9 @@ useEffect(() => {
         return(
             <>
             <TableRow key={key} className="main-table-row">
-                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
+                <TableCell padding='none'>
+                    {/* <IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton> */}
+                    </TableCell>
 
                     <TableCell >{row.name}</TableCell>
                     <TableCell >{row.regNum} </TableCell>
@@ -64,13 +66,13 @@ useEffect(() => {
                     <TableCell >{row.addInf} </TableCell>
             </TableRow>
 
-            <TableRow key={key + 'dropDown'}>
+            {/* <TableRow key={key + 'dropDown'}>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
-                            {/* <Typography variant="h6" gutterBottom component="div">
+                            <Typography variant="h6" gutterBottom component="div">
                             History
-                            </Typography> */}
+                            </Typography>
                             <Table size="small" aria-label="muu">
                             <TableHead>
                                 <TableRow>
@@ -97,7 +99,7 @@ useEffect(() => {
                         </Box>
                     </Collapse>
                 </TableCell>
-            </TableRow>
+            </TableRow> */}
             </>
         );
     }
