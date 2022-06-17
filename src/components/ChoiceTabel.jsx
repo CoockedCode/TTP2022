@@ -48,7 +48,7 @@ const handleClose = () => {
 useEffect(() => {
     forRows();
   }, []);
-  
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(25);
 
@@ -158,63 +158,27 @@ useEffect(() => {
             <DialogTitle id="alert-dialog-title">
             {"Kustuta klient?"}
             </DialogTitle>
-                <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Andmete lisamine
-                </DialogContentText>
-                    <FormControl sc={{width: "100%"}}>
-                                <DropDown
-                                name="Valik nimi" ID="choiceName" 
-                                value={choiceID} label="Valiku nimetus"
-                                onChange={handleChoiceChange}
-                                options={choiceOptions}
-                                />
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="choiceValue"
-                                    label="Sisesta valik mida tahad lisada"
-                                    name="choiceValue"
-                                    autoComplete="none"
-                                    type="text"
-                                    margin="dense"
-                                    size="small" />
-                                <TextField
-                                    fullWidth
-                                    id="choiceUnit"
-                                    label="Sisesta valiku mõõtühikut(Kui on)"
-                                    name="choiceUnit"
-                                    autoComplete="none"
-                                    type="text"
-                                    margin="dense"
-                                    size="small" />
-                                <TextField
-                                    fullWidth
-                                    id="choiceAddInfo"
-                                    label="Sisesta märkus(Kui on)"
-                                    name="choiceAddInfo"
-                                    autoComplete="none"
-                                    type="text"
-                                    margin="dense"
-                                    size="small" />
-                    </FormControl>
-                </DialogContent>
-                <DialogActions>
-                <Button 
-                    variant="contained"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', 
-                    width: 'auto' }}
-                    margin="dense"
-                    onClick={handleClose}>
-                    Cancel
-                </Button>
-                <Button 
-                    variant="contained"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
-                    onClick={handleClose} autoFocus>
-                    Lisa!
-                </Button>
-                </DialogActions>
+            <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+                Andmete lisamine
+            </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+            <Button
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'main',
+                width: 'auto' }}
+                margin="dense"
+                onClick={handleClose}>
+                Cancel
+            </Button>
+            <Button
+                variant="contained"
+                sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+                onClick={handleClose} autoFocus>
+                Lisa!
+            </Button>
+            </DialogActions>
             </Dialog>
         </Paper>
 
