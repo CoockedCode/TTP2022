@@ -74,9 +74,9 @@ export default function WorkPrio({prio}) {
 
 				<Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box sx={style}>
-					<div>
-						<h3>Prioteedi muutmine: </h3>
-						<div style={{marginBottom: "1rem"}}>
+						<h3>PT muutmine: </h3>
+					<div style={{marginLeft: "-0.5rem"}}>
+						<div style={{marginBottom: "1rem", marginLeft: "0.5rem"}} >
 							<FormControl fullWidth size="small" >
 								<Select id={0} value={ queryOption } label="" variant="outlined" onChange={handleChange}>
 								<MenuItem key={0} value={0} placeholder={0} >
@@ -94,7 +94,7 @@ export default function WorkPrio({prio}) {
 								</Select>
 							</FormControl>
 						</div>
-						<div style={{display: "flex", width: "100%", justifyItems: "center"}}>
+						<div style={{display: "flex", width: "100%"}}>
 							<Button variant="outlined" sx={{ml: 1}} onClick={(e)=>handleClose(e, 0)} >Tühista</Button>
 							<Button variant="contained" sx={{ml: 1}} onClick={(e)=>handleClose(e, 1)} >Muuda PT</Button>
 						</div>

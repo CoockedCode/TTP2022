@@ -1,28 +1,23 @@
 import WorkTable from "../WorkTable";
 import { Box, FormControl, IconButton, SearchIcon, TextField, InputAdornment } from "@mui/material";
 import "../../styles/pages/Home.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MenuItem, Select } from "@mui/material";
-
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 
-
-  let searchQuery = "";
-
 const MainPage = () => {
-  //const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery2, setSearchQuery2] = useState("");
   const [queryOption, setQueryOption] = useState(0);
 
-  const handleChange = (event) => {
-    setQueryOption(event.target.value);
+  const handleChange = (e) => {
+    setQueryOption(e.target.value);
   };
 
   const handleSearchQuery = (e) =>{
-    searchQuery = e.target.value;
-    //console.log(searchQuery);
+    setSearchQuery2(e.target.value);
   }
 
   return (
@@ -45,7 +40,7 @@ const MainPage = () => {
                         <>
                         <InputAdornment position="end">
                           <FormControl fullWidth size="small" >
-                            <Select id={0} value={queryOption} label="" onChange={handleChange} variant="standard" disableUnderline={true} sx={{mb: "-0.2rem"}}>
+                            <Select value={queryOption} label="" onChange={handleChange} variant="standard" disableUnderline={true} sx={{mb: "-0.2rem"}}>
                               <MenuItem key={0} value={0} placeholder={0} >
                                   {"Aktiivsed projektid"}
                               </MenuItem>
@@ -67,7 +62,7 @@ const MainPage = () => {
             </div>
           </div>
           <div style={{marginTop: "0.2rem"}}>
-            <WorkTable  />
+            <WorkTable searchQuery={searchQuery2}  queryOption={queryOption} />
           </div>
         </section>
       </main>

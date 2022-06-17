@@ -8,9 +8,9 @@ class MainView {
 	private static $return_data = null;
     public static function get_data(){return self::$return_data;}
 
-	public static function query(){return self::query_all_projects();}
+	public static function query($query){return self::query_all_projects($query);}
 
-	private static function query_all_projects(): void{
+	private static function query_all_projects($query): void{
 		//	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
@@ -20,7 +20,8 @@ class MainView {
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-		$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id");
+		$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE arhiivi = ?");
+		$stmt->bind_param("i", $query);
 
 		$stmt->bind_result(
 			$from_db_projekt_id,

@@ -8,12 +8,14 @@
 	if($_SERVER['REQUEST_METHOD'] != 'GET') {exit;}		// ! Kas on ikka GET päring?
 
 	// * tabeli kohta infi küsimine
-	if(isset($_GET["fetch"]) and !empty($_GET["fetch"])){
+	if(
+		isset($_GET["fetch"]) and !empty($_GET["fetch"])
+		){
 		$fetch = filter_var($_GET["fetch"], FILTER_SANITIZE_STRING);
-		if($fetch == "data"){
-			MainView::query();
-			echo(MainView::get_data());
-		}
+
+		MainView::query($fetch);
+		echo(MainView::get_data());
+
 
 
 	}

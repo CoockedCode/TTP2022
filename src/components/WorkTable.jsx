@@ -21,24 +21,27 @@ import axios from 'axios';
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 //export default function WorkTable({ srchQuery, srchOption }) {
-export default function WorkTable(props) {
+export default function WorkTable({queryOption, searchQuery}) {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
 
-  const FetchAllData = async () =>{
-		const resp = await axios.get(endpoint + "/main_view/MainView.php?fetch=data");
+  const FetchAllData = async (query) =>{
+		const resp = await axios.get(endpoint + "/main_view/MainView.php?fetch=" + query)
 		setRows([]);
 		resp.data.forEach( element => {
 			setRows(oldArray => [...oldArray, element])
 		});
 	};
 
-
   useEffect(() => {
-	FetchAllData();
-  }, [])
+	if(queryOption == 0){
+		FetchAllData("NULL");
+	}else{
+		FetchAllData(queryOption);
+	}
+  }, [queryOption])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -130,8 +133,23 @@ function Row(row, key){
 				</TableRow>
 			</TableHead>
 			<TableBody>
-			{rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => (
-				<Row {...row} key={key} />
+			{rows.filter((rows) => {
+				// console.log(rows);
+				if(searchQuery == ""){
+					return rows;
+				}else if(rows.ID.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+					return rows;
+				}else if(rows.Klient.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+					return rows;
+				}else if(rows.Seadme_liik.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+					return rows;
+				}else if(rows.Too_nimetus.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+					return rows;
+				}else if(rows.Tootja.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+					return rows;
+				}
+			}).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((rows, key) => (
+				<Row {...rows} key={key} />
 			))}
         	</TableBody>
 
