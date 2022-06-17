@@ -1,8 +1,7 @@
 import 'reactjs-popup/dist/index.css';
-import ButtonBase from '@mui/material/ButtonBase';
-
+import { ButtonBase, FormControl, Select, MenuItem } from '@mui/material/';
 import 'reactjs-popup/dist/index.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -18,14 +17,16 @@ import { setSnackbar } from "../redux/ducks/snackbar";
 		transform: 'translate(-50%, -50%)',
 		width: 'max-content',
 		bgcolor: 'background.paper',
-		border: '2px solid #000',
+		border: '1px solid #000',
 		boxShadow: 24,
-		p: 4,
+		px: 4,
+		pb: 4,
+		pt: 2,
 	};
 
 export default function WorkPrio({prio}) {
 	const dispatch = useDispatch();
-	//popup modal
+	const [queryOption, setQueryOption] = useState(0);
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => {setOpen(true)};
 	const handleClose = (e, buttonVar) => {
@@ -36,6 +37,19 @@ export default function WorkPrio({prio}) {
 		}else{
 			setOpen(false);
 		}
+	};
+
+	useEffect(() => {
+		if(prio === 4){
+			setQueryOption(0);
+		}else{
+			setQueryOption(prio);
+		}
+	}, [prio])
+
+
+	const handleChange = (event) => {
+		setQueryOption(event.target.value);
 	};
 
 		//console.log(a.workName)
@@ -51,7 +65,7 @@ export default function WorkPrio({prio}) {
 			workColor = "#2A86CE";
 			name = "M" 					// * Määramata
 		}else{
-			workColor = "#009000";
+			workColor = "#2F9B61";
 		}
 
 	return(
@@ -60,16 +74,33 @@ export default function WorkPrio({prio}) {
 
 				<Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box sx={style}>
-
+					<div>
 						<h3>Prioteedi muutmine: </h3>
-						<Button variant="outlined" sx={{ml: 1}} onClick={(e)=>handleClose(e, 0)} >Tühista</Button>
-						<Button variant="contained" sx={{ml: 1}} onClick={(e)=>handleClose(e, 1)} >Muuda PT</Button>
-
-
+						<div style={{marginBottom: "1rem"}}>
+							<FormControl fullWidth size="small" >
+								<Select id={0} value={ queryOption } label="" variant="outlined" onChange={handleChange}>
+								<MenuItem key={0} value={0} placeholder={0} >
+									{"Puudub"}
+								</MenuItem>
+								<MenuItem key={1} value={1} placeholder={1} >
+									{"Kiire"}
+								</MenuItem>
+								<MenuItem key={2} value={2} placeholder={2} >
+									{"Tähtajaline"}
+								</MenuItem>
+								<MenuItem key={3} value={3} placeholder={3} >
+									{"Määramata"}
+								</MenuItem>
+								</Select>
+							</FormControl>
+						</div>
+						<div style={{display: "flex", width: "100%", justifyItems: "center"}}>
+							<Button variant="outlined" sx={{ml: 1}} onClick={(e)=>handleClose(e, 0)} >Tühista</Button>
+							<Button variant="contained" sx={{ml: 1}} onClick={(e)=>handleClose(e, 1)} >Muuda PT</Button>
+						</div>
+					</div>
 				</Box>
 			</Modal>
 		</div>
-
 	)
-
 }

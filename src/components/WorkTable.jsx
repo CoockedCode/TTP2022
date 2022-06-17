@@ -15,7 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, Button } from '@mui/material';
 import axios from 'axios';
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
@@ -25,7 +25,6 @@ export default function WorkTable(props) {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const [rows, setRows] = useState([]);
 
   const FetchAllData = async () =>{
@@ -41,7 +40,6 @@ export default function WorkTable(props) {
 	FetchAllData();
   }, [])
 
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -53,32 +51,27 @@ export default function WorkTable(props) {
 
 
 function Row(row, key){
-
  	const [open, setOpen] = useState(false);
-
 	return(
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-			<TableCell padding='none' width="48px" sx={{mx: "4px"}} >{row.ID}</TableCell>
+			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
-
-			<TableCell >{row.Avatud}</TableCell>
+			{/*<TableCell >{row.Avatud}</TableCell>*/}
+			<TableCell >xx.xx.xxxx</TableCell>
 			<TableCell >{row.Klient}</TableCell>
 			<TableCell >{row.Too_nimetus}</TableCell>
 			<TableCell ><WorkBox workName={row.Progress}/></TableCell>
-
 		</TableRow>
 
 		<TableRow key={key + 'dropDown'}>
-			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+			<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
 				<Collapse in={open} timeout="auto" unmountOnExit>
-					<Box sx={{ margin: 1 }}>
-						{/* <Typography variant="h6" gutterBottom component="div">
-						History
-						</Typography> */}
-						<Table size="small" aria-label="muu">
+					<Box sx={{ mb: 2 }}>
+
+						<Table size="small">
 						<TableHead>
 							<TableRow>
 								<TableCell>Tootja</TableCell>
@@ -89,22 +82,22 @@ function Row(row, key){
 								<TableCell >Kokkulepitud tähtaeg</TableCell>
 								<TableCell >Lõpetatud</TableCell>
 								<TableCell >Väljaviidud</TableCell>
-								<TableCell >Arhiivi</TableCell>
-								<TableCell >Kustuta</TableCell>
+								<TableCell padding="none" >Arhiivi</TableCell>
+								<TableCell padding="none" >Kustuta</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<TableRow key={1}>
-								<TableCell>Tootja</TableCell>
-								<TableCell>Seadme liik</TableCell>
-								<TableCell>Seadme tüüp</TableCell>
-								<TableCell align="right">kW</TableCell>
-								<TableCell align="right">p/min</TableCell>
-								<TableCell >Kokkulepitud tähtaeg</TableCell>
-								<TableCell >Lõpetatud</TableCell>
-								<TableCell >Väljaviidud</TableCell>
-								<TableCell >Arhiivi</TableCell>
-								<TableCell >Kustuta</TableCell>
+							<TableRow >
+								<TableCell>ABB</TableCell>
+								<TableCell>Mootor</TableCell>
+								<TableCell>El. mootor</TableCell>
+								<TableCell align="right">50</TableCell>
+								<TableCell align="right">1200</TableCell>
+								<TableCell >xx.xx.xxxx</TableCell>
+								<TableCell >xx.xx.xxxx</TableCell>
+								<TableCell >xx.xx.xxxx</TableCell>
+								<TableCell padding="none" ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}}>Arhiivi</Button></TableCell>
+								<TableCell padding="none" ><Button type="small" variant='contained' sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
 							</TableRow>
 						</TableBody>
 						</Table>
@@ -119,14 +112,15 @@ function Row(row, key){
 
 
   return (
-	<Paper sx={{ width: '100%'}} elevation={2} >
-		<TableContainer sx={{ maxHeight: "78vh", width: '100%' }} >
+	<Paper sx={{width: "100%"}} elevation={2} >
+		<TableContainer sx={{ maxHeight: "78vh", width: '100%'}}  >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
 
-			<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>
+			{/*<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>*/}
+			<TableHead >
 				<TableRow>
 					<TableCell align="justify" padding='none' width={"12px"} />
-					<TableCell align="justify" padding='none' width="48px" sx={{mx: "4px"}} >NR.</TableCell>
+					<TableCell align="justify" padding='none' >NR.</TableCell>
 					<TableCell align="justify" >PT</TableCell>
 					<TableCell padding='none' sx={{mx: "4px"}} width="12px">DigiDokk</TableCell>
 					<TableCell >Avatud</TableCell>

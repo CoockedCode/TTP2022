@@ -10,49 +10,42 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 
 
+  let searchQuery = "";
 
 const MainPage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  //const [searchQuery, setSearchQuery] = useState("");
   const [queryOption, setQueryOption] = useState(0);
-  const [search, setSearch] = useState("");
-  const [search2, setSearch2] = useState("");
 
   const handleChange = (event) => {
     setQueryOption(event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSearch(searchQuery);
-    setSearch2(queryOption);
-    console.log(search)
-    console.log(search2)
-  };
-
-
-
-
+  const handleSearchQuery = (e) =>{
+    searchQuery = e.target.value;
+    //console.log(searchQuery);
+  }
 
   return (
     <>
       <main>
-        <section style={{ width: "100%", padding: "0 5%" }}>
+        <section style={{ width: "98%", margin: "0 5%"}}>
           <div id="header-wrapper">
             <div id="page-header">
               <h3 style={{marginTop: 0, marginBottom: 0, paddingTop: 0, paddingBottom: 0}} >Aktiivsed Projektid</h3>
             </div>
             <div id="srch-bar" style={{width: "100%"}}>
-              <Box sx={{display: "inline-flex", flexGrow: "5", mx: 0, py: "0.4rem"}} >
+              <Box sx={{display: "inline-flex", flexGrow: "5", mx: 0, py: "0.55rem"}} >
                 <FormControl fullWidth size="small">
 
                   <TextField label="Otsi..." variant="outlined" size="small"
-                    onInput={(e)=>{setSearchQuery(e.target.value)}}
+                    onInputCapture={(e)=>{handleSearchQuery(e)}}
+
                     InputProps={{
                       endAdornment: (
                         <>
                         <InputAdornment position="end">
-                          <FormControl fullWidth  size="small">
-                            <Select id={0} value={queryOption} label="" onChange={handleChange} variant="standard" disableUnderline={true}>
+                          <FormControl fullWidth size="small" >
+                            <Select id={0} value={queryOption} label="" onChange={handleChange} variant="standard" disableUnderline={true} sx={{mb: "-0.2rem"}}>
                               <MenuItem key={0} value={0} placeholder={0} >
                                   {"Aktiivsed projektid"}
                               </MenuItem>
@@ -61,10 +54,9 @@ const MainPage = () => {
                               </MenuItem>
                             </Select>
                           </FormControl>
-                          <IconButton edge="end" color="primary" onClick={(e) => { handleSubmit(e) }} >
+                          {/*<IconButton edge="end" color="primary" onClick={(e) => { handleSubmit(e) }} >
                             <SearchIcon />
-                          </IconButton>
-
+                          </IconButton>*/}
                         </InputAdornment>
                           </>
                       ),
@@ -74,9 +66,9 @@ const MainPage = () => {
               </Box>
             </div>
           </div>
-            <WorkTable srchQuery={"1"} srchOption={"1"} />
-
-
+          <div style={{marginTop: "0.2rem"}}>
+            <WorkTable  />
+          </div>
         </section>
       </main>
     </>
