@@ -1,6 +1,6 @@
 <?php
 	require_once("Protect.class.php");
-	require_once("../config.php");
+	require_once("../config_header.php");
 
 	// * tabeli in_edit muutmine
 	if(
