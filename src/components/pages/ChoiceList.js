@@ -14,6 +14,10 @@ import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 
 const ChoiceList = () => {
   const dispatch = useDispatch();
@@ -94,6 +98,14 @@ const ChoiceList = () => {
       const [testing, setTesting]= useState("");
       const handleTestingChange = (e) =>{
         setTesting(e.target.value);
+      }
+      const [companyID, setCompanyID] = useState("");
+      const companyTypeIDChange = (e) =>{
+        setCompanyID(e.target.value);
+      }
+      const [companyName, setCompanyName] = useState("");
+      const companyNameChange = (e) =>{
+        setCompanyName(e.target.value);
       }
 
 
@@ -393,6 +405,35 @@ const ChoiceList = () => {
   const handleTransportDeletionClose = () => {
     setTransportDeletionOpen(false);
   };
+  const [transportAdditionOpen, setAdditionOpen] = useState(false);
+  const handleTransportAdditionOpen= ()=>{
+    setAdditionOpen(true);
+  }
+  const handleTransportAdditionClose = () => {
+    setAdditionOpen(false);
+  };
+
+  const handleTransportSubmit=(e)=>{
+    e.preventDefault();
+    console.log(companyID);
+    console.log(companyName);
+      const transportToSave = {
+        firmName: companyName,
+        firmType: companyID
+      }
+
+      axios.post(endpoint+"/choice/fnc_add_transport.php", transportToSave)
+      .then(function (response) {
+        console.log(response);
+        if(response.status === 200){
+          dispatch(setSnackbar(true,"success","Transpordi firma edukalt lisatud!"));
+        }
+      })
+      .catch(function (err) {
+        dispatch(setSnackbar(true,"error","Lisamisel tekkis viga!"))
+      });
+      handleTransportAdditionClose();
+  }
 
   return (
     <>
@@ -410,6 +451,14 @@ const ChoiceList = () => {
 							onClick={handleClickOpen}
 							>
 							Lisa
+						</Button>
+            <Button
+							type="button"
+							variant="contained"
+							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							onClick={handleTransportAdditionOpen}
+							>
+							Lisa tarnija/transpordifirma
 						</Button>
           <Box component="form" noValidate autoComplete="off">
             <FormControl sc={{width: "100%"}}>
@@ -540,7 +589,7 @@ const ChoiceList = () => {
                 Kustuta
 						  </Button>
               <DropDown
-                name="Transpordi firma" ID="choiceTransport" 
+                name="Transpordi firmad ja tarnijad" ID="choiceTransport" 
                 value={transportCompany} label="Transpordi firma"
                 onChange={HandleTransportChange}
                 options={transportCompanyOptions}
@@ -776,6 +825,64 @@ const ChoiceList = () => {
 								</Button>
 								</DialogActions>
 							</Dialog>
+              <Dialog
+            open={transportAdditionOpen}
+            onClose={handleTransportAdditionClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title">
+            {"Lisa transpordifirma/tarnija"}
+            </DialogTitle>
+                <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                    Andmete lisamine
+                </DialogContentText>
+                <Box component ="form" noValidate autoComplete="off">
+                    <FormControl sc={{width: "100%"}}>
+                      <TextField
+                          required
+                          fullWidth
+                          id="transportFirmName"
+                          label="Firma nimi"
+                          name="transportFirmName"
+                          autoComplete="none"
+                          onChange={companyNameChange}
+                          type="text"
+                          margin="dense"
+                          size="small" />
+                      <FormLabel id="companyType">Tarnija või transpordifirma</FormLabel>
+                        <RadioGroup
+                          aria-labelledby="companyType"
+                          value={companyID}
+                          name="radio-buttons-group"
+                          onChange={companyTypeIDChange}
+                        >
+                          <FormControlLabel value="1" control={<Radio />} label="Transpordifirma" />
+                          <FormControlLabel value="2" control={<Radio />} label="Tarnija" />
+                        </RadioGroup>
+                    </FormControl>
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                <Button 
+                    variant="contained"
+                    sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+                    width: 'auto' }}
+                    margin="dense"
+                    onClick={handleTransportAdditionClose}>
+                    Cancel
+                </Button>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
+                    onClick={handleTransportSubmit} 
+                    autoFocus>
+                    Lisa!
+                </Button>
+                </DialogActions>
+            </Dialog>
         </section>
       </main>
     </>
