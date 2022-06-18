@@ -22,7 +22,7 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(endpoint + "/session/Session.php?querySess=true")
+    axios.get(endpoint + "/session/session.php?querySess=true")
     .then(function(response){
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
@@ -36,7 +36,7 @@ export default function SignIn() {
   })
 
   const fetchUsr = async (usrNam, passWrd) => {
-      const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      const {status, data} = await axios.get(endpoint + "/user/user_auth.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
       if (status === 200){
         if (data.length > 0){
           // console.log(data);
