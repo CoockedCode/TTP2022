@@ -8,25 +8,13 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import IconButton from '@mui/material/IconButton';
-import axios from 'axios';
 
-export default function EmployeeListTable() {
-    const endpoint = "https://elektrimasinad.digifi.eu/api";
-    const [rows, setRows] = useState([]);
-    const forRows = async () => {
-    const resp = await axios.get(endpoint + "/employee/fnc_read_employees.php?client");
-        setRows([]);
+const rows = [
+    {Nimi:'Heidi Kuusk', Mail:'heidi.kuusk@elktrm.ee', Number:'58585858', Roll:'Tööline'}
 
-        resp.data.forEach(element => {
-            setRows(oldArray => [...oldArray, element])
-        });
+]
 
-}
-
-useEffect(() => {
-    forRows();
-  }, []);
-
+export default function WorkerListTable() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -42,24 +30,21 @@ useEffect(() => {
 
     function Row(row, key){
 
-
         return(
             <>
             <TableRow key={key} className="main-table-row">
-                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}> </IconButton></TableCell>
-                    <TableCell >{row.employeeFname}</TableCell>
-                    <TableCell >{row.employeeSname}</TableCell>
-                    <TableCell >{row.employeeMail} </TableCell>
-                    <TableCell >{row.employeeNumber} </TableCell>
-                    <TableCell >{row.employeeUsername} </TableCell>
-                    <TableCell >{row.employeeActive} </TableCell>
-                    <TableCell >{row.employeeRole} </TableCell>
+                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}></IconButton></TableCell>
+
+                    <TableCell >{row.Nimi}</TableCell>
+                    <TableCell >{row.Mail} </TableCell>
+                    <TableCell >{row.Number} </TableCell>
+                    <TableCell >{row.Roll} </TableCell>
             </TableRow>
             </>
         );
     }
 
-      return (
+    return (
         <Paper sx={{ width: '100%'}} elevation={2} >
             <TableContainer sx={{ maxHeight: "80vh", width: '100%' }} >
             <Table stickyHeader aria-label="sticky collapsible table" size="small">
@@ -67,13 +52,10 @@ useEffect(() => {
                 <TableRow>
 
                     <TableCell padding='none' width={"12px"} />
-                    <TableCell >Eesnimi</TableCell>
-                    <TableCell >Perekonnanimi</TableCell>
-                    <TableCell >Meil </TableCell>
+                    <TableCell >Nimi</TableCell>
+                    <TableCell >Mail </TableCell>
                     <TableCell >Number </TableCell>
-                    <TableCell >Kasutajanimi </TableCell>
-                    <TableCell >Staatus </TableCell>
-                    <TableCell >Tööroll </TableCell>
+                    <TableCell >Roll </TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -97,4 +79,4 @@ useEffect(() => {
           />
         </Paper>
       );
-    }
+}
