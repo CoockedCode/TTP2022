@@ -21,13 +21,9 @@ import { setSnackbar } from "../redux/ducks/snackbar";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 const endpoint = "https://elektrimasinad.digifi.eu/api";
-
-//usrNam
 import { useSelector } from "react-redux";
 import {Typography} from '@mui/material';
-//navigate
 import { useNavigate } from "react-router-dom";
-
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -50,7 +46,7 @@ const ResponsiveAppBar = () => {
   //välja logimine
   const dispatch = useDispatch();
   const handleLogout = () =>{
-	axios.get(endpoint + "/session/Session.php?destroy=true")
+	axios.get(endpoint + "/auth/session/session.php?destroy=true")
     .then(function(response){
       if(response.status === 200){
         dispatch(setUserSession(false, ""));
@@ -77,7 +73,7 @@ const ResponsiveAppBar = () => {
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
 
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}} >
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/valikud")}} >
 							Valikute seaded<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/seadme-tehniline-info")}} >
@@ -100,9 +96,6 @@ const ResponsiveAppBar = () => {
 						</MenuItem>
 						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/tootajad")}}>
 							Töötajad<br/>
-						</MenuItem>
-						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/toonimetused")}}>
-							Tööde nimetused ja etapid<br/>
 						</MenuItem>
 					</Menu>
 				</Box>
@@ -148,7 +141,7 @@ const ResponsiveAppBar = () => {
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseUserMenu(); navigate("/kasutaja-satted")}}>
 							<SettingsIcon />&nbsp;&nbsp;Sätted
-						</MenuItem> 
+						</MenuItem>
 					</Menu>
 				</Box>
 

@@ -22,7 +22,7 @@ export default function SignIn() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(endpoint + "/session/Session.php?querySess=true")
+    axios.get(endpoint + "/auth/session/session.php?query_sess=true")
     .then(function(response){
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
@@ -36,13 +36,13 @@ export default function SignIn() {
   })
 
   const fetchUsr = async (usrNam, passWrd) => {
-      const {status, data} = await axios.get(endpoint + "/user/User.php?usrNam=" + usrNam + "&passWrd=" + passWrd);
+      const {status, data} = await axios.get(endpoint + "/auth/user/user_auth.php?user_name=" + usrNam + "&password=" + passWrd);
       if (status === 200){
         if (data.length > 0){
           // console.log(data);
-          if (data[0].usrNam == usrNam && data[0].signIn == "true") {
+          if (data[0].user_name == usrNam && data[0].signIn == "true") {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-            dispatch(setUserSession(true, data[0].usrNam));
+            dispatch(setUserSession(true, data[0].user_name));
             navigate("/avaleht");
           }
           if(data[0].error){
@@ -101,7 +101,7 @@ export default function SignIn() {
                 // autoComplete="current-password"
                 autoComplete="none"
               />
-              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Jäta mind meelde" />
+              {/*<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Jäta mind meelde" />*/}
               <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 2, mb: 2, bgcolor: "main" }}>
                 Logi sisse
               </Button>

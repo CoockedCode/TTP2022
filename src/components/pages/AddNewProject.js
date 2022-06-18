@@ -47,7 +47,7 @@ export default function AddNewProject(){
 	// const [errorArrivedTransport, setErrorArrivedTransport] = useState(false);
 	// //7. tagastus transport error
 	// const [errorReturnTransport, setErrorReturnTransport] = useState(false);
-	
+
 
 	// useEffect(() => {
 	// 	if(projectNumber){setErrorProjectNumber(false);}
@@ -99,7 +99,7 @@ export default function AddNewProject(){
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
-		const resp = await axios.get(`${endpoint}/client/fnc_get_clients_name_id.php?client`);
+		const resp = await axios.get(`${endpoint}/view/client/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element]);
@@ -118,7 +118,7 @@ export default function AddNewProject(){
 	}
 	const [workOptions, setWorkOptions] = useState([]);
 	const getWorkOptions = async () => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_work_types.php?work`);
 		console.log(resp);
 		setWorkOptions([]);
 		resp.data.forEach(element => {
@@ -139,7 +139,7 @@ export default function AddNewProject(){
 
 	const [firmsArr, setFirmArr] = useState([]);
 	const getFirms = async() => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_all_transport.php?transport`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_all_transport.php?transport`);
 		setFirmArr([]);
 		resp.data.forEach(element => {
 			setFirmArr(oldFirmArray => [...oldFirmArray, element]);
@@ -154,7 +154,7 @@ export default function AddNewProject(){
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
 	const getLastProjectNum = () => {
-		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
+		axios.get(`${endpoint}/view/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
 				// console.log(response.data);
 				setLastProjectNum(response.data);
@@ -167,7 +167,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/project/fnc_save_project.php`, dataToSave)
+		axios.post(`${endpoint}/view/project/fnc_save_project.php`, dataToSave)
 		.then(function(response){
 			console.log(dataToSave)
 			console.log(response);
@@ -197,10 +197,10 @@ export default function AddNewProject(){
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && companyID && formData.get("workType") && formData.get("projectPriority") 
-			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
+		if(formData.get("projectId") && companyID && formData.get("workType") && formData.get("projectPriority")
+			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy")
 			&& formData.get("projectReturnBy") && formData.get("projectInfo") && formData.get("offerNr")
-			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer") 
+			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer")
 			&& formData.get("ordererPhoneNR") && formData.get("contractNr") && formData.get("firstDefecting")
 			&& formData.get("acceptedBy")){
 			console.log("väljad täidetud")
@@ -300,7 +300,7 @@ export default function AddNewProject(){
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-						
+
 						<p>Klient: </p>
 						<Select
 							id="client"
@@ -374,7 +374,7 @@ export default function AddNewProject(){
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-						
+
 						<div className='transport-label'>
 							<h4>Transpordi info</h4>
 							<p>Saabunud:</p>
@@ -403,7 +403,7 @@ export default function AddNewProject(){
 								<MenuItem
 									key={index}
 									value={firmsArr.id}
-									placeholder={firmsArr.name}									
+									placeholder={firmsArr.name}
 								>
 									{firmsArr.name}
 								</MenuItem>
@@ -434,7 +434,7 @@ export default function AddNewProject(){
 								<MenuItem
 									key={index}
 									value={firmsArr.id}
-									placeholder={firmsArr.name}								
+									placeholder={firmsArr.name}
 								>
 									{firmsArr.name}
 								</MenuItem>
@@ -544,7 +544,7 @@ export default function AddNewProject(){
 							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
 							<FormControlLabel value="0" control={<Radio />} label="Mitte teostatav" />
 						</RadioGroup>
-						
+
 						<TextField
 							// error={!!errorProjectNumber}
 							// value={parseInt(lastProjectNum) + 1}
