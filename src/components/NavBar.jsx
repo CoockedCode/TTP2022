@@ -50,7 +50,7 @@ const ResponsiveAppBar = () => {
   //välja logimine
   const dispatch = useDispatch();
   const handleLogout = () =>{
-	axios.get(endpoint + "/session/Session.php?destroy=true")
+	axios.get(endpoint + "/auth/session/session.php?destroy=true")
     .then(function(response){
       if(response.status === 200){
         dispatch(setUserSession(false, ""));
@@ -145,7 +145,7 @@ const ResponsiveAppBar = () => {
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseUserMenu(); navigate("/kasutaja-satted")}}>
 							<SettingsIcon />&nbsp;&nbsp;Sätted
-						</MenuItem> 
+						</MenuItem>
 					</Menu>
 				</Box>
 
