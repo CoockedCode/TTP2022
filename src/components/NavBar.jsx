@@ -21,13 +21,9 @@ import { setSnackbar } from "../redux/ducks/snackbar";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 const endpoint = "https://elektrimasinad.digifi.eu/api";
-
-//usrNam
 import { useSelector } from "react-redux";
 import {Typography} from '@mui/material';
-//navigate
 import { useNavigate } from "react-router-dom";
-
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);

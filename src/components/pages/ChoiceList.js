@@ -371,37 +371,43 @@ const ChoiceList = () => {
   return (
     <>
       <main>
-        <section style={{ width: "100%", padding: "0 5%" }}>
-          <div id="header-wrapper">
-            <div id="page-header">
-              <h3>Valikute seaded</h3>
-            </div>
+         <section style={{ width: "98%", margin: "0 5%"}}>
+          <div id="header-wrapper" style={{justifyContent: "center", marginBottom: "1.5rem"}}>
+                <h3 id="page-header">Valikute seaded</h3>
+                <FormControl sx={{minWidth: "9rem"}}>
+                  <Button
+                      type="button"
+                      variant="outlined"
+                      sx={{ my: 2 }}
+                      onClick={handleClickOpen}
+                      >
+                      Lisa uus valik
+                  </Button>
+                </FormControl>
+
           </div>
-          <Button
-							type="button"
-							variant="contained"
-							sx={{ my: 2 }}
-							onClick={handleClickOpen}
-							>
-							Lisa
-						</Button>
-          <Box component="form" noValidate autoComplete="off">
-            <FormControl sc={{width: "100%"}}>
+          <FormControl fullWidth noValidate autoComplete="off" sx={{display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "center"}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
-                name="Seadme liik" ID="choiceType"
-                value={deviceID} label="Seadme liik"
+                name="Seadme liik"
+                ID="choiceType"
+                value={deviceID}
+                label=""
                 onChange={handleDeviceChange}
                 options={typeOptions}
                 />
               <Button
                 type="button"
                 variant="contained"
-                color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+             </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Võimsus KW" ID="choicePower"
                 value={powerID} label="Võimsus KW"
@@ -411,12 +417,15 @@ const ChoiceList = () => {
                <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="p/min" ID="choiceRotPerMin"
                 value={rotPerMin} label="p/min"
@@ -426,12 +435,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Tootja" ID="choiceManufacturer"
                 value={manufacturer} label="Tootja"
@@ -441,12 +453,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Võlli kõrgus" ID="choiceShaft"
                 value={shaftHeight} label="Võlli kõrgus"
@@ -456,12 +471,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Toite liik" ID="choicePowerSupply"
                 value={powerSupply} label="Toite liik"
@@ -471,12 +489,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Sagedus HZ" ID="choiceFrequency"
                 value={frequency} label="Sagedus HZ"
@@ -486,12 +507,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Isol.Klass" ID="choiceIsolation"
                 value={isolationClass} label="Isol.Klass"
@@ -501,12 +525,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="IP klass" ID="choiceIPClass"
                 value={IPClass} label="IP Klass"
@@ -516,12 +543,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Transpordi firma" ID="choiceTransport"
                 value={transportCompany} label="Transpordi firma"
@@ -531,12 +561,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Tunni hind" ID="choiceHourlyPrice"
                 value={hourlyPrice} label="Tunni hind"
@@ -546,12 +579,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Takistuse ühik" ID="choiceRecistance"
                 value={resitanceUnit} label="Takistuse ühik"
@@ -561,12 +597,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Pingeteim" ID="choiceTension"
                 value={tensionUnit} label="Pingeteim"
@@ -576,12 +615,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Katsetuse pinge" ID="choiceTensionUnit"
                 value={tensioTestUnit} label="Katsetuse pinge"
@@ -591,12 +633,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Ühendus" ID="choiceConnection"
                 value={connection} label="Ühendus"
@@ -606,12 +651,15 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
+            </FormControl>
+
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
                 name="Katsetatud" ID="choiceTestin"
                 value={testing} label="Katsetatud"
@@ -621,35 +669,39 @@ color="warning"
               <Button
                 type="button"
                 variant="contained"
-color="warning"
+                color="info"
                 sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
             </FormControl>
-          </Box>
+          </FormControl>
+
+          {/* POPUP hakkab siit pihta */}
           <Dialog
             open={open}
             onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
+              maxWidth="xs"
+              fullWidth
+                PaperProps={{
+                  sx: {
+                    p: 6,
+                    pt: 1.5,
+                  }
+                }}
             >
-            <DialogTitle id="alert-dialog-title">
-            {"Kustuta klient?"}
+            <DialogTitle>
+            Lisa uus valik
             </DialogTitle>
-                <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    Andmete lisamine
-                </DialogContentText>
-                <Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-
-                    <FormControl sc={{width: "100%"}}>
+                    <FormControl noValidate onSubmit={handleSubmit} >
                                 <DropDown
                                 name="Valik nimi" ID="choiceName"
                                 value={choiceID} label="Valiku nimetus"
                                 onChange={handleChoiceChange}
                                 options={choiceOptions}
+                                margin="dense"
+                                size="small"
                                 />
                                 <TextField
                                     required
@@ -661,7 +713,8 @@ color="warning"
                                     onChange={handleValueChange}
                                     type="text"
                                     margin="dense"
-                                    size="small" />
+                                    size="small"
+                                    />
                                 <TextField
                                     fullWidth
                                     id="choiceUnit"
@@ -671,7 +724,9 @@ color="warning"
                                     onChange={handleUnitChange}
                                     type="text"
                                     margin="dense"
-                                    size="small" />
+                                    size="small"
+
+                                    />
                                 <TextField
                                     fullWidth
                                     id="choiceAddInfo"
@@ -681,63 +736,76 @@ color="warning"
                                     onChange={handleAddInfChange}
                                     type="text"
                                     margin="dense"
-                                    size="small" />
+                                    size="small"
+
+                                    />
                     </FormControl>
-                    </Box>
-                </DialogContent>
-                <DialogActions>
-                <Button
-                    variant="contained"
-color="warning"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main',
-                    width: 'auto' }}
-                    margin="dense"
-                    onClick={handleClose}>
-                    Cancel
-                </Button>
-                <Button
-                    type="submit"
-                    variant="contained"
-color="warning"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-                    onClick={handleSubmit}
-                    autoFocus>
-                    Lisa!
-                </Button>
-                </DialogActions>
+                    <FormControl fullWidth sx={{display: "flex", flexDirection: "row", justifyContent: "center", mt: 2}} >
+                        <Button
+                            variant="outlined"
+                            color="info"
+                             size="medium"
+                            onClick={handleClose}
+                            sx={{mr: 1, width: "100%"}}
+
+                            >
+                            Tühista
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                            size="medium"
+                            sx={{ml: 1, width: "100%"}}
+
+
+                            >
+                            Lisa
+                        </Button>
+                      </FormControl>
+
+
             </Dialog>
             <Dialog
-								open={deletionOpen}
-								onClose={handleDeletionClose}
-								aria-labelledby="alert-dialog-title"
-								aria-describedby="alert-dialog-description"
+              open={deletionOpen}
+              onClose={handleDeletionClose}
+              maxWidth="xs"
+               sx={{
+                  "& .MuiDialog-container": {
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }
+                }}
+                PaperProps={{
+                  sx: {
+                    m: 0,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    px: 4,
+                    pt: 1.5,
+                    pb: 2.3,
+                  }
+                }}
 							>
-								<DialogTitle id="alert-dialog-title">
-								{"Kustuta klient?"}
+								<DialogTitle>
+								  Kustuta valik
 								</DialogTitle>
-								<DialogContent>
-								<DialogContentText id="alert-dialog-description">
-									Soovid tõeliselt valikut kustutada?
-								</DialogContentText>
-								</DialogContent>
-								<DialogActions>
-								<Button
-									variant="contained"
-color="warning"
-									sx={{ mt: 2, mb: 2, bgcolor: 'main',
-									width: 'auto' }}
-									margin="dense"
-									onClick={handleDeletionClose}>
-									Ei
-								</Button>
-								<Button
-									variant="contained"
-color="warning"
-									sx={{my: 2}}
-									onClick={handleDeletion} autoFocus>
-									Jah
-								</Button>
-								</DialogActions>
+                  <FormControl fullWidth>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleDeletionClose}>
+                      Tühista
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      sx={{my: 2}}
+                      onClick={handleDeletion} autoFocus>
+                      Kustuta
+                    </Button>
+                  </FormControl>
 							</Dialog>
         </section>
       </main>
