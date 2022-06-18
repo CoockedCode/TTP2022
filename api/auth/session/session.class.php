@@ -4,20 +4,21 @@ class session {
 	// Kui tehakse sess siis saadetakse kasutaja nimi ka sessiooni väljale!!!!
 	// Ehk tehakse ka küpsis selle jaoks, et saaks pärast auto sisse logida!!!
 
-	// Meetodite välja kutsumine
 	private static $return_data = null;
     public static function get_data(){return self::$return_data;}
 	public static function start($usrNam){self::start_session_and_cookie($usrNam);}
 	public static function destroy(){self::destroy_session_and_cookie();}
 	public static function query(){self::query_session_and_cookie();}
 
-	// Funktsioonid
 	private static function start_session_and_cookie($usrNam): void{
-		//SessionManager::sessionStart("ELMAS", 86400, "/", "elektrimasinad.digifi.eu", true);
-		// OOP meetod, mitte katkine otsene nö vooid meetodi kasutamine. Ehk tehakse uus obj!
-		// $sessMan = new SessionManager();
-		// SessionManager::sessionStart("ELMAS", time()+(86400 * 1), "/", "elektrimasinad.digifi.eu");
-		setcookie("ELMAS", $usrNam, time()+(86400 * 7), "/", "elektrimasinad.digifi.eu", true, true);
+		setcookie("ELMAS", $usrNam, [
+			'expires' => time()+(86400 * 7),
+			'path' => "/",
+			'domain' => "elektrimasinad.digifi.eu",
+			'samesite' => "strict",
+			'secure' => "true",
+			'httponly' => "true",
+    	]);
 		session_start();
 		$_SESSION["user_name"] = $usrNam;
 		$_SESSION["status"] = "true";
@@ -25,12 +26,18 @@ class session {
 
 	private static function destroy_session_and_cookie(): void{
 		session_start();
-		session_unset();
-		session_destroy();
 		$_SESSION["user_name"] = null;
 		$_SESSION["status"] = "false";
-		setcookie("ELMAS", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
-		// setcookie("ELMAS_Session", "", time()-(86400 * 10), "/", "elektrimasinad.digifi.eu", true, true);
+		setcookie("ELMAS", "", [
+			'expires' => time()-(86400 * 10),
+			'path' => "/",
+			'domain' => "elektrimasinad.digifi.eu",
+			'samesite' => "strict",
+			'secure' => "true",
+			'httponly' => "true",
+    	]);
+		session_unset();
+		session_destroy();
 	}
 
 	private static function query_session_and_cookie(): void{
