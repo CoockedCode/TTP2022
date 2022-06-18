@@ -1,15 +1,13 @@
 import WorkTable from "../WorkTable";
-import { Box, FormControl, IconButton, SearchIcon, TextField, InputAdornment } from "@mui/material";
+import { Box, FormControl, TextField, InputAdornment } from "@mui/material";
 import "../../styles/pages/Home.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { MenuItem, Select } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import SearchIcon from '@mui/icons-material/Search';
 
 const MainPage = () => {
-  const [searchQuery2, setSearchQuery2] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [queryOption, setQueryOption] = useState(0);
 
   const handleChange = (e) => {
@@ -17,7 +15,7 @@ const MainPage = () => {
   };
 
   const handleSearchQuery = (e) =>{
-    setSearchQuery2(e.target.value);
+    setSearchQuery(e.target.value);
   }
 
   return (
@@ -31,10 +29,8 @@ const MainPage = () => {
             <div id="srch-bar" style={{width: "100%"}}>
               <Box sx={{display: "inline-flex", flexGrow: "5", mx: 0, py: "0.55rem"}} >
                 <FormControl fullWidth size="small">
-
                   <TextField label="Otsi..." variant="outlined" size="small"
                     onInputCapture={(e)=>{handleSearchQuery(e)}}
-
                     InputProps={{
                       endAdornment: (
                         <>
@@ -49,9 +45,6 @@ const MainPage = () => {
                               </MenuItem>
                             </Select>
                           </FormControl>
-                          {/*<IconButton edge="end" color="primary" onClick={(e) => { handleSubmit(e) }} >
-                            <SearchIcon />
-                          </IconButton>*/}
                         </InputAdornment>
                           </>
                       ),
@@ -62,7 +55,7 @@ const MainPage = () => {
             </div>
           </div>
           <div style={{marginTop: "0.2rem"}}>
-            <WorkTable searchQuery={searchQuery2}  queryOption={queryOption} />
+            <WorkTable searchQuery={searchQuery}  queryOption={queryOption} />
           </div>
         </section>
       </main>

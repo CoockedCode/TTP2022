@@ -134,8 +134,6 @@ function Row(row, key){
 	<Paper sx={{width: "100%"}} elevation={2} >
 		<TableContainer sx={{ maxHeight: "78vh", width: '100%'}}  >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
-
-			{/*<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>*/}
 			<TableHead >
 				<TableRow>
 					<TableCell align="justify" padding='none' width={"12px"} />
