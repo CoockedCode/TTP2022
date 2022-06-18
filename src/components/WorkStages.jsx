@@ -12,53 +12,23 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { FormControl } from '@mui/material';;
 import "../styles/pages/Home.css";
 import { useDispatch } from "react-redux";
-import DropDown2 from './DropDown2';
+import DropDown from './DropDown';
 import { TextField } from '@mui/material';
+
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 const WorkStages = () => {
   // const dispatch = useDispatch();
-
-  const endpoint = "https://elektrimasinad.digifi.eu/api";
-
-
-  //  const stages = [
-  //    {name:'Hooldus'},
-  //    {name:'Remont'},
-  //    {name:'Müük'},
-  //    {name:'Defekteerimine'},
-  //    {name:'Garantii'},
-  //    {name:'Välitöö/Diagnostika'},
-  //    {name:'Välitöö/Laagrite vahetus'},
-  //    {name:'Välitöö/Remont'},
-  //    {name:'Välitöö/Tasakaalustus'},
-  //    {name:'Välitöö/Joondamine'},
-  //    {name:'Välitöö/Seadme vahetus'},
-  //    {name:'Välitöö/Joondamine'},
-  //    {name:'Grundfosi garant. käsitlemine'}
-  // ]
-
-    // const parts = [
-    //   {name:'Defekteerimine'},
-    //   {name:'Lahtivõtmine'},
-    //   {name:'Mähkimine'},
-    //   {name:'Valgustus'},
-    //   {name:'Tasakaalustamine'},
-    //   {name:'Laagrite vahetus'},
-    //   {name:'Kokkupanek'},
-    //   {name:'Katsetamine'},
-    //   {name:'Värvimine'}
-
-    // ]
 
     // Tööliigi ID hook
     const [stageName, setStageName] = useState("");
     const handleStageChange = (e) => {
       setStageName(e.target.value);}
-    
+
     // Tööliigi võimaluste hook
     const [stageOptions, setStageOptions]=useState([]);
     const getStageOptions = async() =>{
-    const response = await axios.get(endpoint+'/workstages/fnc_read_workstages.php?work_stages');
+    const response = await axios.get(endpoint + '/view/workstages/fnc_read_workstages.php?work_stages');
     console.log(response);
     setStageOptions([]);
     response.data.forEach(element=>{
@@ -74,14 +44,14 @@ const WorkStages = () => {
     // Tööliigi võimaluste hook
     const [partOptions, setPartOptions]=useState([]);
     const getPartOptions = async() =>{
-    const response = await axios.get(endpoint+'/workstages/fnc_read_workstages.php?work_levels');
+    const response = await axios.get(endpoint + '/view/workstages/fnc_read_workstages.php?work_levels');
     console.log(response);
     setPartOptions([]);
     response.data.forEach(element=>{
       setPartOptions(oldArray => [...oldArray, element]);
       })
     }
- 
+
     useEffect(() => {
       getStageOptions();
     }, []);
@@ -112,9 +82,9 @@ const WorkStages = () => {
       stageName: stageOptions,
     }
     // handleAddition(toSave);
-  
+
   // const handleAddition=(toSave)=>{
-  //   axios.post(endpoint+"/choice/fnc_add_worklevels.php", toSave)
+  //   axios.post(endpoint + "/view/choice/fnc_add_worklevels.php", toSave)
   //     .then(function (response) {
   //       console.log(response);
   //       if(response.status === 200){
@@ -136,10 +106,10 @@ const WorkStages = () => {
           </div>
         </div>
       <Box component="form" noValidate autoComplete="off">
-        <FormControl sc={{width: "100%"}}>          
-          <DropDown2
+        <FormControl sc={{width: "100%"}}>
+          <DropDown
             name="Tööliigid"
-            ID="workStage" 
+            ID="workStage"
             value={stageName}
             label="Tööliigid"
             options={stageOptions}
@@ -150,7 +120,7 @@ const WorkStages = () => {
             variant="contained"
             sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
             onClick={handleClickStages}
-          >            Lisa tööliigi      
+          >            Lisa tööliigi
           </Button>
           <Button
             type="button"
@@ -165,7 +135,7 @@ const WorkStages = () => {
           onClose={handleCloseStages}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          >          
+          >
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <TextField
@@ -200,16 +170,16 @@ const WorkStages = () => {
         </FormControl>
       </Box>
       <Box component="form" noValidate autoComplete="off">
-        <FormControl sc={{width: "100%"}}>  
-          <DropDown2
-            name="Tööetapid" 
+        <FormControl sc={{width: "100%"}}>
+          <DropDown
+            name="Tööetapid"
             ID="workPart"
             value={partName}
             label="Tööetapid"
             options={partOptions}
             onChange={handlePartChange}
           >
-          </DropDown2>
+          </DropDown>
           <Button
             type="button"
             variant="contained"
@@ -224,14 +194,14 @@ const WorkStages = () => {
             sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
             // onClick={handlePartChange}
             >
-            Kustuta valitud tööetapi            
+            Kustuta valitud tööetapi
           </Button>
           <Dialog
           open={openStages}
           onClose={handleCloseLevels}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          >          
+          >
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <TextField
@@ -268,7 +238,7 @@ const WorkStages = () => {
            onClose={handleCloseLevels}
            aria-labelledby="alert-dialog-title"
            aria-describedby="alert-dialog-description"
-        >          
+        >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
           Tööetapi lisamine

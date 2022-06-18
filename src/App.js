@@ -11,7 +11,7 @@ import SnackBar from "./components/Snackbar";
 import ClientList from "./components/pages/ClientList";
 import React, { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoutes";
-import NavBarMain from "./components/NavBarMain";
+import NavBar from "./components/NavBar";
 import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
@@ -30,16 +30,17 @@ const App = () => {
     setOpen(false);
   };
 
-  const NavBar = () => {
+  const NavBarProtect = () => {
     // console.log(location.pathname);
     if(useSelector(state => state.userSession.userSession)){
-      return <NavBarMain />
+      return <NavBar />
     }
   };
 
+
   return (
     <>
-      <NavBar />
+      <NavBarProtect />
         <Routes>
         <Route path='*' element={<NotFound />} />
           <Route path="/" element={<LogIn />} />

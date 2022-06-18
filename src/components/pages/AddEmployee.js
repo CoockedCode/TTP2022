@@ -1,23 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import WorkerJobsList from '../WorkerJobsList';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Select } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
-import { data } from 'jquery';
 import FormControl from '@mui/material/FormControl';
-import EmployeeRolesList from '../EmployeeRolesList';
-import DropDown2 from '../DropDown2';
+import DropDown from '../DropDown';
+
+const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function AddWorker(){
-	const endpoint = "https://elektrimasinad.digifi.eu/api";
-
-	//snackbar
 	const dispatch = useDispatch();
-
 	//1. Töötaja eesnimi
 	const [valueEmpFname, setValueEmpFname] = useState();
 	const [errorEmpFname, setErrorEmpFname] = useState(false);
@@ -48,7 +42,7 @@ export default function AddWorker(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/employee/fnc_add_employee.php", dataToSave)
+		axios.post(endpoint + "/view/employee/fnc_add_employee.php", dataToSave)
 		.then(function (response) {
 			console.log(response.data);
 			if(response.status === 200){
@@ -67,7 +61,7 @@ export default function AddWorker(){
 	  }
 	const [roleNameOptions, setRoleNameOptions] = useState([]);
 	const getRoleOptions = async() =>{
-		const response = await axios.get(`${endpoint}/employee/fnc_employee_role.php?role`);
+		const response = await axios.get(`${endpoint}/view/employee/fnc_employee_role.php?role`);
 		// console.log(response)
 		setRoleNameOptions([]);
 		response.data.forEach(element=>{
@@ -84,11 +78,7 @@ export default function AddWorker(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber")){
-			// console.log("väljad täidetud")
-
-			//Kasutajanime loomine ees- ja perekonnanime järgi
 			const employeeFname = formData.get("employeeFname");
 			const employeeSname =  formData.get("employeeSname");
 			const employeeUsername = employeeFname.concat(employeeSname);
@@ -100,18 +90,13 @@ export default function AddWorker(){
 				employeeSname: formData.get("employeeSname"),
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
-				// employeeActive: formData.get("employeeActive"),
 				employeeRoleID: roleName,
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
 
 			};
-			// console.log(WorkerJobsList);
-			// console.log(employeeRoleID);
-
 			saveData(dataToSave);
 			console.log(dataToSave);
-
 		} else {
 			console.log("viga")
 			if(!formData.get("employeeFname")){
@@ -134,11 +119,6 @@ export default function AddWorker(){
 			}else{
 				setValueEmpNumber(formData.get("employeeNumber"));
 			}
-			// if(!formData.get("employeeActive")){
-			// 	setErrorEmpActive(true);
-			// }else{
-			// 	setValueEmpActive(formData.get("employeeActive"));
-			// }
 			if(!roleName){
 				setErrorEmpRole(true);
 			}else{
@@ -147,16 +127,13 @@ export default function AddWorker(){
 		}
 	}
 
-	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 	return(
 		<>
 		<main>
 			<section>
-
 				<div id="header-wrapper">
 					<h3>Lisa uus Töötaja:</h3>
 				</div>
-
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<FormControl sx={{width: "100%", py: '20px'}}>
 						<TextField
@@ -213,29 +190,23 @@ export default function AddWorker(){
 							padding="none"
 
 							/>
-						<DropDown2
+						<DropDown
 							ID="roleName"
 							label="Tööroll"
 							onChange={handleRoleChange}
 							options={roleNameOptions}
 							name=""
 						/>
-
-						{/*< DropDown({name, ID, value, label, onChange, options}) />*/}
-
 						<Button
 							type="submit"
 							variant="contained"
 							sx={{ mt: "0.3rem", bgcolor: 'main', width: 'auto' }}
 							margin="dense"
-							//onClick={handleSubmit}
 							>
 							Lisa töötaja
 						</Button>
-						{/* <FormHelperText>{helperText}</FormHelperText> */}
 					</FormControl>
 				</Box>
-
 			</section>
 		</main>
 		</>
