@@ -11,13 +11,11 @@ import React, { useState, useEffect } from 'react';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import et from 'dayjs/locale/et';
-import { FormControl } from '@mui/material';import { data } from 'jquery';
-;
+import { FormControl } from '@mui/material';
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function WorkHours(){
-	//snackbar
 	const dispatch = useDispatch();
 	const date=new Date();
 	var currMonth="0";
