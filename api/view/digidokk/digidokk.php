@@ -1,4 +1,5 @@
 <?php
+    require_once("digidokk.class.php");
     require_once("../../config_header.php");
     require_once("../../config_db.php");
     require_once("../../config_session.php");
