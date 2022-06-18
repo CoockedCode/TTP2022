@@ -11,13 +11,14 @@ import SnackBar from "./components/Snackbar";
 import ClientList from "./components/pages/ClientList";
 import React, { useState } from "react";
 import ProtectedRoutes from "./ProtectedRoutes";
-import NavBar from "./components/NavBar";
+import NavBarMain from "./components/NavBarMain";
 import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
 import ChoiceList from "./components/pages/ChoiceList";
-import WorkHours from "./components/pages/WorkHours";
+import WorkStages from "./components/WorkStages";
+
 
 const App = () => {
 
@@ -29,16 +30,16 @@ const App = () => {
     setOpen(false);
   };
 
-  const NavBarProtect = () => {
+  const NavBar = () => {
     // console.log(location.pathname);
     if(useSelector(state => state.userSession.userSession)){
-      return <NavBar />
+      return <NavBarMain />
     }
   };
 
   return (
     <>
-      <NavBarProtect />
+      <NavBar />
         <Routes>
         <Route path='*' element={<NotFound />} />
           <Route path="/" element={<LogIn />} />
@@ -50,10 +51,10 @@ const App = () => {
             <Route path="/kliendid" element={<ClientList />} />
             <Route path="/valikud" element={<ChoiceList />} />
             <Route path="/lisa-tootaja" element={<AddEmployee />} />
-            <Route path="/too-tunnid" element={<WorkHours />} />
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />
             <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
+            <Route path="/toonimetused" element={<WorkStages />} />
           </Route>
         </Routes>
       <SnackBar />
