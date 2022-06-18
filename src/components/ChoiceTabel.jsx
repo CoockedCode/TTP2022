@@ -27,7 +27,7 @@ export default function ChoiceTable() {
     const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
-    const resp = await axios.get(endpoint + "/choice/fnc_select_choices.php");
+    const resp = await axios.get(endpoint + "/view/choice/fnc_select_choices.php");
         console.log(resp);
         setRows([]);
         resp.data.forEach(element => {
@@ -62,7 +62,7 @@ useEffect(() => {
       };
     const [choiceOptions, setChoiceOptions] = useState([]);
     const getChoiceOptions = async() => {
-        const response = await axios.get(endpoint+'/choice/fnc_get_all_choice_info.php');
+        const response = await axios.get(endpoint+'/view/choice/fnc_get_all_choice_info.php');
         console.log(response);
         setChoiceOptions([]);
         response.data.forEach(element => {
@@ -72,7 +72,7 @@ useEffect(() => {
       useEffect(() => {
         getChoiceOptions();
       }, []);
-  
+
     const [choiceID, setChoiceID] = useState("");
     const handleChoiceChange = (e) => {
         setChoiceID(e.target.value);

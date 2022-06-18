@@ -22,7 +22,7 @@ export default function UpdateClient(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
+		axios.post(endpoint+"/view/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
 			// console.log(response);
 			if(response.status === 200){
@@ -42,17 +42,17 @@ export default function UpdateClient(){
 	const handleClickOpen = () => {
 	  setOpen(true);
 	};
-  
+
 	const handleClose = () => {
 	  setOpen(false);
 	};
-  
+
 
 
 	// klient dropdown menu algus
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
-		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
+		const resp = await axios.get(endpoint + "/view/client/fnc_read_current_client.php?client");
 		console.log(resp);
 		setOptions([]);
 		resp.data.forEach(element => {
@@ -93,8 +93,8 @@ export default function UpdateClient(){
 		const toDelete = {
 			clientId: options[companyRealId].id,
 		};
-		
-		axios.post(endpoint+"/client/fnc_delete_client.php?client", toDelete)
+
+		axios.post(endpoint+"/view/client/fnc_delete_client.php?client", toDelete)
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
@@ -290,26 +290,31 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateAddInfo(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									multiline
+									rows={6}
+									 />
 							</>
-						<Button
-							type="submit"
 
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							margin="dense"
-							//onClick={handleSubmit}
-							>
-							Uuenda Klient
-						</Button>
-						<Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Kustuta klient
-						</Button>
+						<Box sx={{display: "flex", justifyContent: "space-between"}}>
+							<Button
+								type="button"
+								variant="outlined"
+								color="warning"
+								sx={{ my: 2, width: "49%" }}
+								onClick={handleClickOpen}
+								>
+								Kustuta klient
+							</Button>
+							<Button
+								type="submit"
+								variant="contained"
+								sx={{ my: 2, width: "49%" }}
+								margin="dense"
+								//onClick={handleSubmit}
+								>
+								Uuenda Klient
+							</Button>
+						</Box>
 
 						<Dialog
 								open={open}
@@ -326,17 +331,17 @@ export default function UpdateClient(){
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+									sx={{ mt: 2, mb: 2, bgcolor: 'main',
 									width: 'auto' }}
 									margin="dense"
 									onClick={handleClose}>
 									Cancel
 								</Button>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
 									onClick={() => deleteClient()} autoFocus>
 									Jah, kustuta klient
 								</Button>
