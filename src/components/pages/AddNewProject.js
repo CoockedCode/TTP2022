@@ -99,7 +99,7 @@ export default function AddNewProject(){
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
-		const resp = await axios.get(`${endpoint}/client/fnc_get_clients_name_id.php?client`);
+		const resp = await axios.get(`${endpoint}/view/client/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element]);
@@ -118,7 +118,7 @@ export default function AddNewProject(){
 	}
 	const [workOptions, setWorkOptions] = useState([]);
 	const getWorkOptions = async () => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_work_types.php?work`);
 		console.log(resp);
 		setWorkOptions([]);
 		resp.data.forEach(element => {
@@ -139,7 +139,7 @@ export default function AddNewProject(){
 
 	const [firmsArr, setFirmArr] = useState([]);
 	const getFirms = async() => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_all_transport.php?transport`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_all_transport.php?transport`);
 		setFirmArr([]);
 		resp.data.forEach(element => {
 			setFirmArr(oldFirmArray => [...oldFirmArray, element]);
@@ -154,7 +154,7 @@ export default function AddNewProject(){
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
 	const getLastProjectNum = () => {
-		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
+		axios.get(`${endpoint}/view/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
 				// console.log(response.data);
 				setLastProjectNum(response.data);
@@ -167,7 +167,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/project/fnc_save_project.php`, dataToSave)
+		axios.post(`${endpoint}/view/project/fnc_save_project.php`, dataToSave)
 		.then(function(response){
 			console.log(dataToSave)
 			console.log(response);

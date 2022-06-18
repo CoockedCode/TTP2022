@@ -1,6 +1,6 @@
 <?php
 	require_once("../../config_header.php");
-	require_once("Session.class.php");
+	require_once("session.class.php");
 
 	// Päringu filtreerimine
 	if(isset($_GET["start"]) and !empty($_GET["start"])){
@@ -10,7 +10,7 @@
 	if($_GET["destroy"] == "true"){
 		Session::destroy();
 	}
-	if($_GET["querySess"] == "true"){
+	if($_GET["query_sess"] == "true"){
 		Session::query();
 		echo(Session::get_data());
 	}

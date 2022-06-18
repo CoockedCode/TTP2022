@@ -116,7 +116,7 @@ const ChoiceList = () => {
 
 
   const getAllChoiceOptions = async() => {
-    const response = await axios.get(endpoint+'/choice/fnc_select_choices.php');
+    const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php');
     console.log(response);
     setTypeOptions([]);
     setPowerOptions([]);
@@ -185,7 +185,7 @@ const ChoiceList = () => {
     getAllChoiceOptions();
   }, []);
     const getTransportOptions = async() =>{
-      const response = await axios.get(endpoint+'/choice/fnc_select_transport.php');
+      const response = await axios.get(endpoint + '/view/choice/fnc_select_transport.php');
       console.log(response);
       setTransportCompanyOptions([]);
       response.data.forEach(element=>{
@@ -199,14 +199,14 @@ const ChoiceList = () => {
     const handleClickOpen = () => {
       setOpen(true);
     };
-    
+
     const handleClose = () => {
       setOpen(false);
     };
 
     const [choiceOptions, setChoiceOptions] = useState([]);
     const getChoiceOptions = async() => {
-        const response = await axios.get(endpoint+'/choice/fnc_get_all_choice_info.php');
+        const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php');
         console.log(response);
         setChoiceOptions([]);
         response.data.forEach(element => {
@@ -216,7 +216,7 @@ const ChoiceList = () => {
       useEffect(() => {
         getChoiceOptions();
       }, []);
-  
+
     const [choiceID, setChoiceID] = useState("");
     const handleChoiceChange = (e) => {
         setChoiceID(e.target.value);
@@ -365,7 +365,7 @@ const ChoiceList = () => {
 			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
 		handleClose();
-  
+
   }
 
   return (
@@ -380,7 +380,7 @@ const ChoiceList = () => {
           <Button
 							type="button"
 							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							sx={{ my: 2 }}
 							onClick={handleClickOpen}
 							>
 							Lisa
@@ -388,7 +388,7 @@ const ChoiceList = () => {
           <Box component="form" noValidate autoComplete="off">
             <FormControl sc={{width: "100%"}}>
               <DropDown
-                name="Seadme liik" ID="choiceType" 
+                name="Seadme liik" ID="choiceType"
                 value={deviceID} label="Seadme liik"
                 onChange={handleDeviceChange}
                 options={typeOptions}
@@ -396,13 +396,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+                color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Võimsus KW" ID="choicePower" 
+                name="Võimsus KW" ID="choicePower"
                 value={powerID} label="Võimsus KW"
                 onChange={handlePowerChange}
                 options={powerOptions}
@@ -410,13 +411,14 @@ const ChoiceList = () => {
                <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="p/min" ID="choiceRotPerMin" 
+                name="p/min" ID="choiceRotPerMin"
                 value={rotPerMin} label="p/min"
                 onChange={handleRotPerMinChange}
                 options={rotPerMinOptions}
@@ -424,13 +426,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Tootja" ID="choiceManufacturer" 
+                name="Tootja" ID="choiceManufacturer"
                 value={manufacturer} label="Tootja"
                 onChange={handleManufacturerChange}
                 options={manufacturerOptions}
@@ -438,13 +441,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Võlli kõrgus" ID="choiceShaft" 
+                name="Võlli kõrgus" ID="choiceShaft"
                 value={shaftHeight} label="Võlli kõrgus"
                 onChange={handleShaftHeightChange}
                 options={shaftHeightOptions}
@@ -452,13 +456,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Toite liik" ID="choicePowerSupply" 
+                name="Toite liik" ID="choicePowerSupply"
                 value={powerSupply} label="Toite liik"
                 onChange={handlePowerSupplyChange}
                 options={powerSupplyOptions}
@@ -466,13 +471,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Sagedus HZ" ID="choiceFrequency" 
+                name="Sagedus HZ" ID="choiceFrequency"
                 value={frequency} label="Sagedus HZ"
                 onChange={handleFrequencyChange}
                 options={frequencyOptions}
@@ -480,13 +486,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Isol.Klass" ID="choiceIsolation" 
+                name="Isol.Klass" ID="choiceIsolation"
                 value={isolationClass} label="Isol.Klass"
                 onChange={handleIsolationClassChange}
                 options={isolationClassOptions}
@@ -494,13 +501,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="IP klass" ID="choiceIPClass" 
+                name="IP klass" ID="choiceIPClass"
                 value={IPClass} label="IP Klass"
                 onChange={handleIPClassChange}
                 options={IPClassOptions}
@@ -508,13 +516,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Transpordi firma" ID="choiceTransport" 
+                name="Transpordi firma" ID="choiceTransport"
                 value={transportCompany} label="Transpordi firma"
                 onChange={HandleTransportChange}
                 options={transportCompanyOptions}
@@ -522,13 +531,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Tunni hind" ID="choiceHourlyPrice" 
+                name="Tunni hind" ID="choiceHourlyPrice"
                 value={hourlyPrice} label="Tunni hind"
                 onChange={HandlePriceChange}
                 options={hourlyPriceOptions}
@@ -536,13 +546,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Takistuse ühik" ID="choiceRecistance" 
+                name="Takistuse ühik" ID="choiceRecistance"
                 value={resitanceUnit} label="Takistuse ühik"
                 onChange={HandleResistanceChange}
                 options={resitanceUnitOptions}
@@ -550,13 +561,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Pingeteim" ID="choiceTension" 
+                name="Pingeteim" ID="choiceTension"
                 value={tensionUnit} label="Pingeteim"
                 onChange={HandleTensionChnage}
                 options={tensionOptions}
@@ -564,13 +576,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Katsetuse pinge" ID="choiceTensionUnit" 
+                name="Katsetuse pinge" ID="choiceTensionUnit"
                 value={tensioTestUnit} label="Katsetuse pinge"
                 onChange={HandleTensionTestChnage}
                 options={tensionTestOptions}
@@ -578,13 +591,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Ühendus" ID="choiceConnection" 
+                name="Ühendus" ID="choiceConnection"
                 value={connection} label="Ühendus"
                 onChange={HandleConnectionChange}
                 options={connectionOptions}
@@ -592,13 +606,14 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
 						  </Button>
               <DropDown
-                name="Katsetatud" ID="choiceTestin" 
+                name="Katsetatud" ID="choiceTestin"
                 value={testing} label="Katsetatud"
                 onChange={handleTestingChange}
                 options={testingOptions}
@@ -606,7 +621,8 @@ const ChoiceList = () => {
               <Button
                 type="button"
                 variant="contained"
-                sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
+color="warning"
+                sx={{my: 2}}
                 onClick={handleDeletionOpen}
                 >
                 Kustuta
@@ -627,10 +643,10 @@ const ChoiceList = () => {
                     Andmete lisamine
                 </DialogContentText>
                 <Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                  
+
                     <FormControl sc={{width: "100%"}}>
                                 <DropDown
-                                name="Valik nimi" ID="choiceName" 
+                                name="Valik nimi" ID="choiceName"
                                 value={choiceID} label="Valiku nimetus"
                                 onChange={handleChoiceChange}
                                 options={choiceOptions}
@@ -670,9 +686,10 @@ const ChoiceList = () => {
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                <Button 
+                <Button
                     variant="contained"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+color="warning"
+                    sx={{ mt: 2, mb: 2, bgcolor: 'main',
                     width: 'auto' }}
                     margin="dense"
                     onClick={handleClose}>
@@ -681,8 +698,9 @@ const ChoiceList = () => {
                 <Button
                     type="submit"
                     variant="contained"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
-                    onClick={handleSubmit} 
+color="warning"
+                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+                    onClick={handleSubmit}
                     autoFocus>
                     Lisa!
                 </Button>
@@ -703,17 +721,19 @@ const ChoiceList = () => {
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+color="warning"
+									sx={{ mt: 2, mb: 2, bgcolor: 'main',
 									width: 'auto' }}
 									margin="dense"
 									onClick={handleDeletionClose}>
 									Ei
 								</Button>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+color="warning"
+									sx={{my: 2}}
 									onClick={handleDeletion} autoFocus>
 									Jah
 								</Button>

@@ -1,5 +1,5 @@
 <?php
-	require_once("Protect.class.php");
+	require_once("protect.class.php");
 	require_once("../../config_header.php");
 	require_once("../../config_session.php");
 

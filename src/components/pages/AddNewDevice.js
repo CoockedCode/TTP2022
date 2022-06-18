@@ -19,7 +19,7 @@ export default function AddNewProject(){
     }
     const [deviceOptions, setDeviceOptions] = useState([]);
     const getDeviceOptions = async() => {
-        const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
+        const response = await axios.get(`${endpoint}/view/project/fnc_get_device_info.php`);
         console.log(response);
         setDeviceOptions([]);
         response.data.forEach(element => {
@@ -34,7 +34,7 @@ export default function AddNewProject(){
     }
     const [powerOptions, setPowerOptions] = useState([]);
     const getPowerOptions = async() => {
-        const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
+        const response = await axios.get(`${endpoint}/view/project/fnc_get_device_info.php`);
         setPowerOptions([]);
         response.forEach(element => {
             setPowerOptions(oldArray => [...oldArray, element]);
@@ -64,7 +64,7 @@ export default function AddNewProject(){
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <FormControl sc={{width: "100%"}}>
                         <DropDown
-                         name="Seadme liik" ID="deviceType" 
+                         name="Seadme liik" ID="deviceType"
                          value={deviceID} label="Seadme liik"
                          onChange={handleDeviceChange}
                          options={deviceOptions}

@@ -1,5 +1,5 @@
 <?php
-    require_once("User.class.php");
+    require_once("user.class.php");
     require_once("../../config_header.php");
     require_once("../../config_session.php");
 
