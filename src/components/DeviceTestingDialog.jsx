@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { FormControl, FormControlLabel, Radio, RadioGroup, TableCell, TableContainer, TableRow } from '@mui/material';
+import { FormControlLabel, Radio, RadioGroup, TableCell, TableContainer, TableRow } from '@mui/material';
 import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Box from "@mui/material";
 import et from 'dayjs/locale/et';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,18 +10,15 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from "@mui/material";
 import DropDown from "./DropDown";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useRef } from "react";
 
 // TODO
-// mähiste takistuste väärtuste saamine
+// mähiste takistuste väärtuste saamine PHPs
 // info salvestamine ABsse ja sellega seonduv andmete saamine vormidest
-// tabeli ülevaatamine - kas saab andmed kätte?
 
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api/view";
 
 export default function DeviceTestingDialog({resistanceOptions, voltageTestOptions, testingVoltageOptions, connectionOptions, testMethodOptions, passTestingData}){
 
@@ -61,12 +57,10 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
     const handleChange = (e) => {
         const {value, name} = e.target;
-        // const newValue = [...formValue];
         const newValue = {
             ...formValue,
             [name]: value
         };
-        //console.log(newValue);
         setFormValue(newValue);
     }
 
@@ -75,25 +69,22 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
     };
     const handleClose = () => {
         setOpen(false);
-        console.log(formValue)
+        // console.log(formValue)
     };
 
     // katsetaja dropdown
     const [testerID, setTesterID] = useState("");
     const handleTesterChange = (e) => {
-        console.log(e.target);
         setTesterID(e.target.value);
     }
     const [testerOptions, setTesterOptions] = useState([]);
 
     const getTesterOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_tester.php?tester`);
-        // console.log(response.data);
         setTesterOptions([]);
 		response.data.forEach(element => {
-			setTesterOptions(oldFirmArray => [...oldFirmArray, element]);
+			setTesterOptions(oldTesterArray => [...oldTesterArray, element]);
 		});
-        console.log(testerOptions[0].name);
     }
 
     // kuupäeva valik
@@ -136,28 +127,24 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
     useEffect(() => {
         getTesterOptions();
-        // const el = ref.current;
-        // console.log(el);
     }, []);
 
 
     const handleSave = (e) => {
         e.preventDefault();
-        // console.log(formValue);
 
-        const formData = new FormData();
         const deviceTestingData = [
             {
                 tester: testerID,
                 testingDate: `${selectedTestingDate.$y}-${selectedTestingDate.$M + 1}-${selectedTestingDate.$D}`,
-                functionalTest: formData.get("functionalTest"),
+                functionalTest: formValue.functionalTest, 
                 isolationResistance: formValue.isolationResistance,
                 isolationResistanceUnit: selectedIsolationResistance,
-                isolationSuitability: formData.get("isolationSuitability"), // raadionupp ??
+                isolationSuitability: formValue.isolationSuitability, 
                 voltageTest: selectedVoltageTest,
-                voltageTestSuitability: formData.get("deviceVoltageTest"), // raadionupp
+                voltageTestSuitability: formValue.voltageTestSuitability,
                 functionalTestNotes: formValue.functionalTestNotes,
-                functionalTestSuitability: formData.get("deviceFunctionalTestSuitability"), // raadionupp
+                functionalTestSuitability: formValue.functionalTestSuitability,
                 testingVoltage: selectedTestingVoltage,
                 connectionType: selectedConnectionType,
                 testingMethod: selectedTestMethod,
@@ -197,14 +184,13 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
             }
         ]
         
-        console.log(deviceTestingData);
+        // console.log(deviceTestingData);
         passTestingData(deviceTestingData);
         setOpen(false);
     }
     
     return(
         <>
-        {/* <div ref={ref} id="device-testing-dialog"> */}
         <div>
             <Button variant="outlined" onClick={handleClickOpen}>
                 Seadme katsetus
@@ -241,6 +227,8 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                         id='functionalTest'
                         label="Talitluskatse"
                         name='functionalTest'
+                        value={formValue.functionalTest}
+                        onChange={(e) => handleChange(e)}
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Seade tunnistatud kontrolli põhjal ohutuks" />
@@ -273,8 +261,10 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <RadioGroup
                         required
                         id='isolationSuitability'
+                        value={formValue.isolationSuitability}
                         label="Isolatsiooni takistus"
                         name='isolationSuitability'
+                        onChange={(e) => handleChange(e)}
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -292,8 +282,10 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <RadioGroup
                         required
                         id='voltageTestSuitability'
+                        value={formValue.voltageTestSuitability}
                         label="Pinge teim"
                         name='voltageTestSuitability'
+                        onChange={(e) => handleChange(e)}
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -317,8 +309,10 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <RadioGroup
                         required
                         id='functionalTestSuitability'
+                        value={formValue.functionalTestSuitability}
                         label="Talitluskatse"
                         name='functionalTestSuitability'
+                        onChange={(e) => handleChange(e)}
                         row
                     >
                         <FormControlLabel value="1" control={<Radio />} label="Sobiv" />
@@ -350,7 +344,6 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     />
 
                     <h4>Voolud:</h4>
-                    {/* 3 korda 1-lv textfield */}
                     <TextField
                         required
                         autoFocus

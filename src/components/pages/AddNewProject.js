@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 	// vormi lõppu vaata mirost milline väljastus on
 
 
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api/view";
 
 export default function AddNewProject(){
 	//snackbar

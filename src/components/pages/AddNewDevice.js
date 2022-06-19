@@ -15,7 +15,7 @@ import DeviceEquipment from "../DeviceEquipment";
 // form validation
 // testkasutaja id on vaja andmebaasis nimena salvestada
 
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+const endpoint = "https://elektrimasinad.digifi.eu/api/view";
 
 export default function AddNewProject(){
 
@@ -104,7 +104,6 @@ export default function AddNewProject(){
     // katsetatud
     const [testMethodArr, setTestMethodArr] = useState([]);
 
-
     // mähise andmete saamine
     const [windingData, setWindingData] = useState(
         [
@@ -159,7 +158,6 @@ export default function AddNewProject(){
 
     const passWindingData = (data) => {
         setWindingData(data);
-        console.log(data)
     }
 
     // seadme katsetuse andmete saamine
@@ -218,9 +216,24 @@ export default function AddNewProject(){
 
     const passTestingData = (data) => {
         setDeviceTestingData(data);
-        console.log(data);
     }
 
+    // seadme varustuse info saamine
+    const [deviceEquipmentData, setDeviceEquipmentData] = useState(
+        [
+            {
+                equipment: "",
+                equipmentNotes: "",
+                terminalBlockConnection: "",
+                devicePinAmount: "",
+                terminalBlockPosition: ""
+            }
+        ]
+    );
+
+    const passEquipmentData = (data) => {
+        setDeviceEquipmentData(data);
+    }
 
     const getDeviceOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_device_info.php`);
@@ -313,7 +326,8 @@ export default function AddNewProject(){
             bearingNDE: formData.get("bearingNDE"),
             additionalInfo: formData.get("additionalInfo"),
             windingData: windingData,
-            deviceTestingData: deviceTestingData
+            deviceTestingData: deviceTestingData,
+            deviceEquipmentData: deviceEquipmentData
         }
 
         console.log(dataToSave);
@@ -331,7 +345,7 @@ export default function AddNewProject(){
                     <p>Projekti nr: {projectNum}</p>
                 </div>
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                    <FormControl sc={{width: "100%"}}>
+                    <FormControl sx={{width: "100%"}}>
                         <DropDown
                          name="Seadme liik" ID="deviceType" 
                          value={deviceID} label="Seadme liik"
@@ -430,7 +444,7 @@ export default function AddNewProject(){
                         />
 
                         <TextField
-                            required
+                            
                             id="EXMarking"
                             label="Ex märgistus"
                             name="EXMarking"
@@ -463,7 +477,7 @@ export default function AddNewProject(){
                         />
 
                         <TextField
-                            required
+                            
                             id="additionalInfo"
                             label="Märkused"
                             name="additionalInfo"
@@ -484,7 +498,7 @@ export default function AddNewProject(){
                          passTestingData={passTestingData}
                         />
 
-                        <DeviceEquipment />
+                        <DeviceEquipment passEquipmentData={passEquipmentData}/>
 
                         <Button
                             type="submit"

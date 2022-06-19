@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, Checkbox, FormLabel } from "@mui/material";
+import { Box, Checkbox } from "@mui/material";
 import { FormControl, FormGroup, FormControlLabel } from "@mui/material";
 import { equipment } from "./EquipmentData";
 import TerminalBlockConnection from "./TerminalBlockConnection";
@@ -18,16 +18,47 @@ import "../styles/TerminalBlockConnection.css";
     // skeemi joonistamise canvas breakpoints + kustutamise funktsionaalsus
     // ABsse salvestamine kui kõik väljad täidetud
 
-export default function DeviceEquipment(){
+export default function DeviceEquipment(props){
 
     const [open, setOpen] = useState(false);
+
+    // klemmliistu ühenduse andmete saamine
+    const [blockConnectionData, setBlockConnectionData] = useState("");
+
+    const passBlockConnectionData = (data) => {
+        setBlockConnectionData(data);
+    }
+
+    // klemmkarbi asendi info saamine
+    const [blockPositionData, setBlockPositionData] = useState("");
+
+    const passBlockPositionData = (data) => {
+        setBlockPositionData(data);
+    }
+
+    const form = [
+        {
+            deviceEquipmentNotes: "",
+            devicePinAmount: ""
+        }
+    ]
+
+    const [formValue, setFormValue] = useState(form);
+
+    const handleFormChange = (e) => {
+        const {value, name} = e.target;
+        const newValue = {
+            ...formValue,
+            [name]: value
+        };
+        setFormValue(newValue);
+    }
 
     const [checkedState, setCheckedState] = useState(
         new Array(equipment.length).fill(false)
     );
 
     const handleChange = (e) => {
-        console.log(e)
         const updatedCheckedState = checkedState.map((item, index) => 
             index === e ? !item : item
         );
@@ -35,13 +66,31 @@ export default function DeviceEquipment(){
         setCheckedState(updatedCheckedState);
     };
 
-    const handleClickOpen = (e) => {
+    const handleClickOpen = () => {
         setOpen(true);
-        console.log(e);
     };
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleSave = (e) => {
+        e.preventDefault();
+
+        const deviceEquipmentData = [
+            {
+                equipment: checkedState,
+                equipmentNotes: formValue.deviceEquipmentNotes,
+                terminalBlockConnection: blockConnectionData,
+                devicePinAmount: formValue.devicePinAmount,
+                terminalBlockPosition: blockPositionData,
+                // schema:
+
+            }
+        ]
+        // console.log(deviceEquipmentData);
+        props.passEquipmentData(deviceEquipmentData);
+        setOpen(false);
+    }
 
     return(
         <>
@@ -88,6 +137,8 @@ export default function DeviceEquipment(){
                         <h5>Muud varustuse märkused</h5>
                         <TextField
                             id="deviceEquipmentNotes"
+                            value={formValue.deviceEquipmentNotes}
+                            onChange={(e) => handleFormChange(e)}
                             label="Tekstina"
                             name="deviceEquipmentNotes"
                             autoComplete="none"
@@ -97,11 +148,13 @@ export default function DeviceEquipment(){
                         />
 
                         <h4>Klemmliistu ühendus</h4>
-                        <TerminalBlockConnection />
+                        <TerminalBlockConnection passBlockConnectionData={passBlockConnectionData}/>
 
                         <h5>Väljaviike: </h5>
                         <TextField
                             id="devicePinAmount"
+                            value={formValue.devicePinAmount}
+                            onChange={(e) => handleFormChange(e)}
                             label="Trüki arv"
                             name="devicePinAmount"
                             autoComplete="none"
@@ -111,7 +164,7 @@ export default function DeviceEquipment(){
                         />
 
                         <h4>Klemmkarbi asend</h4>
-                        <TerminalBlockPosition />
+                        <TerminalBlockPosition passBlockPositionData={passBlockPositionData}/>
 
                         {/* <h4>Skeem</h4>
                         <Canvas /> */}
@@ -120,7 +173,7 @@ export default function DeviceEquipment(){
                 
                 <DialogActions>
                     <Button onClick={handleClose}>Katkesta</Button>
-                    <Button onClick={handleClose}>Salvesta</Button>
+                    <Button onClick={handleSave}>Salvesta</Button>
                 </DialogActions>
 
             </Dialog>

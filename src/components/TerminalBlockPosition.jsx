@@ -1,79 +1,23 @@
 // import "../styles/TerminalBlockConnection.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/system";
 import {  FormControlLabel } from "@mui/material";
 import { Box, Checkbox } from "@mui/material";
-import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
+import ArrowCircleDownRoundedIcon from '@mui/icons-material/ArrowCircleDownRounded';
+import ArrowCircleUpRoundedIcon from '@mui/icons-material/ArrowCircleUpRounded';
 import RectangleOutlinedIcon from '@mui/icons-material/RectangleOutlined';
-
-const boxes = [
-    {
-        id: 1,
-        icon: "box"
-    },
-    {
-        id: 2,
-        icon: "box"
-    },
-    {
-        id: 3,
-        icon: "box"
-    },
-    {
-        id: 4,
-        icon: "arrowDown"
-    },
-    {
-        id: 5,
-        icon: "arrowDown"
-    },
-    {
-        id: 6,
-        icon: "arrowDown"
-    },
-    {
-        id: 7,
-        icon: "box"
-    },
-    {
-        id: 8,
-        icon: "box"
-    },
-    {
-        id: 9,
-        icon: "box"
-    },
-    {
-        id: 10,
-        icon:  "arrowUp"
-    },
-    {
-        id: 11,
-        icon:  "arrowUp"
-    },
-    {
-        id: 12,
-        icon:  "arrowUp"
-    },
-    {
-        id: 13,
-        icon: "box"
-    },
-    {
-        id: 14,
-        icon: "box"
-    },
-    {
-        id: 15,
-        icon: "box"
-    }
-]
+import RectangleRoundedIcon from '@mui/icons-material/RectangleRounded';
+import ArrowCircleDownTwoToneIcon from '@mui/icons-material/ArrowCircleDownTwoTone';
+import ArrowCircleUpTwoToneIcon from '@mui/icons-material/ArrowCircleUpTwoTone';
+import { boxes } from "./BoxesData";
 
 const Icons = {
     box: RectangleOutlinedIcon,
-    arrowDown: ArrowDownwardOutlinedIcon,
-    arrowUp: ArrowUpwardOutlinedIcon
+    checkedBox: RectangleRoundedIcon,
+    arrowDown: ArrowCircleDownRoundedIcon,
+    checkedArrowDown: ArrowCircleDownTwoToneIcon,
+    arrowUp: ArrowCircleUpRoundedIcon,
+    checkedArrowUp: ArrowCircleUpTwoToneIcon
 }
 
 const GenerateIcon = ( variant, props = {}) => {
@@ -81,20 +25,21 @@ const GenerateIcon = ( variant, props = {}) => {
     return <IconName {...props} />;
 }
 
-export default function TerminalBlockConnection(){
+export default function TerminalBlockConnection(props){
 
     const [checkedState, setCheckedState] = useState(
         new Array(boxes.length).fill(false)
     );
 
     const handleChange = (e) => {
-        console.log(e)
         const updatedCheckedState = checkedState.map((item, index) => 
             index === e ? !item : item
         );
 
         setCheckedState(updatedCheckedState);
     };
+
+    useEffect(() => {props.passBlockPositionData(checkedState)})
 
     return(
         <>
@@ -117,9 +62,10 @@ export default function TerminalBlockConnection(){
                     value={element.id}
                     control={
                             <Checkbox 
-                                sx={{ color: "black", "&.Mui-checked": {color: "black"}, "&.Mui-disabled": {color: "white"} }}
+                                sx={{ color: "black", "&.Mui-checked": {color: "black"} }}
                                 checked={checkedState[index]}
                                 icon={GenerateIcon(element.icon)}
+                                checkedIcon={GenerateIcon(element.checkedIcon)}
                             />
                             }
                     label={element.label}
