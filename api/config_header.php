@@ -1,7 +1,7 @@
 <?php
 	header("Access-Control-Allow-Origin: *");
 	$currentRequestMethod = $_SERVER['REQUEST_METHOD'];
-	$allowedRequestMethods = array('GET', 'POST');
+	$allowedRequestMethods = array('GET', 'POST', 'OPTIONS');
 	if(!in_array($currentRequestMethod, $allowedRequestMethods)){exit;}
 
 	//ini_set('display_errors', 1);

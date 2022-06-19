@@ -292,7 +292,7 @@ export default function UpdateClient(){
 									type="text"
 									margin="dense"
 									multiline
-									rows={6}
+									rows={4}
 									 />
 							</>
 
