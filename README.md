@@ -2,7 +2,9 @@
 > Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias, Martin Lukas
 
 ??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
-??paar pilti programmist
+
+![Avalehe kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_1.png)
+![Kasutaja sätete kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_2.png)
 
 ## Eesmärgid ja lühikirjeldus
 lorem ipsum... Elektrimasinad OÜ
