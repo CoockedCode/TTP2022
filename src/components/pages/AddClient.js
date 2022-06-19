@@ -252,6 +252,8 @@ export default function AddClient(){
 							type="text"
 							margin="dense"
 							size="small"
+							multiline
+							rows={4}
 							/>
 
 						<Button
