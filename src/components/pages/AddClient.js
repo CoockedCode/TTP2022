@@ -6,8 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function AddClient(){
 	//snackbar

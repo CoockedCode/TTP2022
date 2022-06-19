@@ -20,9 +20,7 @@ import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../redux/ducks/snackbar";
 import {useNavigate} from 'react-router-dom';
-
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../endpoint";
 
 export default function WorkTable({queryOption, searchQuery}) {
   const navigate = useNavigate();

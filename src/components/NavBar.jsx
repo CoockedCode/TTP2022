@@ -13,17 +13,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Avatar from '@mui/material/Avatar';
 // import Grid from '@mui/material/Grid';
-
-//logout
 import { useDispatch } from "react-redux";
 import { setUserSession } from "../redux/ducks/userSession";
 import { setSnackbar } from "../redux/ducks/snackbar";
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
-const endpoint = "https://elektrimasinad.digifi.eu/api";
 import { useSelector } from "react-redux";
 import {Typography} from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { endpoint } from "../endpoint";
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);

@@ -7,10 +7,9 @@ import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import FormControl from '@mui/material/FormControl';
 import DropDown from '../DropDown';
+import { endpoint } from "../../endpoint";
 
 export default function AddWorker(){
-	const endpoint = "https://elektrimasinad.digifi.eu/api";
-
 	//snackbar
 	const dispatch = useDispatch();
 

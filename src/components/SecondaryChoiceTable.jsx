@@ -5,13 +5,13 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
+//import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Collapse from '@mui/material/Collapse';
-import Box from '@mui/material/Box';
+//import IconButton from '@mui/material/IconButton';
+//import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+//import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+//import Collapse from '@mui/material/Collapse';
+//import Box from '@mui/material/Box';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -22,9 +22,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DropDown from "./DropDown";
 import { FormControl, FormHelperText } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { endpoint } from "../endpoint";
 
 export default function SecondaryChoiceTable() {
-    const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
         const resp = await axios.get(endpoint + "/client/fnc_select_choices.php");
@@ -54,7 +54,7 @@ useEffect(() => {
     const handleClickOpen = () => {
         setOpen(true);
     };
-    
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -70,7 +70,7 @@ useEffect(() => {
       useEffect(() => {
         getChoiceOptions();
       }, []);
-  
+
     const [choiceID, setChoiceID] = useState("");
     const handleChoiceChange = (e) => {
         setChoiceID(e.target.value);
@@ -232,7 +232,7 @@ useEffect(() => {
                 </DialogContentText>
                     <FormControl sc={{width: "100%"}}>
                             <DropDown
-                            name="Valik nimi" ID="choiceName" 
+                            name="Valik nimi" ID="choiceName"
                             value={choiceID} label="Valiku nimetus"
                             onChange={handleChoiceChange}
                             options={choiceOptions}
@@ -270,17 +270,17 @@ useEffect(() => {
                     </FormControl>
                 </DialogContent>
                 <DialogActions>
-                    <Button 
+                    <Button
                         variant="contained"
-                        sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+                        sx={{ mt: 2, mb: 2, bgcolor: 'main',
                         width: 'auto' }}
                         margin="dense"
                         onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button 
+                    <Button
                         variant="contained"
-                        sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }} 
+                        sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
                         onClick={handleClose} autoFocus>
                         Lisa!
                     </Button>

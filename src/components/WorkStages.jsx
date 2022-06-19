@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import { FormControl } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -9,15 +8,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import { FormControl } from '@mui/material';;
 import "../styles/pages/Home.css";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import DropDown from './DropDown';
 import { TextField } from '@mui/material';
+import { endpoint } from "../endpoint";
 
 const WorkStages = () => {
   // const dispatch = useDispatch();
-
-  const endpoint = "https://elektrimasinad.digifi.eu/api";
-
 
   //  const stages = [
   //    {name:'Hooldus'},

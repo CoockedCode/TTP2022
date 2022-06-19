@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 
 const rows = [
     {Nimi:'Heidi Kuusk', Mail:'heidi.kuusk@elktrm.ee', Number:'58585858', Roll:'Tööline'}
-
 ]
 
 export default function WorkerListTable() {
