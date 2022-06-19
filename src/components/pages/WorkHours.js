@@ -95,7 +95,7 @@ export default function WorkHours(){
 
 	const [ workerOptions, setWorkerOptions ] = useState([]);
 	const getEmployeeOptions = async() =>{
-		const response = await axios.get(endpoint+'/view/workhours/fnc_get_workers.php');
+		const response = await axios.get(endpoint+'/view/workhours/fnc_get_workers.php?worker');
 		setWorkerOptions([])
 		response.data.forEach(element => {
 			setWorkerOptions((oldArray=>[...oldArray, element]));
@@ -106,7 +106,7 @@ export default function WorkHours(){
 	  }, []);
 	const [ projectOptions, setProjectOptions ] = useState([]);
 	const getProjectOptions = async() =>{
-		const response = await axios.get(endpoint+'/view/workhours/fnc_get_project.php');
+		const response = await axios.get(endpoint+'/view/workhours/fnc_get_project.php?project');
 		console.log(response);
 		setProjectOptions([])
 		response.data.forEach(element => {
@@ -118,7 +118,7 @@ export default function WorkHours(){
 	  }, []);
 	  const [ workOptions, setWorkOptions ] = useState([]);
 	  const getWorkOptions = async() =>{
-		  const response = await axios.get(endpoint+'/view/workhours/fnc_get_work.php');
+		  const response = await axios.get(endpoint+'/view/workhours/fnc_get_work.php?work');
 		//   console.log(response);
 		  setWorkOptions([])
 		  response.data.forEach(element => {

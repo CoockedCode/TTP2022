@@ -123,7 +123,7 @@ const ChoiceList = () => {
 
 
   const getAllChoiceOptions = async() => {
-    const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php');
+    const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php?choices');
     setTypeOptions([]);
     setPowerOptions([]);
     setManufacturerOptions([]);
@@ -211,7 +211,7 @@ const ChoiceList = () => {
 
     const [choiceOptions, setChoiceOptions] = useState([]);
     const getChoiceOptions = async() => {
-        const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php');
+        const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php?choice');
         setChoiceOptions([]);
         response.data.forEach(element => {
             setChoiceOptions(oldArray => [...oldArray, element]);
@@ -238,7 +238,7 @@ const ChoiceList = () => {
     }
 
     const handleAddition=(toSave)=>{
-      axios.post(endpoint+"/choice/fnc_add_choice.php", toSave)
+      axios.post(endpoint+"/view/choice/fnc_add_choice.php", toSave)
         .then(function (response) {
           if(response.status === 200){
           }
@@ -352,7 +352,7 @@ const ChoiceList = () => {
   }
 
   const deleteChoice=(toDelete)=>{
-    axios.post(endpoint+"/choice/fnc_delete_choice.php", toDelete)
+    axios.post(endpoint+"/view/choice/fnc_delete_choice.php", toDelete)
 		.then(function (response) {
 			if(response.status === 200){
 				// dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
@@ -404,7 +404,7 @@ const ChoiceList = () => {
         firmType: companyID
       }
 
-      axios.post(endpoint+"/choice/fnc_add_transport.php", transportToSave)
+      axios.post(endpoint+"/view/choice/fnc_add_transport.php", transportToSave)
       .then(function (response) {
         if(response.status === 200){
           // dispatch(setSnackbar(true,"success","Transpordi firma edukalt lisatud!"));
