@@ -185,7 +185,7 @@ export default function AddClient(){
 							label="Postiindeks"
 							name="postIndex"
 							autoComplete="none"
-							type="number"
+							type="text"
 							margin="dense"
 							size="small"
 							/>
