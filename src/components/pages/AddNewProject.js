@@ -13,7 +13,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 	// TODO
-	// projekti nr edasiandmine seadme tehnilise info sisestusse
 	// uued lahtrid error control
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
 	// machineType üle vaadata
@@ -93,7 +92,6 @@ export default function AddNewProject(){
 	const [companyID, setCompanyID] = useState("");
 	const handleChange = (e) => {
 		setCompanyID(e.target.value);
-		//console.log(e.target.value);
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
@@ -112,7 +110,7 @@ export default function AddNewProject(){
 	}
 	const [workOptions, setWorkOptions] = useState([]);
 	const getWorkOptions = async () => {
-		const resp = await axios.get(`${endpoint}/view/project/fnc_get_work_types.php?work`);
+		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
 		console.log(resp);
 		setWorkOptions([]);
 		resp.data.forEach(element => {
@@ -129,11 +127,10 @@ export default function AddNewProject(){
 
 	const [firmsArr, setFirmArr] = useState([]);
 	const getFirms = async() => {
-		const resp = await axios.get(`${endpoint}/view/project/fnc_get_all_transport.php?transport`);
+		const resp = await axios.get(`${endpoint}/project/fnc_get_all_transport.php?transport`);
 		setFirmArr([]);
 		resp.data.forEach(element => {
 			setFirmArr(oldFirmArray => [...oldFirmArray, element]);
-			//console.log(firmsArr);
 		});
 	}
 
@@ -148,7 +145,7 @@ export default function AddNewProject(){
 	const [lastProjectNum, setLastProjectNum] = useState("");
 	const [projectNum, setProjectNum] = useState("");
 	const getLastProjectNum = () => {
-		axios.get(`${endpoint}/view/project/fnc_get_last_project_num.php?last_project`)
+		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
 				setLastProjectNum(response.data);
 				setProjectNum(parseInt(response.data) + 1);
@@ -199,23 +196,6 @@ export default function AddNewProject(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-
-		// console.log("1."+workID);
-		// console.log("2."+companyID);
-		// console.log("3."+projectNum);
-		// console.log("4."+formData.get("projectPriority"));
-		// console.log("5."+selectedEndDate);
-		// console.log("6."+selectedStartDate);
-		// console.log("7."+formData.get("projectArrivedBy"));
-		// console.log("8."+formData.get("projectReturnBy"));
-		// console.log("9."+formData.get("offerNr"));
-		// console.log("10."+formData.get("agreedPrice"));
-		// console.log("11."+formData.get("clientPO"));
-		// console.log("12."+formData.get("orderer"));
-		// console.log("13."+formData.get("ordererPhoneNr"));
-		// console.log("14."+formData.get("contractNr"));
-		// console.log("15."+formData.get("firstDefecting"));
-		// console.log("16."+formData.get("acceptedBy"));
 
 		if(projectNum && companyID && workID && formData.get("projectPriority") 
 			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
@@ -307,24 +287,6 @@ export default function AddNewProject(){
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-
-						<p>Klient: </p>
-						<Select
-							id="client"
-							value={companyID}
-							label="Klient"
-							onChange={handleChange}
-						>
-							{options.map((options, index) => (
-								<MenuItem
-									key={index}
-									value={options.id}
-									placeholder={options.name}
-								>
-									{options.name}
-								</MenuItem>
-							))}
-						</Select>
 
 						<DropDown
 						 name="Klient:" ID="client"
