@@ -1,9 +1,14 @@
 # CookedCode - Elektrimasinad OÜ CMMS programm
 
-## Eesmörgid ja lühikirjeldus
+> viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
 
-> lorem ipsum.....
+## Eesmärgid ja lühikirjeldus
 
+> lorem ipsum... 
+> 3-4 lauset, mida rakendus lahendab
+
+
+## 
 
 
 ---
