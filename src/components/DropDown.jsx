@@ -1,11 +1,11 @@
 import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 
-export default function DropDown({name, ID, value, label, onChange, options, heading="grid", size="normal", disableLabel=true}){
+export default function DropDown({name, ID, value, label, onChange, options, heading="grid", size="normal", disableLabel=true, margin="normal", padding="normal"}){
     console.log()
     return(
         <>
         <h4 style={{display: heading, padding: "0", margin: "0", marginBottom: "0.5rem"}}>{name}</h4>
-        <FormControl fullWidth InputLabelProps={{ shrink: true }}>
+        <FormControl fullWidth InputLabelProps={{ shrink: true }} size={size}>
             <InputLabel InputLabelProps={{ shrink: true }}>{ !disableLabel ? label : "" }</InputLabel>
             <Select
                 id={ID}
@@ -14,7 +14,8 @@ export default function DropDown({name, ID, value, label, onChange, options, hea
                 label={ !disableLabel ? label : "" }
                 MenuProps={{ disableScrollLock: true }}
                 InputLabelProps={{ shrink: true }}
-                size={size}
+                margin={margin}
+                padding={padding}
             >
                 {options.map((options, index) => (
                     <MenuItem
