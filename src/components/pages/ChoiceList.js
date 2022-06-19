@@ -14,6 +14,10 @@ import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
 import { useDispatch } from "react-redux";
 import { endpoint } from "../../endpoint";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
 
 const ChoiceList = () => {
   const dispatch = useDispatch();
@@ -92,6 +96,14 @@ const ChoiceList = () => {
       const [testing, setTesting]= useState("");
       const handleTestingChange = (e) =>{
         setTesting(e.target.value);
+      }
+      const [companyID, setCompanyID] = useState("");
+      const companyTypeIDChange = (e) =>{
+        setCompanyID(e.target.value);
+      }
+      const [companyName, setCompanyName] = useState("");
+      const companyNameChange = (e) =>{
+        setCompanyName(e.target.value);
       }
 
 
@@ -184,7 +196,7 @@ const ChoiceList = () => {
     getAllChoiceOptions();
   }, []);
     const getTransportOptions = async() =>{
-      const response = await axios.get(endpoint + '/view/choice/fnc_select_transport.php');
+      const response = await axios.get(endpoint + '/view/choice/fnc_select_transport.php?transport');
       console.log(response);
       setTransportCompanyOptions([]);
       response.data.forEach(element=>{
@@ -366,6 +378,61 @@ const ChoiceList = () => {
 		handleClose();
 
   }
+  const deleteTransport=()=>{
+    toDelete ={
+      transportID: transportCompany
+    }
+    axios.post(endpoint+"/view/choice/fnc_delete_transport.php", toDelete)
+		.then(function (response) {
+			console.log(response);
+			if(response.status === 200){
+				// dispatch(setSnackbar(true,"success","Transpordi firma edukalt kustutatud!"));
+			}
+		})
+		.catch(function (err) {
+			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+		});
+		handleTransportDeletionClose();
+  
+  }
+
+  const [transportDeletionOpen, setTransportDeletionOpen] = useState(false);
+  const handleTransportDeletionOpen= ()=>{
+    setTransportDeletionOpen(true);
+  }
+  const handleTransportDeletionClose = () => {
+    setTransportDeletionOpen(false);
+  };
+
+
+  const [transportAdditionOpen, setAdditionOpen] = useState(false);
+  const handleTransportAdditionOpen= ()=>{
+    setAdditionOpen(true);
+  }
+  const handleTransportAdditionClose = () => {
+    setAdditionOpen(false);
+  };
+  const handleTransportSubmit=(e)=>{
+    e.preventDefault();
+    console.log(companyID);
+    console.log(companyName);
+      const transportToSave = {
+        firmName: companyName,
+        firmType: companyID
+      }
+  
+      axios.post(endpoint+"/choice/fnc_add_transport.php", transportToSave)
+      .then(function (response) {
+        console.log(response);
+        if(response.status === 200){
+          // dispatch(setSnackbar(true,"success","Transpordi firma edukalt lisatud!"));
+        }
+      })
+      .catch(function (err) {
+        // dispatch(setSnackbar(true,"error","Lisamisel tekkis viga!"))
+      });
+      handleTransportAdditionClose();
+  }
 
   return (
     <>
@@ -381,6 +448,16 @@ const ChoiceList = () => {
                       onClick={handleClickOpen}
                       >
                       Lisa uus valik
+                  </Button>
+                </FormControl>
+                <FormControl sx={{minWidth: "9rem"}}>
+                  <Button
+                      type="button"
+                      variant="outlined"
+                      sx={{ my: 2 }}
+                      onClick={handleTransportAdditionOpen}
+                      >
+                      Lisa transport/tarnija
                   </Button>
                 </FormControl>
 
@@ -552,7 +629,7 @@ const ChoiceList = () => {
 
             <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
               <DropDown
-                name="Transpordi firma" ID="choiceTransport"
+                name="Transport/Tarnija" ID="choiceTransport"
                 value={transportCompany} label="Transpordi firma"
                 onChange={HandleTransportChange}
                 options={transportCompanyOptions}
@@ -562,7 +639,7 @@ const ChoiceList = () => {
                 variant="contained"
                 color="info"
                 sx={{my: 2}}
-                onClick={handleDeletionOpen}
+                onClick={handleTransportDeletionOpen}
                 >
                 Kustuta
 						  </Button>
@@ -806,6 +883,103 @@ const ChoiceList = () => {
                     </Button>
                   </FormControl>
 							</Dialog>
+              <Dialog
+              open={transportDeletionOpen}
+              onClose={handleTransportDeletionClose}
+              maxWidth="xs"
+               sx={{
+                  "& .MuiDialog-container": {
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }
+                }}
+                PaperProps={{
+                  sx: {
+                    m: 0,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    px: 4,
+                    pt: 1.5,
+                    pb: 2.3,
+                  }
+                }}
+							>
+								<DialogTitle>
+								  Kustuta transport/tarnija
+								</DialogTitle>
+                  <FormControl fullWidth>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleTransportDeletionClose}>
+                      Tühista
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      sx={{my: 2}}
+                      onClick={deleteTransport} autoFocus>
+                      Kustuta
+                    </Button>
+                  </FormControl>
+							</Dialog>
+              <Dialog
+        open={transportAdditionOpen}
+        onClose={handleTransportAdditionClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        >
+        <DialogTitle id="alert-dialog-title">
+        {"Lisa transpordifirma/tarnija"}
+        </DialogTitle>
+                <FormControl sc={{width: "100%"}}>
+                  <TextField
+                      required
+                      fullWidth
+                      id="transportFirmName"
+                      label="Firma nimi"
+                      name="transportFirmName"
+                      autoComplete="none"
+                      onChange={companyNameChange}
+                      type="text"
+                      margin="dense"
+                      size="small" />
+                  <FormLabel id="companyType">Tarnija või transpordifirma</FormLabel>
+                    <RadioGroup
+                      aria-labelledby="companyType"
+                      value={companyID}
+                      name="radio-buttons-group"
+                      onChange={companyTypeIDChange}
+                    >
+                      <FormControlLabel value="1" control={<Radio />} label="Transpordifirma" />
+                      <FormControlLabel value="2" control={<Radio />} label="Tarnija" />
+                    </RadioGroup>
+                </FormControl>
+                <FormControl fullWidth sx={{display: "flex", flexDirection: "row", justifyContent: "center", mt: 2}} >
+                        <Button
+                            variant="outlined"
+                            color="info"
+                             size="medium"
+                            onClick={handleTransportAdditionClose}
+                            sx={{mr: 1, width: "100%"}}
+
+                            >
+                            Tühista
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={handleTransportSubmit}
+                            size="medium"
+                            sx={{ml: 1, width: "100%"}}
+
+
+                            >
+                            Lisa
+                        </Button>
+                      </FormControl>
+        </Dialog>
         </section>
       </main>
     </>
