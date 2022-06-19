@@ -2,6 +2,8 @@
 ??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
 * Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias ja Martin Lukas
 
+??paar pilti programmist
+
 ## Eesmärgid ja lühikirjeldus
 lorem ipsum... Elektrimasinad OÜ
 3-4 lauset, mida rakendus lahendab
@@ -20,6 +22,7 @@ lorem ipsum... Elektrimasinad OÜ
 ?? Siia pilt kõikidest npm moodulitest
 
 ## Andmebaas
+[AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy)
 ??pilt
 ??src kood
 
@@ -36,7 +39,7 @@ lorem ipsum... Elektrimasinad OÜ
   4. Ava brauser:
   http://localhost:1234/
  
-  5. User:
+  5. Kasutaja:
   Andrus1:Andrus1  ||  1:1  ||  2:2
 
 > *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server*
