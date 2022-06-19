@@ -1,4 +1,4 @@
-# CookedCode, rühm 5 - CMMS programm
+# CookedCode, rühm 5 - CMMS rakendus
 
 > [Tallinna Ülikooli Digitehnoloogiate instituut](https://www.tlu.ee/dt) - Tarkvaraarenduse projekt  2022. a <br>
 > Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias, Martin Lukas
