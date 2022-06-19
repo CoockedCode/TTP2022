@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { FormControl, MenuItem, TextField, Button } from "@mui/material";
-import { Box, Select } from "@mui/material";
+import { FormControl, TextField, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import DropDown from "../DropDown";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
@@ -30,7 +30,6 @@ export default function AddNewProject(){
     const handleDeviceChange = (e) => {
         setDeviceID(e.target.value);
     }
-    const [typeOptions, setTypeOptions] = useState([]);
 
     // võimsus
     const [powerID, setPowerID] = useState("");
@@ -347,7 +346,7 @@ export default function AddNewProject(){
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <FormControl sx={{width: "100%"}}>
                         <DropDown
-                         name="Seadme liik" ID="deviceType" 
+                         name="Seadme liik" ID="deviceType"
                          value={deviceID} label="Seadme liik"
                          onChange={handleDeviceChange}
                          options={typeOptions}

@@ -45,7 +45,7 @@ export default function AddNewProject(){
 	// const [errorArrivedTransport, setErrorArrivedTransport] = useState(false);
 	// //7. tagastus transport error
 	// const [errorReturnTransport, setErrorReturnTransport] = useState(false);
-	
+
 
 	// useEffect(() => {
 	// 	if(projectNumber){setErrorProjectNumber(false);}
@@ -112,7 +112,7 @@ export default function AddNewProject(){
 	}
 	const [workOptions, setWorkOptions] = useState([]);
 	const getWorkOptions = async () => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_work_types.php?work`);
 		console.log(resp);
 		setWorkOptions([]);
 		resp.data.forEach(element => {
@@ -129,7 +129,7 @@ export default function AddNewProject(){
 
 	const [firmsArr, setFirmArr] = useState([]);
 	const getFirms = async() => {
-		const resp = await axios.get(`${endpoint}/project/fnc_get_all_transport.php?transport`);
+		const resp = await axios.get(`${endpoint}/view/project/fnc_get_all_transport.php?transport`);
 		setFirmArr([]);
 		resp.data.forEach(element => {
 			setFirmArr(oldFirmArray => [...oldFirmArray, element]);
@@ -148,7 +148,7 @@ export default function AddNewProject(){
 	const [lastProjectNum, setLastProjectNum] = useState("");
 	const [projectNum, setProjectNum] = useState("");
 	const getLastProjectNum = () => {
-		axios.get(`${endpoint}/project/fnc_get_last_project_num.php?last_project`)
+		axios.get(`${endpoint}/view/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
 				setLastProjectNum(response.data);
 				setProjectNum(parseInt(response.data) + 1);
@@ -161,7 +161,7 @@ export default function AddNewProject(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/project/fnc_save_project.php`, dataToSave)
+		axios.post(`${endpoint}/view/project/fnc_save_project.php`, dataToSave)
 		.then(function(response){
 			console.log(dataToSave)
 			console.log(response);
@@ -308,6 +308,24 @@ export default function AddNewProject(){
 							/>
 						</LocalizationProvider>
 
+						<p>Klient: </p>
+						<Select
+							id="client"
+							value={companyID}
+							label="Klient"
+							onChange={handleChange}
+						>
+							{options.map((options, index) => (
+								<MenuItem
+									key={index}
+									value={options.id}
+									placeholder={options.name}
+								>
+									{options.name}
+								</MenuItem>
+							))}
+						</Select>
+
 						<DropDown
 						 name="Klient:" ID="client"
 						 value={companyID} label="Klient"
@@ -348,7 +366,7 @@ export default function AddNewProject(){
 								renderInput={(params) => <TextField {...params} />}
 							/>
 						</LocalizationProvider>
-						
+
 						<div className='transport-label'>
 							<h4>Transpordi info</h4>
 							<p>Saabunud:</p>
@@ -495,7 +513,7 @@ export default function AddNewProject(){
 							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
 							<FormControlLabel value="0" control={<Radio />} label="Mitte teostatav" />
 						</RadioGroup>
-						
+
 						<TextField
 							// error={!!errorProjectNumber}
 							// value={parseInt(projectNum) + 1}

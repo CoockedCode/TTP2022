@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom";
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 const ClientList = () => {
-
   //navigeermine
   const navigate = useNavigate();
-
   return (
     <>
       <main>
