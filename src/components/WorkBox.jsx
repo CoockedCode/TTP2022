@@ -1,4 +1,3 @@
-let userName = "Andrus Pikk-Juhe"
 import 'reactjs-popup/dist/index.css';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
@@ -26,9 +25,9 @@ export default function WorkBox(props) {
 	let a = JSON.parse(JSON.stringify(props))
 	// const ListItems = a.workName.map((e) => {
 	// 	//console.log(typeof(e))
-	// return(		
-	// 	<div className="work-box" style={{backgroundColor: e.color}}>{e.work}</div>		
-	// )		
+	// return(
+	// 	<div className="work-box" style={{backgroundColor: e.color}}>{e.work}</div>
+	// )
 	// });
 	const ListItems = a.workName.map((e) => {
 		//console.log(a.workName)
@@ -42,16 +41,16 @@ export default function WorkBox(props) {
 		}else{
 			workColor = "white";
 		}
-		
-	//popup modal		
+
+	//popup modal
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	
-	
+
+
 	//snackbar
 	const dispatch = useDispatch();
-	
+
 	//tööga alustamine, lõpetamine
 	const handleWorkOpen = () => {
 		dispatch(setSnackbar(true,"success","Edukalt töö alustatud!"));
@@ -61,17 +60,17 @@ export default function WorkBox(props) {
 		dispatch(setSnackbar(true,"success","Edukalt töö lõpetatud!"));
 		setOpen(false);
 	};
-	
+
 
 	return(
 		<div className='work-box-wrap' key={e.pos}>
 			{/* <ButtonBase ><div onClick={handleOpen} className="work-box" style={{backgroundColor: workColor, color: 'black'}}>{e.work}</div></ButtonBase> */}
 			<ButtonBase onClick={handleOpen} className="work-box" style={{backgroundColor: workColor, color: 'black'}}>{e.work}</ButtonBase>
-			
+
 			<Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
 				<Box sx={style}>
 					<div id="popup-modal-inline">
-						<h3>Tööga alustamine: </h3>				
+						<h3>Tööga alustamine: </h3>
 						<Button id='start-work' variant="contained" sx={{ml: 1}} onClick={handleWorkOpen} >Alusta</Button>
 					</div>
 					<hr/>
@@ -79,7 +78,7 @@ export default function WorkBox(props) {
 						<h3>Tööga lõpetamine: </h3>
 						<Button id='stop-work' variant="contained" sx={{ml: 1}} onClick={handleWorkClose} >Lõpeta</Button>
 					</div>
-							
+
 					{/* <hr/>
 					<div style={{paddingLeft: "7.5rem", margin: "0rem 1rem 0.5rem 0rem"}}>
 						<Button id='save-button' variant="contained" type="submit">Salvesta</Button>
@@ -87,17 +86,9 @@ export default function WorkBox(props) {
 				</Box>
 			</Modal>
 		</div>
-		
-	)		
+
+	)
 	});
-	
+
 	return (<>{ListItems}</>);
 }
-
-
-
-
-
-
-
-

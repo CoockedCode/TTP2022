@@ -5,11 +5,11 @@ export default function AddWorker(){
 		<>
 		<main>
 			<section>
-				 
+
 				<div id="header-wrapper">
 					<h3>Lisa uus Töötaja:</h3>
 				</div>
-				
+
 				<div id="content-wrapper">
 					<label htmlFor="1">Töötaja nimi: </label>
 						<input type="text" />
@@ -25,7 +25,7 @@ export default function AddWorker(){
 						<br />
 					<button>Lisa töötaja</button>
 				</div>
-				
+
 			</section>
 		</main>
 		</>

@@ -5,18 +5,18 @@
 
 class Protect{
 
-    private $return_data = null;
-    public function get_data(){return $this->return_data;}
+    private static $return_data = null;
+    public static function get_data(){return self::$return_data;}
 
-    public function query($table, $id){$this->query_in_edit($table, $id);}
-    public function set($table, $id, $set_in_edit){$this->set_in_edit($table, $id, $set_in_edit);}
+    public static function query($table, $id){self::query_in_edit($table, $id);}
+    public static function set($table, $id, $set_in_edit){self::set_in_edit($table, $id, $set_in_edit);}
 
-    private function query_in_edit($table, $id): void{
+    private static function query_in_edit($table, $id): void{
         //	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
-        $this->return_data = null;
+        self::$return_data = null;
         $list_html = array();
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
@@ -37,21 +37,21 @@ class Protect{
 		$conn->close();
 
         if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("notice"=>"Keegi juba muudab!", "type"=>"error"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
-        $this->return_data = json_encode($list_html);
+        self::$return_data = json_encode($list_html);
     }
 
-    private function set_in_edit($table, $id, $set_in_edit): void{
+    private static function set_in_edit($table, $id, $set_in_edit): void{
 
         //	TODO: see tööle panna..
         // session_start();
         // if ($_SESSION["status"] != 'true') {exit;}
 
-        $this->return_data = null;
+        self::$return_data = null;
         $list_html = array();
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
@@ -72,15 +72,12 @@ class Protect{
         $stmt->close();
 		$conn->close();
         if(!empty($list_html)){
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}else{
             array_push($list_html, array("notice"=>"Kõik katki!", "type"=>"error"));
-            $this->return_data = json_encode($list_html);
+            self::$return_data = json_encode($list_html);
 		}
-        $this->return_data = json_encode($list_html);
-
-
-
+        self::$return_data = json_encode($list_html);
     }
 
 }
