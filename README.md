@@ -27,7 +27,9 @@ lorem ipsum... Elektrimasinad OÜ
 
 ## Andmebaas
 [AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy)
+
 [AB kood](https://github.com/CoockedCode/TTP2022/tree/main/db)
+
 ![AB struktuurist pilt](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/Elektrimasinad_O%C3%9C_db.png)
 ## Kasutus
 
