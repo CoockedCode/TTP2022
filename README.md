@@ -23,12 +23,11 @@ lorem ipsum... Elektrimasinad OÜ
 
 ## Andmebaas
 [AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy)
-??pilt
-??src kood
-
+[AB kood](https://github.com/CoockedCode/TTP2022/tree/main/db)
+![AB struktuurist pilt](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/Elektrimasinad_O%C3%9C_db.png)
 ## Kasutus
 
-  1. klooni repo ja installi Node.js (LTS)
+  1. klooni repo ja installi [Node.js (LTS)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-installer-to-install-nodejs-and-npm)
   
    2. repo kaustas ava cmd/bash: 
   
@@ -42,5 +41,4 @@ lorem ipsum... Elektrimasinad OÜ
   5. Kasutaja:
   Andrus1:Andrus1  ||  1:1  ||  2:2
 
-> *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server*
-
+> *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server. Samuti url endpont-id koodis ümber muuta.*
