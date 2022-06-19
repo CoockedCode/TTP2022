@@ -51,4 +51,4 @@ lorem ipsum... Elektrimasinad OÜ
   5. Kasutaja:
   Andrus1:Andrus1  ||  1:1  ||  2:2
 
-> *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server. Samuti url endpont-id koodis ümber muuta.*
+> *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server. Samuti url endpont enpoint.js-s ümber muuta.*
