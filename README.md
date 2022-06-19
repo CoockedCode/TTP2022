@@ -1,16 +1,18 @@
-# CookedCode - CMMS programm
+# CookedCode, rühm 5 - CMMS programm
 
 > [Tallinna Ülikooli Digitehnoloogiate instituut](https://www.tlu.ee/dt) - Tarkvaraarenduse projekt  2022. a <br>
 > Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias, Martin Lukas
 
-Elektrimasinad OÜ põhiprotsessi digitaliseerimine
+## Elektrimasinad OÜ põhiprotsessi digitaliseerimine
+
+Projekt on loodud Tarkvaraarenduse projekti praktika raames. Projekti telliaks oli Tartu firma Elektrimasinad OÜ. 
 
 ![Avalehe kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_1.png)
 ![Kasutaja sätete kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_2.png)
 
 ## Eesmärgid ja lühikirjeldus
-lorem ipsum... Elektrimasinad OÜ
-3-4 lauset, mida rakendus lahendab
+
+Rakendus digitaliseerib firma prjektide haldust. Programm, mida me loome, on CMMS (computerized maintenance management system) ehk tööhaldussüsteemi tüüpi rakendus. Firmal suureks probleemiks oli andmete duplikatsioon, infot hoiti erinevates exeli ja wordi failides ning mingit ühtset süsteem polnud. Samuti pidi kõike käsitsi sisestama. Programm tööb kõik info sisestuse ühte kohta kokku ning seega ei teki info duplikatsioon ja töö laugeb lihtsamalt.
 
 ## Kasutatud tehnoloogiad
 
