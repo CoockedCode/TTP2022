@@ -5,7 +5,7 @@
 
 ## Elektrimasinad OÜ põhiprotsessi digitaliseerimine
 
-Projekt on loodud Tarkvaraarenduse projekti praktika raames. Projekti telliaks oli Tartu firma Elektrimasinad OÜ. 
+Projekt on loodud Tarkvaraarenduse projekti praktika raames. Projekti tellijaks oli ettevõte Elektrimasinad OÜ. 
 
 ![Avalehe kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_1.png)
 ![Kasutaja sätete kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_2.png)
@@ -18,7 +18,7 @@ Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome on CMM
 
 ## Kasutatud tehnoloogiad
 
-> Frontend React.js-iga, välimuse jaoks kasutasime MUI. <br>
+> Frontend ReactJS, välimuse jaoks MUI raamistik. <br>
 > Backend-i tegime vanilla PHP-ga. <br>
 > AB jaoks kasutasime MariaDB.
 
