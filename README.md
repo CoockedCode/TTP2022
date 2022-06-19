@@ -16,8 +16,8 @@ Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome, on CM
 
 ## Kasutatud tehnoloogiad
 
-> Frontend React.js-iga, välimuse jaoks kasutasime MUI. 
-> Backend-i tegime vanilla PHP-ga. 
+> Frontend React.js-iga, välimuse jaoks kasutasime MUI. <br>
+> Backend-i tegime vanilla PHP-ga. <br>
 > AB jaoks kasutasime MariaDB.
 
 | Tehnoloogia | Versioon |
