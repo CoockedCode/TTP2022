@@ -1,7 +1,8 @@
 # CookedCode - CMMS programm
 > Tallinna Ülikooli Digitehnoloogiate instituut - Tarkvaraarenduse projekt  2022. a
+
 > Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias, Martin Lukas
-> 
+
 ??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
 
 ![Avalehe kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_1.png)
