@@ -19,6 +19,7 @@ import User from "./components/pages/User";
 import DigiDokk from "./components/pages/DigiDokk";
 import ChoiceList from "./components/pages/ChoiceList";
 import WorkHours from "./components/pages/WorkHours";
+import WorkStages from "./components/WorkStages";
 
 const App = () => {
 
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="/kasutaja-satted" element={<User />} />
             <Route path="/digidokk" element={<DigiDokk />} />
             <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
+            <Route path="/toonimetused" element={<WorkStages />} />
           </Route>
         </Routes>
       <SnackBar />
