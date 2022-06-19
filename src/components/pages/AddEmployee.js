@@ -8,10 +8,12 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 import FormControl from '@mui/material/FormControl';
 import DropDown from '../DropDown';
 
-const endpoint = "https://elektrimasinad.digifi.eu/api";
-
 export default function AddWorker(){
+	const endpoint = "https://elektrimasinad.digifi.eu/api";
+
+	//snackbar
 	const dispatch = useDispatch();
+
 	//1. Töötaja eesnimi
 	const [valueEmpFname, setValueEmpFname] = useState();
 	const [errorEmpFname, setErrorEmpFname] = useState(false);
@@ -42,7 +44,7 @@ export default function AddWorker(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + "/view/employee/fnc_add_employee.php", dataToSave)
+		axios.post(endpoint+"/view/employee/fnc_add_employee.php", dataToSave)
 		.then(function (response) {
 			console.log(response.data);
 			if(response.status === 200){
@@ -67,7 +69,6 @@ export default function AddWorker(){
 		response.data.forEach(element=>{
 			setRoleNameOptions(oldArray=>[...oldArray, element]);
 		})
-		// console.log(roleNameOptions)
 	}
 
 	useEffect(() => {
@@ -78,7 +79,9 @@ export default function AddWorker(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
+		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber")){
+			//Kasutajanime loomine ees- ja perekonnanime järgi
 			const employeeFname = formData.get("employeeFname");
 			const employeeSname =  formData.get("employeeSname");
 			const employeeUsername = employeeFname.concat(employeeSname);
@@ -90,13 +93,16 @@ export default function AddWorker(){
 				employeeSname: formData.get("employeeSname"),
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
+				// employeeActive: formData.get("employeeActive"),
 				employeeRoleID: roleName,
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
 
 			};
+
 			saveData(dataToSave);
 			console.log(dataToSave);
+
 		} else {
 			console.log("viga")
 			if(!formData.get("employeeFname")){
@@ -119,6 +125,11 @@ export default function AddWorker(){
 			}else{
 				setValueEmpNumber(formData.get("employeeNumber"));
 			}
+			// if(!formData.get("employeeActive")){
+			// 	setErrorEmpActive(true);
+			// }else{
+			// 	setValueEmpActive(formData.get("employeeActive"));
+			// }
 			if(!roleName){
 				setErrorEmpRole(true);
 			}else{
@@ -126,11 +137,11 @@ export default function AddWorker(){
 			}
 		}
 	}
-
 	return(
 		<>
 		<main>
 			<section>
+
 				<div id="header-wrapper">
 					<h3>Lisa uus Töötaja:</h3>
 				</div>
@@ -198,16 +209,22 @@ export default function AddWorker(){
 							options={roleNameOptions}
 							name=""
 						/>
+
+						{/*< DropDown({name, ID, value, label, onChange, options}) />*/}
+
 						<Button
 							type="submit"
 							variant="contained"
 							sx={{ mt: "0.3rem", bgcolor: 'main', width: 'auto' }}
 							margin="dense"
+							//onClick={handleSubmit}
 							>
 							Lisa töötaja
 						</Button>
+						{/* <FormHelperText>{helperText}</FormHelperText> */}
 					</FormControl>
 				</Box>
+
 			</section>
 		</main>
 		</>
