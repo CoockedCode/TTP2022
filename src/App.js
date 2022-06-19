@@ -24,6 +24,7 @@ import WorkStages from "./components/WorkStages";
 const App = () => {
 
   const [open, setOpen] = useState(location.openSnackbar);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -37,7 +38,6 @@ const App = () => {
       return <NavBar />
     }
   };
-
 
   return (
     <>
