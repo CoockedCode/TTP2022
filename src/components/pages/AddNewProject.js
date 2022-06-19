@@ -1,20 +1,18 @@
-import { FormControl, FormControlLabel, FormHelperText, InputLabel, RadioGroup, Select } from '@mui/material';
+import { FormControl, FormControlLabel, RadioGroup } from '@mui/material';
+import DropDown from "../DropDown";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { List, ListItem, ListItemText } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import * as dayjs from 'dayjs';
 import et from 'dayjs/locale/et';
-import { Menu, MenuItem } from '@mui/material';
 import { Radio, Box } from '@mui/material';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 	// TODO
-	// projekti nr sisestus korda teha (hektel fikseeritud eelmine projekti nr + 1)
 	// projekti nr edasiandmine seadme tehnilise info sisestusse
 	// uued lahtrid error control
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
@@ -25,7 +23,8 @@ import axios from 'axios';
 	// error handling save_project axioses
 	// vormi lõppu vaata mirost milline väljastus on
 
-import { endpoint } from "../../endpoint";
+
+const endpoint = "https://elektrimasinad.digifi.eu/api/view";
 
 export default function AddNewProject(){
 	//snackbar
@@ -98,17 +97,13 @@ export default function AddNewProject(){
 	}
 	const [options, setOptions] = useState([]);
 	const getOptions = async () => {
-		const resp = await axios.get(`${endpoint}/view/client/fnc_get_clients_name_id.php?client`);
+		const resp = await axios.get(`${endpoint}/project/fnc_get_clients_name_id.php?client`);
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element]);
-			//console.log(options);
+			console.log(options);
 		});
 	};
-
-	useEffect(() => {
-		getOptions();
-  	}, []);
 
 	// töö liigi dropdown
 	const [workID, setWorkID] = useState("");
@@ -124,10 +119,6 @@ export default function AddNewProject(){
 			setWorkOptions(oldArray => [...oldArray, element]);
 		});
 	};
-
-	useEffect(() => {
-		getWorkOptions();
-	}, []);
 
 	// transpordifirma dropdown
 	const [selectedArrivalFirm, setSelectedArrivalFirm] = useState("");
@@ -148,21 +139,25 @@ export default function AddNewProject(){
 
 	useEffect(() => {
 		getFirms();
+		getOptions();
+		getWorkOptions();
+		getLastProjectNum();
 	}, []);
 
 	// viimase projekti nr
 	const [lastProjectNum, setLastProjectNum] = useState("");
+	const [projectNum, setProjectNum] = useState("");
 	const getLastProjectNum = () => {
 		axios.get(`${endpoint}/view/project/fnc_get_last_project_num.php?last_project`)
 			.then(function(response) {
-				// console.log(response.data);
 				setLastProjectNum(response.data);
+				setProjectNum(parseInt(response.data) + 1);
 			})
 	}
 
-	useEffect(() => {
-		getLastProjectNum();
-	});
+	const handleProjectNumChange = (e) => {
+		setProjectNum(e.target.value);
+	}
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
@@ -192,23 +187,49 @@ export default function AddNewProject(){
 		setStartDate(newStartDate);
 	}
 
+	// defekteerimine - teostatav projekt avab seadme tehnilise info kuva
+	// navigeerimine
+	const navigate = useNavigate();
+	const handleDefectingClick = (e) => {
+		if(e.target.value == 1){
+			navigate("/seadme-tehniline-info", { state: {nr: projectNum} });
+		}
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if(formData.get("projectId") && companyID && formData.get("workType") && formData.get("projectPriority")
-			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy")
-			&& formData.get("projectReturnBy") && formData.get("projectInfo") && formData.get("offerNr")
-			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer")
-			&& formData.get("ordererPhoneNR") && formData.get("contractNr") && formData.get("firstDefecting")
+		// console.log("1."+workID);
+		// console.log("2."+companyID);
+		// console.log("3."+projectNum);
+		// console.log("4."+formData.get("projectPriority"));
+		// console.log("5."+selectedEndDate);
+		// console.log("6."+selectedStartDate);
+		// console.log("7."+formData.get("projectArrivedBy"));
+		// console.log("8."+formData.get("projectReturnBy"));
+		// console.log("9."+formData.get("offerNr"));
+		// console.log("10."+formData.get("agreedPrice"));
+		// console.log("11."+formData.get("clientPO"));
+		// console.log("12."+formData.get("orderer"));
+		// console.log("13."+formData.get("ordererPhoneNr"));
+		// console.log("14."+formData.get("contractNr"));
+		// console.log("15."+formData.get("firstDefecting"));
+		// console.log("16."+formData.get("acceptedBy"));
+
+		if(projectNum && companyID && workID && formData.get("projectPriority") 
+			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
+			&& formData.get("projectReturnBy") && formData.get("offerNr")
+			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer") 
+			&& formData.get("ordererPhoneNr") && formData.get("contractNr") && formData.get("firstDefecting")
 			&& formData.get("acceptedBy")){
 			console.log("väljad täidetud")
 			// json objekti loomine
 			const dataToSave = {
-				projectId: formData.get("projectId"),
+				projectId: projectNum,
 				//projectName: formData.get("projectName"),
 				client: companyID,
-				workType: formData.get("workType"),
+				workType: workID,
 				//machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				plannedEndDate: `${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`,
@@ -227,7 +248,7 @@ export default function AddNewProject(){
 				acceptedBy: formData.get("acceptedBy"),
 				additionalInfo: formData.get("projectInfo")
 			};
-			//console.log(dataToSave);
+			console.log(dataToSave);
 			saveData(dataToSave);
 		} else {
 			// if(!formData.get("projectId")){
@@ -259,8 +280,8 @@ export default function AddNewProject(){
 					<FormControl sx={{width: "100%"}} >
 						<TextField
 							// error={formValues.nr.error && formValues.nr.errorMessage}
-							value={parseInt(lastProjectNum) + 1}
-
+							value={projectNum}
+							onChange={handleProjectNumChange}
 							required
 							autoFocus
 							id="projectId"
@@ -271,19 +292,6 @@ export default function AddNewProject(){
 							margin="dense"
 							size="small"
 							/>
-
-						{/* <TextField
-							required
-							error={!!errorProjectName}
-							autoFocus
-							id="projectName"
-							label="Projekti nimi"
-							name="projectName"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/> */}
 
 						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
 							<DatePicker
@@ -318,34 +326,19 @@ export default function AddNewProject(){
 							))}
 						</Select>
 
-						{/* <TextField
-							required
-							error={!!errorMachineType}
-							id="projectMachineType"
-							label="Masina tüüp"
-							name="projectMachineType"
-							autoComplete="none"
-							type="text"
-							margin="dense"
-							size="small"
-							/> */}
-						<p>Töö liik: </p>
-						<Select
-							id="workType"
-							value={workID}
-							label="Töö liik"
-							onChange={handleWorkChange}
-						>
-							{workOptions.map((workOptions, index) => (
-								<MenuItem
-									key={index}
-									value={workOptions.id}
-									placeholder={workOptions.name}
-								>
-									{workOptions.name}
-								</MenuItem>
-							))}
-						</Select>
+						<DropDown
+						 name="Klient:" ID="client"
+						 value={companyID} label="Klient"
+						 onChange={handleChange}
+						 options={options}
+						/>
+
+						<DropDown
+						 name="Töö liik:" ID="workType"
+						 value={workID} label="Töö liik"
+						 onChange={handleWorkChange}
+						 options={workOptions}
+						/>
 
 						<RadioGroup
 							required
@@ -390,24 +383,12 @@ export default function AddNewProject(){
 							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
 						</RadioGroup>
 
-						{/* <InputLabel id="transport-firm-label">Vali transpordifirma ↓</InputLabel> */}
-						<Select
-							// labelId="transport-firm-label"
-							label="Vali transpordifirma ↓"
-							id="transportArrivalFirmId"
-							value={selectedArrivalFirm}
-							onChange={(e) => selectArrivalFirmHandler(e.target.value)}
-						>
-							{firmsArr.map((firmsArr, index) => (
-								<MenuItem
-									key={index}
-									value={firmsArr.id}
-									placeholder={firmsArr.name}
-								>
-									{firmsArr.name}
-								</MenuItem>
-							))}
-						</Select>
+						<DropDown
+						 name="Vali transpordifirma ↓" ID="transportArrivalFirmId"
+						 value={selectedArrivalFirm} label="Vali transpordifirma ↓"
+						 onChange={(e) => selectArrivalFirmHandler(e.target.value)}
+						 options={firmsArr}
+						/>
 
 						<p>Tagastus:</p>
 						<RadioGroup
@@ -422,30 +403,19 @@ export default function AddNewProject(){
 							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
 						</RadioGroup>
 
-						<Select
-							// labelId="transport-firm-label"
-							label="Vali transpordifirma ↓"
-							id="transportReturnFirmId"
-							value={selectedReturnFirm}
-							onChange={(e) => selectReturnFirmHandler(e.target.value)}
-						>
-							{firmsArr.map((firmsArr, index) => (
-								<MenuItem
-									key={index}
-									value={firmsArr.id}
-									placeholder={firmsArr.name}
-								>
-									{firmsArr.name}
-								</MenuItem>
-							))}
-						</Select>
+						<DropDown
+						 name="Vali transpordifirma ↓" ID="transportReturnFirmId"
+						 value={selectedReturnFirm} label="Vali transpordifirma ↓"
+						 onChange={(e) => selectReturnFirmHandler(e.target.value)}
+						 options={firmsArr}
+						/>
 
 						<div className='bill-label'>
 							<h4>Arve info</h4>
 						</div>
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="offerNr"
@@ -459,7 +429,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="agreedPrice"
@@ -473,7 +443,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="clientPO"
@@ -487,7 +457,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="orderer"
@@ -501,7 +471,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="ordererPhoneNr"
@@ -515,7 +485,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="contractNr"
@@ -537,7 +507,7 @@ export default function AddNewProject(){
 							id='firstDefecting'
 							label="Esmase defekteerimise info"
 							name='firstDefecting'
-
+							onClick={handleDefectingClick}
 							row
 						>
 							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
@@ -546,7 +516,7 @@ export default function AddNewProject(){
 
 						<TextField
 							// error={!!errorProjectNumber}
-							// value={parseInt(lastProjectNum) + 1}
+							// value={parseInt(projectNum) + 1}
 							required
 							autoFocus
 							id="acceptedBy"
