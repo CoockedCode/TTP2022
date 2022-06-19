@@ -3,10 +3,9 @@
     require_once("../../config_db.php");
     require_once("../../config_session.php");
 
-    //if(isset($_GET["client"]) and !empty($_GET["client"])){
-    get_client_info();
-    $deltaIND=0;
-    //}
+    if(isset($_GET["client"])){
+        get_client_info();
+    }
 
     function get_client_info(){
         $client_array = array();

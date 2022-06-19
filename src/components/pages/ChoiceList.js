@@ -123,7 +123,7 @@ const ChoiceList = () => {
 
 
   const getAllChoiceOptions = async() => {
-    const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php');
+    const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php?choices');
     setTypeOptions([]);
     setPowerOptions([]);
     setManufacturerOptions([]);
@@ -211,7 +211,7 @@ const ChoiceList = () => {
 
     const [choiceOptions, setChoiceOptions] = useState([]);
     const getChoiceOptions = async() => {
-        const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php');
+        const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php?choice');
         setChoiceOptions([]);
         response.data.forEach(element => {
             setChoiceOptions(oldArray => [...oldArray, element]);

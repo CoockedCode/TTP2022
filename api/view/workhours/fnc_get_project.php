@@ -2,9 +2,9 @@
     require_once("../../config_header.php");
     require_once("../../config_db.php");
     require_once("../../config_session.php");
-
-    get_project();
-
+    if(isset($_GET["project"])){
+        get_project();
+    }
     function get_project(){
         $project_array=array();
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
