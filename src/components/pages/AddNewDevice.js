@@ -4,8 +4,7 @@ import { FormControl, MenuItem } from "@mui/material";
 import { Box, Select } from "@mui/material";
 import DropDown from "../DropDown";
 import axios from "axios";
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function AddNewProject(){
 

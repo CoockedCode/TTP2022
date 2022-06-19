@@ -2,22 +2,21 @@ import { FormControl } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+//import { Box } from '@mui/material';
 import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+//import DialogActions from '@mui/material/DialogActions';
+//import DialogContent from '@mui/material/DialogContent';
+//import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FormControl } from '@mui/material';;
 import "../../styles/pages/Home.css";
 import DropDown from "../DropDown";
 import { useDispatch } from "react-redux";
+import { endpoint } from "../../endpoint";
 
 const ChoiceList = () => {
   const dispatch = useDispatch();
-
-  const endpoint = "https://elektrimasinad.digifi.eu/api";
       // seadme liik
       const [deviceID, setDeviceID] = useState("");
       const handleDeviceChange = (e) => {

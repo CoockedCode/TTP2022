@@ -12,9 +12,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import et from 'dayjs/locale/et';
 import { FormControl } from '@mui/material';
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
-
+import { endpoint } from "../../endpoint";
 export default function WorkHours(){
 	const dispatch = useDispatch();
 	const date=new Date();

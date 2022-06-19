@@ -1,6 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { FormControlLabel, Checkbox } from "@mui/material/";
+//import { FormControlLabel, Checkbox } from "@mui/material/";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -11,8 +11,7 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function SignIn() {
   //snackbar/usrSession

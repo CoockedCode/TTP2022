@@ -3,8 +3,7 @@ import Checkbox from '@mui/material/Checkbox';
 import {FormControlLabel} from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 const DigiDokk = () => {
 

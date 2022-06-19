@@ -25,8 +25,7 @@ import axios from 'axios';
 	// error handling save_project axioses
 	// vormi lõppu vaata mirost milline väljastus on
 
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function AddNewProject(){
 	//snackbar
