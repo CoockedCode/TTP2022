@@ -12,7 +12,7 @@ Projekt on loodud Tarkvaraarenduse projekti praktika raames. Projekti telliaks o
 
 ## Eesmärgid ja lühikirjeldus
 
-Rakendus digitaliseerib firma prjektide haldust. Programm, mida me loome, on CMMS (computerized maintenance management system) ehk tööhaldussüsteemi tüüpi rakendus. Firmal suureks probleemiks oli andmete duplikatsioon, infot hoiti erinevates exeli ja wordi failides ning mingit ühtset süsteem polnud. Samuti pidi kõike käsitsi sisestama. Programm tööb kõik info sisestuse ühte kohta kokku ning seega ei teki info duplikatsioon ja töö laugeb lihtsamalt.
+Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome, on CMMS (computerized maintenance management system) ehk tööhaldussüsteemi tüüpi rakendus. Firmal suureks probleemiks oli andmete duplikatsioon, infot hoiti erinevates exeli ja wordi failides ning mingit ühtset süsteem polnud, samuti pidi kõike käsitsi sisestama. Programm toob kõik info sisestuse ühte kohta kokku ning seega ei teki info duplikatsioon ja tänu sellele töö laugeb lihtsamalt.
 
 ## Kasutatud tehnoloogiad
 
