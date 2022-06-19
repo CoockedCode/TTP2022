@@ -51,11 +51,11 @@ export default function AddClient(){
 	}, [valueClientName, valueRegNum, valueClientAddr, valuePostInd, valueContPers, valueEmail, valuePhone, valueInvoiceEm])
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/client/fnc_add_client.php", dataToSave)
+		axios.post(endpoint+"/view/client/fnc_add_client.php", dataToSave)
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
-				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+				dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 			}
 		})
 		.catch(function (err) {
