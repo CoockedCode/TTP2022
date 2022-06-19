@@ -1,43 +1,43 @@
-# CookedCode - Elektrimasinad OÜ CMMS programm
-
-> viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
+# CookedCode - CMMS programm
+??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
+* Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias ja Martin Lukas
 
 ## Eesmärgid ja lühikirjeldus
+lorem ipsum... Elektrimasinad OÜ
+3-4 lauset, mida rakendus lahendab
 
-> lorem ipsum... 
-> 3-4 lauset, mida rakendus lahendab
+## Kasutatud tehnoloogiad
+| Tehnoloogia | Versioon |
+|--|--|
+| PHP | 7.4 (LTS) |
+| Parcel.js |  |
+| Node.js |  |
+| React |  |
+| MUI |  |
+| MariaDB |  |
+|  |  |
 
+?? Siia pilt kõikidest npm moodulitest
 
-## 
+## Andmebaas
+??pilt
+??src kood
 
+## Kasutus
 
----
-
-# TTP2022
-
-  1. DL repo
+  1. klooni repo ja installi Node.js (LTS)
   
-  2. ava kaust
+   2. repo kaustas ava cmd/bash: 
   
-  3.a cmd: 
-
           npm install
-          
           ...
-
           npm start
-
-  3.b Vahest on vaja see lisada juurde:
-
-          node_modules\@parcel\transformer-css
-          Ja seal pakage.json vaja lisada (enne gitHead-i):
-          
-          "@parcel/transformer-css": {
-              "cssModules": true
-            },
 
   4. Ava brauser:
   http://localhost:1234/
  
   5. User:
   Andrus1:Andrus1  ||  1:1  ||  2:2
+
+> *NB! backend töötab elmas serverite peal, vaja katsetamiseks luua lokaalne php ja sql server*
+
