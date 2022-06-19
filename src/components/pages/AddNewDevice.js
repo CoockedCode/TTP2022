@@ -30,6 +30,7 @@ export default function AddNewProject(){
     const handleDeviceChange = (e) => {
         setDeviceID(e.target.value);
     }
+    const [typeOptions, setTypeOptions] = useState([]);
 
     // võimsus
     const [powerID, setPowerID] = useState("");
