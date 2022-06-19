@@ -1,0 +1,184 @@
+/* läbivad klassid */
+
+.leht{width: 700; padding: 50;}
+
+.pdf {align-items: center; justify-content: center; display: flex; margin-top: 25;}
+
+.tg  {border-collapse: collapse; border-spacing:0; margin: 0; padding: 0;}
+
+/* dokumendi päis */
+
+.tr-titlebar{height: 70; max-height: 70; margin: 0; padding: 0;}
+
+.tg .tg-title{border-width: 0; text-align: center; color:#000000; font-weight: bolder; font-size: 16; padding: 0; vertical-align: bottom;}
+
+.elektrimasinad-logo{height: 40;}
+
+.tg .tg-grundfos{border-width: 0; padding: 0; margin: 0; justify-content: end; vertical-align: bottom; justify-content: end;}
+
+.grundfos-logo{height: 55px; width: auto;}
+.tg .tg-prio{border-width: 0; vertical-align: center; align-items: center; display: flex; justify-content: right; margin: 0; padding: 0; vertical-align: bottom;}
+
+.tg .tg-prioH{border-width: 0; padding: 0; font-weight: bold; text-align: center; justify-content: center; vertical-align: bottom;}
+
+.tg .tg-prioV{align-items: center; justify-content:center; font-weight: bold; margin: 0; padding: 0; width:30; height: 30; text-align: center; vertical-align: center;}
+
+.tg .tg-prioL{background-color:#dddddd; padding: 0; font-weight: bold; text-align: left; padding-left: 5px;}
+
+#prioautofill{width:31;height:34; padding: 0; margin:0; border-width: 0; text-align: center;}
+
+/* sisu */
+
+.tg .tg-0pky{text-align: left;vertical-align: top;}
+
+.tg .tg-aadress{border-right-width: 0;text-align: left;width:150}
+
+#aadress{border-width: 0; width:302; margin:0; padding: 0}
+
+#regnrf{display:inline-block}
+
+#regnr{border-width: 0; margin:0; padding:0; width: 80; margin-left:10}
+
+.tg .tg-regnr{border-left-width: 0; text-align: left;width:150}
+
+#saabumisekp{border-width: 0; padding:0; margin: 0; height: 23}
+
+#arvenr{border-width: 0; padding:0; margin: 0; height: 23; width: 163}
+
+#toonr{border-width: 0; padding:0; margin: 0; height: 23; width: 221}
+
+#ktkisikf{width:250;margin:0;padding:0;display:inline-block}
+
+#ktkisik{border-width: 0;margin:0;padding:0;width:251}
+
+#tellija{border-width: 0;margin:0;padding:0;width:540;height:26}
+
+#telnr{border-width: 0;margin:0;padding:0; width:277}
+
+#telnrf{display:inline-block;margin:0;padding:0; width:277}
+
+.tg .tg-arveepost{border-right-width: 0;}
+
+#arveepostf{border-width: 0;margin:0;padding:0;display:inline-block}
+
+#arveepost{border-width: 0;margin:0;padding:0; width:350}
+
+#epostf{border-width: 0;margin:0;padding:0;display:inline-block}
+
+#epost{border-width: 0;margin:0;padding:0;width:270}
+
+#tellijanimif{border-width: 0;margin:0;padding:0;display:inline-block}
+
+#tellijanimi{border-width: 0;margin:0;padding:0;width:328}
+
+#lisainfo{border-width: 0;margin:0;padding:0; width:264}
+
+#lisainfof{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#telnr2{border-width: 0;margin:0;padding:0; width:398}
+
+#telnrf2{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#saabunudf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#saabunud{border-width: 0;margin:0;padding:0; width:100}
+
+#pakkumnrf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#pakkumnr{border-width: 0;margin:0;padding:0; width: 262}
+
+#hindf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#hind{border-width: 0;margin:0;padding:0; width:139}
+
+#transfirmaf{border-width: 0;margin:0;padding:0; display: inline-block; margin-left: 5;}
+
+#transfirma{border-width: 0;margin:0;padding:0; width:217}
+
+#lepingunrf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#lepingunr{border-width: 0;margin:0;padding:0; width: 264; margin-left: 2}
+
+#tahtaegf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#tahtaeg{border-width: 0;margin:0;padding:0; width:122; margin-left: 3}
+
+#tagastusf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#tagastus{border-width: 0;margin:0;padding:0; width:100; margin-left: 8}
+
+#kliendipof{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#kliendipo{border-width: 0;margin:0;padding:0; width: 264; margin-left: 6}
+
+#lopetatudf{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+#lopetatud{border-width: 0;margin:0;padding:0; width:164; margin-left: 10}
+
+#lisainfo2{border-width: 0;margin:0;padding:0; width:492; margin-left:10}
+
+#lisainfof2{border-width: 0;margin:0;padding:0; display: inline-block;}
+
+.tg .tg-allkiri{text-align: center; border-left-width: 0;}
+
+#allkirjalahter{border-width: 0;margin:0;padding:0;width:113;height:35}
+
+#vottisvastu{border-width: 0; margin: 0; margin-left: 10; padding: 0}
+
+#vottisvastuf{display: inline-block}
+
+.tg .tg-0pky1{border-right-width: 0;}
+
+.tg .tg-0pky2{border-left-width: 0;}
+
+.tg .tg-varustus{border-width: 0;}
+
+.tg .tg-varustus1{border-right-width: 1; border-left-width: 0; border-bottom-width: 0; border-top-width: 0;}
+
+.tg .tg-varustus2{border-right-width: 1; border-left-width: 0; border-bottom-width: 0; border-top-width: 0; text-align: center;}
+
+.tg .tg-varustus3{border-width: 0; text-align: center;}
+
+.tg .tg-klemmikarp{border-right-width: 1; border-left-width: 0; border-bottom-width: 0; border-top-width: 0; justify-content: end;}
+
+.klemmikarbi-asend{height: 80; width: 80; margin-left: 35;}
+
+.tg .tg-markused{border-right-width: 0;}
+
+.tg .tg-klemmiliist{border-right-width: 1; border-left-width: 0; border-bottom-width: 0; border-top-width: 0; text-align: center;}
+
+.tg .tg-klemmiliistu1{border-right-width: 1; border-left-width: 0; border-bottom-width: 0; border-top-width: 0;}
+
+.klemmliistu-yhendus{width:50}
+
+.tg .tg-valjaviike{border-width: 0; text-align: center;}
+
+.tg .tg-valjaviiketext{border-width: 0; text-align: center; align-items: center; justify-content: center;}
+
+#valjaviikeform{width:28;height: 14; margin: 0; display: inline-block;}
+
+#valjaviike{width:20;height:8}
+
+/* #vottisvastu{border-width: 0;} */
+
+.tg .tg-markused2{border-top-width: 0;}
+
+.tg .tg-skeem{width: 60; max-width: 60;min-width: 60}
+
+/* läbivad klassid */
+
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:10px;
+  overflow:hidden;word-break:normal;padding:0;margin:0}
+
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:10px;
+  font-weight:normal;overflow:hidden;word-break:normal;padding:0;margin:0}
+
+.tg tr{height:16}
+
+.MuiFormControlLabel-label{font-size: 10;}
+
+.MuiFormControlLabel-root{font-size: 10; margin: 0; display:flex; justify-content: flex-start;height:14}
+
+.MuiCheckbox-root{justify-content: end; padding: 0;height:16}
+
+/* .MuiTextField-root{width:50;height:24} */
