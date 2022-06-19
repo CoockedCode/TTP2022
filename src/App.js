@@ -19,7 +19,7 @@ import User from "./components/pages/User";
 import DigiDokk from "./components/pages/DigiDokk";
 import ChoiceList from "./components/pages/ChoiceList";
 import WorkHours from "./components/pages/WorkHours";
-import WorkStages from "./components/WorkStages";
+import WorkStages from "./components/pages/WorkStages";
 
 const App = () => {
 

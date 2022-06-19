@@ -12,7 +12,6 @@ export default function AddClient(){
 	//snackbar
 	const dispatch = useDispatch();
 
-
 	//1. Kliendi nimi
 	const [valueClientName, setValueClientName] = useState();
 	const [errorClientName, setErrorClientName] = useState(false);
@@ -132,13 +131,13 @@ export default function AddClient(){
 	return(
 		<>
 		<main>
-			<section style={{width: "50%"}}>
+			<section style={{minWidth: "20rem", maxWidth: "35%"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus klient</h3>
 				</div>
-				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}}>
+				<Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+					<FormControl fullWidth>
 						<TextField
 							required
 							fullWidth
@@ -257,11 +256,9 @@ export default function AddClient(){
 
 						<Button
 							type="submit"
-
 							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							sx={{mt: 1}}
 							margin="dense"
-							//onClick={handleSubmit}
 							>
 							Lisa Klient
 						</Button>

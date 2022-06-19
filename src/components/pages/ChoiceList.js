@@ -2,12 +2,8 @@ import { FormControl } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React, { useState, useEffect } from 'react';
-//import { Box } from '@mui/material';
 import axios from 'axios';
 import Dialog from '@mui/material/Dialog';
-//import DialogActions from '@mui/material/DialogActions';
-//import DialogContent from '@mui/material/DialogContent';
-//import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FormControl } from '@mui/material';;
 import "../../styles/pages/Home.css";
@@ -128,7 +124,6 @@ const ChoiceList = () => {
 
   const getAllChoiceOptions = async() => {
     const response = await axios.get(endpoint + '/view/choice/fnc_select_choices.php');
-    console.log(response);
     setTypeOptions([]);
     setPowerOptions([]);
     setManufacturerOptions([]);
@@ -197,7 +192,6 @@ const ChoiceList = () => {
   }, []);
     const getTransportOptions = async() =>{
       const response = await axios.get(endpoint + '/view/choice/fnc_select_transport.php?transport');
-      console.log(response);
       setTransportCompanyOptions([]);
       response.data.forEach(element=>{
         setTransportCompanyOptions(oldArray => [...oldArray, element]);
@@ -218,7 +212,6 @@ const ChoiceList = () => {
     const [choiceOptions, setChoiceOptions] = useState([]);
     const getChoiceOptions = async() => {
         const response = await axios.get(endpoint + '/view/choice/fnc_get_all_choice_info.php');
-        console.log(response);
         setChoiceOptions([]);
         response.data.forEach(element => {
             setChoiceOptions(oldArray => [...oldArray, element]);
@@ -245,10 +238,8 @@ const ChoiceList = () => {
     }
 
     const handleAddition=(toSave)=>{
-      console.log(toSave);
       axios.post(endpoint+"/choice/fnc_add_choice.php", toSave)
         .then(function (response) {
-          console.log(response);
           if(response.status === 200){
           }
         })
@@ -259,17 +250,14 @@ const ChoiceList = () => {
   const [nameValue, setNameValue] = useState("")
   const handleValueChange=(e)=>{
     setNameValue(e.target.value);
-    //console.log(valueValue);
   }
   const [unitValue, setUnitValue] = useState("")
   const handleUnitChange=(e)=>{
     setUnitValue(e.target.value);
-    //console.log(valueValue);
   }
   const [addInfValue, setAddInfValue] = useState("")
   const handleAddInfChange=(e)=>{
     setAddInfValue(e.target.value);
-    //console.log(valueValue);
   }
 
   const [deletionOpen, setDeletionOpen] = useState(false);
@@ -360,14 +348,12 @@ const ChoiceList = () => {
         }
         break;
     }
-    console.log(toDelete);
     deleteChoice(toDelete);
   }
 
   const deleteChoice=(toDelete)=>{
     axios.post(endpoint+"/choice/fnc_delete_choice.php", toDelete)
 		.then(function (response) {
-			console.log(response);
 			if(response.status === 200){
 				// dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
 			}
@@ -384,7 +370,6 @@ const ChoiceList = () => {
     }
     axios.post(endpoint+"/view/choice/fnc_delete_transport.php", toDelete)
 		.then(function (response) {
-			console.log(response);
 			if(response.status === 200){
 				// dispatch(setSnackbar(true,"success","Transpordi firma edukalt kustutatud!"));
 			}
@@ -393,7 +378,7 @@ const ChoiceList = () => {
 			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
 		handleTransportDeletionClose();
-  
+
   }
 
   const [transportDeletionOpen, setTransportDeletionOpen] = useState(false);
@@ -414,16 +399,13 @@ const ChoiceList = () => {
   };
   const handleTransportSubmit=(e)=>{
     e.preventDefault();
-    console.log(companyID);
-    console.log(companyName);
       const transportToSave = {
         firmName: companyName,
         firmType: companyID
       }
-  
+
       axios.post(endpoint+"/choice/fnc_add_transport.php", transportToSave)
       .then(function (response) {
-        console.log(response);
         if(response.status === 200){
           // dispatch(setSnackbar(true,"success","Transpordi firma edukalt lisatud!"));
         }
@@ -440,7 +422,7 @@ const ChoiceList = () => {
          <section style={{ width: "98%", margin: "0 5%"}}>
           <div id="header-wrapper" style={{justifyContent: "center", marginBottom: "1.5rem"}}>
                 <h3 id="page-header">Valikute seaded</h3>
-                <FormControl sx={{minWidth: "9rem"}}>
+                <FormControl sx={{minWidth: "9rem", mx: 1}}>
                   <Button
                       type="button"
                       variant="outlined"
@@ -450,7 +432,7 @@ const ChoiceList = () => {
                       Lisa uus valik
                   </Button>
                 </FormControl>
-                <FormControl sx={{minWidth: "9rem"}}>
+                <FormControl sx={{minWidth: "14rem", mx: 1}}>
                   <Button
                       type="button"
                       variant="outlined"
@@ -463,7 +445,7 @@ const ChoiceList = () => {
 
           </div>
           <FormControl fullWidth noValidate autoComplete="off" sx={{display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "center"}}>
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Seadme liik"
                 ID="choiceType"
@@ -483,7 +465,7 @@ const ChoiceList = () => {
 						  </Button>
              </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Võimsus KW" ID="choicePower"
                 value={powerID} label="Võimsus KW"
@@ -501,7 +483,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="p/min" ID="choiceRotPerMin"
                 value={rotPerMin} label="p/min"
@@ -519,7 +501,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Tootja" ID="choiceManufacturer"
                 value={manufacturer} label="Tootja"
@@ -537,7 +519,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Võlli kõrgus" ID="choiceShaft"
                 value={shaftHeight} label="Võlli kõrgus"
@@ -555,7 +537,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Toite liik" ID="choicePowerSupply"
                 value={powerSupply} label="Toite liik"
@@ -573,7 +555,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Sagedus HZ" ID="choiceFrequency"
                 value={frequency} label="Sagedus HZ"
@@ -591,7 +573,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Isol.Klass" ID="choiceIsolation"
                 value={isolationClass} label="Isol.Klass"
@@ -609,7 +591,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="IP klass" ID="choiceIPClass"
                 value={IPClass} label="IP Klass"
@@ -627,7 +609,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Transport/Tarnija" ID="choiceTransport"
                 value={transportCompany} label="Transpordi firma"
@@ -645,7 +627,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Tunni hind" ID="choiceHourlyPrice"
                 value={hourlyPrice} label="Tunni hind"
@@ -663,7 +645,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Takistuse ühik" ID="choiceRecistance"
                 value={resitanceUnit} label="Takistuse ühik"
@@ -681,7 +663,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Pingeteim" ID="choiceTension"
                 value={tensionUnit} label="Pingeteim"
@@ -699,7 +681,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Katsetuse pinge" ID="choiceTensionUnit"
                 value={tensioTestUnit} label="Katsetuse pinge"
@@ -717,7 +699,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Ühendus" ID="choiceConnection"
                 value={connection} label="Ühendus"
@@ -735,7 +717,7 @@ const ChoiceList = () => {
 						  </Button>
             </FormControl>
 
-            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 2, mb: 5}}>
+            <FormControl sx={{minWidth: "10rem", width: "14%", mx: 1.5, mb: 5}}>
               <DropDown
                 name="Katsetatud" ID="choiceTestin"
                 value={testing} label="Katsetatud"
@@ -871,18 +853,21 @@ const ChoiceList = () => {
                     <Button
                       variant="outlined"
                       color="primary"
-                      onClick={handleDeletionClose}>
+                      onClick={handleDeletionClose}
+                      >
                       Tühista
                     </Button>
                     <Button
                       variant="contained"
                       color="error"
                       sx={{my: 2}}
-                      onClick={handleDeletion} autoFocus>
+                      onClick={handleDeletion}
+                      >
                       Kustuta
                     </Button>
                   </FormControl>
 							</Dialog>
+
               <Dialog
               open={transportDeletionOpen}
               onClose={handleTransportDeletionClose}
@@ -962,7 +947,6 @@ const ChoiceList = () => {
                              size="medium"
                             onClick={handleTransportAdditionClose}
                             sx={{mr: 1, width: "100%"}}
-
                             >
                             Tühista
                         </Button>
@@ -973,8 +957,6 @@ const ChoiceList = () => {
                             onClick={handleTransportSubmit}
                             size="medium"
                             sx={{ml: 1, width: "100%"}}
-
-
                             >
                             Lisa
                         </Button>
