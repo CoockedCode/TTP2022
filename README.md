@@ -1,3 +1,13 @@
+# CookedCode - Elektrimasinad OÜ CMMS programm
+
+## Eesmörgid ja lühikirjeldus
+
+> lorem ipsum.....
+
+
+
+---
+
 # TTP2022
 
   1. DL repo
