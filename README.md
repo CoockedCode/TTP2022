@@ -10,9 +10,11 @@ Projekt on loodud Tarkvaraarenduse projekti praktika raames. Projekti telliaks o
 ![Avalehe kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_1.png)
 ![Kasutaja sätete kuva](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/demo_2.png)
 
+
 ## Eesmärgid ja lühikirjeldus
 
 Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome on CMMS (computerized maintenance management system) ehk tööhaldussüsteemi tüüpi rakendus. Ettevõtte suureks probleemiks on andmete duplikatsioon ja kadumine, sest andmeid hoiti kahes erinevas kohas paberkandjal. Programm toob kogu infosisestuse ühte kohta, mis oluliselt mugavdab ja ka mingil määral lihtsustab töötajate tööprotsessi.
+
 
 ## Kasutatud tehnoloogiad
 
@@ -31,12 +33,14 @@ Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome on CMM
 
 ![NPM pakketid, mida kasutame](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/npm_depend_list.png)
 
-## Andmebaas
-[AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy)
 
-[AB kood](https://github.com/CoockedCode/TTP2022/tree/main/db)
+## Andmebaas
 
 ![AB struktuurist pilt](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/Elektrimasinad_O%C3%9C_db.png)
+[AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy) <br>
+[AB kood](https://github.com/CoockedCode/TTP2022/tree/main/db)
+
+
 ## Kasutus
 
   1. klooni repo ja installi [Node.js (LTS)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-installer-to-install-nodejs-and-npm)
