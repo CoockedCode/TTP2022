@@ -42,6 +42,7 @@ Rakendus digitaliseerib firma projektide haldust. Programm, mida me loome on CMM
 
 
 ## Kasutus
+Kohalikus masinas katsetamine:
 
   1. klooni repo ja installi [Node.js (LTS)](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-installer-to-install-nodejs-and-npm)
   
