@@ -19,10 +19,13 @@ import { ButtonBase, Button } from '@mui/material';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../redux/ducks/snackbar";
+import {useNavigate} from 'react-router-dom';
+
 
 const endpoint = "https://elektrimasinad.digifi.eu/api";
 
 export default function WorkTable({queryOption, searchQuery}) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
@@ -78,7 +81,7 @@ function Row(row, key){
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-			<TableCell sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
+			<TableCell sx={{mx: "4px"}} width="12px"><ButtonBase onClick={()=>navigate("/digidokk?id=" + row.id_DB)}><FileOpenIcon /></ButtonBase></TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
 			<TableCell >xx.xx.xxxx</TableCell>
@@ -127,8 +130,6 @@ function Row(row, key){
 		</>
 	);
 }
-
-
 
   return (
 	<Paper sx={{width: "100%"}} elevation={2} >

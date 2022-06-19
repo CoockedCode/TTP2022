@@ -9,22 +9,17 @@ const endpoint = "https://elektrimasinad.digifi.eu/api";
 const DigiDokk = () => {
 
     const [dokk, setDokk] = useState([[]]);
-
       const FetchDokk = (idDB) =>{
-        axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB )
+        axios.get(endpoint + "/view/digidokk/digidokk.php?id=" + idDB )
         .then(function(resp){
             setDokk(resp.data);
             console.log(resp.data)
         })
-        
-
       };
 
     useEffect(() => {
 	  	FetchDokk(8);
-      
   	}, [!dokk]);
-
 
     return (
       <>
