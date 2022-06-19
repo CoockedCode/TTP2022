@@ -1,7 +1,7 @@
 # CookedCode - CMMS programm
-??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
-* Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias ja Martin Lukas
+> Siim Kriibi, Kert Lillenberk, Arjom Morozov, Rain Erik Elias, Martin Lukas
 
+??viidet instituudile ja paar sõna sellest, mille raames projekt loodud (tehtud selle ja selle raames....);
 ??paar pilti programmist
 
 ## Eesmärgid ja lühikirjeldus
@@ -9,17 +9,21 @@ lorem ipsum... Elektrimasinad OÜ
 3-4 lauset, mida rakendus lahendab
 
 ## Kasutatud tehnoloogiad
+
+> Frontend React.js-iga, välimuse jaoks kasutasime MUI. 
+> Backend-i tegime vanilla PHP-ga. 
+> AB jaoks kasutasime MariaDB.
+
 | Tehnoloogia | Versioon |
 |--|--|
-| PHP | 7.4 (LTS) |
-| Parcel.js |  |
-| Node.js |  |
-| React |  |
-| MUI |  |
-| MariaDB |  |
-|  |  |
+| PHP | 7.4.28 (LTS) |
+| Parcel.js | 2.5.0 |
+| Node.js | 16.xx (LTS) |
+| React | 18.0.0 |
+| MUI | 5.xx |
+| MariaDB | 10.3.34 |
 
-?? Siia pilt kõikidest npm moodulitest
+![NPM pakketid, mida kasutame](https://raw.githubusercontent.com/CoockedCode/TTP2022/main/media/npm_depend_list.png)
 
 ## Andmebaas
 [AB vertabelo](https://my.vertabelo.com/doc/7nLObBWSjrfJviiqbb72APGHm6lorTEy)
