@@ -18,7 +18,6 @@ const MainPage = () => {
     setSearchQuery(e.target.value);
   }
 
-  console.log(userID);
   return (
     <>
       <main>
