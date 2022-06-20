@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router-dom';
 
 	// TODO
 	// uued lahtrid error control
+	// persist data betweem page switch
 	// form validation e õiged sisestused ja vea korral vale lahter highlightida
-	// machineType üle vaadata
 	// fotode ja failide lisamine
 	// tööliigi salvestamine ABsee
 	// transport - kui klient tõi ise ss transpordi dropdown disabled
@@ -99,7 +99,7 @@ export default function AddNewProject(){
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element]);
-			console.log(options);
+			// console.log(options);
 		});
 	};
 
@@ -111,7 +111,7 @@ export default function AddNewProject(){
 	const [workOptions, setWorkOptions] = useState([]);
 	const getWorkOptions = async () => {
 		const resp = await axios.get(`${endpoint}/project/fnc_get_work_types.php?work`);
-		console.log(resp);
+		// console.log(resp);
 		setWorkOptions([]);
 		resp.data.forEach(element => {
 			setWorkOptions(oldArray => [...oldArray, element]);
@@ -160,8 +160,6 @@ export default function AddNewProject(){
 	const saveData = (dataToSave) => {
 		axios.post(`${endpoint}/view/project/fnc_save_project.php`, dataToSave)
 		.then(function(response){
-			console.log(dataToSave)
-			console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
 			}
@@ -196,7 +194,6 @@ export default function AddNewProject(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-
 		if(projectNum && companyID && workID && formData.get("projectPriority") 
 			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
 			&& formData.get("projectReturnBy") && formData.get("offerNr")
@@ -207,10 +204,8 @@ export default function AddNewProject(){
 			// json objekti loomine
 			const dataToSave = {
 				projectId: projectNum,
-				//projectName: formData.get("projectName"),
 				client: companyID,
 				workType: workID,
-				//machineType: formData.get("projectMachineType"),
 				priority: formData.get("projectPriority"),
 				plannedEndDate: `${selectedEndDate.$y}-${selectedEndDate.$M + 1}-${selectedEndDate.$D}`,
 				startDate: `${selectedStartDate.$y}-${selectedStartDate.$M + 1}-${selectedStartDate.$D}`,

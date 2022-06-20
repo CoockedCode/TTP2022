@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
 import { endpoint } from '../endpoint';
 
-export default function EmployeeListTable() {
+export default function EmployeeListTable(searchQuery) {
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/view/employee/fnc_read_employees.php?client");

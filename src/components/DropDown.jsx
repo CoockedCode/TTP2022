@@ -1,7 +1,6 @@
 import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 
-export default function DropDown({name, ID, value, label, onChange, options, heading="grid", size="normal", disableLabel=true, margin="normal", padding="normal"}){
-    console.log()
+export default function DropDown({name, ID, value, label, onChange, options, heading="grid", size="normal", disableLabel=true, margin="normal", padding="normal", nameValue=false}){
     return(
         <>
         <h4 style={{display: heading, padding: "0", margin: "0", marginBottom: "0.5rem"}}>{name}</h4>
@@ -20,8 +19,8 @@ export default function DropDown({name, ID, value, label, onChange, options, hea
                 {options.map((options, index) => (
                     <MenuItem
                         key={index}
-                        value={options.id}
-                        placeholder={options.name}
+                        value={ nameValue ? options.name : options.id }
+                        name={options.name}
                     >
                         {options.name}
                     </MenuItem>

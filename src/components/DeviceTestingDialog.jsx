@@ -26,12 +26,12 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
     const form = [
         {
-            functionalTest: "", // kuidas raadionuppu saada/määrata?
-            isolationResistance: "", // selectedAmount ka juurde
-            isolationSuitability: "", // raadionupp
-            voltageTestSuitability: "", // raadionupp
+            functionalTest: "",
+            isolationResistance: "",
+            isolationSuitability: "",
+            voltageTestSuitability: "",
             functionalTestNotes: "",
-            functionalTestSuitability: "", // raadionupp
+            functionalTestSuitability: "",
             current1: "",
             current2: "",
             current3: "",
@@ -82,6 +82,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
     const getTesterOptions = async() => {
         const response = await axios.get(`${endpoint}/project/fnc_get_tester.php?tester`);
         setTesterOptions([]);
+        // console.log(response);
 		response.data.forEach(element => {
 			setTesterOptions(oldTesterArray => [...oldTesterArray, element]);
 		});
@@ -132,7 +133,6 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
     const handleSave = (e) => {
         e.preventDefault();
-
         const deviceTestingData = [
             {
                 tester: testerID,
@@ -184,7 +184,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
             }
         ]
         
-        // console.log(deviceTestingData);
+        console.log(deviceTestingData);
         passTestingData(deviceTestingData);
         setOpen(false);
     }
@@ -256,6 +256,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedIsolationResistance} label="Ühik"
                     onChange={(e) => selectResistanceHandler(e.target.value)}
                     options={resistanceOptions}
+                    nameValue={true}
                     />
 
                     <RadioGroup
@@ -277,6 +278,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedVoltageTest} label="kV"
                     onChange={(e) => selectVoltageTestHandler(e.target.value)}
                     options={voltageTestOptions}
+                    nameValue={true}
                     />
 
                     <RadioGroup
@@ -325,6 +327,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedTestingVoltage} label="kV"
                     onChange={(e) => selectTestingVoltageHandler(e.target.value)}
                     options={testingVoltageOptions}
+                    nameValue={true}
                     />
 
                     <h4>Ühendus:</h4>
@@ -333,6 +336,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedConnectionType} label="tüüp"
                     onChange={(e) => selectConnectionHandler(e.target.value)}
                     options={connectionOptions}
+                    nameValue={true}
                     />
 
                     <h4>Katsetatud:</h4>
@@ -341,6 +345,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedTestMethod} label="meetod"
                     onChange={(e) => selectTestMethod(e.target.value)}
                     options={testMethodOptions}
+                    nameValue={true}
                     />
 
                     <h4>Voolud:</h4>
@@ -556,6 +561,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedWindingResistanceU} label="Ühik"
                     onChange={(e) => selectWindingResistanceU(e.target.value)}
                     options={resistanceOptions}
+                    nameValue={true}
                     />
 
                     <h4>V1-V2</h4>
@@ -578,6 +584,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedWindingResistanceV} label="Ühik"
                     onChange={(e) => selectWindingResistanceV(e.target.value)}
                     options={resistanceOptions}
+                    nameValue={true}
                     />
 
                     <h4>W1-W2</h4>
@@ -600,6 +607,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     value={selectedWindingResistanceW} label="Ühik"
                     onChange={(e) => selectWindingResistanceW(e.target.value)}
                     options={resistanceOptions}
+                    nameValue={true}
                     />
 
                 </DialogContent>
