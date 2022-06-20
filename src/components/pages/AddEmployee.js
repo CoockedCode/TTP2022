@@ -1,14 +1,20 @@
 import React, {useState, useEffect} from 'react';
+import WorkerJobsList from '../WorkerJobsList';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { Select } from '@mui/material';
 import { useDispatch } from "react-redux";
+import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
+import { data } from 'jquery';
 import FormControl from '@mui/material/FormControl';
+import EmployeeRolesList from '../EmployeeRolesList';
 import DropDown from '../DropDown';
-import { endpoint } from "../../endpoint";
+import { endpoint } from '../../endpoint';
 
 export default function AddWorker(){
+
 	//snackbar
 	const dispatch = useDispatch();
 
@@ -67,6 +73,7 @@ export default function AddWorker(){
 		response.data.forEach(element=>{
 			setRoleNameOptions(oldArray=>[...oldArray, element]);
 		})
+		// console.log(roleNameOptions)
 	}
 
 	useEffect(() => {
@@ -79,6 +86,8 @@ export default function AddWorker(){
 		const formData = new FormData(e.currentTarget);
 		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber")){
+			// console.log("väljad täidetud")
+
 			//Kasutajanime loomine ees- ja perekonnanime järgi
 			const employeeFname = formData.get("employeeFname");
 			const employeeSname =  formData.get("employeeSname");
@@ -97,6 +106,8 @@ export default function AddWorker(){
 				employeePassword: employeePassword
 
 			};
+			// console.log(WorkerJobsList);
+			// console.log(employeeRoleID);
 
 			saveData(dataToSave);
 			console.log(dataToSave);
@@ -135,73 +146,98 @@ export default function AddWorker(){
 			}
 		}
 	}
+
+	//dispatch(setSnackbar(true,"success","Klient edukalt lisatud!"));
 	return(
+		<>
 		<main>
-			<section style={{width: "35%", minWidth: "20rem"}}>
+			<section>
+
 				<div id="header-wrapper">
-					<h3 style={{margin: 0, marginTop: "1.5rem", marginBottom: "0.5rem"}}>Lisa uus Töötaja</h3>
+					<h3>Lisa uus Töötaja:</h3>
 				</div>
-					<FormControl fullWidth noValidate autoComplete="off" onSubmit={handleSubmit}>
+
+				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+					<FormControl sx={{width: "100%", py: '20px'}}>
 						<TextField
 							required
+							fullWidth
 							error={!!errorEmpFname}
 							autoFocus
 							id="employeeFname"
 							label="Töötaja nimi"
 							name="employeeFname"
+							autoComplete="none"
 							type="text"
-							margin='dense'
+							margin="dense"
 							size="small"
 							/>
 						<TextField
 							required
+							fullWidth
 							error={!!errorEmpSname}
+							autoFocus
 							id="employeeSname"
 							label="Töötaja perekonnanimi"
 							name="employeeSname"
+							autoComplete="none"
 							type="text"
-							margin='dense'
+							margin="dense"
 							size="small"
 							/>
+
 						<TextField
 							required
+							fullWidth
 							error={!!errorEmpMail}
 							id="employeeMail"
 							label="Töötaja meiliaadress"
 							name="employeeMail"
+							autoComplete="none"
 							type="text"
-							margin='dense'
+							margin="dense"
 							size="small"
 							/>
 						<TextField
 							required
 							fullWidth
 							error={!!errorEmpNumber}
+							// sx={{ width: 'auto'}}
 							id="employeeNumber"
 							label="Töötaja telefoninumber"
 							name="employeeNumber"
+							autoComplete="none"
 							type="text"
-							margin='dense'
+							margin="dense"
 							size="small"
+							padding="none"
+
 							/>
 						<DropDown
 							ID="roleName"
 							label="Tööroll"
 							onChange={handleRoleChange}
 							options={roleNameOptions}
-							disableLabel={false}
-							size="small"
+							name=""
 						/>
+
+						{/*< DropDown({name, ID, value, label, onChange, options}) />*/}
+
 						<Button
-							sx={{mt: 2.5}}
-							disableElevation
-							variant='contained'
-							size="large"
-						>
-							Lisa
+							type="submit"
+							variant="contained"
+							sx={{ mt: "0.3rem", bgcolor: 'main', width: 'auto' }}
+							margin="dense"
+							//onClick={handleSubmit}
+							>
+							Lisa töötaja
 						</Button>
+						{/* <FormHelperText>{helperText}</FormHelperText> */}
 					</FormControl>
+				</Box>
+
 			</section>
 		</main>
+		</>
 	);
 }

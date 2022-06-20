@@ -1,7 +1,6 @@
 <?php
     require_once("mainview.class.php");
 	require_once("../../config_header.php");
-	require_once("../../config_db.php");
 	require_once("../../config_session.php");
 
 	// * Kõikide tabelite kohta infi küsimine

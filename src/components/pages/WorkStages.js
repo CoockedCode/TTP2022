@@ -171,7 +171,7 @@ const WorkStages = () => {
                 type="button"
                 variant="contained"
                 sx={{ my: 2 }}
-                onClose={handleCloseStages}
+                onClick={handleCloseStages}
               >
                 Tühista
               </Button>
@@ -179,6 +179,7 @@ const WorkStages = () => {
                 type="button"
                 variant="contained"
                 sx={{ my: 2 }}
+                onClick={handleCloseStages}
               >
                 Lisa andmebaasi
               </Button>
@@ -214,8 +215,7 @@ const WorkStages = () => {
                 Kustuta valitud tööetapi
               </Button>
               <Dialog
-                open={openStages}
-                onClose={handleCloseLevels}
+                open={openLevels}
               >
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
@@ -243,6 +243,7 @@ const WorkStages = () => {
                 type="button"
                 variant="contained"
                 sx={{ my: 2 }}
+                onClick={handleCloseLevels}
               >
                 Lisa andmebaasi
               </Button>

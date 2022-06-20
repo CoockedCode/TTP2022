@@ -155,14 +155,15 @@ class User{
 
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-        $stmt = $conn->prepare("SELECT user_name, password FROM tootaja WHERE user_name = ? AND palgal = '1'");
+        $stmt = $conn->prepare("SELECT user_name, password, id FROM tootaja WHERE user_name = ? AND palgal = '1'");
         $stmt->bind_param("s", $user_name);
-		$stmt->bind_result($user_name_from_db, $password_from_db);
+		$stmt->bind_result($user_name_from_db, $password_from_db, $id_from_db);
         $stmt->execute();
         while($stmt->fetch()){
             if(password_verify($password, $password_from_db)){
                 $_SESSION["user_name"] = $user_name_from_db;
-                array_push($list_html, array("user_name"=>$user_name_from_db, "signIn"=>"true"));
+                $_SESSION["user_id"] = $id_from_db;
+                array_push($list_html, array("user_name"=>$user_name_from_db, "sign_in"=>"true", "user_id"=>$id_from_db));
             }
         }
         $stmt->close();

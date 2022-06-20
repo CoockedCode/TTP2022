@@ -14,6 +14,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import { setSnackbar } from "../../redux/ducks/snackbar";
 
 const ChoiceList = () => {
   const dispatch = useDispatch();
@@ -241,9 +242,11 @@ const ChoiceList = () => {
       axios.post(endpoint+"/view/choice/fnc_add_choice.php", toSave)
         .then(function (response) {
           if(response.status === 200){
+            dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
           }
         })
         .catch(function (err) {
+          dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"));
         });
         handleClose();
 	};
@@ -355,11 +358,11 @@ const ChoiceList = () => {
     axios.post(endpoint+"/view/choice/fnc_delete_choice.php", toDelete)
 		.then(function (response) {
 			if(response.status === 200){
-				// dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
+          dispatch(setSnackbar(true,"success","Valik edukalt kustutatud!"));
 			}
 		})
 		.catch(function (err) {
-			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"));
 		});
 		handleClose();
 
@@ -371,11 +374,11 @@ const ChoiceList = () => {
     axios.post(endpoint+"/view/choice/fnc_delete_transport.php", toDelete)
 		.then(function (response) {
 			if(response.status === 200){
-				// dispatch(setSnackbar(true,"success","Transpordi firma edukalt kustutatud!"));
+				dispatch(setSnackbar(true,"success","Transpordi firma edukalt kustutatud!"));
 			}
 		})
 		.catch(function (err) {
-			// dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
+			dispatch(setSnackbar(true,"error","Kustutamisel tekkis viga!"))
 		});
 		handleTransportDeletionClose();
 
@@ -407,11 +410,11 @@ const ChoiceList = () => {
       axios.post(endpoint+"/view/choice/fnc_add_transport.php", transportToSave)
       .then(function (response) {
         if(response.status === 200){
-          // dispatch(setSnackbar(true,"success","Transpordi firma edukalt lisatud!"));
+          dispatch(setSnackbar(true,"success","Transpordifirma/Tarnija edukalt lisatud!"));
         }
       })
       .catch(function (err) {
-        // dispatch(setSnackbar(true,"error","Lisamisel tekkis viga!"))
+        dispatch(setSnackbar(true,"error","Lisamisel tekkis viga!"))
       });
       handleTransportAdditionClose();
   }

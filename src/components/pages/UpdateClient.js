@@ -23,13 +23,11 @@ export default function UpdateClient(){
 	const saveData = (dataToSave) => {
 		axios.post(endpoint+"/view/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
-			// console.log(response);
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
 			}
 		})
 		.catch(function (err) {
-			// console.log(err);
 			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
@@ -56,23 +54,17 @@ export default function UpdateClient(){
 		setOptions([]);
 		resp.data.forEach(element => {
 			setOptions(oldArray => [...oldArray, element])
-			//console.log(element)
 		});
-		//console.log(options);
 	};
 
 	useEffect(() => {getOptions();
 	}, []);
 
-	// console.log(rowOptions);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		//console.log(formData);
 		if(formData.get("clientRegNum") || formData.get("clientAddr") || formData.get("postIndex") ||
 			 formData.get("contPers") || formData.get("clientEmail") || formData.get("clientPhoneNr") || formData.get("invoiceEm")){
-			// console.log("väljad täidetud")
 			const dataToSave = {
 				clientId: options[companyRealId].id,
 				clientRegNum: formData.get("clientRegNum"),
@@ -109,49 +101,41 @@ export default function UpdateClient(){
 
 	// TODO: filtreermine...
 	const handleUpdateRegNum=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].regNum=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdateAddress=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].address=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdatePostIndex=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].postInd=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdateContPers=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].kontakt=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdateMail=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].mail=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdatePhone=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].telefon=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdateInvoiceEM=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].invoiceEm=e.target.value;
 		setOptions(o2);
 	}
 	const handleUpdateAddInfo=(e)=>{
-		//e.target.value="";
 		o2=[...options];
 		o2[companyRealId].addInf=e.target.value;
 		setOptions(o2);
@@ -328,7 +312,7 @@ export default function UpdateClient(){
 								</DialogTitle>
 								<DialogContent>
 								<DialogContentText id="alert-dialog-description">
-									Soovid tõeliselt klienti kustutada? Nagu FR FR?
+									Soovid klienti kustutada?
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
