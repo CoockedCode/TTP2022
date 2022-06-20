@@ -20,16 +20,16 @@ const theme = createTheme(etEE);
 
 ReactDOM.createRoot(root).render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<PersistGate persistor={persistor}>
-				<StyledEngineProvider injectFirst>
-					<ThemeProvider theme={theme}>
-						<HistoryRouter history={history}>
-							<App />
-						</HistoryRouter>
-					</ThemeProvider>
-				</StyledEngineProvider>
-			</PersistGate>	
-		</Provider>
+		<HistoryRouter history={history}>
+			<Provider store={store}>
+				<PersistGate persistor={persistor}>
+					<StyledEngineProvider injectFirst>
+						<ThemeProvider theme={theme}>
+								<App />
+						</ThemeProvider>
+					</StyledEngineProvider>
+				</PersistGate>
+			</Provider>
+		</HistoryRouter>
 	</React.StrictMode>
 );
