@@ -12,8 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function UpdateClient(){
 	//snackbar
@@ -22,7 +21,7 @@ export default function UpdateClient(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/client/fnc_update_client.php", dataToSave)
+		axios.post(endpoint+"/view/client/fnc_update_client.php", dataToSave)
 		.then(function (response) {
 			if(response.status === 200){
 				dispatch(setSnackbar(true,"success","Klient edukalt uuendatud!"));
@@ -40,17 +39,17 @@ export default function UpdateClient(){
 	const handleClickOpen = () => {
 	  setOpen(true);
 	};
-  
+
 	const handleClose = () => {
 	  setOpen(false);
 	};
-  
+
 
 
 	// klient dropdown menu algus
 	const [options, setOptions] = useState([]);
 	const getOptions = async ()=>{
-		const resp = await axios.get(endpoint + "/client/fnc_read_current_client.php?client");
+		const resp = await axios.get(endpoint + "/view/client/fnc_read_current_client.php?client");
 		console.log(resp);
 		setOptions([]);
 		resp.data.forEach(element => {
@@ -85,8 +84,8 @@ export default function UpdateClient(){
 		const toDelete = {
 			clientId: options[companyRealId].id,
 		};
-		
-		axios.post(endpoint+"/client/fnc_delete_client.php?client", toDelete)
+
+		axios.post(endpoint+"/view/client/fnc_delete_client.php?client", toDelete)
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
@@ -152,27 +151,24 @@ export default function UpdateClient(){
 	return(
 		<>
 		<main>
-			<section style={{width: "50%"}}>
+			<section style={{minWidth: "20rem", maxWidth: "35%"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Uuenda klienti</h3>
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}}>
-
-							<InputLabel id="clientLabel">Vali klient</InputLabel>
+					<FormControl fullWidth>
+							<InputLabel size="small" id="clientLabel">Vali klient</InputLabel>
 							<Select
 								labelId="clientLabel"
 								id="client"
 								value={companyRealId}
 								label="companyID"
 								onChange={handleChange}
+								size="small"
 							>
 								{options.map((option, index) => (<MenuItem key={index} value={index} placeholder={option.name}>{option.name}</MenuItem>))}
 							</Select>
-
-							{/* { console.log(options[2]) } */}
-
 							<>
 								<TextField
 									required
@@ -209,9 +205,10 @@ export default function UpdateClient(){
 									autoComplete="none"
 									value={options[companyRealId] ? options[companyRealId].postInd : "" }
 									onChange={(e)=>handleUpdatePostIndex(e)}
-									type="number"
+									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									/>
 								<TextField
 									required
 									fullWidth
@@ -224,7 +221,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateContPers(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									required
 									fullWidth
@@ -236,7 +234,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateMail(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									/>
 								<TextField
 									required
 									fullWidth
@@ -248,7 +247,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdatePhone(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									required
 									fullWidth
@@ -261,7 +261,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateInvoiceEM(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									optional
 									fullWidth
@@ -274,26 +275,31 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateAddInfo(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									multiline
+									rows={4}
+									 />
 							</>
-						<Button
-							type="submit"
 
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
-							margin="dense"
-							//onClick={handleSubmit}
-							>
-							Uuenda Klient
-						</Button>
-						<Button
-							type="button"
-							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
-							onClick={handleClickOpen}
-							>
-							Kustuta klient
-						</Button>
+						<Box sx={{display: "flex", justifyContent: "space-between"}}>
+							<Button
+								type="button"
+								variant="outlined"
+								color="warning"
+								sx={{ my: 2, width: "49%" }}
+								onClick={handleClickOpen}
+								>
+								Kustuta klient
+							</Button>
+							<Button
+								type="submit"
+								variant="contained"
+								sx={{ my: 2, width: "49%" }}
+								margin="dense"
+								//onClick={handleSubmit}
+								>
+								Uuenda Klient
+							</Button>
+						</Box>
 
 						<Dialog
 								open={open}
@@ -310,17 +316,17 @@ export default function UpdateClient(){
 								</DialogContentText>
 								</DialogContent>
 								<DialogActions>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'main', 
+									sx={{ mt: 2, mb: 2, bgcolor: 'main',
 									width: 'auto' }}
 									margin="dense"
 									onClick={handleClose}>
 									Cancel
 								</Button>
-								<Button 
+								<Button
 									variant="contained"
-									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }} 
+									sx={{ mt: 2, mb: 2, bgcolor: 'red', width: 'auto' }}
 									onClick={() => deleteClient()} autoFocus>
 									Jah, kustuta klient
 								</Button>

@@ -19,10 +19,11 @@ import { ButtonBase, Button } from '@mui/material';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../redux/ducks/snackbar";
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import {useNavigate} from 'react-router-dom';
+import { endpoint } from "../endpoint";
 
 export default function WorkTable({queryOption, searchQuery}) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
@@ -30,7 +31,7 @@ export default function WorkTable({queryOption, searchQuery}) {
   const [rows, setRows] = useState([]);
 
   const FetchAllData = async (query) =>{
-		const resp = await axios.get(endpoint + "/mainview/MainView.php?fetch=" + query)
+		const resp = await axios.get(endpoint + "/view/mainview/mainview.php?fetch=" + query)
 		setRows([]);
 		resp.data.forEach( element => {
 			setRows(oldArray => [...oldArray, element])
@@ -39,9 +40,9 @@ export default function WorkTable({queryOption, searchQuery}) {
 
   useEffect(() => {
 	if(queryOption == 0){
-		FetchAllData("NULL");
+		FetchAllData(false);
 	}else{
-		FetchAllData(queryOption);
+		FetchAllData(1);
 	}
   }, [queryOption])
 
@@ -55,7 +56,7 @@ export default function WorkTable({queryOption, searchQuery}) {
   };
 
   const saveData = (dataToSave) => {
-		axios.post(`${endpoint}/mainview/MainView.php`, dataToSave)
+		axios.post(`${endpoint}/view/mainview/MainView.php`, dataToSave)
 		.then(function(response){
 			console.log(dataToSave)
 			console.log(response);
@@ -78,7 +79,7 @@ function Row(row, key){
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-			<TableCell sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
+			<TableCell sx={{mx: "4px"}} width="12px"><ButtonBase onClick={()=>navigate("/digidokk?id=" + row.id_DB)}><FileOpenIcon /></ButtonBase></TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
 			<TableCell >xx.xx.xxxx</TableCell>
@@ -128,14 +129,10 @@ function Row(row, key){
 	);
 }
 
-
-
   return (
 	<Paper sx={{width: "100%"}} elevation={2} >
 		<TableContainer sx={{ maxHeight: "78vh", width: '100%'}}  >
 		<Table stickyHeader aria-label="sticky collapsible table" size="small">
-
-			{/*<TableHead sx={{ display: { xs: 'none', md: 'table-header-group' }}}>*/}
 			<TableHead >
 				<TableRow>
 					<TableCell align="justify" padding='none' width={"12px"} />

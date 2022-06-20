@@ -6,9 +6,7 @@ import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { setUserSession } from "../../redux/ducks/userSession";
 import axios from 'axios';
-
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 function stringToColor(string) {
   let hash = 0;
@@ -43,7 +41,7 @@ export default function User() {
     const [user, setUser] = useState([]);
     const [userID, setUserID] = useState("");
 	const FetchUser = async (name)=>{
-		const resp = await axios.get(endpoint + "/user/User.php?usr=" + name);
+		const resp = await axios.get(endpoint + "/auth/user/user.php?usr=" + name);
 		setUser([]);
 		resp.data.forEach( element => {
 			setUser(oldArray => [...oldArray, element])
@@ -52,13 +50,13 @@ export default function User() {
 	};
 
 	const ChangePassword = async (usrNam, oldPassword, newPassword) =>{
-		const resp = await axios.get(endpoint + "/user/User.php?changePwdUsr=" + usrNam + "&changePwdOld=" + oldPassword + "&changePwdNew=" + newPassword);
+		const resp = await axios.get(endpoint + "/auth/user/user.php?changePwdUsr=" + usrNam + "&changePwdOld=" + oldPassword + "&changePwdNew=" + newPassword);
 		dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
         FetchUser(resp.data[0].user_name);
 	};
 
     const ChangeUserName = async (oldName, newName, password) =>{
-		const resp = await axios.get(endpoint + "/user/User.php?changeNameOld=" + oldName + "&changeNameNew=" + newName + "&changeNamePwd=" + password);
+		const resp = await axios.get(endpoint + "/auth/user/user.php?changeNameOld=" + oldName + "&changeNameNew=" + newName + "&changeNamePwd=" + password);
         dispatch(setSnackbar(true, resp.data[0].type, resp.data[0].notice));
         dispatch(setUserSession(true, resp.data[0].user_name));
         FetchUser(resp.data[0].user_name);
@@ -85,14 +83,14 @@ export default function User() {
     };
 
     const SetInEdit = async (id, arg1) => {
-        await axios.get(endpoint + "/protect/Protect.php?set_table=tootaja&set_id=" + id + "&set_in_edit=" + arg1)
+        await axios.get(endpoint + "/auth/protect/protect.php?set_table=tootaja&set_id=" + id + "&set_in_edit=" + arg1)
         .then(function(resp){
             // console.log(resp);
         })
         }
 
     const fetchInEdit = (id, value) => {
-        axios.get(endpoint + "/protect/Protect.php?table=tootaja&id=" + id)
+        axios.get(endpoint + "/auth/protect/protect.php?table=tootaja&id=" + id)
         .then(function(resp){
             console.log(resp.data);
             if(resp.data[0].in_edit == "1"){

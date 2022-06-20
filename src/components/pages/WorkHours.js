@@ -11,13 +11,9 @@ import React, { useState, useEffect } from 'react';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import et from 'dayjs/locale/et';
-import { FormControl } from '@mui/material';import { data } from 'jquery';
-;
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
-
+import { FormControl } from '@mui/material';
+import { endpoint } from "../../endpoint";
 export default function WorkHours(){
-	//snackbar
 	const dispatch = useDispatch();
 	const date=new Date();
 	var currMonth="0";
@@ -38,7 +34,7 @@ export default function WorkHours(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint+"/workhours/fnc_set_work_hours.php", dataToSave)
+		axios.post(endpoint+"/view/workhours/fnc_set_work_hours.php", dataToSave)
 		.then(function (response) {
 			console.log(response);
 			if(response.status === 200){
@@ -66,17 +62,17 @@ export default function WorkHours(){
 	const [projectAllHours, setProjectAllHours]= useState("");
 	const handleAllHoursChange = (e) =>{
 	  setProjectAllHours(e.target.value);
-	  
+
 	}
 	const [projectNormalHours, setProjectNormalHours]= useState("");
 	const handleNormalHoursChange = (e) =>{
 	  setProjectNormalHours(e.target.value);
-	  
+
 	}
 	const [projectOverHours, setProjectOverHours]= useState("");
 	const handleOverHoursChange = (e) =>{
 	  setProjectOverHours(e.target.value);
-	 
+
 	}
 	const [workerNormalHours, setWorkerNormalHours]= useState("");
 	const handleWorkerNormalHoursChange = (e) =>{
@@ -99,7 +95,7 @@ export default function WorkHours(){
 
 	const [ workerOptions, setWorkerOptions ] = useState([]);
 	const getEmployeeOptions = async() =>{
-		const response = await axios.get(endpoint+'/workhours/fnc_get_workers.php');
+		const response = await axios.get(endpoint+'/view/workhours/fnc_get_workers.php?worker');
 		setWorkerOptions([])
 		response.data.forEach(element => {
 			setWorkerOptions((oldArray=>[...oldArray, element]));
@@ -110,7 +106,7 @@ export default function WorkHours(){
 	  }, []);
 	const [ projectOptions, setProjectOptions ] = useState([]);
 	const getProjectOptions = async() =>{
-		const response = await axios.get(endpoint+'/workhours/fnc_get_project.php');
+		const response = await axios.get(endpoint+'/view/workhours/fnc_get_project.php?project');
 		console.log(response);
 		setProjectOptions([])
 		response.data.forEach(element => {
@@ -122,7 +118,7 @@ export default function WorkHours(){
 	  }, []);
 	  const [ workOptions, setWorkOptions ] = useState([]);
 	  const getWorkOptions = async() =>{
-		  const response = await axios.get(endpoint+'/workhours/fnc_get_work.php');
+		  const response = await axios.get(endpoint+'/view/workhours/fnc_get_work.php?work');
 		//   console.log(response);
 		  setWorkOptions([])
 		  response.data.forEach(element => {
@@ -169,7 +165,7 @@ export default function WorkHours(){
 
 							<>
 								<DropDown
-									name="Projekti number" ID="project" 
+									name="Projekti number" ID="project"
 									value={projectID} label="Projekt"
 									onChange={handleProjectChange}
 									options={projectOptions}
@@ -213,13 +209,13 @@ export default function WorkHours(){
 									margin="dense"
 									size="small" />
 								<DropDown
-									name="Töötaja" ID="worker" 
+									name="Töötaja" ID="worker"
 									value={workerID} label="Töötaja"
 									onChange={handleWorkerChange}
 									options={workerOptions}
 								/>
 								<DropDown
-									name="Töö liik" ID="worker" 
+									name="Töö liik" ID="worker"
 									value={workID} label="Töö liik"
 									onChange={handleWorkChange}
 									options={workOptions}
