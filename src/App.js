@@ -33,7 +33,7 @@ const App = () => {
   };
 
   const NavBarProtect = () => {
-    // console.log(location.pathname);
+    //console.log(location.pathname);
     if(useSelector(state => state.userSession.userSession)){
       return <NavBar />
     }
