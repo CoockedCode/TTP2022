@@ -47,12 +47,12 @@ class session {
 		if(isset($_COOKIE) and !empty($_COOKIE)){
 			session_start();
 			if ($_SESSION["status"] == 'true'){
-				array_push($list_html, array("status"=>"true", "user_name"=>$_SESSION["user_name"]));
+				array_push($list_html, array("status"=>"true", "user_name"=>$_SESSION["user_name"], "user_id"=>$_SESSION["user_id"]));
 			}else{
-				array_push($list_html, array("status"=>"false", "user_name"=>null));
+				array_push($list_html, array("status"=>"false", "user_name"=>null, "user_id"=>null));
 			}
 		}else{
-			array_push($list_html, array("status"=>"false", "user_name"=>null));
+			array_push($list_html, array("status"=>"false", "user_name"=>null, "user_id"=>null));
 		}
 		self::$return_data = json_encode($list_html);
 	}

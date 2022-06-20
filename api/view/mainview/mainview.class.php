@@ -16,8 +16,12 @@ class MainView {
         $list_html = array();
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
-		$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE arhiivi = ?");
-		$stmt->bind_param("i", $query);
+		if($query == "2"){
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE deleted = '1' ");
+		}else{
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE arhiivi = ? AND deleted = 'false' ");
+			$stmt->bind_param("i", $query);
+		}
 		$stmt->bind_result(
 			$from_db_projekt_id,
 			$from_db_projekt_projekt_nr,
