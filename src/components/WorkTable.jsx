@@ -22,6 +22,7 @@ import { setSnackbar } from "../redux/ducks/snackbar";
 import {useNavigate} from 'react-router-dom';
 import { endpoint } from "../endpoint";
 
+
 export default function WorkTable({queryOption, searchQuery}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -132,7 +133,7 @@ function Row(row, key){
 			<TableCell sx={{mx: "4px"}} width="12px"><ButtonBase onClick={()=>navigate("/digidokk?id=" + row.id_DB)}><FileOpenIcon /></ButtonBase></TableCell>
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
-			<TableCell >xx.xx.xxxx</TableCell>
+			<TableCell >{row.alustatud}</TableCell>
 			<TableCell >{row.Klient}</TableCell>
 			<TableCell >{row.Too_nimetus}</TableCell>
 			<TableCell>EL.Mootor</TableCell>
@@ -162,10 +163,10 @@ function Row(row, key){
 						</TableHead>
 						<TableBody>
 							<TableRow >
-								<TableCell ></TableCell>
-								<TableCell >xx.xx.xxxx</TableCell>
-								<TableCell >xx.xx.xxxx</TableCell>
-								<TableCell >xx.xx.xxxx</TableCell>
+								<TableCell></TableCell>
+								<TableCell>{row.kokkulepitud_lopp}</TableCell>
+								<TableCell>{row.lopp}</TableCell>
+								<TableCell>{row.valjaviidud}</TableCell>
 								{}
 
 									{(queryOption == 2) ?
