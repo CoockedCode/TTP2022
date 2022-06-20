@@ -1,10 +1,12 @@
 import { useDispatch } from "react-redux";
+import { setSnackbar } from "../../redux/ducks/snackbar";
 import React, { useState, useEffect } from "react";
 import { FormControl, TextField, Button } from "@mui/material";
 import { Box } from "@mui/material";
 import DropDown from "../DropDown";
 import axios from "axios";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import WindingDialog from "../WindingDialog";
 import DeviceTestingDialog from "../DeviceTestingDialog";
 import DeviceEquipment from "../DeviceEquipment";
@@ -77,6 +79,7 @@ export default function AddNewProject(){
     // Isol. klass
     const [isolationClass, setIsolationClass] = useState("");
     const handleIsolationClassChange = (e) => {
+        console.log(e)
         setIsolationClass(e.target.value);
     }
     const [isolationClassOptions, setIsolationClassOptions] = useState([]);
@@ -84,6 +87,8 @@ export default function AddNewProject(){
     // IP klass
     const [IPClass, setIPClass] = useState("");
     const handleIPClassChange = (e) => {
+        console.log(e);
+        // console.log(e.explicitOriginalTarget.attributes.name.value) // viskab out of range errori
         setIPClass(e.target.value);
     }
     const [IPClassOptions, setIPClassOptions] = useState([]);
@@ -302,7 +307,9 @@ export default function AddNewProject(){
         getDeviceOptions();
     }, []);
 
-    // submit vajutus
+    // submit vajutus PHP salvestamine
+    // navigeerimine projektikuvale tagasi
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -331,6 +338,20 @@ export default function AddNewProject(){
         }
 
         console.log(dataToSave);
+        axios.post(`${endpoint}/project/fnc_save_new_device.php`, dataToSave)
+		.then(function(response){
+            console.log(response)
+			if(response.status === 200){
+				dispatch(setSnackbar(true,"success","Projekt edukalt lisatud!"));
+			}
+		})
+		.catch(function (err) {
+			// console.log(err);
+			// TODO error handling
+			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
+		});
+
+        // navigate("/lisa-projekt");
     }
 
     return(
@@ -351,6 +372,7 @@ export default function AddNewProject(){
                          value={deviceID} label="Seadme liik"
                          onChange={handleDeviceChange}
                          options={typeOptions}
+                         nameValue={true}
                         />
 
                         <DropDown
@@ -358,6 +380,7 @@ export default function AddNewProject(){
                          value={powerID} label="Võimsus kW"
                          onChange={handlePowerChange}
                          options={powerOptions}
+                         nameValue={true}
                         />
 
                         <DropDown
@@ -365,6 +388,7 @@ export default function AddNewProject(){
                          value={rotPerMin} label="p/min"
                          onChange={handleRotPerMinChange}
                          options={rotPerMinOptions}
+                         nameValue={true}
                         />
 
             	        <h4>Tüüp</h4>
@@ -384,41 +408,47 @@ export default function AddNewProject(){
                          value={manufacturer} label="Tootja"
                          onChange={handleManufacturerChange}
                          options={manufacturerOptions}
+                         nameValue={true}
                         />
 
                         <DropDown 
                          name="Võlli kõrgus" ID="shaftHeight"
                          value={shaftHeight} label="Võlli kõrgus"
                          onChange={handleShaftHeightChange}
-                         options={shaftHeightOptions} 
+                         options={shaftHeightOptions}
+                         nameValue={true} 
                         />
 
                         <DropDown 
                          name="Toite liik" ID="powerSupply"
                          value={powerSupply} label="Toite liik"
                          onChange={handlePowerSupplyChange}
-                         options={powerSupplyOptions} 
+                         options={powerSupplyOptions}
+                         nameValue={true} 
                         />
 
                         <DropDown 
                          name="Sagedus Hz" ID="frequency"
                          value={frequency} label="Sagedus"
                          onChange={handleFrequencyChange}
-                         options={frequencyOptions} 
+                         options={frequencyOptions}
+                         nameValue={true} 
                         />
 
                         <DropDown 
                          name="Isol. klass" ID="isolationClass"
                          value={isolationClass} label="Isol. klass"
                          onChange={handleIsolationClassChange}
-                         options={isolationClassOptions} 
+                         options={isolationClassOptions}
+                         nameValue={true} 
                         />
 
                         <DropDown 
                          name="IP klass" ID="IPClass"
                          value={IPClass} label="IP klass"
                          onChange={handleIPClassChange}
-                         options={IPClassOptions} 
+                         options={IPClassOptions}
+                         nameValue={true}
                         />
 
                         <TextField
