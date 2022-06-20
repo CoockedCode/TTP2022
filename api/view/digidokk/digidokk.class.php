@@ -20,7 +20,7 @@ class DigiDokk{
         klient.arve_email, klient.lisa_info
         FROM projekt
         JOIN arve_info ON arve_info.projekt_id = projekt.id
-        JOIN klient ON klient.id = arve_info.id
+        JOIN klient ON klient.id = projekt.klient_id
         WHERE projekt.id = ?");
         $stmt->bind_param("i", $id);
         $stmt->bind_result($id2, $projekt_nr, $prioriteet, $alustatud, $klient_id, $kokkulepitud_lopp, $lopp, $valjaviidud, $saabunud, $tagastus, $vottis_vastu,

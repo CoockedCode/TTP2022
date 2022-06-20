@@ -79,11 +79,7 @@ function Row(row, key){
 		<>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
-<<<<<<< HEAD
-			<TableCell sx={{mx: "4px"}} width="12px" href={row.DigiDokk}><ButtonBase href={row.DigiDokk}><FileOpenIcon /></ButtonBase></TableCell>
-=======
 			<TableCell sx={{mx: "4px"}} width="12px"><ButtonBase onClick={()=>navigate("/digidokk?id=" + row.id_DB)}><FileOpenIcon /></ButtonBase></TableCell>
->>>>>>> main
 			<TableCell ><WorkPrio prio={row.PT} /></TableCell>
 			<TableCell padding='none' sx={{px: "6px"}} >{row.ID}</TableCell>
 			<TableCell >xx.xx.xxxx</TableCell>

@@ -7,6 +7,9 @@ import { endpoint } from "../../endpoint";
 
 const DigiDokk = () => {
 
+  const params = new URLSearchParams(document.location.search);
+  const dokkID = params.get("id");
+
     const [dokk, setDokk] = useState([[]]);
       const FetchDokk = (idDB) =>{
         axios.get(endpoint + "/view/digidokk/digidokk.php?id=" + idDB )
@@ -17,8 +20,9 @@ const DigiDokk = () => {
       };
 
     useEffect(() => {
-	  	FetchDokk(8);
-  	}, [!dokk]);
+	  	FetchDokk(dokkID);
+  	}, [!dokk, dokkID]);
+
 
     return (
       <>
@@ -84,7 +88,7 @@ const DigiDokk = () => {
                     </td> */}
                     <td class="tg-0pky" colSpan="13" rowSpan="2">Tellija:
                       <form>
-                        <input type="text" id="tellija">
+                        <input type="text" id="tellija" defaultValue={dokk[0].kliendinimi}>
                         </input>
                       </form>
                     </td>
@@ -106,7 +110,7 @@ const DigiDokk = () => {
                     </td>
                     <td class="tg-arveepost" colSpan="11">Arve e-post:
                       <form id="arveepostf">
-                        <input type="name" id="arveepost"></input>
+                        <input type="name" id="arveepost" defaultValue={dokk[0].klient_arve_email}></input>
                       </form>
                     </td>
                     <td class="tg-allkiri" colSpan="2">allkiri</td>
@@ -115,7 +119,7 @@ const DigiDokk = () => {
                   <tr>
                     <td class="tg-0pky" colSpan="2">E-post:
                       <form id="epostf">
-                        <input type="text" id="epost"></input>
+                        <input type="text" id="epost" defaultValue={dokk[0].klient_email}></input>
                       </form>
                     </td>
                     <td class="tg-0pky" colSpan="9">Tellimuse esitaja nimi:
