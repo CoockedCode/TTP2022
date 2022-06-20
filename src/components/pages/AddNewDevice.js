@@ -372,7 +372,7 @@ export default function AddNewProject(){
                          value={deviceID} label="Seadme liik"
                          onChange={handleDeviceChange}
                          options={typeOptions}
-                         nameValue={true}
+                        //  nameValue={true}
                         />
 
                         <DropDown
@@ -380,7 +380,7 @@ export default function AddNewProject(){
                          value={powerID} label="Võimsus kW"
                          onChange={handlePowerChange}
                          options={powerOptions}
-                         nameValue={true}
+                        //  nameValue={true}
                         />
 
                         <DropDown
@@ -388,7 +388,7 @@ export default function AddNewProject(){
                          value={rotPerMin} label="p/min"
                          onChange={handleRotPerMinChange}
                          options={rotPerMinOptions}
-                         nameValue={true}
+                        //  nameValue={true}
                         />
 
             	        <h4>Tüüp</h4>
@@ -408,7 +408,7 @@ export default function AddNewProject(){
                          value={manufacturer} label="Tootja"
                          onChange={handleManufacturerChange}
                          options={manufacturerOptions}
-                         nameValue={true}
+                        //  nameValue={true}
                         />
 
                         <DropDown 
@@ -416,7 +416,7 @@ export default function AddNewProject(){
                          value={shaftHeight} label="Võlli kõrgus"
                          onChange={handleShaftHeightChange}
                          options={shaftHeightOptions}
-                         nameValue={true} 
+                        //  nameValue={true} 
                         />
 
                         <DropDown 
@@ -424,7 +424,7 @@ export default function AddNewProject(){
                          value={powerSupply} label="Toite liik"
                          onChange={handlePowerSupplyChange}
                          options={powerSupplyOptions}
-                         nameValue={true} 
+                        //  nameValue={true} 
                         />
 
                         <DropDown 
@@ -432,7 +432,7 @@ export default function AddNewProject(){
                          value={frequency} label="Sagedus"
                          onChange={handleFrequencyChange}
                          options={frequencyOptions}
-                         nameValue={true} 
+                        //  nameValue={true} 
                         />
 
                         <DropDown 
@@ -440,7 +440,7 @@ export default function AddNewProject(){
                          value={isolationClass} label="Isol. klass"
                          onChange={handleIsolationClassChange}
                          options={isolationClassOptions}
-                         nameValue={true} 
+                        //  nameValue={true} 
                         />
 
                         <DropDown 
@@ -448,7 +448,7 @@ export default function AddNewProject(){
                          value={IPClass} label="IP klass"
                          onChange={handleIPClassChange}
                          options={IPClassOptions}
-                         nameValue={true}
+                        //  nameValue={true}
                         />
 
                         <TextField
