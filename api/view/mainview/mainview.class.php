@@ -1,6 +1,7 @@
 <?php
 
     require_once('../../config_db.php');
+    require_once('../../general.class.php');
 
 class MainView {
 
@@ -11,17 +12,19 @@ class MainView {
 	public static function archive($id){return self::archive_project($id);}
 	public static function query_archive($id){return self::query_archive_project($id);}
 
+
 	private static function fetch_all_projects($query): void{
 		self::$return_data = null;
         $list_html = array();
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
 		if($query == "2"){
-			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.deleted = '1'");
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.deleted = '1' ORDER BY projekt.projekt_nr DESC");
 		}else{
-			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.arhiivi = ? AND projekt.deleted = 'false' ");
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.arhiivi = ? AND projekt.deleted = 'false' ORDER BY projekt.projekt_nr DESC");
 			$stmt->bind_param("i", $query);
 		}
+
 		$stmt->bind_result(
 			$from_db_projekt_id,
 			$from_db_projekt_projekt_nr,
@@ -35,48 +38,44 @@ class MainView {
 			$from_db_projekt_tagastus,
 			$from_db_projekt_teostatav,
 			$from_db_projekt_vottis_vastu,
-			$from_db_projekt_arhiivi,
 			$from_db_projekt_klient_name
 		);
+
         $stmt->execute();
         while($stmt->fetch()){
 			array_push($list_html, array(
 				"id_DB"=>$from_db_projekt_id,
 				"ID"=>$from_db_projekt_projekt_nr,
 				"PT"=>$from_db_projekt_prioriteet,
-				"alustatud"=>$from_db_projekt_alustatud,
-				"kokkulepitud_lopp"=>$from_db_projekt_kokkulepitud_lopp,
-				"lopp"=>$from_db_projekt_lopp,
+				"alustatud"=>General::est_locale($from_db_projekt_alustatud),
+				"kokkulepitud_lopp"=>General::est_locale($from_db_projekt_kokkulepitud_lopp),
+				"lopp"=>General::est_locale($from_db_projekt_lopp),
 				"valjaviidud"=>$from_db_projekt_valjaviidud,
 				"arve"=>$from_db_projekt_arve,
 				"saabunud"=>$from_db_projekt_saabunud,
 				"tagastus"=>$from_db_projekt_tagastus,
 				"teostatav"=>$from_db_projekt_teostatav,
 				"vottis_vastu"=>$from_db_projekt_vottis_vastu,
-				"Arhiivi"=>$from_db_projekt_arhiivi,
 				"Klient"=>$from_db_projekt_klient_name,
-				"DigiDokk"=> '<LINK>',
-				"Avatud"=> "homme",
-				"Too_nimetus"=> 'Mähkimine',
-				"Tootja"=> "ABB",
-				"Seadme_liik"=> "ASD",
-				"Seadme_tüüp"=> "ASD",
-				"kW"=> "ASD",
-				"pmin"=> "ASD",
-				"Kokkulepitud_tähtaeg"=> "ASD",
-				"Lopetatud"=> "ASD",
-				"Väljaviidud"=> "ASD",
-				"Kustuta"=> "EI",
+				"Avatud"=>General::est_locale("2222-12-22"),
+				"Too_nimetus"=>'Mähkimine',
+				"Tootja"=>"ABB",
+				"Seadme_liik"=>"ASD",
+				"Seadme_tüüp"=>"ASD",
+				"kW"=>"ASD",
+				"pmin"=>"ASD",
+				"kokkulepitud_tahtaeg"=>General::est_locale("2222-12-22"),
+				"Lopetatud"=>General::est_locale("2222-12-22"),
 				"notice"=>"AB-st info kätte saadud!",
 				"type"=>"success",
 
-				"Progress"=> [
-					["work"=> 'DE', "workProg"=> '1', "pos"=> '1'],
-					["work"=> 'LI', "workProg"=> '2', "pos"=> '2'],
-					["work"=> 'ASD', "workProg"=> '0',  "pos"=> '3'],
-					["work"=> 'DF', "workProg"=> '3',  "pos"=> '4'],
-					["work"=> 'DG', "workProg"=> '0',  "pos"=> '5'],
-					["work"=> 'HF', "workProg"=> '0',  "pos"=> '6'],
+				"Progress"=>[
+					["work"=>'DE', "workProg"=>'1', "pos"=>'1'],
+					["work"=>'LI', "workProg"=>'2', "pos"=>'2'],
+					["work"=>'ASD', "workProg"=>'0',  "pos"=>'3'],
+					["work"=>'DF', "workProg"=>'3',  "pos"=>'4'],
+					["work"=>'DG', "workProg"=>'0',  "pos"=>'5'],
+					["work"=>'HF', "workProg"=>'0',  "pos"=>'6'],
 
 				]
 			));
