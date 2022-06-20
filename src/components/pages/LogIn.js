@@ -37,7 +37,8 @@ export default function SignIn() {
   const fetchUsr = async (usrNam, passWrd) => {
       const {status, data} = await axios.get(endpoint + "/auth/user/user_auth.php?user_name=" + usrNam + "&password=" + passWrd);
       if (status === 200){
-        if (data.length > 0){
+        //console.log(data);
+        if (data){
           if (data[0].user_name == usrNam && data[0].sign_in == "true") {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
             dispatch(setUserSession(true, data[0].user_id, data[0].user_name));

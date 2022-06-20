@@ -19,7 +19,7 @@ const MenuProps = {
   },
 };
 
-names = [
+const names = [
   'Tööline',
   'Käsitleja',
   'Katsetaja',
