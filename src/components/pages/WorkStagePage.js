@@ -1,15 +1,16 @@
-import EmployeeListTable from "../EmployeeListTable";
+import React from "react";
 import { FormControl, TextField } from "@mui/material";
 import "../../styles/pages/Home.css";
+import RolesListTable from "../RolesListTable";
 
 const EmployeeList = () => {
   return (
     <>
       <main>
-        <section style={{ width: "98%", margin: "0 5%"}}>
+        <section style={{ width: "100%", padding: "0 5%" }}>
           <div id="header-wrapper">
             <div id="page-header">
-              <h3>Töötajad</h3>
+              <h3>Töörollid</h3>
             </div>
             <div id="srch-bar">
               <FormControl fullWidth>
@@ -17,7 +18,8 @@ const EmployeeList = () => {
               </FormControl>
             </div>
           </div>
-          <EmployeeListTable />
+          <RolesListTable />
+
         </section>
       </main>
     </>

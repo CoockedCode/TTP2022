@@ -3,8 +3,9 @@
     require_once("../../config_db.php");
     require_once("../../config_session.php");
 
-    get_choice_info();
-
+    if(isset($_GET["choice"])){
+        get_choice_info();
+    }
     function get_choice_info(){
         $choice_info_array = array();
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);

@@ -3,28 +3,22 @@ import Checkbox from '@mui/material/Checkbox';
 import {FormControlLabel} from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 const DigiDokk = () => {
 
     const [dokk, setDokk] = useState([[]]);
-
       const FetchDokk = (idDB) =>{
-        axios.get(endpoint + "/digidokk/DigiDokk.php?id=" + idDB )
+        axios.get(endpoint + "/view/digidokk/digidokk.php?id=" + idDB )
         .then(function(resp){
             setDokk(resp.data);
             console.log(resp.data)
         })
-        
-
       };
 
     useEffect(() => {
 	  	FetchDokk(8);
-      
   	}, [!dokk]);
-
 
     return (
       <>

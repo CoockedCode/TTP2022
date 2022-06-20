@@ -11,7 +11,7 @@
         $work_type_array = array();
         $conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
         $conn->set_charset("utf8");
-        $stmt = $conn->prepare("SELECT id, nimetus FROM too_liik");
+        $stmt = $conn->prepare("SELECT id, nimetus FROM too_liik WHERE deleted = '0'");
         $stmt->bind_result($id_from_db, $work_type_from_db);
         $stmt->execute();
         while($stmt->fetch()){

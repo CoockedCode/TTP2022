@@ -6,9 +6,7 @@ import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import { setUserSession } from "../../redux/ducks/userSession";
 import axios from 'axios';
-
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 function stringToColor(string) {
   let hash = 0;

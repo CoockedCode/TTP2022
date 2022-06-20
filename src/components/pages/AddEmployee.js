@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from "react-redux";
-import { Box } from '@mui/material';
 import axios from 'axios';
 import { setSnackbar } from "../../redux/ducks/snackbar";
 import FormControl from '@mui/material/FormControl';
 import DropDown from '../DropDown';
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function AddWorker(){
+	//snackbar
 	const dispatch = useDispatch();
+
 	//1. Töötaja eesnimi
 	const [valueEmpFname, setValueEmpFname] = useState();
 	const [errorEmpFname, setErrorEmpFname] = useState(false);
@@ -42,7 +42,7 @@ export default function AddWorker(){
 
 	// info salvestamine php kaudu
 	const saveData = (dataToSave) => {
-		axios.post(endpoint + "/view/employee/fnc_add_employee.php", dataToSave)
+		axios.post(endpoint+"/view/employee/fnc_add_employee.php", dataToSave)
 		.then(function (response) {
 			console.log(response.data);
 			if(response.status === 200){
@@ -67,7 +67,6 @@ export default function AddWorker(){
 		response.data.forEach(element=>{
 			setRoleNameOptions(oldArray=>[...oldArray, element]);
 		})
-		// console.log(roleNameOptions)
 	}
 
 	useEffect(() => {
@@ -78,7 +77,9 @@ export default function AddWorker(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
+		//console.log(formData);
 		if(formData.get("employeeFname") && formData.get("employeeSname") && formData.get("employeeMail") && formData.get("employeeNumber")){
+			//Kasutajanime loomine ees- ja perekonnanime järgi
 			const employeeFname = formData.get("employeeFname");
 			const employeeSname =  formData.get("employeeSname");
 			const employeeUsername = employeeFname.concat(employeeSname);
@@ -90,13 +91,16 @@ export default function AddWorker(){
 				employeeSname: formData.get("employeeSname"),
 				employeeMail: formData.get("employeeMail"),
 				employeeNumber: formData.get("employeeNumber"),
+				// employeeActive: formData.get("employeeActive"),
 				employeeRoleID: roleName,
 				employeeUsername: employeeUsername,
 				employeePassword: employeePassword
 
 			};
+
 			saveData(dataToSave);
 			console.log(dataToSave);
+
 		} else {
 			console.log("viga")
 			if(!formData.get("employeeFname")){
@@ -119,6 +123,11 @@ export default function AddWorker(){
 			}else{
 				setValueEmpNumber(formData.get("employeeNumber"));
 			}
+			// if(!formData.get("employeeActive")){
+			// 	setErrorEmpActive(true);
+			// }else{
+			// 	setValueEmpActive(formData.get("employeeActive"));
+			// }
 			if(!roleName){
 				setErrorEmpRole(true);
 			}else{
@@ -126,90 +135,73 @@ export default function AddWorker(){
 			}
 		}
 	}
-
 	return(
-		<>
 		<main>
-			<section>
+			<section style={{width: "35%", minWidth: "20rem"}}>
 				<div id="header-wrapper">
-					<h3>Lisa uus Töötaja:</h3>
+					<h3 style={{margin: 0, marginTop: "1.5rem", marginBottom: "0.5rem"}}>Lisa uus Töötaja</h3>
 				</div>
-
-				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%", py: '20px'}}>
+					<FormControl fullWidth noValidate autoComplete="off" onSubmit={handleSubmit}>
 						<TextField
 							required
-							fullWidth
 							error={!!errorEmpFname}
 							autoFocus
 							id="employeeFname"
 							label="Töötaja nimi"
 							name="employeeFname"
-							autoComplete="none"
 							type="text"
-							margin="dense"
+							margin='dense'
 							size="small"
 							/>
 						<TextField
 							required
-							fullWidth
 							error={!!errorEmpSname}
-							autoFocus
 							id="employeeSname"
 							label="Töötaja perekonnanimi"
 							name="employeeSname"
-							autoComplete="none"
 							type="text"
-							margin="dense"
+							margin='dense'
 							size="small"
 							/>
-
 						<TextField
 							required
-							fullWidth
 							error={!!errorEmpMail}
 							id="employeeMail"
 							label="Töötaja meiliaadress"
 							name="employeeMail"
-							autoComplete="none"
 							type="text"
-							margin="dense"
+							margin='dense'
 							size="small"
 							/>
 						<TextField
 							required
 							fullWidth
 							error={!!errorEmpNumber}
-							// sx={{ width: 'auto'}}
 							id="employeeNumber"
 							label="Töötaja telefoninumber"
 							name="employeeNumber"
-							autoComplete="none"
 							type="text"
-							margin="dense"
+							margin='dense'
 							size="small"
-							padding="none"
-
 							/>
 						<DropDown
 							ID="roleName"
 							label="Tööroll"
 							onChange={handleRoleChange}
 							options={roleNameOptions}
-							name=""
+							disableLabel={false}
+							size="small"
 						/>
 						<Button
-							type="submit"
-							variant="contained"
-							sx={{ mt: "0.3rem", bgcolor: 'main', width: 'auto' }}
-							margin="dense"
-							>
-							Lisa töötaja
+							sx={{mt: 2.5}}
+							disableElevation
+							variant='contained'
+							size="large"
+						>
+							Lisa
 						</Button>
 					</FormControl>
-				</Box>
 			</section>
 		</main>
-		</>
 	);
 }

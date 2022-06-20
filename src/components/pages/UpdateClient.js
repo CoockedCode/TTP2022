@@ -12,8 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Select, MenuItem, InputLabel, FormControl } from '@mui/material';;
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function UpdateClient(){
 	//snackbar
@@ -168,27 +167,24 @@ export default function UpdateClient(){
 	return(
 		<>
 		<main>
-			<section style={{width: "50%"}}>
+			<section style={{minWidth: "20rem", maxWidth: "35%"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Uuenda klienti</h3>
 				</div>
 				<Box component = "form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<FormControl sx={{width: "100%"}}>
-
-							<InputLabel id="clientLabel">Vali klient</InputLabel>
+					<FormControl fullWidth>
+							<InputLabel size="small" id="clientLabel">Vali klient</InputLabel>
 							<Select
 								labelId="clientLabel"
 								id="client"
 								value={companyRealId}
 								label="companyID"
 								onChange={handleChange}
+								size="small"
 							>
 								{options.map((option, index) => (<MenuItem key={index} value={index} placeholder={option.name}>{option.name}</MenuItem>))}
 							</Select>
-
-							{/* { console.log(options[2]) } */}
-
 							<>
 								<TextField
 									required
@@ -225,9 +221,10 @@ export default function UpdateClient(){
 									autoComplete="none"
 									value={options[companyRealId] ? options[companyRealId].postInd : "" }
 									onChange={(e)=>handleUpdatePostIndex(e)}
-									type="number"
+									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									/>
 								<TextField
 									required
 									fullWidth
@@ -240,7 +237,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateContPers(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									required
 									fullWidth
@@ -252,7 +250,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateMail(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									/>
 								<TextField
 									required
 									fullWidth
@@ -264,7 +263,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdatePhone(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									required
 									fullWidth
@@ -277,7 +277,8 @@ export default function UpdateClient(){
 									onChange={(e)=>handleUpdateInvoiceEM(e)}
 									type="text"
 									margin="dense"
-									size="small" />
+									size="small"
+									 />
 								<TextField
 									optional
 									fullWidth
@@ -291,7 +292,7 @@ export default function UpdateClient(){
 									type="text"
 									margin="dense"
 									multiline
-									rows={6}
+									rows={4}
 									 />
 							</>
 

@@ -1,6 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { FormControlLabel, Checkbox } from "@mui/material/";
+//import { FormControlLabel, Checkbox } from "@mui/material/";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
@@ -11,8 +11,7 @@ import { setSnackbar } from "../../redux/ducks/snackbar";
 import { setUserSession } from "../../redux/ducks/userSession";
 import axios from "axios";
 import { useEffect } from "react";
-
-const endpoint = "https://elektrimasinad.digifi.eu/api";
+import { endpoint } from "../../endpoint";
 
 export default function SignIn() {
   //snackbar/usrSession
@@ -102,7 +101,7 @@ export default function SignIn() {
                 autoComplete="none"
               />
               {/*<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Jäta mind meelde" />*/}
-              <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 2, mb: 2, bgcolor: "main" }}>
+              <Button type="submit" fullWidth variant="contained" size="large" sx={{ my: 2 }}>
                 Logi sisse
               </Button>
             </Box>

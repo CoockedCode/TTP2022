@@ -16,12 +16,20 @@ import { useSelector } from "react-redux";
 import EmployeeList from "./components/pages/EmployeeList";
 import NotFound from "./components/pages/NotFound";
 import User from "./components/pages/User";
+<<<<<<< HEAD
 import ChoiceList from "./components/pages/ChoiceList";
 import WorkHours from "./components/pages/WorkHours";
+=======
+import DigiDokk from "./components/pages/DigiDokk";
+import ChoiceList from "./components/pages/ChoiceList";
+import WorkHours from "./components/pages/WorkHours";
+import WorkStages from "./components/pages/WorkStages";
+>>>>>>> main
 
 const App = () => {
 
   const [open, setOpen] = useState(location.openSnackbar);
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -35,7 +43,6 @@ const App = () => {
       return <NavBar />
     }
   };
-
 
   return (
     <>
@@ -54,11 +61,18 @@ const App = () => {
             <Route path="/too-tunnid" element={<WorkHours />} />
             <Route path="/tootajad" element={<EmployeeList />} />
             <Route path="/kasutaja-satted" element={<User />} />
+<<<<<<< HEAD
             <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
+=======
+            <Route path="/digidokk" element={<DigiDokk />} />
+            <Route path="/seadme-tehniline-info" element={<AddNewDevice />} />
+            <Route path="/toonimetused" element={<WorkStages />} />
+>>>>>>> main
           </Route>
         </Routes>
       <SnackBar />
     </>
   );
 };
+
 export default App;

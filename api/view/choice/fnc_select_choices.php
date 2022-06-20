@@ -2,9 +2,9 @@
     require_once("../../config_header.php");
     require_once("../../config_db.php");
     require_once("../../config_session.php");
-
-    get_device_info();
-
+    if(isset($_GET["choices"])){
+        get_device_info();
+    }
     // ID järgi valiku nimetus
     // 1 - liik
     // 2 - võimsus kW

@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
-import { FormControl, FormHelperText } from '@mui/material';
+//import { FormControl, FormHelperText } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
+//import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import IconButton from '@mui/material/IconButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Collapse from '@mui/material/Collapse';
-import Box from '@mui/material/Box';
+//import IconButton from '@mui/material/IconButton';
+//import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+//import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+//import Collapse from '@mui/material/Collapse';
+//import Box from '@mui/material/Box';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -20,11 +20,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import DropDown from "./DropDown";
-import TextField from '@mui/material/TextField';
+//import DropDown from "./DropDown";
+//import TextField from '@mui/material/TextField';
+import { endpoint } from "../endpoint";
+
 
 export default function ChoiceTable() {
-    const endpoint = "https://elektrimasinad.digifi.eu/api";
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/view/choice/fnc_select_choices.php");

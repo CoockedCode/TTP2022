@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 
 const rows = [
     {Nimi:'Heidi Kuusk', Mail:'heidi.kuusk@elktrm.ee', Number:'58585858', Roll:'Tööline'}
-
 ]
 
 export default function WorkerListTable() {
@@ -27,14 +26,10 @@ export default function WorkerListTable() {
         setPage(0);
       };
 
-
     function Row(row, key){
-
         return(
             <>
             <TableRow key={key} className="main-table-row">
-                <TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}}></IconButton></TableCell>
-
                     <TableCell >{row.Nimi}</TableCell>
                     <TableCell >{row.Mail} </TableCell>
                     <TableCell >{row.Number} </TableCell>
@@ -46,12 +41,10 @@ export default function WorkerListTable() {
 
     return (
         <Paper sx={{ width: '100%'}} elevation={2} >
-            <TableContainer sx={{ maxHeight: "80vh", width: '100%' }} >
-            <Table stickyHeader aria-label="sticky collapsible table" size="small">
+            <TableContainer sx={{ maxHeight: "78vh", width: '100%' }} >
+            <Table stickyHeader aria-label="sticky collapsible table" size="normal">
                 <TableHead>
                 <TableRow>
-
-                    <TableCell padding='none' width={"12px"} />
                     <TableCell >Nimi</TableCell>
                     <TableCell >Mail </TableCell>
                     <TableCell >Number </TableCell>
