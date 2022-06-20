@@ -15,7 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Collapse from '@mui/material/Collapse';
 import Box from '@mui/material/Box';
-import { ButtonBase, Button } from '@mui/material';
+import { ButtonBase, Button, Dialog, DialogTitle, FormControl  } from '@mui/material';
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../redux/ducks/snackbar";
@@ -41,8 +41,10 @@ export default function WorkTable({queryOption, searchQuery}) {
   useEffect(() => {
 	if(queryOption == 0){
 		FetchAllData(false);
-	}else{
+	}else if(queryOption == 1){
 		FetchAllData(1);
+	}else if(queryOption == 2){
+		FetchAllData(2);
 	}
   }, [queryOption])
 
@@ -75,8 +77,56 @@ function Row(row, key){
 		saveData(idDB);
 	}
 
+	const [deleteOpen, setDeleteOpen] = useState(false);
+	const handleDeleteOpen = () =>{setDeleteOpen(true);}
+	const handleDeleteClose = () =>{setDeleteOpen(false);}
+	const handleDelete = (id) =>{
+	}
+
 	return(
 		<>
+		<Dialog
+              open={deleteOpen}
+              onClose={handleDeleteClose}
+              maxWidth="xs"
+               sx={{
+                  "& .MuiDialog-container": {
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }
+                }}
+                PaperProps={{
+                  sx: {
+                    m: 0,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    px: 4,
+                    pt: 1.5,
+                    pb: 2.3,
+                  }
+                }}
+							>
+								<DialogTitle>
+								  Kustuta projekt
+								</DialogTitle>
+                  <FormControl fullWidth>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={handleDeleteClose}
+                      >
+                      Tühista
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      sx={{my: 2}}
+                      onClick={()=>{handleDelete(row.id_DB)}}
+                      >
+                      Kustuta
+                    </Button>
+                  </FormControl>
+		</Dialog>
 		<TableRow key={key} className="main-table-row">
 			<TableCell padding='none'><IconButton aria-label="expand row" size="small" sx={{marginLeft: "0.5rem"}} onClick={() => {setOpen(!open)}}>{open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</IconButton></TableCell>
 			<TableCell sx={{mx: "4px"}} width="12px"><ButtonBase onClick={()=>navigate("/digidokk?id=" + row.id_DB)}><FileOpenIcon /></ButtonBase></TableCell>
@@ -106,7 +156,7 @@ function Row(row, key){
 								<TableCell >Kokkulepitud tähtaeg</TableCell>
 								<TableCell >Lõpetatud</TableCell>
 								<TableCell >Väljaviidud</TableCell>
-								<TableCell >Arhiivi</TableCell>
+								<TableCell >{ (queryOption == 2) ? "" : "Arhiivi"}</TableCell>
 								<TableCell >Kustuta</TableCell>
 							</TableRow>
 						</TableHead>
@@ -116,8 +166,27 @@ function Row(row, key){
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
 								<TableCell >xx.xx.xxxx</TableCell>
-								{(queryOption == 1) ? <TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Aktiveeri</Button></TableCell> :<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Arhiivi</Button></TableCell>}
-								<TableCell  ><Button type="small" variant='contained' sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
+								{}
+
+									{(queryOption == 2) ?
+									<>
+										<TableCell></TableCell>
+										<TableCell><Button type="small" color="error" variant='outlined' onClick={handleDeleteOpen} sx={{ml: "4px", py: "4px", my: "6px"}}>Aktiveeri</Button></TableCell>
+									</>
+									:
+									(queryOption == 1) ?
+									<>
+									<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Aktiveeri</Button></TableCell>
+										<TableCell><Button type="small" color="error" variant='outlined' onClick={handleDeleteOpen} sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
+									</>
+									:
+									<>
+									<TableCell  ><Button type="small" variant='contained' sx={{py: "4px", my: "6px"}} onClick={(e)=>{handleArchive(e)}}>Arhiivi</Button></TableCell>
+									<TableCell><Button type="small" color="error" variant='outlined' onClick={handleDeleteOpen} sx={{ml: "4px", py: "4px", my: "6px"}}>Kustuta</Button></TableCell>
+									</>
+									}
+
+
 							</TableRow>
 						</TableBody>
 						</Table>

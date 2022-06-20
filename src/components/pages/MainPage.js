@@ -18,6 +18,7 @@ const MainPage = () => {
     setSearchQuery(e.target.value);
   }
 
+  console.log(userID);
   return (
     <>
       <main>
@@ -42,6 +43,9 @@ const MainPage = () => {
                               </MenuItem>
                               <MenuItem key={1} value={1} placeholder={1} >
                                   {"Arhiveeritud projektid"}
+                              </MenuItem>
+                              <MenuItem key={2} value={2} placeholder={2} >
+                                  {"Kustutatud projektid"}
                               </MenuItem>
                             </Select>
                           </FormControl>

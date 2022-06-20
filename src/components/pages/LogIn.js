@@ -25,10 +25,10 @@ export default function SignIn() {
     .then(function(response){
       if(response.status === 200 && response.data[0].status == "true"){
         dispatch(setSnackbar(true, "success", "Automaatselt sisse logitud!"));
-        dispatch(setUserSession(true, response.data[0].user_name));
+        dispatch(setUserSession(true, response.data[0].user_id, response.data[0].user_name));
         navigate("/avaleht");
       }else{
-        dispatch(setUserSession(false, ""));
+        dispatch(setUserSession(false, "", ""));
         console.log('Küpsised puudvad!');
       }
     })
@@ -38,10 +38,9 @@ export default function SignIn() {
       const {status, data} = await axios.get(endpoint + "/auth/user/user_auth.php?user_name=" + usrNam + "&password=" + passWrd);
       if (status === 200){
         if (data.length > 0){
-          // console.log(data);
-          if (data[0].user_name == usrNam && data[0].signIn == "true") {
+          if (data[0].user_name == usrNam && data[0].sign_in == "true") {
             dispatch(setSnackbar(true, "success", "Edukalt sisse loginud!"));
-            dispatch(setUserSession(true, data[0].user_name));
+            dispatch(setUserSession(true, data[0].user_id, data[0].user_name));
             navigate("/avaleht");
           }
           if(data[0].error){
