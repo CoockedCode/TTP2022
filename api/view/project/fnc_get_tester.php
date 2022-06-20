@@ -1,8 +1,7 @@
 <?php
-	require_once('../config.php');
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Headers: *");
-	header("Content-Type: *; charset=UTF-8");
+	require_once('../../config_header.php');
+    require_once("../../config_db.php");
+    require_once("../../config_session.php");
 
     if(isset($_GET["tester"])){
         get_tester();
