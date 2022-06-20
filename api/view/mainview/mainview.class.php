@@ -17,9 +17,9 @@ class MainView {
 		$conn = new mysqli($GLOBALS["server_host"], $GLOBALS["server_user_name"], $GLOBALS["server_password"], $GLOBALS["database"], $GLOBALS["db_port"]);
 		$conn->set_charset("utf8");
 		if($query == "2"){
-			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE deleted = '1' ");
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.deleted = '1'");
 		}else{
-			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE arhiivi = ? AND deleted = 'false' ");
+			$stmt = $conn->prepare("SELECT projekt.id, projekt.projekt_nr, projekt.prioriteet, projekt.alustatud, projekt.kokkulepitud_lopp, projekt.lopp, projekt.valjaviidud, projekt.arve, projekt.saabunud, projekt.tagastus, projekt.teostatav, projekt.vottis_vastu, projekt.arhiivi, klient.name FROM projekt LEFT JOIN klient ON projekt.klient_id = klient.id WHERE projekt.arhiivi = ? AND projekt.deleted = 'false' ");
 			$stmt->bind_param("i", $query);
 		}
 		$stmt->bind_result(

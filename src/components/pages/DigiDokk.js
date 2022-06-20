@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { endpoint } from "../../endpoint";
 
 const DigiDokk = () => {
+  const params = new URLSearchParams(document.location.search);
+  const dokkID = params.get("id");
 
     const [dokk, setDokk] = useState([[]]);
       const FetchDokk = (idDB) =>{
@@ -17,8 +19,8 @@ const DigiDokk = () => {
       };
 
     useEffect(() => {
-	  	FetchDokk(8);
-  	}, [!dokk]);
+	  	FetchDokk(dokkID);
+  	}, [!dokk, dokkID]);
 
     return (
       <>
