@@ -7,7 +7,7 @@ const useAuth = () => {
 };
 
 const ProtectedRoutes = () => {
-  console.log(useSelector(state => state.userSession.userSession));
+  // console.log(useSelector(state => state.userSession.userSession));
   const isAuth = useAuth();
   return isAuth ? <Outlet /> : <Navigate to="/" />;
 };
