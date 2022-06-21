@@ -194,10 +194,10 @@ export default function AddNewProject(){
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		if(projectNum && companyID && workID && formData.get("projectPriority") 
-			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy") 
+		if(projectNum && companyID && workID && formData.get("projectPriority")
+			&& selectedEndDate && selectedStartDate && formData.get("projectArrivedBy")
 			&& formData.get("projectReturnBy") && formData.get("offerNr")
-			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer") 
+			&& formData.get("agreedPrice") && formData.get("clientPO") && formData.get("orderer")
 			&& formData.get("ordererPhoneNr") && formData.get("contractNr") && formData.get("firstDefecting")
 			&& formData.get("acceptedBy")){
 			console.log("väljad täidetud")
@@ -243,7 +243,7 @@ export default function AddNewProject(){
 	return(
 		<>
 		<main>
-			<section style={{width: "50%"}}>
+			<section style={{width: "35%", minWidth: "22rem"}}>
 				<br />
 				<div id="header-wrapper">
 					<h3 style={{margin: '0', marginBottom: '0.5rem'}}>Lisa uus projekt</h3>
@@ -265,50 +265,58 @@ export default function AddNewProject(){
 							autoComplete="none"
 							type="text"
 							margin="dense"
-							size="small"
+							sx={{mb: 2}}
 							/>
 
-						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
-							<DatePicker
-								id="projectOpenedDate"
-								name="projectOpenedDate"
-								label="Avamise kuupäev"
-								invalidDateMessage="Viga kuupäeva sisestamisel"
-								// error={formValues.startDate.error && formValues.startDate.errorMessage}
-								inputFormat="DD.MM.YYYY"
-								// error={!!errorPlannedEnd}
-								value={selectedStartDate}
-								onChange={startDate => handleStartDateChange(startDate)}
-								renderInput={(params) => <TextField {...params} />}
+						<FormControl fullWidth sx={{mb: 1}}>
+							<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
+								<DatePicker
+									id="projectOpenedDate"
+									name="projectOpenedDate"
+									label="Avamise kuupäev"
+									invalidDateMessage="Viga kuupäeva sisestamisel"
+									// error={formValues.startDate.error && formValues.startDate.errorMessage}
+									inputFormat="DD.MM.YYYY"
+									// error={!!errorPlannedEnd}
+									value={selectedStartDate}
+									onChange={startDate => handleStartDateChange(startDate)}
+									renderInput={(params) => <TextField {...params} />}
+								/>
+							</LocalizationProvider>
+						</FormControl>
+
+						<FormControl fullWidth sx={{mb: 1}}>
+							<DropDown
+								name="Klient:" ID="client"
+								value={companyID} label="Klient"
+								onChange={handleChange}
+								options={options}
 							/>
-						</LocalizationProvider>
+						</FormControl>
 
-						<DropDown
-						 name="Klient:" ID="client"
-						 value={companyID} label="Klient"
-						 onChange={handleChange}
-						 options={options}
-						/>
+						<FormControl fullWidth sx={{mb: 2.5}}>
+							<DropDown
+							name="Töö liik:" ID="workType"
+							value={workID} label="Töö liik"
+							onChange={handleWorkChange}
+							options={workOptions}
+							/>
+						</FormControl>
 
-						<DropDown
-						 name="Töö liik:" ID="workType"
-						 value={workID} label="Töö liik"
-						 onChange={handleWorkChange}
-						 options={workOptions}
-						/>
-
-						<RadioGroup
-							required
-							id='projectPriority'
-							label="Projekti prioriteet"
-							name='projectPriority'
-							row
-						>
-							<FormControlLabel value="1" control={<Radio />} label="Kiire" />
-							<FormControlLabel value="2" control={<Radio />} label="Tähtajaline" />
-							<FormControlLabel value="3" control={<Radio />} label="Määramata" />
-							<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
-						</RadioGroup>
+						<FormControl fullWidth sx={{mb: 3}}>
+							<RadioGroup
+								required
+								id='projectPriority'
+								label="Projekti prioriteet"
+								name='projectPriority'
+								row
+							>
+								<FormControlLabel value="1" control={<Radio />} label="Kiire" />
+								<FormControlLabel value="2" control={<Radio />} label="Tähtajaline" />
+								<FormControlLabel value="3" control={<Radio />} label="Määramata" />
+								<FormControlLabel value="4" control={<Radio />} label="Lõpetatud" />
+							</RadioGroup>
+						</FormControl>
 
 						<LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={et}>
 							<DatePicker
@@ -325,20 +333,23 @@ export default function AddNewProject(){
 						</LocalizationProvider>
 
 						<div className='transport-label'>
-							<h4>Transpordi info</h4>
-							<p>Saabunud:</p>
+							<h4 style={{margin: 0, marginTop: "2rem"}}>Transpordi info</h4>
+							<p style={{margin: 0, marginTop: "0.5rem", marginBottom: "1rem"}}>Saabunud:</p>
 						</div>
-						<RadioGroup
-							required
-							error={false}
-							id='projectArrivedBy'
-							label="Saabunud:"
-							name='projectArrivedBy'
-							row
-						>
-							<FormControlLabel value="klient" control={<Radio />} label="Klient tõi ise" />
-							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
-						</RadioGroup>
+
+						<FormControl fullWidth sx={{mb: 2.5}}>
+							<RadioGroup
+								required
+								error={false}
+								id='projectArrivedBy'
+								label="Saabunud:"
+								name='projectArrivedBy'
+								row
+							>
+								<FormControlLabel value="klient" control={<Radio />} label="Klient tõi ise" />
+								<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
+							</RadioGroup>
+						</FormControl>
 
 						<DropDown
 						 name="Vali transpordifirma ↓" ID="transportArrivalFirmId"
@@ -348,17 +359,19 @@ export default function AddNewProject(){
 						/>
 
 						<p>Tagastus:</p>
-						<RadioGroup
-							required
-							error={false}
-							id='projectReturnBy'
-							label="Tagastus:"
-							name='projectReturnBy'
-							row
-						>
-							<FormControlLabel value="klient" control={<Radio />} label="Klient viib ise" />
-							<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
-						</RadioGroup>
+						<FormControl fullWidth sx={{mb: 2.5}}>
+							<RadioGroup
+								required
+								error={false}
+								id='projectReturnBy'
+								label="Tagastus:"
+								name='projectReturnBy'
+								row
+							>
+								<FormControlLabel value="klient" control={<Radio />} label="Klient viib ise" />
+								<FormControlLabel value="transpordifirma" control={<Radio />} label="Transpordifirma" />
+							</RadioGroup>
+						</FormControl>
 
 						<DropDown
 						 name="Vali transpordifirma ↓" ID="transportReturnFirmId"
@@ -368,7 +381,7 @@ export default function AddNewProject(){
 						/>
 
 						<div className='bill-label'>
-							<h4>Arve info</h4>
+							<h4 style={{margin: 0, marginTop: "2rem"}}>Arve info</h4>
 						</div>
 						<TextField
 							// error={!!errorProjectNumber}
@@ -455,27 +468,29 @@ export default function AddNewProject(){
 							/>
 
 						<div className='first-defecting-label'>
-							<h4>Esmase defekteerimise info</h4>
+							<h4 style={{margin: 0, marginTop: "2rem", marginBottom: "1.2rem"}}>Esmase defekteerimise info</h4>
 						</div>
-						<RadioGroup
-							required
+						<FormControl fullWidth sx={{mb: 1}}>
+							<RadioGroup
+								required
 
-							// error={false}
-							id='firstDefecting'
-							label="Esmase defekteerimise info"
-							name='firstDefecting'
-							onClick={handleDefectingClick}
-							row
-						>
-							<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
-							<FormControlLabel value="0" control={<Radio />} label="Mitte teostatav" />
-						</RadioGroup>
+								// error={false}
+								id='firstDefecting'
+								label="Esmase defekteerimise info"
+								name='firstDefecting'
+								onClick={handleDefectingClick}
+								row
+							>
+								<FormControlLabel value="1" control={<Radio />} label="Teostatav" />
+								<FormControlLabel value="0" control={<Radio />} label="Mitte teostatav" />
+							</RadioGroup>
+						</FormControl>
 
 						<TextField
 							// error={!!errorProjectNumber}
 							// value={parseInt(projectNum) + 1}
 							required
-							autoFocus
+							//autoFocus
 							id="acceptedBy"
 							label="Vastuvõtja"
 							name="acceptedBy"
@@ -501,7 +516,7 @@ export default function AddNewProject(){
 							type="submit"
 
 							variant="contained"
-							sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto' }}
+							sx={{ mt: 2, mb: 12}}
 							margin="dense"
 							>
 							Lisa Projekt
