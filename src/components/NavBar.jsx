@@ -70,12 +70,14 @@ const ResponsiveAppBar = () => {
 						<MenuIcon />
 					</IconButton>
 						<Menu id="menu-appbar" anchorEl={anchorElNav} anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} keepMounted	transformOrigin={{vertical: 'top', horizontal: 'center' }} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}	disableScrollLock={true} sx={{ display: "flex" }}>
-
-						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/valikud")}} >
-							Valikute seaded<br/>
+						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/toonimetused")}}>
+							Tööde nimetused ja etapid<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/seadme-tehniline-info")}} >
 							Seadme tehniline info<br/>
+						</MenuItem>
+						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/valikud")}} >
+							Valikute seaded<br/>
 						</MenuItem>
 						<MenuItem className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/avaleht")}}>
 							Tööd ja etapid<br/>
@@ -94,9 +96,6 @@ const ResponsiveAppBar = () => {
 						</MenuItem> */}
 						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/tootajad")}}>
 							Töötajad<br/>
-						</MenuItem>
-						<MenuItem  className="nav-link-burger" onClick={()=>{handleCloseNavMenu(); navigate("/toonimetused")}}>
-							Tööde nimetused ja etapid<br/>
 						</MenuItem>
 					</Menu>
 				</Box>

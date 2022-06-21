@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody, Input } from '@mui/material';
+import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody, FormControl } from '@mui/material';
 
 
 export default function WindingDialog(props){
@@ -91,7 +91,7 @@ export default function WindingDialog(props){
 
     return(
         <>
-        <div>
+        <FormControl size="small" sx={{display: "inline-flex", flexDirection: "row", flexWrap: "wrap", mr: 1, mt: 1.5}} >
             <Button variant="outlined" onClick={handleClickOpen}>
                 Mähise andmed
             </Button>
@@ -140,9 +140,8 @@ export default function WindingDialog(props){
                     <Button onClick={handleClose}>Katkesta</Button>
                     <Button onClick={handleSave}>Salvesta</Button>
                 </DialogActions>
-
             </Dialog>
-        </div>
+        </FormControl>
         </>
     )
 }

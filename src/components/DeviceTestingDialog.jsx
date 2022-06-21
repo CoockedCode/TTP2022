@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { FormControlLabel, Radio, RadioGroup, TableCell, TableContainer, TableRow } from '@mui/material';
+import { FormControlLabel, Radio, RadioGroup, TableCell, TableContainer, TableRow, FormControl } from '@mui/material';
 import { Paper, TableContainer, TableCell, TableHead, TableRow, TableBody } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import et from 'dayjs/locale/et';
@@ -137,10 +137,10 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
             {
                 tester: testerID,
                 testingDate: `${selectedTestingDate.$y}-${selectedTestingDate.$M + 1}-${selectedTestingDate.$D}`,
-                functionalTest: formValue.functionalTest, 
+                functionalTest: formValue.functionalTest,
                 isolationResistance: formValue.isolationResistance,
                 isolationResistanceUnit: selectedIsolationResistance,
-                isolationSuitability: formValue.isolationSuitability, 
+                isolationSuitability: formValue.isolationSuitability,
                 voltageTest: selectedVoltageTest,
                 voltageTestSuitability: formValue.voltageTestSuitability,
                 functionalTestNotes: formValue.functionalTestNotes,
@@ -183,15 +183,15 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                 }
             }
         ]
-        
+
         console.log(deviceTestingData);
         passTestingData(deviceTestingData);
         setOpen(false);
     }
-    
+
     return(
         <>
-        <div>
+        <FormControl size="small" sx={{display: "inline-flex", flexDirection: "row", flexWrap: "wrap", mr: 1, mt: 1.5}} >
             <Button variant="outlined" onClick={handleClickOpen}>
                 Seadme katsetus
             </Button>
@@ -235,7 +235,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                         <FormControlLabel value="2" control={<Radio />} label="Seade tunnistatud kontrolli põhjal puudulikuks" />
                         <FormControlLabel value="3" control={<Radio />} label="Seade tunnistatud remondiks mittekõlbulikuks" />
                     </RadioGroup>
-                    
+
                     <h4>Isolatsiooni takistus: </h4>
                     <TextField
                         required
@@ -296,7 +296,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Talitluskatse märkused:</h4>
                     <TextField
-                        
+
                         id="functionalTestNotes"
                         value={formValue.functionalTestNotes}
                         onChange={(e) => handleChange(e)}
@@ -513,7 +513,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
 
                     <h4>Audio</h4>
                     <TextField
-                        
+
                         autoFocus
                         id="audioNotes"
                         label="Tekstina"
@@ -616,7 +616,7 @@ export default function DeviceTestingDialog({resistanceOptions, voltageTestOptio
                     <Button onClick={handleSave}>Salvesta</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </FormControl>
         </>
     )
 }

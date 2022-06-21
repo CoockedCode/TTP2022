@@ -11,6 +11,7 @@ import axios from 'axios';
 import { endpoint } from "../endpoint";
 
 export default function ClientListTable({searchQuery}) {
+
     const [rows, setRows] = useState([]);
     const forRows = async () => {
     const resp = await axios.get(endpoint + "/view/client/fnc_get_all_clients.php?client");
@@ -19,7 +20,6 @@ export default function ClientListTable({searchQuery}) {
         resp.data.forEach(element => {
             setRows(oldArray => [...oldArray, element])
         });
-        //console.log(rows);
 }
 
 useEffect(() => {
@@ -44,16 +44,17 @@ useEffect(() => {
         const [open, setOpen] = useState(false);
         return(
             <>
-                <TableRow key={key}>
-                        <TableCell >{row.name}</TableCell>
-                        <TableCell >{row.regNum} </TableCell>
-                        <TableCell >{row.postInd} </TableCell>
-                        <TableCell >{row.kontakt} </TableCell>
-                        <TableCell >{row.mail} </TableCell>
-                        <TableCell >{row.telefon} </TableCell>
-                        <TableCell >{row.invoiceEm}  </TableCell>
-                        <TableCell >{row.addInf} </TableCell>
-                </TableRow>
+              <TableRow key={key}>
+                <TableCell padding='none' width={"16px"}></TableCell>
+                <TableCell >{row.name}</TableCell>
+                <TableCell >{row.regNum} </TableCell>
+                <TableCell >{row.postInd} </TableCell>
+                <TableCell >{row.kontakt} </TableCell>
+                <TableCell >{row.mail} </TableCell>
+                <TableCell >{row.telefon} </TableCell>
+                <TableCell >{row.invoiceEm}  </TableCell>
+                <TableCell >{row.addInf} </TableCell>
+              </TableRow>
             </>
         );
     }
@@ -64,41 +65,42 @@ useEffect(() => {
             <Table stickyHeader size="normal">
                 <TableHead>
                 <TableRow>
-                    <TableCell >Nimi</TableCell>
-                    <TableCell >Registri NR </TableCell>
-                    <TableCell >Postiindeks </TableCell>
-                    <TableCell >Kontakt isik </TableCell>
-                    <TableCell >Mail </TableCell>
-                    <TableCell >Telefon </TableCell>
-                    <TableCell >Arve mail </TableCell>
-                    <TableCell >Lisainfo </TableCell>
+                  <TableCell padding='none' width={"16px"} ></TableCell>
+                  <TableCell >Nimi</TableCell>
+                  <TableCell >Registri NR</TableCell>
+                  <TableCell >Postiindeks</TableCell>
+                  <TableCell >Kontakt isik</TableCell>
+                  <TableCell >Mail</TableCell>
+                  <TableCell >Telefon</TableCell>
+                  <TableCell >Arve mail</TableCell>
+                  <TableCell >Lisainfo</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
                 {rows.filter((rows) => {
-				// console.log(rows);
-				if(searchQuery == ""){
-					return rows;
-				}else if(rows.name.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.regNum.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.addInf.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.kontakt.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.mail.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.telefon.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.mail.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}else if(rows.address.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
-					return rows;
-				}
-			}).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((rows, key) => (
-				<Row {...rows} key={key} />
-			))}
+                  // console.log(rows);
+                  if(searchQuery == ""){
+                    return rows;
+                  }else if(rows.name.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.regNum.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.addInf.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.kontakt.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.mail.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.telefon.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.mail.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }else if(rows.address.toString().toLowerCase().includes(searchQuery.toString().toLowerCase())){
+                    return rows;
+                  }
+                }).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((rows, key) => (
+                  <Row {...rows} key={key} />
+              ))}
 
             </TableBody>
             </Table>

@@ -24,7 +24,7 @@ export default function AddNewProject(){
     //snackbar
     const dispatch = useDispatch();
     // projekti nr saamine
-    const { state } = useLocation();
+    const state = useLocation();
     const projectNum = state.nr;
 
     // seadme liik
@@ -158,7 +158,7 @@ export default function AddNewProject(){
                 rotorValue: ""
             }
         ]
-        
+
     );
 
     const passWindingData = (data) => {
@@ -206,7 +206,7 @@ export default function AddNewProject(){
                 },
                 audioNotes: "",
                 otherNotes: "",
-                windingResistance: 
+                windingResistance:
                 {
                     resistanceU: "",
                     resistanceUunit: "",
@@ -366,7 +366,7 @@ export default function AddNewProject(){
                     <p>Projekti nr: {projectNum}</p>
                 </div>
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                    <FormControl sx={{width: "100%"}}>
+                    <FormControl fullWidth>
                         <DropDown
                          name="Seadme liik" ID="deviceType"
                          value={deviceID} label="Seadme liik"
@@ -411,39 +411,39 @@ export default function AddNewProject(){
                         //  nameValue={true}
                         />
 
-                        <DropDown 
+                        <DropDown
                          name="Võlli kõrgus" ID="shaftHeight"
                          value={shaftHeight} label="Võlli kõrgus"
                          onChange={handleShaftHeightChange}
                          options={shaftHeightOptions}
-                        //  nameValue={true} 
+                        //  nameValue={true}
                         />
 
-                        <DropDown 
+                        <DropDown
                          name="Toite liik" ID="powerSupply"
                          value={powerSupply} label="Toite liik"
                          onChange={handlePowerSupplyChange}
                          options={powerSupplyOptions}
-                        //  nameValue={true} 
+                        //  nameValue={true}
                         />
 
-                        <DropDown 
+                        <DropDown
                          name="Sagedus Hz" ID="frequency"
                          value={frequency} label="Sagedus"
                          onChange={handleFrequencyChange}
                          options={frequencyOptions}
-                        //  nameValue={true} 
+                        //  nameValue={true}
                         />
 
-                        <DropDown 
+                        <DropDown
                          name="Isol. klass" ID="isolationClass"
                          value={isolationClass} label="Isol. klass"
                          onChange={handleIsolationClassChange}
                          options={isolationClassOptions}
-                        //  nameValue={true} 
+                        //  nameValue={true}
                         />
 
-                        <DropDown 
+                        <DropDown
                          name="IP klass" ID="IPClass"
                          value={IPClass} label="IP klass"
                          onChange={handleIPClassChange}
@@ -474,7 +474,7 @@ export default function AddNewProject(){
                         />
 
                         <TextField
-                            
+
                             id="EXMarking"
                             label="Ex märgistus"
                             name="EXMarking"
@@ -507,7 +507,6 @@ export default function AddNewProject(){
                         />
 
                         <TextField
-                            
                             id="additionalInfo"
                             label="Märkused"
                             name="additionalInfo"
@@ -517,18 +516,18 @@ export default function AddNewProject(){
                             size="small"
                         />
 
-                        <WindingDialog passWindingData={passWindingData}/>
-
-                        <DeviceTestingDialog
-                         resistanceOptions={resistanceArr}
-                         voltageTestOptions={voltageTestArr}
-                         testingVoltageOptions={testingVoltageArr}
-                         connectionOptions={connectionArr}
-                         testMethodOptions={testMethodArr}
-                         passTestingData={passTestingData}
-                        />
-
-                        <DeviceEquipment passEquipmentData={passEquipmentData}/>
+                        <Box sx={{display: "flex", flexDirection: "row", flexWrap: "warp", minWidth: "12rem", justifyContent: "center"}} >
+                            <WindingDialog passWindingData={passWindingData} />
+                            <DeviceTestingDialog
+                            resistanceOptions={resistanceArr}
+                            voltageTestOptions={voltageTestArr}
+                            testingVoltageOptions={testingVoltageArr}
+                            connectionOptions={connectionArr}
+                            testMethodOptions={testMethodArr}
+                            passTestingData={passTestingData}
+                            />
+                            <DeviceEquipment passEquipmentData={passEquipmentData}/>
+                        </Box>
 
                         <Button
                             type="submit"

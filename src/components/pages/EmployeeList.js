@@ -37,14 +37,16 @@ const EmployeeList = () => {
                    onInputCapture={(e) => {handleSearchQuery(e)}}
                   />
                 </FormControl>
-                <Button
-                    onClick={handleClick}
-                    variant="contained"
-                    sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto'}}
-                    // margin="dense"
-                  >
-                    Lisa töötaja
+                <FormControl size="small" sx={{display: "flex", flexDirection: "row", minWidth: "max-content"}} >
+                  <Button
+                      onClick={handleClick}
+                      variant="contained"
+                      size="small"
+                      sx={{px: 2, ml: 1}}
+                    >
+                      Lisa töötaja
                   </Button>
+                </FormControl>
               </Box>
             </div>
           </div>

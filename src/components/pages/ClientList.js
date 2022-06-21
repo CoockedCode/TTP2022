@@ -12,8 +12,9 @@ const ClientList = () => {
   const handleSearchQuery = (e) =>{
     setSearchQuery(e.target.value);
   }
-  
+
   const navigate = useNavigate();
+
   const handleAddClick = () => {
     navigate("/lisa-klient");
   }
@@ -31,28 +32,31 @@ const ClientList = () => {
               <h3>Kliendid</h3>
             </div>
             <div id="srch-bar">
-              <Box sx={{display: "inline-flex", flexGrow: "5", mx: 0, py: "0.55rem"}} >
+              <Box sx={{display: "inline-flex", flexGrow: "2", mx: 0, py: "0.55rem"}} >
                 <FormControl fullWidth size="small" sx={{ alignSelf: "center"}}>
                   <TextField label="Otsi..." variant="outlined" size="small"
                     onInputCapture={(e)=>{handleSearchQuery(e)}}
                   />
                 </FormControl>
-                <Button
-                  onClick={handleAddClick}
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto', mr: '1%' }}
-                  // margin="dense"
-                >
-                  Lisa klient
-                </Button>
-                <Button
-                  onClick={handleChangeClick}
-                  variant="contained"
-                  sx={{ mt: 2, mb: 2, bgcolor: 'main', width: 'auto'}}
-                  // margin="dense"
-                >
-                  Muuda klienti
-                </Button>
+                <FormControl size="small" sx={{display: "flex", flexDirection: "row", minWidth: "max-content"}} >
+                  <Button
+                    onClick={handleChangeClick}
+                    variant="outlined"
+                    size="small"
+                    sx={{px: 2, ml: 1}}
+                  >
+                    Muuda klienti
+                  </Button>
+                  <Button
+                    onClick={handleAddClick}
+                    variant="contained"
+                    size="small"
+                    sx={{px: 2, ml: 1}}
+                  >
+                    Lisa klient
+                  </Button>
+                </FormControl>
+
               </Box>
             </div>
           </div>

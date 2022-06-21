@@ -59,7 +59,7 @@ export default function DeviceEquipment(props){
     );
 
     const handleChange = (e) => {
-        const updatedCheckedState = checkedState.map((item, index) => 
+        const updatedCheckedState = checkedState.map((item, index) =>
             index === e ? !item : item
         );
 
@@ -94,7 +94,7 @@ export default function DeviceEquipment(props){
 
     return(
         <>
-        <div>
+        <FormControl size="small" sx={{display: "inline-flex", flexDirection: "row", flexWrap: "wrap", mr: 1, mt: 1.5}} >
             <Button variant="outlined" onClick={handleClickOpen}>
                 Seadme varustus
             </Button>
@@ -117,7 +117,7 @@ export default function DeviceEquipment(props){
 
                         </Dialog>
                     </Button> */}
-                    
+
                     <FormControl component="fieldset">
                         <Box sx={{ display: "grid", gap: 1, gridTemplateColumns: "repeat(3, 1fr)" }}>
                             <FormGroup>
@@ -132,7 +132,7 @@ export default function DeviceEquipment(props){
                             ))}
                             </FormGroup>
                         </Box>
-                        
+
 
                         <h5>Muud varustuse märkused</h5>
                         <TextField
@@ -170,14 +170,14 @@ export default function DeviceEquipment(props){
                         <Canvas /> */}
                     </FormControl>
                 </DialogContent>
-                
+
                 <DialogActions>
                     <Button onClick={handleClose}>Katkesta</Button>
                     <Button onClick={handleSave}>Salvesta</Button>
                 </DialogActions>
 
             </Dialog>
-        </div>
+        </FormControl>
         </>
     );
 }
