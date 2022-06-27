@@ -12,10 +12,8 @@ import DeviceTestingDialog from "../DeviceTestingDialog";
 import DeviceEquipment from "../DeviceEquipment";
 
 // TODO
-// kui väljad täidetud, siis projekti kuvasse naasemine
 // Fotode ja failide lisamine/vaatamine
 // form validation
-// testkasutaja id on vaja andmebaasis nimena salvestada
 
 const endpoint = "https://elektrimasinad.digifi.eu/api/view";
 
@@ -351,7 +349,7 @@ export default function AddNewProject(){
 			dispatch(setSnackbar(true,"error","Salvestamisel tekkis viga!"))
 		});
 
-        // navigate("/lisa-projekt");
+        navigate("/lisa-projekt");
     }
 
     return(
