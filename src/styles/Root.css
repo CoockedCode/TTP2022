@@ -1,0 +1,38 @@
+/* BR fix, ei vahetuanud rida õigesti. */
+/* br{
+	content: "A" !important;
+    display: block !important;
+    margin-bottom: 1.2em !important;
+} */
+
+/* main content */
+/* #heading-wrap{
+	display: flex;
+	width: 100%;
+	height: fit-content;
+	margin: 12px 0px 12px 0px;
+	padding: 0;
+	justify-content: center;
+} */
+
+/* #content-wrap{
+	display: flex;
+	margin: 0;
+	padding: 0;
+} */
+
+button, a{
+	cursor: pointer;
+}
+
+a{
+	text-decoration: none;
+}
+
+a:visited{
+	text-decoration: none;
+}
+
+/* tr:nth-child(odd) {
+  background-color: #f8f8f8;
+} */

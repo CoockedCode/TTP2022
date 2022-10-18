@@ -1,0 +1,29 @@
+@import url(./styles/Fonts.module.css);
+@import url(./styles/Root.css);
+@import url(./styles/NavBar.css);
+@import url(./styles/WorkBox.css);
+@import url(./styles/Popup.css);
+@import url(./styles/TerminalBlockConnection.css);
+
+#root{
+	margin: 0;
+	padding: 0;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+main{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+}
+
+section{
+	width: 60%;
+}
